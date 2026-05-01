@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Story+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rouge+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,100..900;1,100..900&display=swap');
 
 @import "tailwindcss";
 
 @theme {
-  --font-heading: "Playfair Display", serif;
+  --font-heading: "Noto Serif Display", serif;
   --font-body: "Outfit", sans-serif;
   --font-stylish: "Rouge Script", cursive;
 }
@@ -22,14 +24,25 @@ section {
 @layer {
   .text-gradient {
     @apply bg-clip-text text-transparent bg-linear-to-r from-yellow-500 to-yellow-600
-    
+  }
+  .text-gradient-silver {
+    @apply bg-clip-text text-transparent bg-linear-to-r from-gray-50 to-gray-200
+  }
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent bg-linear-to-b from-yellow-400/90 to-yellow-600/70
+  }
+  .center {
+    @apply flex justify-center items-center
+  }
+  .hero-button {
+    @apply uppercase font-body text-xs rounded-lg border-yellow-500 tracking-widest font-medium border text-white px-8 py-3 cursor-pointer transition-all duration-400 
   }
 
   .arrow-animate {
     animation: arrow-loop 1.4s linear infinite;
   }
   .nav-links {
-    @apply font-heading tracking-widest font-semibold pb-1
+    @apply font-body tracking-widest text-sm font-medium pb-1
   }
 }
 

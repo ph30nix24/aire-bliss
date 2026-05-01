@@ -1,47 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router"
-import { RiUserFill } from "react-icons/ri";
-import { TbShoppingCartFilled } from "react-icons/tb";
+import { PiUserCircleLight } from "react-icons/pi";
+import { CiShoppingCart } from "react-icons/ci";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
+import { GoHeart } from "react-icons/go";
+import { FiSearch } from "react-icons/fi";
 
-const Navbar = ({ user }) => {
+const Navbar = () => {
+    const [user, setUser] = useState(true)
     return (
-        <nav className='w-full h-fit px-25 py-3 fixed top-0 z-50'>
-            <div className='w-full px-15 flex justify-between items-center py-2 bg-white/10 rounded-full backdrop-blur-2xl'>
-                <div className='w-20 text-2xl text-[#333]'>
-                    <HiOutlineMenuAlt2 className='hover:text-black cursor-pointer' />
-                </div>
-                <div className='flex items-center gap-10'>
-                    <NavLink to="/" className={({ isActive }) => isActive ? "nav-links text-gradient" : "nav-links text-[#333]"}>
-                        Home
-                    </NavLink>
-                    <NavLink to="/collection" className={({ isActive }) => isActive ? "nav-links text-gradient" : "nav-links text-[#333]"}>
-                        Collections
-                    </NavLink>
-                    <div className='flex items-center font-stylish text-4xl capitalize text-gradient '>
-                        <p>aire</p>
-                        <img src="./logo.png" className='size-12' alt="" />
-                        <p>bliss</p>
+        <nav className='w-full h-fit px-30 py-3 fixed top-0 z-50 bg-black flex justify-between items-center border-b border-yellow-400/20'>
+            <div className='flex items-center font-stylish text-3xl capitalize text-gradient '>
+                <p>aire</p>
+                <img src="./logo.png" className='size-12' alt="" />
+                <p>bliss</p>
+            </div>
+            <ul className='flex items-center space-x-8 text-white font-body text-xs uppercase tracking-wider'>
+                <li><NavLink to="/" className={({ isActive }) => isActive ? 'text-yellow-400' : 'text-white'}>Home</NavLink></li>
+                <li><NavLink to="/shop" className={({ isActive }) => isActive ? 'text-yellow-400' : 'text-white'}>Shop</NavLink></li>
+                <li><NavLink to="/collection" className={({ isActive }) => isActive ? 'text-yellow-400' : 'text-white'}>Collection</NavLink></li>
+                <li><NavLink to="/about" className={({ isActive }) => isActive ? 'text-yellow-400' : 'text-white'}>About Us</NavLink></li>
+                <li><NavLink to="/contact" className={({ isActive }) => isActive ? 'text-yellow-400' : 'text-white'}>Contact</NavLink></li>
+            </ul>
+            <div>
+                {user ? (
+                    <div className="w-fit flex gap-4">
+                        <FiSearch className="size-5 cursor-pointer text-white" />
+                        <PiUserCircleLight className="size-5 cursor-pointer text-white" />
+                        <GoHeart className="size-5 cursor-pointer text-white" />
+                        <CiShoppingCart className="size-5 cursor-pointer text-white" />
                     </div>
-                    <NavLink to="/collection/men" className={({ isActive }) => isActive ? "nav-links text-gradient" : "nav-links text-[#333]"}>
-                        Men
-                    </NavLink>
-                    <NavLink to="/collection/women" className={({ isActive }) => isActive ? "nav-links text-gradient" : "nav-links text-[#333]"}>
-                        Women
-                    </NavLink>
-                </div>
-                {
-                    user ? (
-                        <div className='w-fit flex text-2xl items-center text-[#333]'>
-                            <RiUserFill className='hover:text-black cursor-pointer' />
-                            <div className='mx-5 w-[2px] bg-[#555] h-5'></div>
-                            <TbShoppingCartFilled className='hover:text-black cursor-pointer' />
-                        </div>
-                    ) : (
-                        <button className='px-8 font-body py-2 bg-linear-to-br from-yellow-400 to-yellow-600 rounded-full text-white cursor-pointer uppercase text-xs'>login</button>
-                    )
-                }
-
+                ) : (
+                    <div>Login</div>
+                )}
             </div>
         </nav>
     )
