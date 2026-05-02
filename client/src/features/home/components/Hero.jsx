@@ -138,7 +138,7 @@ const Hero = () => {
                     <p className='text-gradient  text-base font-body uppercase '> Aire Bliss</p>
                     <div className='w-30 h-0.5 rounded-full relative bg-amber-300 mx-auto my-3'><span className='absolute text-yellow-500 p-1 bg-black/90 backdrop-blur-2xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'> <PiFlowerLotus className='size-5 ' /></span>
                     </div>
-                    <div className='text-5xl font-medium font-heading text-center leading-[110%] tracking-wide'>
+                    <div className='text-5xl font-medium font-heading text-center leading-[110%] tracking-wide mt-5'>
                         <span className='text-gradient-silver'>Two Worlds.</span> <br /> <span className='text-gradient-gold'>One Signature.</span>
                     </div>
                     <div className='w-50 h-0.5 rounded-full relative bg-amber-300 mx-auto mt-6'><span className='absolute text-yellow-500 p-0.5 bg-black/90 backdrop-blur-2xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-45'> <IoIosSquare className='size-4 ' /></span>

@@ -1,15 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Story+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Rouge+Script&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap');
 
 @import "tailwindcss";
 
 @theme {
-  --font-heading: "Noto Serif Display", serif;
+  --font-heading: "Cinzel Decorative", cursive;
   --font-body: "Outfit", sans-serif;
-  --font-stylish: "Rouge Script", cursive;
 }
 
 main {
@@ -18,6 +15,15 @@ main {
 
 section {
   @apply w-full h-screen overflow-hidden relative
+}
+html, body {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE/Edge */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;                /* Chrome, Safari, Edge */
 }
 
 
@@ -29,7 +35,7 @@ section {
     @apply bg-clip-text text-transparent bg-linear-to-r from-gray-50 to-gray-200
   }
   .text-gradient-gold {
-    @apply bg-clip-text text-transparent bg-linear-to-b from-yellow-400/90 to-yellow-600/70
+    @apply bg-clip-text text-transparent bg-linear-to-b from-yellow-400 to-yellow-500
   }
   .center {
     @apply flex justify-center items-center
