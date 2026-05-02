@@ -72,12 +72,67 @@ import { GiPerfumeBottle } from "react-icons/gi";
 import { CiClock2 } from "react-icons/ci";
 import { BsGift } from "react-icons/bs";
 import { LiaLeafSolid } from "react-icons/lia";
-
+import { useMediaQuery } from 'react-responsive';
 const Hero = () => {
+    const isMobile = useMediaQuery({ maxWidth: 768 });
+    if (isMobile) {
+        return (
+            <section className='w-full h-[80dvh]! bg-black relative flex flex-col justify-center items-start pt-10 pb-2'>
+                <img src="./hero/mobile.png" className='w-full h-8/10 object-cover absolute top-0 left-0 mt-15 z-1' alt="" />
+                <div className='w-full h-8/10 absolute top-0 left-0 z-2 bg-linear-to-b from-transparent from-80% to-black mt-15'></div>
+                <div className='w-full h-8/10 center justify-start! pt-9 flex-col relative z-5'>
+                    <p className='text-gradient  text-xs font-body uppercase '> Aire Bliss</p>
+                    <div className='w-20 h-0.5 rounded-full relative bg-amber-300 mx-auto my-3'><span className='absolute text-yellow-500 p-1 bg-black/40 backdrop-blur-3xl rounded-2xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'> <PiFlowerLotus className='size-4 ' /></span>
+                    </div>
+                    <div className='text-[6.8vw] font-semibold font-heading text-center leading-[110%] tracking-wide'>
+                        <span className='text-gradient-silver'>Two Worlds.</span> <br /> <span className='text-gradient-gold'>One Signature.</span>
+                    </div>
+                    <div className='w-35 h-0.5 rounded-full relative bg-amber-300 mx-auto mt-3'><span className='absolute text-yellow-500 p-0.5 bg-black/40 backdrop-blur-3xl rounded-2xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-45'> <IoIosSquare className='size-4 ' /></span>
+                    </div>
+                    <p className='text-white/70 text-center text-sm font-light font-body mt-3'>Discover fragrance crafted for <br/> every mood, every moment.</p>
+                    <div className='center gap-5 mt-5 mb-15 '>
+                        <button className='hero-button-mb bg-black hover:bg-yellow-500/50'>Shop men</button>
+                        <button className='hero-button-mb bg-[#9E5659] hover:bg-pink-500'>shop women</button>
+                    </div>
+                </div>
+                <div className='w-[95%] mx-auto h-2/10 border border-yellow-400/20 relative px-1 py-3 center gap-2 z-5 bg-black rounded-md'>
+                <div className='maindiv'>
+                    <div className='center'><GiPerfumeBottle  className='size-8 text-yellow-500/70' /></div>
+                    <div className='condiv'>
+                        <h1 className='heading'>Premium Quality</h1>
+                        <p className='disc'>Finest ingredients crafted to perfection</p>
+                    </div>
+                </div>
+                <div className='maindiv'>
+                    <div className='center'><CiClock2  className='size-7 text-yellow-500/80' /></div>
+                    <div className='condiv'>
+                        <h1 className='heading'>Long <br/> Lasting</h1>
+                        <p className='disc'>Fragrances that stay with you all day </p>
+                    </div>
+                </div>
+                <div className='maindiv'>
+                    <div className='center'><BsGift  className='size-6 text-yellow-500/80' /></div>
+                    <div className='condiv'>
+                        <h1 className='heading'>Luxury Packing</h1>
+                        <p className='disc'>Elegent design for a premium experience</p>
+                    </div>
+                </div>
+                <div className='maindiv border-none!'>
+                    <div className='center'><LiaLeafSolid  className='size-7 text-yellow-500/70 rotate-12' /></div>
+                    <div className='condiv'>
+                        <h1 className='heading'>Cruelty <br/> free</h1>
+                        <p className='disc pr-1'>We care for beauty and the planet</p>
+                    </div>
+                </div>
+                
+            </div>
+            </section>
+        )
+    }
     return (
         <section className='w-full h-screen pt-18 bg-black'>
             <div className="w-full h-8/10 border-b border-yellow-400/20 relative">
-                <img src="./hero.png" className='size-full object-cover absolute top-0 left-0 z-1' alt="" />
+                <img src="./hero/hero.png" className='size-full object-cover absolute top-0 left-0 z-1' alt="" />
                 <div className='absolute size-full top-0 left-0 bg-linear-to-r from-transparent via-black/30 to-transparent z-2'></div>
                 <div className='w-full h-full center flex-col relative z-5'>
                     <p className='text-gradient  text-base font-body uppercase '> Aire Bliss</p>

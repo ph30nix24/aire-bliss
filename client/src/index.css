@@ -37,6 +37,21 @@ section {
   .hero-button {
     @apply uppercase font-body text-xs rounded-lg border-yellow-500 tracking-widest font-medium border text-white px-8 py-3 cursor-pointer transition-all duration-400 
   }
+  .hero-button-mb {
+    @apply uppercase font-body text-[10px] rounded-lg border-yellow-500 tracking-widest font-medium border text-white px-4 py-2 cursor-pointer transition-all duration-400 
+  }
+  .maindiv {
+    @apply w-1/4 h-full flex items-center justify-center flex-col gap-3 px-1 border-r-2  border-white/20 pr-2
+  }
+  .condiv {
+    @apply text-white font-body text-center;
+  }
+  .heading {
+    @apply text-[2.5vw] uppercase;
+  }
+  .disc {
+    @apply text-white/80 text-[2vw] mt-1 font-light tracking-wide
+  }
 
   .arrow-animate {
     animation: arrow-loop 1.4s linear infinite;
