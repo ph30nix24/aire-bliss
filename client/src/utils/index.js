@@ -10,7 +10,7 @@ export const bestproducts = [
     },
     {
         id: 2,
-        name: 'pink cheffron',
+        name: 'pink chiffon',
         tagline: 'Delicate beauty, modern artistic strength',
         price: 459,
         reviews: 180,
@@ -52,5 +52,36 @@ export const bestproducts = [
         reviews: 120,
         rating: 4.5,
         img: './best-sellers/vip_men.png'
+    },
+]
+
+import { PiCrownThin } from "react-icons/pi";
+import { PiFlowerLotusThin } from "react-icons/pi";
+import { PiHouseLine } from "react-icons/pi";
+
+export const categories = [
+    {
+        id: 1,
+        type: "men",
+        discription: "Bold. Mysterious. Powerful.",
+        img: './collection/mens_collection.png',
+        icon: PiCrownThin,
+        btn: "Shop Men"
+    },
+    {
+        id: 2,
+        type: "women",
+        discription: "Elegant. Feminine. Unforgettable.",
+        img: './collection/womens_collection.png',
+        icon: PiFlowerLotusThin,
+        btn: "Shop Women"
+    },
+    {
+        id: 3,
+        type: "room fragrance",
+        discription: "Elevate your space. Every day.",
+        img: './collection/room_fragrance.png',
+        icon: PiHouseLine,
+        btn: "Shop Room Fragrances"
     },
 ]
