@@ -18,7 +18,7 @@ const Collection = () => {
                             <p className='text-white/70 text-sm text-center mt-1 font-body font-light'>{category.discription}</p>
                             <button className='font-body uppercase text-sm mt-5 border-2 border-yellow-400/50 text-yellow-400/80 hover:text-white transition-colors duration-300 px-6 py-2 rounded-md hover:bg-yellow-400/80 cursor-pointer flex items-center gap-2'>
                                 {category.btn}
-                                <FaArrowRight className='size-4 text-yellow-400/70' />
+                                <FaArrowRight className='size-4' />
                             </button>
                         </div>
                     </div>

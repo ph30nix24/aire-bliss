@@ -4,6 +4,7 @@ import Navbar from '../../components/Navbar'
 import BestSellers from './components/BestSellers'
 import Featured from './components/Featured'
 import Collection from './components/Collection'
+import Testomonials from './components/Testomonials'
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
         <BestSellers />
         <Featured />
         <Collection />
+        <Testomonials />
     </main>
   )
 }

@@ -85,3 +85,55 @@ export const categories = [
         btn: "Shop Room Fragrances"
     },
 ]
+
+export const testimonials = [
+    {
+        id: 1,
+        name: "Aisha Khan",
+        feedback: "Pink Chiffon Aire Bliss is pure elegance in a bottle. The delicate floral notes are sophisticated and airy, making it my absolute favorite for daily wear.",
+        img: './review/pink_chiffon.png',
+        stars: 5,
+        place: "Mumbai, India"
+    },
+    {
+        id: 2,
+        name: "Rohan Mehta",
+        feedback: "Smoke Whisky Aire Bliss is incredibly bold and charismatic. The rich, woody depth creates a powerful presence that feels timeless, mysterious, and undeniably high-end. Pure confidence.",
+        img: './review/whisky_smoke.png',
+        stars: 5,
+        place: "Delhi, India"
+    },
+    {
+        id: 3,
+        name: "Akash Verma",
+        feedback: "White Oud Aire Bliss is the definition of timeless luxury. Its smooth, woody notes provide a regal elegance that lingers beautifully, making every spray feel extraordinary.",
+        img: './review/white_oud.png',
+        stars: 4,
+        place: "Bangalore, India"
+    },
+    {
+        id: 4,
+        name: "Vidya Sharma",
+        feedback: "Bliss Flora Aire Bliss is a stunning, romantic escape. The vibrant floral essence feels incredibly feminine and enchanting, leaving a graceful, captivating trail wherever I go.",
+        img: './review/bliss_flora.png',
+        stars: 5,
+        place: "Delhi, India"
+    },
+    {
+        id: 5,
+        name: "Sneha Patel",
+        feedback: "This Aire Bliss collection is spectacular. From the soothing Lavender Luxe to the gourmand Sweet Vanilla and exotic Dream Flower, these mists offer the perfect aromatic escape.",
+        img: './review/fragrances.png',
+        stars: 4,
+        place: "Kolkata, India"
+    },
+    {
+        id: 6,
+        name: "Arjun Singh",
+        feedback: "Oud Malaki Aire Bliss is a masterpiece of bold sophistication. The rich, smoky oud notes create an aura of power and mystery. A must-have for anyone who wants to make a statement.",
+        img: './review/oud_malaki.png',
+        stars: 5,
+        place: "Mumbai, India"
+    }
+
+]
