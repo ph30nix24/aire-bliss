@@ -65,6 +65,7 @@ export const categories = [
         type: "men",
         discription: "Bold. Mysterious. Powerful.",
         img: './collection/mens_collection.png',
+        mobimg: './collection/men_mobile.png',
         icon: PiCrownThin,
         btn: "Shop Men"
     },
@@ -73,6 +74,7 @@ export const categories = [
         type: "women",
         discription: "Elegant. Feminine. Unforgettable.",
         img: './collection/womens_collection.png',
+        mobimg: './collection/women_mobile.png',
         icon: PiFlowerLotusThin,
         btn: "Shop Women"
     },
@@ -81,6 +83,7 @@ export const categories = [
         type: "room fragrance",
         discription: "Elevate your space. Every day.",
         img: './collection/room_fragrance.png',
+        mobimg: './collection/room_mobile.png',
         icon: PiHouseLine,
         btn: "Shop Room Fragrances"
     },

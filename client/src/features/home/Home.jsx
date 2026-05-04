@@ -17,9 +17,9 @@ const Home = () => {
         <Hero isMobile={isMobile} />
         <BestSellers isMobile={isMobile} />
         <Featured isMobile={isMobile} />
-        {/* <Collection />
-        <Testomonials />
-        <BrandValue />
+        <Collection isMobile={isMobile} />
+        <Testomonials isMobile={isMobile} />
+        {/* <BrandValue />
         <Footer /> */}
     </main>
   )

@@ -13,7 +13,7 @@ const Featured = ({ isMobile }) => {
         return (
             <section className='w-full h-fit! px-5 py-10 relative z-10'>
                 <p className='text-[2.8vw] text-center uppercase text-gradient-gold font-subheading mb-2'>Curated For You</p>
-                <h1 className='font-heading text-gradient-silver text-[7vw] font-semibold text-center leading-[90%] max-md:text-3xl'>Featured Collection</h1>
+                <h1 className='font-heading text-gradient-silver text-[7vw] font-semibold text-center leading-[90%]'>Featured Collection</h1>
                 <div className="w-50 mx-auto h-0.5 mt-2 bg-linear-to-r rounded-full from-black via-yellow-600 to-black mb-5"></div>
                 <div className='w-full h-fit flex gap-3 mt-10 flex-col'>
                     <div className='w-full h-auto rounded-2xl overflow-hidden relative border border-yellow-400/50 shadow-2xl shadow-yellow-400/0'>
