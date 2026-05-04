@@ -38,7 +38,7 @@ const BrandValue = () => {
                     < CiDeliveryTruck  className='size-14 text-yellow-500/70' />
                     <div className='text-white font-body pr-5'>
                         <h1 className='text-xs uppercase'>Free Shipping</h1>
-                        <p className='text-white/80 text-xs mt-1 font-light tracking-wide'>On all orders over ₹999</p>
+                        <p className='text-white/80 text-xs mt-1 font-light tracking-wide'>On all orders over ₹ 999</p>
                     </div>
                 </div>
                 <div className='w-1/5 h-full center gap-4 px-5 border-r-2  border-white/20'>

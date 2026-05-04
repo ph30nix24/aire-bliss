@@ -72,9 +72,7 @@ import { GiPerfumeBottle } from "react-icons/gi";
 import { CiClock2 } from "react-icons/ci";
 import { BsGift } from "react-icons/bs";
 import { LiaLeafSolid } from "react-icons/lia";
-import { useMediaQuery } from 'react-responsive';
-const Hero = () => {
-    const isMobile = useMediaQuery({ maxWidth: 768 });
+const Hero = ({ isMobile }) => {
     if (isMobile) {
         return (
             <section className='w-full h-[80dvh]! bg-black relative flex flex-col justify-center items-start pt-10 pb-2'>
@@ -95,33 +93,29 @@ const Hero = () => {
                         <button className='hero-button-mb bg-[#9E5659] hover:bg-pink-500'>shop women</button>
                     </div>
                 </div>
-                <div className='w-[95%] mx-auto h-2/10 border border-yellow-400/20 relative px-1 py-3 center gap-2 z-5 bg-black rounded-md'>
+                <div className='w-[95%] mx-auto h-fit border border-yellow-400/20 relative px-1 py-5 center gap-2 z-5 bg-black rounded-md'>
                 <div className='maindiv'>
                     <div className='center'><GiPerfumeBottle  className='size-8 text-yellow-500/70' /></div>
                     <div className='condiv'>
                         <h1 className='heading'>Premium Quality</h1>
-                        <p className='disc'>Finest ingredients crafted to perfection</p>
                     </div>
                 </div>
                 <div className='maindiv'>
                     <div className='center'><CiClock2  className='size-7 text-yellow-500/80' /></div>
                     <div className='condiv'>
                         <h1 className='heading'>Long <br/> Lasting</h1>
-                        <p className='disc'>Fragrances that stay with you all day </p>
                     </div>
                 </div>
                 <div className='maindiv'>
                     <div className='center'><BsGift  className='size-6 text-yellow-500/80' /></div>
                     <div className='condiv'>
                         <h1 className='heading'>Luxury Packing</h1>
-                        <p className='disc'>Elegent design for a premium experience</p>
                     </div>
                 </div>
                 <div className='maindiv border-none!'>
                     <div className='center'><LiaLeafSolid  className='size-7 text-yellow-500/70 rotate-12' /></div>
                     <div className='condiv'>
                         <h1 className='heading'>Cruelty <br/> free</h1>
-                        <p className='disc pr-1'>We care for beauty and the planet</p>
                     </div>
                 </div>
                 

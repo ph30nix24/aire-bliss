@@ -7,18 +7,20 @@ import Collection from './components/Collection'
 import Testomonials from './components/Testomonials'
 import BrandValue from './components/BrandValue'
 import Footer from '../../components/Footer'
+import { useMediaQuery } from 'react-responsive';
 
 const Home = () => {
+  const isMobile = useMediaQuery({ maxWidth: 768 });
   return (
     <main className='bg-black'>
         <Navbar />
-        <Hero />
-        <BestSellers />
-        <Featured />
-        <Collection />
+        <Hero isMobile={isMobile} />
+        <BestSellers isMobile={isMobile} />
+        <Featured isMobile={isMobile} />
+        {/* <Collection />
         <Testomonials />
         <BrandValue />
-        <Footer />
+        <Footer /> */}
     </main>
   )
 }
