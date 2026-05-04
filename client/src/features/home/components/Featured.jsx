@@ -11,7 +11,7 @@ import { PiGift } from "react-icons/pi";
 const Featured = () => {
     return (
         <section className='w-full h-fit! px-30 py-10 relative z-10'>
-            <p className='text-sm uppercase text-gradient-gold font-body mb-2'>Curated For You</p>
+            <p className='text-sm uppercase text-gradient-gold font-subheading mb-2'>Curated For You</p>
             <h1 className='font-heading text-gradient-silver text-3xl font-semibold'>Featured Collection</h1>
             <div className="w-10 h-0.5 mt-1 bg-linear-to-r rounded-full from-yellow-500 to-yellow-600 mb-5"></div>
             <div className='w-full h-[70dvh] flex gap-3 mt-10'>
@@ -78,7 +78,7 @@ const Featured = () => {
                     </div>
                 </div>
             </div>
-            <div className='w-full h-fit border mt-3 border-yellow-400/40 rounded-2xl relative py-8 center gap-5 px-5 bg-yellow-900/10'>
+            <div className='w-full h-fit border mt-3 border-yellow-400/40 rounded-2xl relative py-8 center gap-5 px-5 bg-[#222]/40'>
                 <div className='w-1/4 h-full center gap-4 px-5 border-r-2  border-white/20'>
                     <div className='center'><PiCrownLight  className='size-14 text-yellow-500/70 border-2 border-yellow-500/70 p-2 rounded-full' /></div>
                     <div className='text-white font-body pr-5'>

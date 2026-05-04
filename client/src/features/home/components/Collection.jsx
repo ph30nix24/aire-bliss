@@ -4,7 +4,7 @@ import { FaArrowRight } from 'react-icons/fa6'
 const Collection = () => {
     return (
         <section className="w-full h-fit! px-30 py-10 relative z-10">
-            <p className='text-sm uppercase text-gradient-gold font-body mb-2'>Shop by category</p>
+            <p className='text-sm uppercase text-gradient-gold font-subheading mb-2'>Shop by category</p>
             <h1 className='font-heading text-gradient-silver text-3xl font-semibold'>Find Your Signature Scent</h1>
             <div className="w-10 h-0.5 mt-1 bg-linear-to-r rounded-full from-yellow-500 to-yellow-600 mb-5"></div>
             <div className='w-full h-[70dvh] flex gap-3 mt-10'>

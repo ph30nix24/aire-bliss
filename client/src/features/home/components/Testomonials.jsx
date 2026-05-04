@@ -11,8 +11,8 @@ import { FaAward } from "react-icons/fa6";
 const Testomonials = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     return (
-        <section className='w-full h-fit! px-30 py-10 relative z-10'>
-            <p className='text-sm uppercase text-gradient-gold font-body mb-2'>Testimonials</p>
+        <section className='w-full h-fit! px-30 py-10 relative z-10 '>
+            <p className='text-sm uppercase text-gradient-gold font-subheading mb-2'>Testimonials</p>
             <h1 className='font-heading text-gradient-silver text-3xl font-semibold'>Loved by our customers</h1>
             <div className="w-10 h-0.5 mt-1 bg-linear-to-r rounded-full from-yellow-500 to-yellow-600 mb-5"></div>
             <div className='w-full h-fit flex gap-3 mt-10 overflow-x-hidden'
@@ -83,7 +83,7 @@ const Testomonials = () => {
             </div>
             <div className='w-full h-fit center text-white mt-3 gap-1'>
                 {testimonials.slice(0, 4).map((testimonial) => (
-                    <div className={`size-3 rounded-full  ${currentIndex === testimonial.id - 1 ? 'bg-yellow-500/70' : 'bg-white/30'}`} onClick={() => setCurrentIndex(testimonial.id - 1)} key={testimonial.id}></div>
+                    <div className={`size-3 rounded-full  ${currentIndex === testimonial.id - 1 ? 'bg-yellow-500/70' : 'bg-white/30'} cursor-pointer`} onClick={() => setCurrentIndex(testimonial.id - 1)} key={testimonial.id}></div>
                 ))}
             </div>
         </section>
