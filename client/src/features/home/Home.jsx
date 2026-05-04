@@ -6,6 +6,7 @@ import Featured from './components/Featured'
 import Collection from './components/Collection'
 import Testomonials from './components/Testomonials'
 import BrandValue from './components/BrandValue'
+import Footer from '../../components/Footer'
 
 const Home = () => {
   return (
@@ -17,6 +18,7 @@ const Home = () => {
         <Collection />
         <Testomonials />
         <BrandValue />
+        <Footer />
     </main>
   )
 }

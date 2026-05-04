@@ -137,3 +137,26 @@ export const testimonials = [
     }
 
 ]
+
+export const footerDivs = [
+    {
+        id: 1,
+        title: "Shop",
+        links: ["All Products", "Mens", "Womens", "Room fragrances"]
+    },
+    {
+        id: 2,
+        title: "Collection",
+        links: ["Floral", "Woody", "Fresh", "Sweet"]
+    },
+    {
+        id: 3,
+        title: "About Us",
+        links: ["Our Story", "Ingredients", "Reviews", "FAQs"]
+    }, 
+    {
+        id: 4,
+        title: "Help & Info",
+        links: ["Contact Us", "Shipping Policy", "Returns & Refunds", "Terms & Conditions"]
+    }
+]
