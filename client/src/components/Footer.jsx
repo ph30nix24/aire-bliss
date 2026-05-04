@@ -4,9 +4,78 @@ import { VscWorkspaceTrusted } from "react-icons/vsc";
 import { FaArrowRight, FaAward } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
 import { IoIosStar } from "react-icons/io";
-
+import { useMediaQuery } from 'react-responsive';
+import { FaFacebookF, FaInstagram, FaPinterestP, FaTwitter } from 'react-icons/fa6';
 
 const Footer = () => {
+    const isMobile = useMediaQuery({ maxWidth: 768 });
+
+    if (isMobile) {
+        return (
+            <footer className='w-full h-fit! p-5 relative z-10 bg-[#222]/40'>
+                <div className='w-full flex flex-col justify-center gap-3 text-white pb-3 relative z-10'>
+                    <div className="w-full flex center gap-2">
+                        <img src="./logo.png" className='size-26 object-cover z-1 pr-3' alt="" />
+                        <div className='w-fit '>
+                            <h1 className='font-stylish text-[6.5vw] text-gradient'>Aire Bliss</h1>
+                            <p className='w-fit uppercase text-xs font-body pt-0.5'>Embrace the <br /> essence of luxury</p>
+                        </div>
+                    </div>
+                    <div className='w-full flex gap-1'>
+                        {footerDivs.slice(0, 3).map((div) => (
+                            <div className="w-1/3 text-center" key={div.id}>
+                                <h1 className='text-[3vw] uppercase font-body tracking-wider text-gradient'>{div.title}</h1>
+                                <div className="w-10 h-0.5 mt-0.5 bg-linear-to-r rounded-full from-yellow-500 to-yellow-600 mb-2 mx-auto"></div>
+                                <ul className='text-[2.8vw] text-white/70 font-body mt-1'>
+                                    {div.links.map((link, index) => (
+                                        <li className='text-white/70 hover:text-white cursor-pointer' key={index}>{link}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className='w-full h-full text-white font-body'>
+                    <h1 className='text-xs uppercase text-center'>Follow Us</h1>
+                    <p className='w-full h-fit center gap-4 mt-2'>
+                        <FaInstagram className='size-5 text-yellow-500/50 cursor-pointer hover:text-yellow-500' />
+                        <FaFacebookF className='size-4 text-yellow-500/50 cursor-pointer hover:text-yellow-500' />
+                        <FaTwitter className='size-5 text-yellow-500/50 cursor-pointer hover:text-yellow-500' />
+                        <FaPinterestP className='size-5 text-yellow-500/50 cursor-pointer hover:text-yellow-500' />
+                    </p>
+                </div>
+                {/* <div className='w-full h-fit px-5 rounded-2xl bg-[#222]/40 py-10  center gap-5 border-2 border-yellow-600/50 mb-10'>
+                    <div className='w-1/4 pr-5 flex gap-5 items-center border-r-2 border-white/30'>
+                        <VscWorkspaceTrusted className='text-yellow-500/70 size-14 ' />
+                        <div className=''>
+                            <h1 className='text-sm uppercase font-body tracking-wide text-white'>100% Authentic</h1>
+                            <p className='text-sm text-white/50 font-body mt-2'>We guarantee genuine Aire Bliss products.</p>
+                        </div>
+                    </div>
+                    <div className='w-1/2 border-r-2 border-white/30 px-5 flex gap-5 items-center'>
+                        <CiMail className='text-yellow-500/70 size-14 ' />
+                        <div className='w-full'>
+                            <h1 className='text-sm uppercase font-body tracking-wide text-white'>stay inspired</h1>
+                            <p className='text-sm text-white/50 font-body mt-2 flex gap-2 items-center w-full'>
+                                <span className='w-1/2'>Get updates on new arrivals, exclusive offers and fragrances.</span>
+                                <form className="w-1/2 flex items-center" action="">
+                                    <input className='w-full h-[33.6px] px-2 text-xs outline-none border border-yellow-400/50 rounded-l-md' type="text" placeholder='Enter your email' />
+                                    <button className='text-xs uppercase font-body text-yellow-500/50 py-2 px-3 border border-yellow-400/50 rounded-r-md cursor-pointer hover:text-black hover:bg-yellow-500/50'>Subscribe </button>
+                                </form>
+                            </p>
+                        </div>
+                    </div>
+                    <div className='w-1/4 pr-5 flex gap-5 items-center'>
+                        <FaAward className='text-yellow-500/70 size-12 ' />
+                        <div className=''>
+                            <h1 className='text-sm uppercase font-body tracking-wide text-white'>Premium Quality</h1>
+                            <p className='text-sm text-white/50 font-body mt-2'>Excellence in every bottle, crafted to perfection.</p>
+                        </div>
+                    </div>
+                </div> */}
+            </footer>
+        )
+    }
     return (
         <section className='w-full h-fit! px-30 py-10 relative z-10 bg-[#222]/40'>
             <img src="./footer-1.png" className='absolute w-40 top-0 left-0' alt="" />
