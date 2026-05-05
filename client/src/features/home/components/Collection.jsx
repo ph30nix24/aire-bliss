@@ -11,7 +11,7 @@ const Collection = ({ isMobile }) => {
                 <div className='w-full h-[70dvh] flex flex-col gap-3 mt-10'>
                     {categories.map((category) => (
                         <div key={category.id} className='w-full h-full relative border-2 border-yellow-500/40 rounded-xl shadow-md overflow-hidden'>
-                            <img src={category.mobimg} className='size-full object-cover rounded-xl absolute top-0 left-0 z-1' alt="" />
+                            <img src={category.mobimg} loading='lazy'  className='size-full object-cover rounded-xl absolute top-0 left-0 z-1' alt="" />
                             <div className='size-full absolute z-2 bg-linear-to-l from-transparent to-black/80'></div>
                             <div className='size-full p-5 relative z-5 flex flex-col justify-between' >
                                 <div>
@@ -38,7 +38,7 @@ const Collection = ({ isMobile }) => {
             <div className='w-full h-[70dvh] flex gap-3 mt-10'>
                 {categories.map((category) => (
                     <div key={category.id} className='w-1/3 h-full relative border-2 border-yellow-500/40 rounded-xl shadow-md overflow-hidden'>
-                        <img src={category.img} className='size-full object-cover rounded-xl absolute top-0 left-0 z-1' alt="" />
+                        <img src={category.img} className='size-full object-cover rounded-xl absolute top-0 left-0 z-1' loading='lazy' alt="" />
                         <div className='size-full absolute z-2 bg-linear-to-b from-transparent to-black/70'></div>
                         <div className='size-full flex flex-col justify-end items-center p-8 relative z-5' >
                             <category.icon className='text-yellow-400/70 text-5xl' />

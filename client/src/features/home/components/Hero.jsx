@@ -76,7 +76,7 @@ const Hero = ({ isMobile }) => {
     if (isMobile) {
         return (
             <section className='w-full h-[80dvh]! bg-black relative flex flex-col justify-center items-start pt-10 pb-2'>
-                <img src="./hero/mobile.png" className='w-full h-8/10 object-cover absolute top-0 left-0 mt-15 z-1' alt="" />
+                <img src="./hero/mobile.webp" loading='lazy'  className='w-full h-8/10 object-cover absolute top-0 left-0 mt-15 z-1' alt="" />
                 <div className='w-full h-8/10 absolute top-0 left-0 z-2 bg-linear-to-b from-transparent from-80% to-black mt-15'></div>
                 <div className='w-full h-8/10 center justify-start! pt-9 flex-col relative z-5'>
                     <p className='text-gradient  text-xs font-body uppercase '> Aire Bliss</p>
@@ -126,7 +126,7 @@ const Hero = ({ isMobile }) => {
     return (
         <section className='w-full h-screen pt-18 bg-black'>
             <div className="w-full h-8/10 border-b border-yellow-400/20 relative">
-                <img src="./hero/hero.png" className='size-full object-cover absolute top-0 left-0 z-1' alt="" />
+                <img src="./hero/hero.webp" className='size-full object-cover absolute top-0 left-0 z-1' loading='lazy' alt="hero-section-image" />
                 <div className='absolute size-full top-0 left-0 bg-linear-to-r from-transparent via-black/30 to-transparent z-2'></div>
                 <div className='w-full h-full center flex-col relative z-5'>
                     <p className='text-gradient  text-base font-body uppercase '> Aire Bliss</p>

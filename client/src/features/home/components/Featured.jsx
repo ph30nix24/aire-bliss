@@ -17,7 +17,7 @@ const Featured = ({ isMobile }) => {
                 <div className="w-50 mx-auto h-0.5 mt-2 bg-linear-to-r rounded-full from-black via-yellow-600 to-black mb-5"></div>
                 <div className='w-full h-fit flex gap-3 mt-10 flex-col'>
                     <div className='w-full h-auto rounded-2xl overflow-hidden relative border border-yellow-400/50 shadow-2xl shadow-yellow-400/0'>
-                        <img src="./featured_products/oud_malaki_mobile.png" className='size-full object-cover relative z-1' alt="" />
+                        <img src="./featured_products/oud_malaki_mobile.webp" loading='lazy'  className='size-full object-cover relative z-1' alt="" />
                         <div className='size-full bg-black/60 absolute top-0 z-2'></div>
                         <div className='absolute w-full h-full top-0 left-0 z-2 p-5 flex flex-col '>
                             <p className='flex items-center '>
@@ -49,7 +49,7 @@ const Featured = ({ isMobile }) => {
                     </div>
                     <div className='w-full h-fit gap-3  flex flex-col'>
                         <div className="w-full h-1/2 rounded-2xl overflow-hidden relative border border-yellow-400/50 shadow-2xl shadow-yellow-400/0">
-                            <img src="./featured_products/featured_white_oud.png" className='size-full object-cover relative z-1' alt="" />
+                            <img src="./featured_products/featured_white_oud.webp" loading='lazy'  className='size-full object-cover relative z-1' alt="" />
                             <div className="w-full h-full absolute top-0 left-0 z-2 flex justify-center flex-col p-5">
                                 <p className='uppercase text-[3vw] font-body bg-clip-text text-transparent bg-linear-to-r from-yellow-700 to-yellow-800'>Timeless & elegant</p>
                                 
@@ -64,7 +64,7 @@ const Featured = ({ isMobile }) => {
                             </div>
                         </div>
                         <div className="w-full h-1/2 rounded-2xl overflow-hidden relative border border-yellow-400/50 shadow-2xl shadow-yellow-400/0">
-                            <img src="./featured_products/featured_pink_cheffron.png" className='size-full object-cover' alt="" />
+                            <img src="./featured_products/featured_pink_cheffron.webp" loading='lazy'  className='size-full object-cover' alt="" />
                             <div className="w-full h-full absolute top-0 left-0 z-2 flex justify-center flex-col p-5">
                                 <p className='uppercase text-[3vw] font-body bg-clip-text text-transparent bg-linear-to-r from-pink-500 to-pink-400'>soft & romantic</p>
                                 <h1 className='text-[#222] font-medium font-heading text-[5.5vw]'>Pink Chiffon</h1>
@@ -116,7 +116,7 @@ const Featured = ({ isMobile }) => {
             <div className="w-10 h-0.5 mt-1 bg-linear-to-r rounded-full from-yellow-500 to-yellow-600 mb-5"></div>
             <div className='w-full h-[70dvh] flex gap-3 mt-10'>
                 <div className='w-3/5 h-full rounded-2xl overflow-hidden relative border border-yellow-400/50 shadow-2xl shadow-yellow-400/0'>
-                    <img src="./featured_products/featured_oud_malaki.png" className='size-full object-cover relative z-1' alt="" />
+                    <img src="./featured_products/featured_oud_malaki.webp" loading='lazy' className='size-full object-cover relative z-1' alt="" />
                     <div className='absolute w-full h-full top-0 left-0 z-2 p-10 flex flex-col justify-between'>
                         <p className='flex items-center '>
                             <PiStarFourBold className='text-yellow-400/70 ' />
@@ -147,7 +147,7 @@ const Featured = ({ isMobile }) => {
                 </div>
                 <div className='w-2/5 h-full gap-3  flex flex-col'>
                     <div className="w-full h-1/2 rounded-2xl overflow-hidden relative border border-yellow-400/50 shadow-2xl shadow-yellow-400/0">
-                        <img src="./featured_products/featured_white_oud.png" className='size-full object-cover relative z-1' alt="" />
+                        <img src="./featured_products/featured_white_oud.webp" loading='lazy' className='size-full object-cover relative z-1' alt="" />
                         <div className="w-full h-full absolute top-0 left-0 z-2 flex justify-center flex-col p-10">
                             <p className='uppercase text-sm font-body bg-clip-text text-transparent bg-linear-to-r from-yellow-700 to-yellow-800'>Timeless & elegant</p>
                             <div className="w-10 h-0.5 mt-1 bg-linear-to-r rounded-full from-yellow-500 to-yellow-700 mb-4"></div>
@@ -162,7 +162,7 @@ const Featured = ({ isMobile }) => {
                         </div>
                     </div>
                     <div className="w-full h-1/2 rounded-2xl overflow-hidden relative border border-yellow-400/50 shadow-2xl shadow-yellow-400/0">
-                        <img src="./featured_products/featured_pink_cheffron.png" className='size-full object-cover' alt="" />
+                        <img src="./featured_products/featured_pink_cheffron.webp" className='size-full object-cover' loading='lazy' alt="" />
                         <div className="w-full h-full absolute top-0 left-0 z-2 flex justify-center flex-col p-10">
                             <p className='uppercase text-sm font-body bg-clip-text text-transparent bg-linear-to-r from-pink-500 to-pink-400'>soft & romantic</p>
                             <div className="w-10 h-0.5 mt-1 bg-linear-to-r rounded-full from-pink-400 to-pink-500 mb-4"></div>

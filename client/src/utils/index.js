@@ -6,7 +6,7 @@ export const bestproducts = [
         price: 399,
         reviews: 90,
         rating: 4,
-        img: './best-sellers/gucci_flora.png'
+        img: './best-sellers/gucci_flora.webp'
     },
     {
         id: 2,
@@ -15,7 +15,7 @@ export const bestproducts = [
         price: 459,
         reviews: 180,
         rating: 4.7,
-        img: './best-sellers/pink_cheffron.png'
+        img: './best-sellers/pink_cheffron.webp'
     },
     {
         id: 3,
@@ -24,7 +24,7 @@ export const bestproducts = [
         price: 429,
         reviews: 90,
         rating: 4,
-        img: './best-sellers/white_oud.png'
+        img: './best-sellers/white_oud.webp'
     },
     {
         id: 4,
@@ -33,7 +33,7 @@ export const bestproducts = [
         price: 459,
         reviews: 90,
         rating: 4.7,
-        img: './best-sellers/tamdao.png'
+        img: './best-sellers/tamdao.webp'
     },
     {
         id: 5,
@@ -42,7 +42,7 @@ export const bestproducts = [
         price: 399,
         reviews: 140,
         rating: 4.8,
-        img: './best-sellers/oud_malaki.png'
+        img: './best-sellers/oud_malaki.webp'
     },
     {
         id: 6,
@@ -51,7 +51,7 @@ export const bestproducts = [
         price: 499,
         reviews: 120,
         rating: 4.5,
-        img: './best-sellers/vip_men.png'
+        img: './best-sellers/vip_men.webp'
     },
 ]
 
@@ -64,8 +64,8 @@ export const categories = [
         id: 1,
         type: "men",
         discription: "Bold. Mysterious. Powerful.",
-        img: './collection/mens_collection.png',
-        mobimg: './collection/men_mobile.png',
+        img: './collection/mens_collection.webp',
+        mobimg: './collection/men_mobile.webp',
         icon: PiCrownThin,
         btn: "Shop Men"
     },
@@ -73,8 +73,8 @@ export const categories = [
         id: 2,
         type: "women",
         discription: "Elegant. Feminine. Unforgettable.",
-        img: './collection/womens_collection.png',
-        mobimg: './collection/women_mobile.png',
+        img: './collection/womens_collection.webp',
+        mobimg: './collection/women_mobile.webp',
         icon: PiFlowerLotusThin,
         btn: "Shop Women"
     },
@@ -82,8 +82,8 @@ export const categories = [
         id: 3,
         type: "room fragrance",
         discription: "Elevate your space. Every day.",
-        img: './collection/room_fragrance.png',
-        mobimg: './collection/room_mobile.png',
+        img: './collection/room_fragrance.webp',
+        mobimg: './collection/room_mobile.webp',
         icon: PiHouseLine,
         btn: "Shop Room Fragrances"
     },
@@ -94,7 +94,7 @@ export const testimonials = [
         id: 1,
         name: "Aisha Khan",
         feedback: "Pink Chiffon Aire Bliss is pure elegance in a bottle. The delicate floral notes are sophisticated and airy, making it my absolute favorite for daily wear.",
-        img: './review/pink_chiffon.png',
+        img: './review/pink_chiffon.webp',
         stars: 5,
         place: "Mumbai, India"
     },
@@ -102,7 +102,7 @@ export const testimonials = [
         id: 2,
         name: "Rohan Mehta",
         feedback: "Smoke Whisky Aire Bliss is incredibly bold and charismatic. The rich, woody depth creates a powerful presence that feels timeless, mysterious, and undeniably high-end. Pure confidence.",
-        img: './review/whisky_smoke.png',
+        img: './review/whisky_smoke.webp',
         stars: 5,
         place: "Delhi, India"
     },
@@ -110,7 +110,7 @@ export const testimonials = [
         id: 3,
         name: "Akash Verma",
         feedback: "White Oud Aire Bliss is the definition of timeless luxury. Its smooth, woody notes provide a regal elegance that lingers beautifully, making every spray feel extraordinary.",
-        img: './review/white_oud.png',
+        img: './review/white_oud.webp',
         stars: 4,
         place: "Bangalore, India"
     },
@@ -118,7 +118,7 @@ export const testimonials = [
         id: 4,
         name: "Vidya Sharma",
         feedback: "Bliss Flora Aire Bliss is a stunning, romantic escape. The vibrant floral essence feels incredibly feminine and enchanting, leaving a graceful, captivating trail wherever I go.",
-        img: './review/bliss_flora.png',
+        img: './review/bliss_flora.webp',
         stars: 5,
         place: "Delhi, India"
     },
@@ -126,7 +126,7 @@ export const testimonials = [
         id: 5,
         name: "Sneha Patel",
         feedback: "This Aire Bliss collection is spectacular. From the soothing Lavender Luxe to the gourmand Sweet Vanilla and exotic Dream Flower, these mists offer the perfect aromatic escape.",
-        img: './review/fragrances.png',
+        img: './review/fragrances.webp',
         stars: 4,
         place: "Kolkata, India"
     },
@@ -134,7 +134,7 @@ export const testimonials = [
         id: 6,
         name: "Arjun Singh",
         feedback: "Oud Malaki Aire Bliss is a masterpiece of bold sophistication. The rich, smoky oud notes create an aura of power and mystery. A must-have for anyone who wants to make a statement.",
-        img: './review/oud_malaki.png',
+        img: './review/oud_malaki.webp',
         stars: 5,
         place: "Mumbai, India"
     }

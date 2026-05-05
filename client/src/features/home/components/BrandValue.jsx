@@ -10,14 +10,14 @@ const BrandValue = ({ isMobile }) => {
         return (
             <section className='w-full h-fit! px-5 py-10 relative z-10'>
                 <div className='w-40 mx-auto relative h-0.5 bg-linear-to-r from-black/70 via-yellow-500/50 to-black/70'>
-                    <img src="./logo.png" className='size-8 bg-black/70 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 backdrop-blur-3xl' alt="" />
+                    <img src="./logo.png" className='size-8 bg-black/70 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 backdrop-blur-3xl' loading='lazy' alt="logo" />
                 </div>
                 <h1 className='font-heading text-gradient-silver text-[6vw] font-semibold text-center my-4'>Aire Bliss Promise</h1>
                 <div className='w-60 mx-auto relative h-0.5 bg-linear-to-r from-black/70 via-yellow-500/50 to-black/70'>
                     <div className='size-1 rotate-45 bg-yellow-500 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 backdrop-blur-3xl shadow-sm shadow-yellow-500'></div>
                 </div>
                 <div className='w-full h-fit border-2 border-yellow-500/30 rounded-xl mt-5 flex items-center flex-col justify-center bg-[#222]/40 overflow-hidden'>
-                    <img src="./brandValue.png" className='w-full h-full object-cover' alt="" />
+                    <img src="./brandValue.webp" loading='lazy'  className='w-full h-full object-cover' alt="brand" />
                     <div className='w-full h-fit center gap-2 px-3'>
                         <div className='w-3/5 h-full py-5 border-r '>
                             <div className='size-full border-r-2 border-yellow-400/30 '>
@@ -66,7 +66,7 @@ const BrandValue = ({ isMobile }) => {
     return (
         <section className='w-full h-fit! px-30 py-10 relative z-10 pt-20'>
             <div className='w-70 mx-auto relative h-0.5 bg-linear-to-r from-black/70 via-yellow-500/50 to-black/70'>
-                <img src="./logo.png" className='size-10 bg-black/70 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 backdrop-blur-3xl' alt="" />
+                <img src="./logo.png" className='size-10 bg-black/70 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 backdrop-blur-3xl' loading='lazy' alt="logo" />
             </div>
             <h1 className='font-heading text-gradient-silver text-3xl font-semibold text-center my-6'>Aire Bliss Promise</h1>
             <div className='w-120 mx-auto relative h-0.5 bg-linear-to-r from-black/70 via-yellow-500/50 to-black/70'>
@@ -76,7 +76,7 @@ const BrandValue = ({ isMobile }) => {
                 Crafted with passion. Delivered with care.
             </p>
             <div className='w-full h-[30vh] border-2 border-yellow-500/30 rounded-xl mt-5 flex items-center justify-center bg-[#222]/40'>
-                <img src="./brandValue.png" className='w-1/2 h-full object-cover' alt="" />
+                <img src="./brandValue.webp" loading='lazy' className='w-1/2 h-full object-cover' alt="brand" />
                 <div className='w-3/10 h-full pl-10 py-10 border-r '>
                     <div className='size-full border-r-2 border-yellow-400/30 pr-10'>
                         <h1 className='font-heading text-gradient-silver text-xl font-semibold text-center'>More than a Fragrance,</h1>
