@@ -16,7 +16,7 @@ const Testomonials = ({ isMobile }) => {
                 <p className='text-[2.8vw] text-center uppercase text-gradient-gold font-subheading mb-2'>Testimonials</p>
                 <h1 className='font-heading text-gradient-silver text-[7vw] font-semibold text-center leading-[100%]'>Loved by our customers</h1>
                 <div className="w-50 mx-auto h-0.5 mt-2 bg-linear-to-r rounded-full from-black via-yellow-600 to-black mb-5"></div>
-                <div className='w-full h-fit flex gap-3 mt-10 overflow-x-scroll'
+                <div className='w-full h-fit flex gap-3 mt-10 overflow-x-scroll testinomials'
                 >
                     {testimonials.map((testimonial) => (
                         <div className={`size-[80vw] shrink-0 relative rounded-xl border border-yellow-400/30 overflow-hidden transition-all duration-500 ease-in-out `}

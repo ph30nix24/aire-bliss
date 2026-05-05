@@ -1,3 +1,43 @@
+import { AiOutlineHome } from "react-icons/ai";
+import { BsHandbag } from "react-icons/bs";
+import { TbPerfume } from "react-icons/tb";
+import { FaRegUser } from "react-icons/fa6";
+import { MdOutlineCall } from "react-icons/md";
+
+export const mobileNavLinks = [
+    {
+        id: 1,
+        link: "/",
+        name: "home",
+        icon: AiOutlineHome,
+    },
+    {
+        id: 2,
+        link: "/shop",
+        name: "shop",
+        icon: BsHandbag,
+    },
+    {
+        id: 3,
+        link: "/collection",
+        name: "collection",
+        icon: TbPerfume,
+    },
+    {
+        id: 4,
+        link: "/about-us",
+        name: "about us",
+        icon: FaRegUser,
+    },
+    {
+        id: 5,
+        link: "/contact-us",
+        name: "contact us",
+        icon: MdOutlineCall,
+    },
+]
+
+
 export const bestproducts = [
     {
         id: 1,

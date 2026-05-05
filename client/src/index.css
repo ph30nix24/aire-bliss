@@ -27,9 +27,17 @@ html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   display: none;                /* Chrome, Safari, Edge */
 }
-
+.best-sellers, .testinomials {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none; 
+}
+.best-sellers::-webkit-scrollbar,
+.testinomials::-webkit-scrollbar {
+  display: none;
+}
 
 @layer {
+
   .text-gradient {
     @apply bg-clip-text text-transparent bg-linear-to-r from-yellow-500 to-yellow-600
   }
