@@ -44,40 +44,43 @@ const Footer = () => {
                         <FaPinterestP className='size-5 text-yellow-500/50 cursor-pointer hover:text-yellow-500' />
                     </p>
                 </div>
-                {/* <div className='w-full h-fit px-5 rounded-2xl bg-[#222]/40 py-10  center gap-5 border-2 border-yellow-600/50 mb-10'>
-                    <div className='w-1/4 pr-5 flex gap-5 items-center border-r-2 border-white/30'>
-                        <VscWorkspaceTrusted className='text-yellow-500/70 size-14 ' />
-                        <div className=''>
-                            <h1 className='text-sm uppercase font-body tracking-wide text-white'>100% Authentic</h1>
-                            <p className='text-sm text-white/50 font-body mt-2'>We guarantee genuine Aire Bliss products.</p>
+                <div className='w-full h-fit px-2 rounded-2xl bg-[#222]/40 py-5  center flex-col border-2 border-yellow-600/50 mt-3 mb-5'>
+                    <div className='w-full h-fit center gap-3'>
+                        <div className='w-1/2 flex gap-2 items-center border-r-2 border-white/30 flex-col pb-3'>
+                            <VscWorkspaceTrusted className='text-yellow-500/70 size-8 ' />
+                            <div className=''>
+                                <h1 className='text-sm uppercase font-body tracking-wide text-white'>100% Authentic</h1>
+                                
+                            </div>
+                        </div>
+                        <div className='w-1/2 flex gap-2 items-center flex-col pb-3'>
+                            <FaAward className='text-yellow-500/70 size-8 ' />
+                            <div className=''>
+                                <h1 className='text-sm uppercase font-body tracking-wide text-white'>Premium Quality</h1>
+                            </div>
                         </div>
                     </div>
-                    <div className='w-1/2 border-r-2 border-white/30 px-5 flex gap-5 items-center'>
-                        <CiMail className='text-yellow-500/70 size-14 ' />
+                    <div className='w-full border-t-2 border-white/30 px-3 pt-2 flex gap-3 items-center '>
                         <div className='w-full'>
-                            <h1 className='text-sm uppercase font-body tracking-wide text-white'>stay inspired</h1>
+                            <h1 className='text-sm uppercase font-body tracking-wide text-white flex items-center gap-2 justify-center'>
+                                <CiMail className='text-yellow-500/70 size-5 ' />
+                                <span>stay inspired</span></h1>
                             <p className='text-sm text-white/50 font-body mt-2 flex gap-2 items-center w-full'>
-                                <span className='w-1/2'>Get updates on new arrivals, exclusive offers and fragrances.</span>
-                                <form className="w-1/2 flex items-center" action="">
+                                <form className="w-full flex items-center" action="">
                                     <input className='w-full h-[33.6px] px-2 text-xs outline-none border border-yellow-400/50 rounded-l-md' type="text" placeholder='Enter your email' />
                                     <button className='text-xs uppercase font-body text-yellow-500/50 py-2 px-3 border border-yellow-400/50 rounded-r-md cursor-pointer hover:text-black hover:bg-yellow-500/50'>Subscribe </button>
                                 </form>
                             </p>
                         </div>
                     </div>
-                    <div className='w-1/4 pr-5 flex gap-5 items-center'>
-                        <FaAward className='text-yellow-500/70 size-12 ' />
-                        <div className=''>
-                            <h1 className='text-sm uppercase font-body tracking-wide text-white'>Premium Quality</h1>
-                            <p className='text-sm text-white/50 font-body mt-2'>Excellence in every bottle, crafted to perfection.</p>
-                        </div>
-                    </div>
-                </div> */}
+
+                </div>
+                <p className='text-center text-white/50 text-xs font-light tracking-wide font-body'>© 2026 Aire Bliss. All rights reserved. | Designed by Team Aire Bliss</p>
             </footer>
         )
     }
     return (
-        <section className='w-full h-fit! px-30 py-10 relative z-10 bg-[#222]/40'>
+        <footer className='w-full h-fit! px-30 py-10 relative z-10 bg-[#222]/40'>
             <img src="./footer-1.png" className='absolute w-40 top-0 left-0' alt="" />
             <img src="./footer-2.png" className='size-85 object-cover absolute top-0 right-0 z-1' alt="" />
             <div className='size-85  absolute top-0 right-0 z-2 bg-radial-[at_center_right] from-transparent to-25% to-[#222]/30'></div>
@@ -140,7 +143,7 @@ const Footer = () => {
                 </div>
             </div>
             <p className='text-center text-white/50 text-xs font-light tracking-wide font-body'>© 2026 Aire Bliss. All rights reserved. | Designed by Team Aire Bliss</p>
-        </section>
+        </footer>
     )
 }
 
