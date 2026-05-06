@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Rouge+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Modern+Antiqua&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&display=swap');
 @import "tailwindcss";
@@ -8,7 +8,7 @@
   --font-heading: "Cinzel Decorative", cursive;
   --font-subheading: "Merienda", cursive;
   --font-body: "Outfit", sans-serif;
-  --font-stylish: "Rouge Script", cursive;
+  --font-stylish: "Modern Antiqua", serif;
 }
 
 main {
@@ -74,6 +74,16 @@ body::-webkit-scrollbar {
   }
   .nav-links {
     @apply font-body tracking-widest text-sm font-medium pb-1
+  }
+
+  .form-label {
+    @apply font-body font-light text-sm text-white
+  }
+  .form-field {
+    @apply w-full flex gap-3 items-center p-3 border rounded-lg border-yellow-500/20 mt-2 mb-4 bg-[#222]/40
+  }
+  .form-input {
+    @apply w-full text-sm font-body text-white/80 outline-none font-light tracking-wider
   }
 }
 
