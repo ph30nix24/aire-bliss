@@ -27,12 +27,14 @@ html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   display: none;                /* Chrome, Safari, Edge */
 }
-.best-sellers, .testinomials {
+.best-sellers, .testinomials, .product-section, .shop {
   scrollbar-width: none;        /* Firefox */
   -ms-overflow-style: none; 
 }
 .best-sellers::-webkit-scrollbar,
-.testinomials::-webkit-scrollbar {
+.testinomials::-webkit-scrollbar, 
+.product-section::-webkit-scrollbar,
+.shop::-webkit-scrollbar {
   display: none;
 }
 
