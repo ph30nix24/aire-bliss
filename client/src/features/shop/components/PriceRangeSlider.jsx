@@ -1,10 +1,10 @@
 import { useState, useRef, useCallback } from "react";
 
 const MIN = 80;
-const MAX = 124900;
+const MAX = 1500;
 
 function formatPrice(value) {
-    if (value >= MAX) return "₹1,24,900+";
+    if (value >= MAX) return "₹1500";
 
     if (value >= 1000) {
         const thousands = Math.floor(value / 1000);
@@ -43,73 +43,68 @@ const PriceRangeSlider = () => {
     );
 
     return (
-        <div className="p-6 w-full max-w-sm">
+        <>
+            <div className="pt-4 px-2 w-full max-w-sm">
+                {/* Track */}
+                <div className="relative h-1 mx-2.5 px-2" ref={rangeRef}>
 
-            {/* Label */}
-            <p className="text-sm font-medium text-gray-800 mb-5">
-                {formatPrice(minVal)} – {formatPrice(maxVal)}
-            </p>
+                    {/* Background track */}
+                    <div className="absolute inset-0 bg-gray-200 rounded-full" />
 
-            {/* Track */}
-            <div className="relative h-1 mx-2.5" ref={rangeRef}>
+                    {/* Filled range */}
+                    <div
+                        className="absolute top-0 h-full bg-yellow-500/70 rounded-full"
+                        style={{
+                            left: `${pct(minVal)}%`,
+                            width: `${pct(maxVal) - pct(minVal)}%`,
+                        }}
+                    />
 
-                {/* Background track */}
-                <div className="absolute inset-0 bg-gray-200 rounded-full" />
-
-                {/* Filled range */}
-                <div
-                    className="absolute top-0 h-full bg-blue-700 rounded-full"
-                    style={{
-                        left: `${pct(minVal)}%`,
-                        width: `${pct(maxVal) - pct(minVal)}%`,
-                    }}
-                />
-
-                {/* Min thumb */}
-                <input
-                    type="range"
-                    min={MIN}
-                    max={MAX}
-                    step={10}
-                    value={minVal}
-                    onChange={handleMin}
-                    className="absolute w-[calc(100%+20px)] -left-2.5 -top-2
+                    {/* Min thumb */}
+                    <input
+                        type="range"
+                        min={MIN}
+                        max={MAX}
+                        step={10}
+                        value={minVal}
+                        onChange={handleMin}
+                        className="absolute w-[calc(100%+20px)] -left-2.5 -top-2
                     h-5 appearance-none bg-transparent pointer-events-none
                     [&::-webkit-slider-thumb]:appearance-none
                     [&::-webkit-slider-thumb]:pointer-events-auto
-                    [&::-webkit-slider-thumb]:w-5
-                    [&::-webkit-slider-thumb]:h-5
+                    [&::-webkit-slider-thumb]:w-3
+                    [&::-webkit-slider-thumb]:h-3
                     [&::-webkit-slider-thumb]:rounded-full
-                    [&::-webkit-slider-thumb]:bg-blue-700
-                    [&::-webkit-slider-thumb]:border-2
-                    [&::-webkit-slider-thumb]:border-white
+                    [&::-webkit-slider-thumb]:bg-yellow-500
                     [&::-webkit-slider-thumb]:shadow-md
                     [&::-webkit-slider-thumb]:cursor-pointer"
-                />
+                    />
 
-                {/* Max thumb */}
-                <input
-                    type="range"
-                    min={MIN}
-                    max={MAX}
-                    step={10}
-                    value={maxVal}
-                    onChange={handleMax}
-                    className="absolute w-[calc(100%+20px)] -left-2.5 -top-2
+                    {/* Max thumb */}
+                    <input
+                        type="range"
+                        min={MIN}
+                        max={MAX}
+                        step={10}
+                        value={maxVal}
+                        onChange={handleMax}
+                        className="absolute w-[calc(100%+20px)] -left-2.5 -top-2
                     h-5 appearance-none bg-transparent pointer-events-none
                     [&::-webkit-slider-thumb]:appearance-none
                     [&::-webkit-slider-thumb]:pointer-events-auto
-                    [&::-webkit-slider-thumb]:w-5
-                    [&::-webkit-slider-thumb]:h-5
+                    [&::-webkit-slider-thumb]:w-3
+                    [&::-webkit-slider-thumb]:h-3
                     [&::-webkit-slider-thumb]:rounded-full
-                    [&::-webkit-slider-thumb]:bg-blue-700
-                    [&::-webkit-slider-thumb]:border-2
-                    [&::-webkit-slider-thumb]:border-white
+                    [&::-webkit-slider-thumb]:bg-yellow-500
                     [&::-webkit-slider-thumb]:shadow-md
                     [&::-webkit-slider-thumb]:cursor-pointer"
-                />
+                    />
+                </div>
             </div>
-        </div>
+            <p className="text-xs font-medium text-white/80 w-full flex justify-between items-center mt-2">
+                <span>{formatPrice(minVal)}</span>  <span>{formatPrice(maxVal)}</span>
+            </p>
+        </>
     );
 };
 

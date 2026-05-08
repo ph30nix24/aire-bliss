@@ -37,7 +37,7 @@ const BestSellers = ({ isMobile }) => {
             <div className="w-10 h-0.5 mt-1 bg-linear-to-r rounded-full from-yellow-500 to-yellow-600 mb-5"></div>
             <div className='w-full h-fit flex gap-5 '>
                 {bestproducts.slice(0, 5).map((product) => (
-                    <div className='w-1/5 shadow-2xl shadow-yellow-400/0 h-fit border bg-[#222]/40 border-amber-400/30 rounded-2xl overflow-hidden relative' key={product.id}>
+                    <div className='w-1/5 shadow-2xl shadow-yellow-400/0 h-fit pb-2 bg-[#222]/40 overflow-hidden relative' key={product.id}>
                         <img className='w-full h-auto relati' src={product.img} alt={product.name} />
                         <div className='w-full h-fit mt-2 text-white font-body px-5 py-3 text-center relative z-5'>
                             <h2 className='text-xl uppercase font-subheading font-medium'>{product.name}</h2>
