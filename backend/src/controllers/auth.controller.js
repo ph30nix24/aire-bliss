@@ -1,0 +1,73 @@
+import User from '../models/user.model.js'
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+
+
+const loginController = async (req, res) => {
+    const { email, password } = req.body;
+    console.log(email, password)
+    if (!email || !password) {
+        return res.status(403).json({ message: "Missing fields All fields are required." })
+    }
+    const user = await User.findOne({ email })
+    if (!user) {
+        return res.status(400).json({ message: "Invalid credentials" });
+    }
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+    if (!isPasswordCorrect) {
+        return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    const { password: userPassword, ...safeUser } = user._doc;
+
+    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
+    return res.status(200)
+        .cookie("token", token, {
+            httpOnly: true,
+            secure: true, // REQUIRED for cross-site
+            sameSite: "None",
+        })
+        .json({
+            message: "login successful",
+            user: safeUser
+        })
+}
+
+const signupController = async (req, res) => {
+    const { name, email, password } = req.body;
+    if (!name || !email || !password) {
+        return res.status(403).json({ message: "Missing fields All fields are required." })
+    }
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+        return res.status(400).json({ message: "user already exists" })
+    }
+    const hashedPassword = await bcrypt.hash(password, parseInt(process.env.SALT_ROUNDS));
+    const user = new User({
+        name,
+        email,
+        password: hashedPassword,
+        role: "user"
+    })
+    await user.save();
+    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
+        expiresIn: "1d",
+    });
+    const { password: userPassword, ...safeUser } = user._doc;
+
+    return res
+        .status(200)
+        .cookie("token", token, {
+            httpOnly: true,
+            secure: true, // REQUIRED for cross-site
+            sameSite: "None",
+        })
+        .json({
+            message: "register successful",
+            user: safeUser
+        })
+}
+
+export { loginController, signupController }

@@ -5,12 +5,44 @@ import { GoMail } from 'react-icons/go';
 import { GrFormViewHide } from 'react-icons/gr';
 import { PiEyesLight, PiFlowerLotus } from 'react-icons/pi';
 import { useMediaQuery } from 'react-responsive';
+import { useAuth } from './hooks/useAuth';
+import Loader from '../../components/Loader';
 
 const SignUp = () => {
+    const { loading, handleSignUp } = useAuth()
     const isMobile = useMediaQuery({ maxWidth: 768 })
     const [hidingPassword, setHidingPassword] = useState(true);
     const [hidingConfPassword, setHidingConfPassword] = useState(true);
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+    });
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData, [e.target.name]: e.target.value
+        })
+    }
+
+    const formSubmit = async (e) => {
+        e.preventDefault();
+        await handleSignUp({
+            name: formData.name,
+            email: formData.email,
+
+        })
+    }
+
     if (isMobile) {
+        if (loading) {
+            return (
+                <main className='w-full h-screen center bg-black'>
+                    <Loader />
+                </main>
+            )
+        }
         return (
             <main className='w-full h-screen relative z-1 py-10 px-10 bg-[#111] flex flex-col justify-center items-center'>
                 <img src="./footer-1.webp" className='absolute w-4/10 top-1/2 left-0 -translate-y-1/2 z-1 opacity-50 ' alt="" />
@@ -21,33 +53,33 @@ const SignUp = () => {
                 <p className='text-white/80 font-light font-body text-base mt-2 tracking-wide z-2 text-center'>Create your account and explore our exclusive collection</p>
                 <div className='w-30 h-0.5 rounded-full relative bg-yellow-400/70 mx-auto my-5 z-2'><span className='absolute text-yellow-500 p-1 bg-[#111] backdrop-blur-2xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'> <PiFlowerLotus className='size-5 ' /></span>
                 </div>
-                <form className='w-full z-2' action="">
+                <form className='w-full z-2' onSubmit={formSubmit}>
                     <p className='form-label'>Full Name</p>
                     <fieldset className='form-field mb-2!'>
                         <label htmlFor="full-name"><GoMail className='text-yellow-500/80 text-xl' /></label>
-                        <input className='form-input' type="text" name="full-name" id='full-name' placeholder='Enter your full name' />
+                        <input className='form-input' type="text" name="name" id='full-name' placeholder='Enter your full name' onChange={handleChange} required />
                     </fieldset>
                     <p className='form-label'>Email Address</p>
                     <fieldset className='form-field mb-2!'>
                         <label htmlFor=""><GoMail className='text-yellow-500/80 text-xl' /></label>
-                        <input className='form-input' type="email" name="email" id='email' placeholder='Enter your email' />
+                        <input className='form-input' type="email" name="email" id='email' placeholder='Enter your email' onChange={handleChange} required />
                     </fieldset>
                     <p className='form-label'>Password</p>
                     <fieldset className='form-field mb-2!'>
                         <label htmlFor=""><CiLock className='text-yellow-500/80 text-2xl' /></label>
-                        <input className='form-input' type={hidingPassword ? "password" : "text"} name='password' id='password' placeholder='Create a password' />
+                        <input className='form-input' type={hidingPassword ? "password" : "text"} name='password' id='password' placeholder='Create a password' onChange={handleChange} required />
                         {hidingPassword ? <GrFormViewHide className='text-yellow-500/80 text-2xl cursor-pointer' onClick={() => setHidingPassword(false)} /> : <PiEyesLight className='text-yellow-500/80 text-2xl cursor-pointer' onClick={() => setHidingPassword(true)} />}
                     </fieldset>
                     <p className='form-label'>Password</p>
                     <fieldset className='form-field mb-2!'>
                         <label htmlFor=""><CiLock className='text-yellow-500/80 text-2xl' /></label>
-                        <input className='form-input' type={hidingConfPassword ? "password" : "text"} name='password' id='password' placeholder='Confirm your password' />
+                        <input className='form-input' type={hidingConfPassword ? "password" : "text"} name='password' id='password' placeholder='Confirm your password' onChange={handleChange} required />
                         {hidingConfPassword ? <GrFormViewHide className='text-yellow-500/80 text-2xl cursor-pointer' onClick={() => setHidingConfPassword(false)} /> : <PiEyesLight className='text-yellow-500/80 text-2xl cursor-pointer' onClick={() => setHidingConfPassword(true)} />}
                     </fieldset>
 
                     <div className='w-full flex justify-between items-center '>
                         <fieldset className='flex items-center gap-2'>
-                            <input type="checkbox" className='' id='remember' name='remember' />
+                            <input type="checkbox" className='' id='remember' name='remember' required />
                             <label className='form-label' htmlFor="remember">I agree to the <a href='' className='text-yellow-400/80'>Terms & Condition</a> and <a href='' className='text-yellow-400/80'>Privacy Policy</a></label>
                         </fieldset>
                     </div>
@@ -58,6 +90,13 @@ const SignUp = () => {
                 </form>
                 <p className='form-label mt-5'>Already have an account? <a href='/login' className='text-yellow-400/70'>Login</a></p>
             </main >
+        )
+    }
+    if (loading) {
+        return (
+            <main className='w-full h-screen center bg-black'>
+                <Loader />
+            </main>
         )
     }
     return (
@@ -75,33 +114,33 @@ const SignUp = () => {
                         <p className='text-white/80 font-light font-body text-base mt-2 tracking-wide z-2'>Create your account and explore our exclusive collection</p>
                         <div className='w-30 h-0.5 rounded-full relative bg-yellow-400/70 mx-auto my-5 z-2'><span className='absolute text-yellow-500 p-1 bg-[#111] backdrop-blur-2xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'> <PiFlowerLotus className='size-5 ' /></span>
                         </div>
-                        <form className='w-full z-2' action="">
+                        <form className='w-full z-2' onSubmit={formSubmit}>
                             <p className='form-label'>Full Name</p>
                             <fieldset className='form-field mb-2!'>
                                 <label htmlFor="full-name"><GoMail className='text-yellow-500/80 text-xl' /></label>
-                                <input className='form-input' type="text" name="full-name" id='full-name' placeholder='Enter your full name' />
+                                <input className='form-input' onChange={handleChange} type="text" name="name" id='full-name' placeholder='Enter your full name' required />
                             </fieldset>
                             <p className='form-label'>Email Address</p>
                             <fieldset className='form-field mb-2!'>
                                 <label htmlFor=""><GoMail className='text-yellow-500/80 text-xl' /></label>
-                                <input className='form-input' type="email" name="email" id='email' placeholder='Enter your email' />
+                                <input className='form-input' onChange={handleChange} type="email" name="email" id='email' placeholder='Enter your email' required />
                             </fieldset>
                             <p className='form-label'>Password</p>
                             <fieldset className='form-field mb-2!'>
                                 <label htmlFor=""><CiLock className='text-yellow-500/80 text-2xl' /></label>
-                                <input className='form-input' type={hidingPassword ? "password" : "text"} name='password' id='password' placeholder='Create a password' />
+                                <input className='form-input' type={hidingPassword ? "password" : "text"} onChange={handleChange} name='password' id='password' placeholder='Create a password' required />
                                 {hidingPassword ? <GrFormViewHide className='text-yellow-500/80 text-2xl cursor-pointer' onClick={() => setHidingPassword(false)} /> : <PiEyesLight className='text-yellow-500/80 text-2xl cursor-pointer' onClick={() => setHidingPassword(true)} />}
                             </fieldset>
                             <p className='form-label'>Password</p>
                             <fieldset className='form-field mb-2!'>
                                 <label htmlFor=""><CiLock className='text-yellow-500/80 text-2xl' /></label>
-                                <input className='form-input' type={hidingConfPassword ? "password" : "text"} name='password' id='password' placeholder='Confirm your password' />
+                                <input className='form-input' type={hidingConfPassword ? "password" : "text"} name='confirmPassword' id='confirmPassword' placeholder='Confirm your password' required />
                                 {hidingConfPassword ? <GrFormViewHide className='text-yellow-500/80 text-2xl cursor-pointer' onClick={() => setHidingConfPassword(false)} /> : <PiEyesLight className='text-yellow-500/80 text-2xl cursor-pointer' onClick={() => setHidingConfPassword(true)} />}
                             </fieldset>
 
                             <div className='w-full flex justify-between items-center '>
                                 <fieldset className='flex items-center gap-1'>
-                                    <input type="checkbox" className='' id='remember' name='remember' />
+                                    <input type="checkbox" className='' id='remember' name='remember' required />
                                     <label className='form-label' htmlFor="remember">I agree to the <a href='' className='text-yellow-400/80'>Terms & Condition</a> and <a href='' className='text-yellow-400/80'>Privacy Policy</a></label>
                                 </fieldset>
                             </div>
