@@ -203,3 +203,71 @@ export const footerDivs = [
         links: ["Contact Us", "Shipping Policy", "Returns & Refunds", "Terms & Conditions"]
     }
 ]
+
+
+import { RiDashboardLine } from "react-icons/ri";
+import { TbShoppingBag } from "react-icons/tb";
+import { BsClipboard2Check } from "react-icons/bs";
+import { CiStar } from "react-icons/ci";
+import { IoSettingsOutline } from "react-icons/io5";
+
+export const adminSidebarLinks = [
+    {
+        route: "/admin/dashboard",
+        name: "Dashboard",
+        icon: RiDashboardLine
+    },
+    {
+        route: "/admin/product",
+        name: "Product",
+        icon: TbShoppingBag
+    },
+    {
+        route: "/admin/orders",
+        name: "Orders",
+        icon: BsClipboard2Check
+    },
+    {
+        route: "/admin/customers",
+        name: "Customers",
+        icon: FaRegUser
+    },
+    {
+        route: "/admin/reviews",
+        name: "Reviews",
+        icon: CiStar
+    },
+    {
+        route: "/admin/settings",
+        name: "Settings",
+        icon: IoSettingsOutline
+    }
+]
+
+
+import { LiaRupeeSignSolid } from "react-icons/lia";
+import { LuUsersRound } from "react-icons/lu";
+
+
+export const adminHeaderSection = [
+    {
+        name: "Total Sales",
+        value: "₹ 1,25,000",
+        icon: LiaRupeeSignSolid
+    },
+    {
+        name: "Orders",
+        value: "350",
+        icon: BsHandbag
+    },
+    {
+        name: "Customers",
+        value: "350",
+        icon: LuUsersRound
+    },
+    {
+        name: "Products",
+        value: "98",
+        icon: TbPerfume
+    },
+]

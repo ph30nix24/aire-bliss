@@ -1,9 +1,10 @@
-import { createBrowserRouter } from "react-router";
+import { BrowserRouter, createBrowserRouter } from "react-router";
 import Home from "./features/home/Home";
 import Login from "./features/auth/Login";
 import SignUp from "./features/auth/SignUp";
 import Shop from "./features/shop/Shop";
-import Dashboard from "./features/admin/Dashboard";
+import Dashboard from "./features/admin/pages/Dashboard";
+import Product from "./features/admin/pages/Product";
 
 export const router = createBrowserRouter([
     {
@@ -23,7 +24,11 @@ export const router = createBrowserRouter([
         element: <Shop />
     },
     {
-        path: '/dashboard',
+        path: '/admin/dashboard',
         element: <Dashboard />
+    },
+    {
+        path: '/admin/product',
+        element: <Product />
     }
 ])

@@ -37,6 +37,10 @@ body::-webkit-scrollbar {
 .shop::-webkit-scrollbar {
   display: none;
 }
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #1a1a1ace inset !important; /* match your input bg */
+  -webkit-text-fill-color: #ffffff !important;                  /* match your text color */
+}
 
 @layer {
 
@@ -86,6 +90,13 @@ body::-webkit-scrollbar {
   }
   .form-input {
     @apply w-full text-sm font-body text-white/80 outline-none font-light tracking-wider
+  }
+
+
+
+  /* admin navbar */
+  .link-cls {
+    @apply flex items-center gap-2 w-full text-white p-2 text-xs font-body uppercase rounded-md mb-2;
   }
 }
 
