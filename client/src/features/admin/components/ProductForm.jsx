@@ -1,61 +1,370 @@
 import React, { useRef, useState } from 'react'
 import { IoCloudUploadOutline, IoSaveOutline } from "react-icons/io5";
+import { RxCross2 } from "react-icons/rx";
+import { TbBulbFilled } from "react-icons/tb";
+import Dropdown from './DropDown';
 
 
 const ProductForm = ({ setIsAddProductClk }) => {
     const inputRef = useRef(null);
-    const [image, setImage] = useState(null);
-    const handleClick = () => inputRef.current?.click();
-    
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        setImage(file);
+    const previewRefs = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
+
+    const [mainImage, setMainImage] = useState(null);
+    const [previewImages, setPreviewImages] = useState([null, null, null, null, null]);
+
+    const handleMainClick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        inputRef.current?.click();
     };
+
+    const handleMainFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) setMainImage(file);
+    };
+
+    const handlePreviewClick = (e, index) => {
+        e.preventDefault();
+        e.stopPropagation();
+        previewRefs[index].current?.click();
+    };
+
+    const handlePreviewFileChange = (e, index) => {
+        const file = e.target.files[0];
+        if (file) {
+            setPreviewImages(prev => {
+                const updated = [...prev];
+                updated[index] = file;
+                return updated;
+            });
+        }
+    };
+
+    const removeMainImage = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setMainImage(null);
+    };
+
+    const removePreviewImage = (e, index) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setPreviewImages(prev => {
+            const updated = [...prev];
+            updated[index] = null;
+            return updated;
+        });
+        previewRefs[index].current.value = '';
+    };
+
+    const [gender, setGender] = useState('');
+
+    const genderOptions = [
+        { label: 'Male', value: 'male' },
+        { label: 'Female', value: 'female' },
+        { label: 'Unisex', value: 'unisex' },
+    ];
+
+    const [category, setCategory] = useState('');
+
+    const categoryOptions = [
+        { label: 'Perfume', value: 'perfume' },
+        { label: 'Room Fragrance', value: 'room-fragrance' },
+    ];
+
+    const [sizeOptions, setSizeOptions] = useState(null);
+    const sizes = ['30ml', '50ml', '100ml', '150ml', '200ml'];
+
+    const [isFeatured, setIsFeatured] = useState(false);
+    const [isBestSeller, setIsBestSeller] = useState(false);
+
     return (
-        <form action="" className='size-full pt-0 px-5 pb-10'>
+        <form action="" className='size-full pt-3 px-5 pb-8'>
             <div className='w-full h-[calc(100%-60px)] flex gap-3'>
                 <div className='w-1/3 h-full bg-[#111]/70 border border-white/10 rounded-md py-3 px-5'>
-                    <h1 className='text-white font-semibold text-base'>Product Image</h1>
-                    <p className='text-white/70 text-sm tracking-wide font-body mt-1'>Upload a high-quality image of your product</p>
+                    <h1 className='text-white font-semibold text-base font-heading'>Product Image</h1>
+                    <p className='text-white/70 text-xs tracking-wide font-body'>Upload a high-quality image of your product</p>
+
+                    {/* Main image hidden input */}
                     <input
                         ref={inputRef}
-                        onChange={handleFileChange}
+                        onChange={handleMainFileChange}
                         type="file"
+                        accept="image/png, image/jpeg"
                         className="hidden"
                     />
+
+                    {/* Main image upload area */}
                     <div
-                        className="w-full h-fit  rounded-2xl border-2 py-8 flex flex-col items-center border-dashed border-yellow-500/60 cursor-pointer mt-5"
-                        onClick={handleClick}
+                        className="w-full h-fit rounded-2xl border-2 py-8 flex flex-col items-center border-dashed border-yellow-500/60 cursor-pointer mt-5 relative bg-[#111]/70"
+                        onClick={handleMainClick}
                     >
-                        <IoCloudUploadOutline className="size-15 text-yellow-500/80" />
-                        <p className="text-base text-white/70 font-body">Drag & drop images here</p>
-                        <p className="text-white/70 text-sm font-body">or</p>
-                        <button className='text-xs font-body tracking-wide text-white capitalize bg-yellow-400/80 border border-white/20 rounded-md px-8 py-2 flex gap-2 cursor-pointer mt-2 '>
-                            <span>save product</span>
-                        </button>
+                        {mainImage ? (
+                            <div className='relative'>
+                                <img
+                                    src={URL.createObjectURL(mainImage)}
+                                    alt="Main Product"
+                                    className="size-43 object-cover rounded-md"
+                                />
+                                <div
+                                    className='size-5 flex items-center justify-center border border-white/10 rounded-full text-white/80 bg-[#111]/70 absolute -top-2 -right-2 cursor-pointer'
+                                    onClick={removeMainImage}
+                                >
+                                    <RxCross2 className='text-xs' />
+                                </div>
+                            </div>
+                        ) : (
+                            <div className='flex flex-col items-center pointer-events-none'>
+                                <IoCloudUploadOutline className="size-15 text-yellow-500/80" />
+                                <p className="text-sm text-white/70 font-body">Drag & drop images here</p>
+                                <p className="text-white/70 text-sm font-body">or</p>
+                                <div className='text-xs font-body tracking-wide text-white capitalize bg-yellow-400/80 border border-white/20 rounded-md px-8 py-2 mt-2'>
+                                    Browse Files
+                                </div>
+                                <p className='text-white/60 text-xs font-body mt-3'>JPG, PNG, Max file size of 5MB. (Up to 5 images)</p>
+                            </div>
+                        )}
                     </div>
-                    <p className='text-white font-body text-sm my-3'>Image Preview </p>
-                    <div className='w-full flex gap-3'>
-                        <div className='size-15 '></div>
+
+                    {/* Preview section */}
+                    <p className='text-white font-body text-sm my-4'>Image Preview</p>
+                    <div className='w-full flex gap-2 flex-wrap justify-center'>
+                        {previewImages.map((image, index) => (
+                            <div key={index} className='relative'>
+
+                                {/* Hidden input per preview slot */}
+                                <input
+                                    ref={previewRefs[index]}
+                                    type="file"
+                                    accept="image/png, image/jpeg"
+                                    className="hidden"
+                                    onChange={(e) => handlePreviewFileChange(e, index)}
+                                />
+
+                                {/* Preview slot */}
+                                <div
+                                    className='size-24 bg-[#111]/70 border border-white/10 rounded-md cursor-pointer flex items-center justify-center overflow-hidden'
+                                    onClick={(e) => handlePreviewClick(e, index)}
+                                >
+                                    {image ? (
+                                        <img
+                                            src={URL.createObjectURL(image)}
+                                            alt={`Preview ${index + 1}`}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    ) : (
+                                        <IoCloudUploadOutline className="size-5 text-yellow-500/50" />
+                                    )}
+                                </div>
+
+                                {/* Remove button */}
+                                {image && (
+                                    <div
+                                        className='size-4 flex items-center justify-center border border-white/10 rounded-full text-white/80 bg-[#111] absolute -top-1.5 -right-1.5 cursor-pointer z-10'
+                                        onClick={(e) => removePreviewImage(e, index)}
+                                    >
+                                        <RxCross2 className='text-[9px]' />
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                    <div className="w-full mt-5 py-3 px-5 bg-[#111]/70 border border-white/10 rounded-md">
+                        <div className='flex items-center gap-2 text-white font-body text-sm'>
+                            <TbBulbFilled className='text-yellow-400/80 text-lg' />
+                            <p>Tips</p>
+                        </div>
+                        <p className='text-white/70 text-xs font-body mt-1 tracking-wide'>Use high-quality images with good lighting to showcase your product effectively.</p>
                     </div>
                 </div>
-                {/* details section */}
-                <div className='w-2/3 h-full bg-[#111]/70 border border-white/10 rounded-md p-3'>
 
+                {/* Details section */}
+                <div className='w-2/3 h-full bg-[#111]/70 border border-white/10 rounded-md py-3 px-5'>
+                    <h1 className='text-white font-semibold text-base font-heading'>Product Information</h1>
+                    <p className='text-white/70 text-xs tracking-wide font-body'>Fill in the details of your perfume</p>
+                    <div className='w-full h-fit mt-5 flex  gap-4'>
+                        <div className="w-1/2">
+                            {/* product name field */}
+                            <fieldset className='w-full flex flex-col gap-1 mb-4'>
+                                <label className="text-white text-sm font-body mb-1">Product Name</label>
+                                <input
+                                    type="text"
+                                    placeholder="Enter product name"
+                                    className="bg-[#111]/70 border w-full text-xs border-white/10 rounded-md py-2 px-4 text-white placeholder:text-white/50 focus:outline-none focus:ring focus:ring-yellow-400/80"
+                                />
+                            </fieldset>
+
+                            {/* category dropdown field */}
+                            <fieldset className='w-full flex flex-col gap-1 mb-4'>
+                                <label className="text-white text-sm font-body mb-1">Category</label>
+                                <Dropdown
+                                    label="Select Category"
+                                    options={categoryOptions}
+                                    value={category}
+                                    onChange={setCategory}
+                                />
+                            </fieldset>
+
+                            {/* price field */}
+                            <fieldset className='w-full flex flex-col gap-1 mb-4'>
+                                <label className="text-white text-sm font-body mb-1">Price</label>
+                                <div className='w-full flex items-center '>
+                                    <span className="text-white/70 text-sm px-3 border border-white/10 py-1.5">₹</span>
+                                    <input
+                                        type="text"
+                                        placeholder="Enter price"
+                                        className="bg-[#111]/70 border w-full text-xs border-white/10 rounded-r-md py-2 px-4 text-white placeholder:text-white/50 focus:outline-none focus:ring focus:ring-yellow-400/80"
+                                    />
+                                </div>
+                            </fieldset>
+
+                            {/* stock field */}
+                            <fieldset className='w-full flex flex-col gap-1 mb-4'>
+                                <label className="text-white text-sm font-body ">Stock</label>
+                                <input
+                                    type="number"
+                                    placeholder="Enter stock quantity"
+                                    className="bg-[#111]/70 border w-full text-xs border-white/10 rounded-md py-2 px-4 text-white placeholder:text-white/50 focus:outline-none focus:ring focus:ring-yellow-400/80 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [appearance:textfield]"
+                                />
+                            </fieldset>
+
+                            {/* size options field */}
+                            <fieldset className='w-full flex flex-col gap-1 mb-4'>
+                                <label className="text-white text-sm font-body ">Size Options</label>
+                                <div className="flex w-full gap-5 mt-2 justify-center">
+                                    {
+                                        sizes.map((size, index) => (
+                                            <div className='text-white/70 text-xs font-body mb-1 flex items-center gap-2' key={index}>
+                                                <div className='w-4 h-4 border border-white/10 rounded-sm flex items-center justify-center cursor-pointer'>
+
+                                                </div>
+                                                <span>{size}</span>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            </fieldset>
+
+                            {/* description field */}
+                            <fieldset className='w-full flex flex-col gap-1 mb-4'>
+                                <label className="text-white text-sm font-body ">Short Description</label>
+                                <textarea
+                                    placeholder="Enter a brief description of the product"
+                                    className="bg-[#111]/70 border w-full text-xs border-white/10 rounded-md py-2 font-body px-4 text-white placeholder:text-white/50 focus:outline-none focus:ring focus:ring-yellow-400/80 resize-none h-25 mt-2"
+                                />
+
+                            </fieldset>
+
+                            <fieldset className="text-white text-sm font-body flex items-center justify-between gap-3 border border-white/10 rounded-md py-3 px-4 mt-2 w-full">
+                                <div className=''>
+                                    <label>
+                                        Featured Product
+                                    </label>
+                                    <p className="text-white/50 mt-1.5 text-xs font-body">
+                                        Add this product in Featured Products section
+                                    </p>
+                                </div>
+                                <div className={`w-11 h-6  shadow rounded-full flex items-center justify-center cursor-pointer relative ${isFeatured ? 'bg-yellow-300/90' : 'bg-transparent border border-white/50'}`} onClick={() => setIsFeatured(prev => !prev)}>
+                                    <div className={`size-5  absolute rounded-full left-0 shadow-xl transform duration-300 ${isFeatured ? 'translate-x-[105%] bg-white' : 'translate-x-0.5 bg-yellow-300/90'}`}></div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div className="w-1/2">
+                            {/* brand name */}
+                            <fieldset className='w-full flex flex-col gap-1 mb-4'>
+                                <label className="text-white text-sm font-body mb-1">Brand</label>
+                                <input
+                                    type="text"
+                                    placeholder="Enter Brand name"
+                                    className="bg-[#111]/70 border w-full text-xs border-white/10 rounded-md py-2 px-4 text-white placeholder:text-white/50 focus:outline-none focus:ring focus:ring-yellow-400/80"
+                                />
+                            </fieldset>
+                            {/* gender dropdown field */}
+                            <fieldset className={`w-full flex flex-col gap-1 mb-4 ${category === 'room-fragrance' ? 'pointer-events-none' : ''}`}>
+                                <label className="text-white text-sm font-body mb-1">Gender</label>
+                                <Dropdown
+                                    label="Select Gender"
+                                    options={genderOptions}
+                                    value={gender}
+                                    onChange={setGender}
+                                />
+                            </fieldset>
+                            {/* discount field */}
+                            <fieldset className='w-full flex flex-col gap-1 mb-4'>
+                                <label className="text-white text-sm font-body mb-1">Discount Price</label>
+                                <div className='w-full flex items-center '>
+                                    <span className="text-white/70 text-sm px-3 border border-white/10 py-1.5">₹</span>
+                                    <input
+                                        type="text"
+                                        placeholder="Enter discount price (optional)"
+                                        className="bg-[#111]/70 border w-full font-body tracking-wide text-xs border-white/10 rounded-r-md py-2 px-4 text-white placeholder:text-white/50 focus:outline-none focus:ring focus:ring-yellow-400/80"
+                                    />
+                                </div>
+                            </fieldset>
+
+                            {/* stock keeping unit field */}
+                            <fieldset className='w-full flex flex-col gap-1 mb-3'>
+                                <label className="text-white text-sm font-body ">SKU (Stock Keeping Unit)</label>
+                                <input
+                                    type="number"
+                                    placeholder="Enter SKU (optional)"
+                                    className="bg-[#111]/70 border w-full text-xs border-white/10 rounded-md py-2 px-4 text-white placeholder:text-white/50 focus:outline-none focus:ring focus:ring-yellow-400/80 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [appearance:textfield]"
+                                />
+                            </fieldset>
+
+                            {/* fragrance notes field */}
+                            <fieldset className='w-full flex flex-col gap-1 mb-[14px]'>
+                                <label className="text-white text-sm font-body">Fragrance Notes</label>
+                                <input
+                                    type="number"
+                                    placeholder="Add notes (e.g. Floral, Woody, Fresh)"
+                                    className="bg-[#111]/70 border w-full text-xs border-white/10 rounded-md py-2 px-4 text-white placeholder:text-white/50 focus:outline-none focus:ring focus:ring-yellow-400/80 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [appearance:textfield]"
+                                />
+                            </fieldset>
+
+                            {/* description field */}
+                            <fieldset className='w-full flex flex-col gap-1 mb-4'>
+                                <label className="text-white text-sm font-body ">Short Description</label>
+                                <textarea
+                                    placeholder="Enter a brief description of the product"
+                                    className="bg-[#111]/70 border w-full text-xs border-white/10 rounded-md py-2 font-body px-4 text-white placeholder:text-white/50 focus:outline-none focus:ring focus:ring-yellow-400/80 resize-none h-25 mt-2"
+                                />
+
+                            </fieldset>
+                            <fieldset className="text-white text-sm font-body flex items-center justify-between gap-3 border border-white/10 rounded-md py-3 px-4 mt-2 w-full">
+                                <div className=''>
+                                    <label>
+                                        Best Seller 
+                                    </label>
+                                    <p className="text-white/50 mt-1.5 text-xs font-body">
+                                        Add this product in Best Seller section 
+                                    </p>
+                                </div>
+                                <div className={`w-11 h-6  shadow rounded-full flex items-center justify-center cursor-pointer relative ${isBestSeller ? 'bg-yellow-300/90' : 'bg-transparent border border-white/50'}`} onClick={() => setIsBestSeller(prev => !prev)}>
+                                    <div className={`size-5  absolute rounded-full left-0 shadow-xl transform duration-300 ${isBestSeller ? 'translate-x-[105%] bg-white' : 'translate-x-0.5 bg-yellow-300/90'}`}></div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
                 </div>
             </div>
-            {/* image section */}
 
+            {/* Footer actions */}
             <div className='w-full h-fit px-5 py-3 mt-3 flex items-center justify-between bg-[#111]/70 border border-white/10 rounded-md'>
-                <button className='text-xs font-body tracking-wide text-white capitalize bg-[#111]/70 border border-white/20 rounded-md px-8 py-2 cursor-pointer' type='button' onClick={() => setIsAddProductClk(false)}>
+                <button
+                    className='text-xs font-body tracking-wide text-white capitalize bg-[#111]/70 border border-white/20 rounded-md px-8 py-2 cursor-pointer'
+                    type='button'
+                    onClick={() => setIsAddProductClk(false)}
+                >
                     cancel
                 </button>
-                <div className='w-fit flex items-center'>
-                    <button className='text-xs font-body tracking-wide text-white capitalize bg-yellow-400/80 border border-white/20 rounded-md px-8 py-2 flex gap-2 cursor-pointer' type='submit'>
-                        <IoSaveOutline className='text-sm' />
-                        <span>save product</span>
-                    </button>
-                </div>
+                <button
+                    className='text-xs font-body tracking-wide text-white capitalize bg-yellow-400/80 border border-white/20 rounded-md px-8 py-2 flex gap-2 items-center cursor-pointer'
+                    type='submit'
+                >
+                    <IoSaveOutline className='text-sm' />
+                    <span>save product</span>
+                </button>
             </div>
         </form>
     )

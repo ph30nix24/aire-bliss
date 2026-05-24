@@ -45,7 +45,7 @@ const Product = ({ products }) => {
         <main className='flex h-screen! bg-black'>
             <SideNavbar />
             <section className='w-[calc(100%-240px)]! h-full'>
-                <div className='w-full h-fit flex items-center justify-between bg-[black]/60 border-b border-white/10 px-5 py-4'>
+                <div className='w-full h-fit flex items-center justify-between bg-[black]/60 border-b border-white/10 px-5 py-2'>
                     <div className='flex items-center'>
                         <h1 className='text-base font-heading text-white font-medium'>Product</h1>
                     </div>
@@ -68,7 +68,7 @@ const Product = ({ products }) => {
                         </div>
                     </div>
                 </div>
-                <div className={`${isAddProductClk ? 'translate-x-0' : 'translate-x-full'} absolute bottom-0 left-0 w-full h-[calc(100%-72px)] transition-all duration-300 bg-[black] backdrop-blur-sm z-20`}>
+                <div className={`${isAddProductClk ? 'translate-x-0' : 'translate-x-full'} absolute bottom-0 left-0 w-full h-[calc(100%-57px)] transition-all duration-300 bg-[black] backdrop-blur-sm z-20`}>
 
                     {/* add product form */}
                     <ProductForm setIsAddProductClk={setIsAddProductClk} />
@@ -98,7 +98,7 @@ const Product = ({ products }) => {
                         ))
                     }
                 </div>
-                <div className='w-full h-[calc(100%-198px)] p-3 '>
+                <div className='w-full h-[calc(100%-183px)] p-3 '>
                     <div className='size-full bg-[white]/10 rounded-md'>
                         <div className='w-full h-fit flex justify-between items-center px-5 py-4 text-white'>
                             <div className='w-fit flex items-center gap-3'>
