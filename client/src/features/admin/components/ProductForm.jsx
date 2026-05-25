@@ -6,6 +6,25 @@ import Dropdown from './DropDown';
 
 
 const ProductForm = ({ setIsAddProductClk }) => {
+    const [formData, setFormData] = useState({
+        productName: '',
+        image: null,
+        previewImages: [null, null, null, null, null],
+        brand: '',
+        category: '',
+        gender: '',
+        price: null,
+        discountPrice: null,
+        stock: null,
+        sku: '',
+        size: "",
+        fragranceNotes: "",
+        shortDescription: "",
+        longDescription: "",
+        featured: false,
+        bestSeller: false,
+    })
+
     const inputRef = useRef(null);
     const previewRefs = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
 
@@ -78,8 +97,27 @@ const ProductForm = ({ setIsAddProductClk }) => {
     const [isFeatured, setIsFeatured] = useState(false);
     const [isBestSeller, setIsBestSeller] = useState(false);
 
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const finalData = {
+            ...formData,
+            bestSeller: isBestSeller,
+            category: category,
+            gender: gender,
+            featured: isFeatured,
+            size: sizeOptions,
+            image: mainImage,
+            previewImages: previewImages.filter(img => img !== null)
+        };
+        setFormData(finalData);
+        console.log(finalData);
+    }
     return (
-        <form action="" className='size-full pt-3 px-5 pb-8'>
+        <form onSubmit={handleSubmit} className='size-full pt-3 px-5 pb-8'>
             <div className='w-full h-[calc(100%-60px)] flex gap-3'>
                 <div className='w-1/3 h-full bg-[#111]/70 border border-white/10 rounded-md py-3 px-5'>
                     <h1 className='text-white font-semibold text-base font-heading'>Product Image</h1>
@@ -190,6 +228,10 @@ const ProductForm = ({ setIsAddProductClk }) => {
                                 <input
                                     type="text"
                                     placeholder="Enter product name"
+                                    name="productName"
+                                    value={formData.productName}
+                                    onChange={handleInputChange}
+                                    required
                                     className="bg-[#111]/70 border w-full text-xs border-white/10 rounded-md py-2 px-4 text-white placeholder:text-white/50 focus:outline-none focus:ring focus:ring-yellow-400/80"
                                 />
                             </fieldset>
@@ -202,6 +244,7 @@ const ProductForm = ({ setIsAddProductClk }) => {
                                     options={categoryOptions}
                                     value={category}
                                     onChange={setCategory}
+
                                 />
                             </fieldset>
 
@@ -213,6 +256,10 @@ const ProductForm = ({ setIsAddProductClk }) => {
                                     <input
                                         type="text"
                                         placeholder="Enter price"
+                                        name="price"
+                                        value={formData.price}
+                                        onChange={handleInputChange}
+                                        required
                                         className="bg-[#111]/70 border w-full text-xs border-white/10 rounded-r-md py-2 px-4 text-white placeholder:text-white/50 focus:outline-none focus:ring focus:ring-yellow-400/80"
                                     />
                                 </div>
@@ -224,6 +271,10 @@ const ProductForm = ({ setIsAddProductClk }) => {
                                 <input
                                     type="number"
                                     placeholder="Enter stock quantity"
+                                    name="stock"
+                                    value={formData.stock}
+                                    onChange={handleInputChange}
+                                    required
                                     className="bg-[#111]/70 border w-full text-xs border-white/10 rounded-md py-2 px-4 text-white placeholder:text-white/50 focus:outline-none focus:ring focus:ring-yellow-400/80 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [appearance:textfield]"
                                 />
                             </fieldset>
@@ -234,8 +285,8 @@ const ProductForm = ({ setIsAddProductClk }) => {
                                 <div className="flex w-full gap-5 mt-2 justify-center">
                                     {
                                         sizes.map((size, index) => (
-                                            <div className='text-white/70 text-xs font-body mb-1 flex items-center gap-2' key={index}>
-                                                <div className='w-4 h-4 border border-white/10 rounded-sm flex items-center justify-center cursor-pointer'>
+                                            <div className='text-white/70 text-xs font-body mb-1 flex items-center gap-2' key={index} onClick={() => setSizeOptions(size)}>
+                                                <div className={'w-4 h-4 border border-white/10 rounded-sm flex items-center justify-center cursor-pointer' + (sizeOptions === size ? ' bg-yellow-400/80' : ' bg-transparent')}>
 
                                                 </div>
                                                 <span>{size}</span>
@@ -250,6 +301,10 @@ const ProductForm = ({ setIsAddProductClk }) => {
                                 <label className="text-white text-sm font-body ">Short Description</label>
                                 <textarea
                                     placeholder="Enter a brief description of the product"
+                                    name="shortDescription"
+                                    value={formData.shortDescription}
+                                    onChange={handleInputChange}
+                                    requried
                                     className="bg-[#111]/70 border w-full text-xs border-white/10 rounded-md py-2 font-body px-4 text-white placeholder:text-white/50 focus:outline-none focus:ring focus:ring-yellow-400/80 resize-none h-25 mt-2"
                                 />
 
@@ -276,6 +331,10 @@ const ProductForm = ({ setIsAddProductClk }) => {
                                 <input
                                     type="text"
                                     placeholder="Enter Brand name"
+                                    name="brand"
+                                    value={formData.brand}
+                                    onChange={handleInputChange}
+                                    required
                                     className="bg-[#111]/70 border w-full text-xs border-white/10 rounded-md py-2 px-4 text-white placeholder:text-white/50 focus:outline-none focus:ring focus:ring-yellow-400/80"
                                 />
                             </fieldset>
@@ -297,6 +356,9 @@ const ProductForm = ({ setIsAddProductClk }) => {
                                     <input
                                         type="text"
                                         placeholder="Enter discount price (optional)"
+                                        name="discountPrice"
+                                        value={formData.discountPrice}
+                                        onChange={handleInputChange}
                                         className="bg-[#111]/70 border w-full font-body tracking-wide text-xs border-white/10 rounded-r-md py-2 px-4 text-white placeholder:text-white/50 focus:outline-none focus:ring focus:ring-yellow-400/80"
                                     />
                                 </div>
@@ -308,6 +370,9 @@ const ProductForm = ({ setIsAddProductClk }) => {
                                 <input
                                     type="number"
                                     placeholder="Enter SKU (optional)"
+                                    name='sku'
+                                    value={formData.sku}
+                                    onChange={handleInputChange}
                                     className="bg-[#111]/70 border w-full text-xs border-white/10 rounded-md py-2 px-4 text-white placeholder:text-white/50 focus:outline-none focus:ring focus:ring-yellow-400/80 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [appearance:textfield]"
                                 />
                             </fieldset>
@@ -316,17 +381,25 @@ const ProductForm = ({ setIsAddProductClk }) => {
                             <fieldset className='w-full flex flex-col gap-1 mb-[14px]'>
                                 <label className="text-white text-sm font-body">Fragrance Notes</label>
                                 <input
-                                    type="number"
+                                    type="text"
                                     placeholder="Add notes (e.g. Floral, Woody, Fresh)"
+                                    name='fragranceNotes'
+                                    value={formData.fragranceNotes}
+                                    onChange={handleInputChange}
+                                    required
                                     className="bg-[#111]/70 border w-full text-xs border-white/10 rounded-md py-2 px-4 text-white placeholder:text-white/50 focus:outline-none focus:ring focus:ring-yellow-400/80 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [appearance:textfield]"
                                 />
                             </fieldset>
 
                             {/* description field */}
                             <fieldset className='w-full flex flex-col gap-1 mb-4'>
-                                <label className="text-white text-sm font-body ">Short Description</label>
+                                <label className="text-white text-sm font-body ">Long Description</label>
                                 <textarea
-                                    placeholder="Enter a brief description of the product"
+                                    placeholder="Enter a detailed description of the product"
+                                    name="longDescription"
+                                    value={formData.longDescription}
+                                    onChange={handleInputChange}
+                                    required
                                     className="bg-[#111]/70 border w-full text-xs border-white/10 rounded-md py-2 font-body px-4 text-white placeholder:text-white/50 focus:outline-none focus:ring focus:ring-yellow-400/80 resize-none h-25 mt-2"
                                 />
 
@@ -334,10 +407,10 @@ const ProductForm = ({ setIsAddProductClk }) => {
                             <fieldset className="text-white text-sm font-body flex items-center justify-between gap-3 border border-white/10 rounded-md py-3 px-4 mt-2 w-full">
                                 <div className=''>
                                     <label>
-                                        Best Seller 
+                                        Best Seller
                                     </label>
                                     <p className="text-white/50 mt-1.5 text-xs font-body">
-                                        Add this product in Best Seller section 
+                                        Add this product in Best Seller section
                                     </p>
                                 </div>
                                 <div className={`w-11 h-6  shadow rounded-full flex items-center justify-center cursor-pointer relative ${isBestSeller ? 'bg-yellow-300/90' : 'bg-transparent border border-white/50'}`} onClick={() => setIsBestSeller(prev => !prev)}>
