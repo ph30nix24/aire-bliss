@@ -13,9 +13,9 @@ const ProductForm = ({ setIsAddProductClk }) => {
         brand: '',
         category: '',
         gender: '',
-        price: null,
-        discountPrice: null,
-        stock: null,
+        price: '',
+        discountPrice: '',
+        stock: '',
         sku: '',
         size: "",
         fragranceNotes: "",
@@ -76,15 +76,11 @@ const ProductForm = ({ setIsAddProductClk }) => {
         previewRefs[index].current.value = '';
     };
 
-    const [gender, setGender] = useState('');
-
     const genderOptions = [
         { label: 'Male', value: 'male' },
         { label: 'Female', value: 'female' },
         { label: 'Unisex', value: 'unisex' },
     ];
-
-    const [category, setCategory] = useState('');
 
     const categoryOptions = [
         { label: 'Perfume', value: 'perfume' },
@@ -94,21 +90,21 @@ const ProductForm = ({ setIsAddProductClk }) => {
     const [sizeOptions, setSizeOptions] = useState(null);
     const sizes = ['30ml', '50ml', '100ml', '150ml', '200ml'];
 
-    const [isFeatured, setIsFeatured] = useState(false);
-    const [isBestSeller, setIsBestSeller] = useState(false);
-
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
+    }
+    const handleDropdownChange = (name, value) => {
+        setFormData(prev => ({ ...prev, [name]: value }));
+    }
+
+    const handleToggle = (name) => {
+        setFormData(prev => ({ ...prev, [name]: !prev[name] }));
     }
     const handleSubmit = (e) => {
         e.preventDefault();
         const finalData = {
             ...formData,
-            bestSeller: isBestSeller,
-            category: category,
-            gender: gender,
-            featured: isFeatured,
             size: sizeOptions,
             image: mainImage,
             previewImages: previewImages.filter(img => img !== null)
@@ -242,8 +238,8 @@ const ProductForm = ({ setIsAddProductClk }) => {
                                 <Dropdown
                                     label="Select Category"
                                     options={categoryOptions}
-                                    value={category}
-                                    onChange={setCategory}
+                                    value={formData.category}
+                                    onChange={(value) => handleDropdownChange('category', value)}
 
                                 />
                             </fieldset>
@@ -304,7 +300,7 @@ const ProductForm = ({ setIsAddProductClk }) => {
                                     name="shortDescription"
                                     value={formData.shortDescription}
                                     onChange={handleInputChange}
-                                    requried
+                                    required
                                     className="bg-[#111]/70 border w-full text-xs border-white/10 rounded-md py-2 font-body px-4 text-white placeholder:text-white/50 focus:outline-none focus:ring focus:ring-yellow-400/80 resize-none h-25 mt-2"
                                 />
 
@@ -319,8 +315,8 @@ const ProductForm = ({ setIsAddProductClk }) => {
                                         Add this product in Featured Products section
                                     </p>
                                 </div>
-                                <div className={`w-11 h-6  shadow rounded-full flex items-center justify-center cursor-pointer relative ${isFeatured ? 'bg-yellow-300/90' : 'bg-transparent border border-white/50'}`} onClick={() => setIsFeatured(prev => !prev)}>
-                                    <div className={`size-5  absolute rounded-full left-0 shadow-xl transform duration-300 ${isFeatured ? 'translate-x-[105%] bg-white' : 'translate-x-0.5 bg-yellow-300/90'}`}></div>
+                                <div className={`w-11 h-6  shadow rounded-full flex items-center justify-center cursor-pointer relative ${formData.featured ? 'bg-yellow-300/90' : 'bg-transparent border border-white/50'}`} onClick={() => handleToggle('featured')}>
+                                    <div className={`size-5  absolute rounded-full left-0 shadow-xl transform duration-300 ${formData.featured ? 'translate-x-[105%] bg-white' : 'translate-x-0.5 bg-yellow-300/90'}`}></div>
                                 </div>
                             </fieldset>
                         </div>
@@ -339,13 +335,13 @@ const ProductForm = ({ setIsAddProductClk }) => {
                                 />
                             </fieldset>
                             {/* gender dropdown field */}
-                            <fieldset className={`w-full flex flex-col gap-1 mb-4 ${category === 'room-fragrance' ? 'pointer-events-none' : ''}`}>
+                            <fieldset className={`w-full flex flex-col gap-1 mb-4 ${formData.category === 'room-fragrance' ? 'pointer-events-none' : ''}`}>
                                 <label className="text-white text-sm font-body mb-1">Gender</label>
                                 <Dropdown
                                     label="Select Gender"
                                     options={genderOptions}
-                                    value={gender}
-                                    onChange={setGender}
+                                    value={formData.gender}
+                                    onChange={(value) => handleDropdownChange('gender', value)}
                                 />
                             </fieldset>
                             {/* discount field */}
@@ -413,8 +409,8 @@ const ProductForm = ({ setIsAddProductClk }) => {
                                         Add this product in Best Seller section
                                     </p>
                                 </div>
-                                <div className={`w-11 h-6  shadow rounded-full flex items-center justify-center cursor-pointer relative ${isBestSeller ? 'bg-yellow-300/90' : 'bg-transparent border border-white/50'}`} onClick={() => setIsBestSeller(prev => !prev)}>
-                                    <div className={`size-5  absolute rounded-full left-0 shadow-xl transform duration-300 ${isBestSeller ? 'translate-x-[105%] bg-white' : 'translate-x-0.5 bg-yellow-300/90'}`}></div>
+                                <div className={`w-11 h-6  shadow rounded-full flex items-center justify-center cursor-pointer relative ${ formData.bestSeller ? 'bg-yellow-300/90' : 'bg-transparent border border-white/50'}`} onClick={() => handleToggle('bestSeller')}>
+                                    <div className={`size-5  absolute rounded-full left-0 shadow-xl transform duration-300 ${formData.bestSeller ? 'translate-x-[105%] bg-white' : 'translate-x-0.5 bg-yellow-300/90'}`}></div>
                                 </div>
                             </fieldset>
                         </div>

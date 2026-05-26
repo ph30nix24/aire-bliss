@@ -25,13 +25,15 @@ const SignUp = () => {
             ...formData, [e.target.name]: e.target.value
         })
     }
-
+    if (formData.password !== formData.confirmPassword) {
+        return
+    }
     const formSubmit = async (e) => {
         e.preventDefault();
         await handleSignUp({
             name: formData.name,
             email: formData.email,
-
+            password: formData.password,
         })
     }
 
