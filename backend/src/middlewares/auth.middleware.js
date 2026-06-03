@@ -1,5 +1,13 @@
 import jwt from 'jsonwebtoken';
 
+
+/**
+ * @name authenticateToken
+ * @desc Middleware to authenticate JWT token
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 export const authenticateToken = (req, res, next) => {
     const token = req.cookies.token;
     if (!token) {
