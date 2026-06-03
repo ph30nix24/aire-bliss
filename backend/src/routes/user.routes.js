@@ -5,11 +5,10 @@ const userRouter = Router();
 
 /**
  * @name userRoute
- * @route /aire-bliss/profile/:id
+ * @route /aire-bliss/user-profile/
  * @access private
  */
-userRouter.get("/", (req, res) => {
-    res.send("User");
-})
+userRouter.get("/", getUserProfile);
+
 
 export default userRouter;
