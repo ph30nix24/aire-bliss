@@ -17,7 +17,6 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: true,
-        minlenght: 8
     },
     phoneNo : {
         type: String,
@@ -34,14 +33,8 @@ const userSchema = mongoose.Schema({
     },
     addresses: [
       {
-        fullName: String,
-        phone: String,
-        pincode: String,
-        state: String,
-        city: String,
-        houseNo: String,
-        area: String,
-        landmark: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Address",
       },
     ],
     wishlist: [
@@ -63,6 +56,14 @@ const userSchema = mongoose.Schema({
         },
       },
     ],
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
+    isBlocked: {
+        type: Boolean,
+        default: false
+    },
 }, { timestamps: true, })
 
 const User = mongoose.model("user", userSchema);

@@ -3,11 +3,6 @@ import { loginController, signupController } from '../controllers/auth.controlle
 
 const authRouter = express.Router();
 
-authRouter.get("/", (req, res) => {
-    res.send("Auth");
-})
-
-
 /**
  * @name loginRoute
  * @route /aire-bliss/auth/login

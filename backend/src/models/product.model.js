@@ -6,11 +6,6 @@ const productSchema = mongoose.Schema({
         required: true,
         trim: true
     },
-    brand: {
-        type: String,
-        default: "Aire Bliss",
-        trim: true
-    },
     mainImage: {
         type: String,
         required: true
@@ -20,21 +15,10 @@ const productSchema = mongoose.Schema({
             type: String
         }
     ],
-    price: {
-        type: Number,
-        required: true
-    },
-    discount: {
-        type: Number,
-        default: 0
-    },
-    shortDescription: {
+    brand: {
         type: String,
-        required: true
-    },
-    longDescription: {
-        type: String,
-        required: true
+        default: "Aire Bliss",
+        trim: true
     },
     category: {
         type: String,
@@ -44,26 +28,62 @@ const productSchema = mongoose.Schema({
     },
     gender: {
         type: String,
-        enum: ["male", "female", "unisex"],
+        enum: ["male", "female", "unisex", null],
+    },
+    price: {
+        type: Number,
+        required: true,
+        min: 100
+    },
+    discount: {
+        type: Number,
+        default: 0
     },
     stock: {
         type: Number,
         required: true,
         min: 0
     },
+    sku: {
+        type: String,
+        required: true,
+        unique: true,
+        uppercase: true,
+        trim: true
+    },
+    size: {
+        type: String,
+        required: true
+    },
+    fragranceNotes: {
+        type: [String],
+        required: true
+    },
+    shortDescription: {
+        type: String,
+        required: true
+    },
+    longDescription: {
+        type: String,
+        required: true
+    },
+    featured : {
+        type: Boolean,
+        default: false
+    },
+    bestseller : {
+        type: Boolean,
+        default: false
+    },
 
     ratings: [
         {
-            user: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'User'
-            },
-            score: {
-                type: Number,
-                required: true,
-                min: 1,
-                max: 5
-            }
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Rating'
         }
     ]
-});
+}, {timestamps: true});
+
+const Product = mongoose.model('Product', productSchema);
+
+export default Product;
