@@ -5,9 +5,10 @@ import { TbBulbFilled } from "react-icons/tb";
 import Dropdown from './DropDown';
 import { toast } from 'react-hot-toast';
 import { addProductApi } from '../services/admin.api';
-
+import { useNavigate } from 'react-router';
 
 const ProductForm = ({ setIsAddProductClk }) => {
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         productName: '',
         image: null,
@@ -137,13 +138,14 @@ const ProductForm = ({ setIsAddProductClk }) => {
                 }
             });
 
-            await addProductApi(formDataToSend);
+            const data = await addProductApi(formDataToSend);
             toast.success("Product added successfully!");
             setIsAddProductClk(false);
+            navigate("/admin/product");
         }
         catch (error) {
             console.error('Error during product submission:', error);
-            toast.error("An error occurred while saving the product. Please try again.");
+            toast.error("An error occurred while saving the product. Please try again.", error);
         }
     }
     return (

@@ -8,7 +8,6 @@ import { uploadToCloudinary } from '../services/cloudinary.controller.js'
  * @access Private
  */
 export const createProduct = async (req, res) => {
-    console.log(req.body)
     try {
         const { productName, brand, category, gender, price, discountPrice, stock, size, fragranceNotes, shortDescription, longDescription, featured, bestSeller } = req.body;
         console.log("1")
@@ -17,10 +16,9 @@ export const createProduct = async (req, res) => {
         if (!productName || !category || !price || !stock || !size || !fragranceNotes || !shortDescription || !longDescription) {
             return res.status(400).json({ message: "Product name and category are required" });
         }
-        console.log("3")
+
 
         if (!sku) {
-            console.log("sku")
             let nextNumber = 1;
             const lastProduct = await Product.findOne().sort({ createdAt: -1 }).select('sku');
             if (lastProduct) {
@@ -31,7 +29,7 @@ export const createProduct = async (req, res) => {
             sku = `AB-${String(nextNumber).padStart(6, '0')}`;
             console.log(sku)
         }
-        console.log("4")
+
 
         const notes = fragranceNotes.split(" ");
 
@@ -72,8 +70,9 @@ export const createProduct = async (req, res) => {
         })
 
         await newProduct.save();
-
+        console.log("created succesfully")
         return res.status(201).json({
+            success: true,
             message: "product successfully created"
         })
     }
