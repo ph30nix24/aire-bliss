@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser"
 const app = express();
 
 app.use(cors({
-    origin: " http://localhost:5173/",
+    origin: "http://localhost:5173",
     credentials: true
 }))
 
@@ -21,5 +21,8 @@ app.get("/", (req, res) => {
 //authRoutes 
 import authRouter from './routes/auth.routes.js';
 app.use("/aire-bliss/auth", authRouter);
+
+import adminRouter from './routes/admin.routes.js';
+app.use("/aire-bliss/admin", adminRouter);
 
 export default app;

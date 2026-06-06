@@ -1,7 +1,7 @@
 import axios from "axios";
 const API = import.meta.env.VITE_API_URI;
 
-const Auth_API = `${API}/aire-bliss/auth`;
+const Auth_API = `${API}aire-bliss/auth`;
 
 
 export const registerApi = async ({ name, email, password }) => {

@@ -3,6 +3,8 @@ import { IoCloudUploadOutline, IoSaveOutline } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 import { TbBulbFilled } from "react-icons/tb";
 import Dropdown from './DropDown';
+import { toast } from 'react-hot-toast';
+import { addProductApi } from '../services/admin.api';
 
 
 const ProductForm = ({ setIsAddProductClk }) => {
@@ -101,8 +103,12 @@ const ProductForm = ({ setIsAddProductClk }) => {
     const handleToggle = (name) => {
         setFormData(prev => ({ ...prev, [name]: !prev[name] }));
     }
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!mainImage) {
+            toast.error("Please upload a main product image.");
+            return;
+        }
         const finalData = {
             ...formData,
             size: sizeOptions,
@@ -111,6 +117,34 @@ const ProductForm = ({ setIsAddProductClk }) => {
         };
         setFormData(finalData);
         console.log(finalData);
+        try {
+            const formDataToSend = new FormData();
+
+            // Main image
+            formDataToSend.append("image", mainImage);
+
+            // Preview images
+            previewImages
+                .filter(img => img)
+                .forEach(img => {
+                    formDataToSend.append("previewImages", img);
+                });
+
+            // Other fields
+            Object.keys(formData).forEach(key => {
+                if (key !== "image" && key !== "previewImages") {
+                    formDataToSend.append(key, formData[key]);
+                }
+            });
+
+            await addProductApi(formDataToSend);
+            toast.success("Product added successfully!");
+            setIsAddProductClk(false);
+        }
+        catch (error) {
+            console.error('Error during product submission:', error);
+            toast.error("An error occurred while saving the product. Please try again.");
+        }
     }
     return (
         <form onSubmit={handleSubmit} className='size-full pt-3 px-5 pb-8'>
@@ -124,7 +158,7 @@ const ProductForm = ({ setIsAddProductClk }) => {
                         ref={inputRef}
                         onChange={handleMainFileChange}
                         type="file"
-                        accept="image/png, image/jpeg"
+                        accept="image/png, image/jpeg, image/webp"
                         className="hidden"
                     />
 
@@ -155,7 +189,7 @@ const ProductForm = ({ setIsAddProductClk }) => {
                                 <div className='text-xs font-body tracking-wide text-white capitalize bg-yellow-400/80 border border-white/20 rounded-md px-8 py-2 mt-2'>
                                     Browse Files
                                 </div>
-                                <p className='text-white/60 text-xs font-body mt-3'>JPG, PNG, Max file size of 5MB. (Up to 5 images)</p>
+                                <p className='text-white/60 text-xs font-body mt-3'>JPG, PNG, WEBP, Max file size of 5MB. (Up to 5 images)</p>
                             </div>
                         )}
                     </div>
@@ -170,7 +204,7 @@ const ProductForm = ({ setIsAddProductClk }) => {
                                 <input
                                     ref={previewRefs[index]}
                                     type="file"
-                                    accept="image/png, image/jpeg"
+                                    accept="image/png, image/jpeg, image/webp"
                                     className="hidden"
                                     onChange={(e) => handlePreviewFileChange(e, index)}
                                 />
@@ -409,7 +443,7 @@ const ProductForm = ({ setIsAddProductClk }) => {
                                         Add this product in Best Seller section
                                     </p>
                                 </div>
-                                <div className={`w-11 h-6  shadow rounded-full flex items-center justify-center cursor-pointer relative ${ formData.bestSeller ? 'bg-yellow-300/90' : 'bg-transparent border border-white/50'}`} onClick={() => handleToggle('bestSeller')}>
+                                <div className={`w-11 h-6  shadow rounded-full flex items-center justify-center cursor-pointer relative ${formData.bestSeller ? 'bg-yellow-300/90' : 'bg-transparent border border-white/50'}`} onClick={() => handleToggle('bestSeller')}>
                                     <div className={`size-5  absolute rounded-full left-0 shadow-xl transform duration-300 ${formData.bestSeller ? 'translate-x-[105%] bg-white' : 'translate-x-0.5 bg-yellow-300/90'}`}></div>
                                 </div>
                             </fieldset>
