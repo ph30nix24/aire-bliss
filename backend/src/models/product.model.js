@@ -76,7 +76,10 @@ const productSchema = mongoose.Schema({
         type: Boolean,
         default: false
     },
-
+    isActive: {
+        type: Boolean,
+        default: false
+    },
     ratings: [
         {
             type: mongoose.Schema.Types.ObjectId,

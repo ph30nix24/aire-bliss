@@ -9,7 +9,7 @@ const app = express();
 //     credentials: true
 // }))
 app.use(cors({
-    origin: "https://aire-bliss.vercel.app/",
+    origin: "https://aire-bliss.vercel.app",
     credentials: true
 }))
 

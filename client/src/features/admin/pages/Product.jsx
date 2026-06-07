@@ -12,15 +12,19 @@ import { PiFunnelThin } from "react-icons/pi";
 import { IoSaveOutline } from "react-icons/io5";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import ProductForm from '../components/ProductForm';
+import { useProduct } from '../../shop/hooks/useProducts';
 
 
 
 
 const Product = ({ products }) => {
+    const { products, loading } = useProduct();
+
+
     const adminHeaderSection = [
         {
             name: "Total Products",
-            value: 98,
+            value: products.length,
             icon: TbPerfume
         },
         {
