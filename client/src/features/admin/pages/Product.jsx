@@ -17,24 +17,32 @@ import { useProduct } from '../../shop/hooks/useProducts';
 
 
 
-const Product = ({ products }) => {
+const Product = () => {
     const { products, loading } = useProduct();
+    
+    const totalPages = products.length / 6;
+    
+    const [currentPage, setCurrentPage] = useState(0);
 
 
     const adminHeaderSection = [
         {
             name: "Total Products",
-            value: products.length,
+            value: products?.length || 0,
             icon: TbPerfume
         },
         {
             name: "Active Products",
-            value: 86,
+            value: products?.filter(product => {
+                return product.isActive === true;
+            }).length || 0,
             icon: BsBox
         },
         {
             name: "Out of Stock",
-            value: 12,
+            value: products?.filter(product => {
+                return product.isActive !== true;
+            }).length || 0,
             icon: BsClipboard2X
         },
         {
@@ -157,7 +165,7 @@ const Product = ({ products }) => {
                             </div>
                         </div>
                         <div className='w-full h-fit flex justify-between items-center px-5 py-4 text-white'>
-                            <p className='font-body text-sm'>showing of 1 to 6 of 98 products</p>
+                            <p className='font-body text-sm'>showing of {(6*currentPage) + 1} to {(6*currentPage) + 6} of {products.length} products</p>
                             <div className='w-fit flex gap-3 items-center'>
                                 <p className='text-xs px-5 py-2 border border-white/10 rounded-md font-body tracking-wide'>6 per page</p>
                                 <div className='size-8 border border-white/10 rounded-md center text-sm font-heading text-white/70 cursor-pointer'><FaAngleLeft /></div>
