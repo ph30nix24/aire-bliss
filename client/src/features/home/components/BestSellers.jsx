@@ -43,7 +43,7 @@ const BestSellers = ({ isMobile }) => {
                             <h2 className='text-xl uppercase font-subheading font-medium'>{product.name}</h2>
                             <p className='text-sm text-gray-300 px-5'>{product.tagline}</p>
                             <p className='font-body py-1 text-xl'>Rs. <span className='text-gradient font-semibold font-subheading'> {product.price.toFixed(2)}</span></p>
-                            <p className='flex justify-center items-center gap-2'><StarRating rating={product.rating}/> <span className='text-white/70 text-sm'>({product.reviews})</span></p>
+                            <div className='flex justify-center items-center gap-2'><StarRating rating={product.rating}/> <span className='text-white/70 text-sm'>({product.reviews})</span></div>
                             <button className='w-full h-fit py-2 gap-3 border-2 border-yellow-400/40 text-yellow-400/70 rounded-md mt-2 center hover:bg-yellow-400/80 transition-all duration-300 hover:text-black cursor-pointer'>
                                 <BsHandbag />
                                 <p className='uppercase text-sm'>Add to cart</p>

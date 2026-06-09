@@ -8,7 +8,6 @@ export const addProductApi = async (productData) => {
         const res = await axios.post(`${Admin_API}/product/create-product`, productData, {
             withCredentials: true
         });
-        console.log(res.data.message);
         return res.data;
     }
     catch (error) {

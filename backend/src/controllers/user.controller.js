@@ -1,7 +1,15 @@
 import User from '../models/user.model.js';
 
+
+/**
+ * @name getUserProfile
+ * @route /aire-bliss/user/get-me
+ * @desc fetch user from database
+ * @returns user
+ */
+
 export const getUserProfile = async (req, res) => {
-    const userId = req.params.id;
+    const userId = req.user.id;
     try {
         const user = await User.findById(userId).select('-password');
         if (!user) {
@@ -12,7 +20,7 @@ export const getUserProfile = async (req, res) => {
             message: "User profile fetched successfully"
         });
     } catch (error) {
-        res.status(500).json({ message: "Server error" });
+        res.status(500).json({ message: `Server error ${error.message}` });
     }
 }
 

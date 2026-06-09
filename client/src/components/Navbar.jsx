@@ -120,7 +120,7 @@ const Navbar = () => {
             </ul>
             <div className="w-fit flex gap-4">
                 <FiSearch className="size-5 cursor-pointer text-white" />
-                <PiUserCircleLight className="size-5 cursor-pointer text-white" />
+                <NavLink to="/user/profile"><PiUserCircleLight className="size-5 cursor-pointer text-white" /></NavLink>
                 <GoHeart className="size-5 cursor-pointer text-white" />
                 <CiShoppingCart className="size-5 cursor-pointer text-white" />
             </div>

@@ -7,7 +7,7 @@ export const getAllProductApi = async () => {
         const response = await axios.get(`${API}aire-bliss/products/`, {
             withCredentials: true
         })
-        console.log(response.data)
+       
         return response.data
     }
     catch(error) {

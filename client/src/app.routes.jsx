@@ -5,6 +5,10 @@ import SignUp from "./features/auth/SignUp";
 import Shop from "./features/shop/Shop";
 import Dashboard from "./features/admin/pages/Dashboard";
 import Product from "./features/admin/pages/Product";
+import Profile from "./features/users/pages/Profile";
+import Protect from "./components/Protect";
+
+
 
 export const router = createBrowserRouter([
     {
@@ -30,5 +34,9 @@ export const router = createBrowserRouter([
     {
         path: '/admin/product',
         element: <Product />
+    },
+    {
+        path: '/user/profile',
+        element: <Protect><Profile /></Protect>
     }
 ])

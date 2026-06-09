@@ -9,7 +9,9 @@ import jwt from 'jsonwebtoken';
  * @param {Function} next - Express next middleware function
  */
 export const authenticateToken = (req, res, next) => {
+
     const token = req.cookies.token;
+    console.log(token)
     if (!token) {
         return res.status(401).json({ message: "Unauthorized" });
     }
@@ -18,6 +20,6 @@ export const authenticateToken = (req, res, next) => {
         req.user = decoded;
         next();
     } catch (error) {
-        return res.status(403).json({ message: "Forbidden" });
+        return res.status(403).json({ message: `Forbidden ${error.message}` });
     }
 }

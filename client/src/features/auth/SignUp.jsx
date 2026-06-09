@@ -7,8 +7,12 @@ import { PiEyesLight, PiFlowerLotus } from 'react-icons/pi';
 import { useMediaQuery } from 'react-responsive';
 import { useAuth } from './hooks/useAuth';
 import Loader from '../../components/Loader';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router';
+
 
 const SignUp = () => {
+    const navigate = useNavigate()
     const { loading, handleSignUp } = useAuth()
     const isMobile = useMediaQuery({ maxWidth: 768 })
     const [hidingPassword, setHidingPassword] = useState(true);
@@ -25,16 +29,25 @@ const SignUp = () => {
             ...formData, [e.target.name]: e.target.value
         })
     }
-    if (formData.password !== formData.confirmPassword) {
-        return
-    }
     const formSubmit = async (e) => {
         e.preventDefault();
+        console.log(formData)
+        if (!formData.password || !formData.confirmPassword) {
+            toast.error("Please fill all password fields");
+            return;
+        }
+
+        if (formData.password !== formData.confirmPassword) {
+            toast.error("Passwords do not match");
+            return;
+        }
         await handleSignUp({
             name: formData.name,
             email: formData.email,
             password: formData.password,
         })
+
+        navigate('/user/profile')
     }
 
     if (isMobile) {
@@ -136,7 +149,7 @@ const SignUp = () => {
                             <p className='form-label'>Password</p>
                             <fieldset className='form-field mb-2!'>
                                 <label htmlFor=""><CiLock className='text-yellow-500/80 text-2xl' /></label>
-                                <input className='form-input' type={hidingConfPassword ? "password" : "text"} name='confirmPassword' id='confirmPassword' placeholder='Confirm your password' required />
+                                <input className='form-input' type={hidingConfPassword ? "password" : "text"} name='confirmPassword' id='confirmPassword' placeholder='Confirm your password' onChange={handleChange}  required />
                                 {hidingConfPassword ? <GrFormViewHide className='text-yellow-500/80 text-2xl cursor-pointer' onClick={() => setHidingConfPassword(false)} /> : <PiEyesLight className='text-yellow-500/80 text-2xl cursor-pointer' onClick={() => setHidingConfPassword(true)} />}
                             </fieldset>
 

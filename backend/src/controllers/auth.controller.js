@@ -4,39 +4,46 @@ import jwt from 'jsonwebtoken'
 
 
 const loginController = async (req, res) => {
-    const { email, password } = req.body;
-    console.log(email, password)
-    if (!email || !password) {
-        return res.status(403).json({ message: "Missing fields All fields are required." })
-    }
-    const user = await User.findOne({ email })
-    if (!user) {
-        return res.status(400).json({ message: "Invalid credentials" });
-    }
-    const isPasswordCorrect = await bcrypt.compare(password, user.password);
-    if (!isPasswordCorrect) {
-        return res.status(400).json({ message: "Invalid credentials" });
-    }
+    try {
+        const { email, password } = req.body;
+        console.log(email, password)
+        if (!email || !password) {
+            return res.status(403).json({ message: "Missing fields All fields are required." })
+        }
+        const user = await User.findOne({ email })
+        if (!user) {
+            return res.status(400).json({ message: "Invalid credentials" });
+        }
+        const isPasswordCorrect = await bcrypt.compare(password, user.password);
+        if (!isPasswordCorrect) {
+            return res.status(400).json({ message: "Invalid credentials" });
+        }
 
-    const { password: userPassword, ...safeUser } = user._doc;
+        const { password: userPassword, ...safeUser } = user._doc;
 
-    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
-    return res.status(200)
-        .cookie("token", token, {
-            httpOnly: true,
-            secure: true, // REQUIRED for cross-site
-            sameSite: "None",
+        const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
+            expiresIn: "1d",
+        });
+        return res.status(200)
+            .cookie("token", token, {
+                httpOnly: true,
+                secure: true, // REQUIRED for cross-site
+                sameSite: "None",
+            })
+            .json({
+                message: "login successful",
+                user: safeUser
+            })
+    } catch (e) {
+        return res.status(500).json({
+            message: `login failed ${e.message}`
         })
-        .json({
-            message: "login successful",
-            user: safeUser
-        })
+    }
 }
 
 const signupController = async (req, res) => {
     const { name, email, password } = req.body;
+    console.log(name, email, password)
     if (!name || !email || !password) {
         return res.status(403).json({ message: "Missing fields All fields are required." })
     }

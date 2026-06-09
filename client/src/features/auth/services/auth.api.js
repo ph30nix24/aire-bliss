@@ -3,6 +3,7 @@ const API = import.meta.env.VITE_API_URI;
 
 const Auth_API = `${API}aire-bliss/auth`;
 
+const User_API = `${API}aire-bliss/user`
 
 export const registerApi = async ({ name, email, password }) => {
     try {
@@ -13,8 +14,10 @@ export const registerApi = async ({ name, email, password }) => {
         return res.data;
     }
     catch (error) {
-        console.error('Error during registration:', error);
-        throw error
+        console.error(
+            "Error:",
+            error.response?.data?.message || e.message
+        );
     }
 }
 export const loginApi = async ({ email, password }) => {
@@ -26,7 +29,22 @@ export const loginApi = async ({ email, password }) => {
         return res.data;
     }
     catch (error) {
-        console.error('Error during Login:', error);
-        throw error
+        console.error(
+            "Error:",
+            error.response?.data?.message || error.message
+        );
+    }
+}
+
+export const getCurrentUserApi = async () => {
+    try {
+        const res = await axios.get(`${User_API}/get-user`, {
+            withCredentials: true
+        })
+        console.log(res.data.message);
+        return res.data
+    }
+    catch (error) {
+        console.error('Error during getting current user:', error.message);
     }
 }

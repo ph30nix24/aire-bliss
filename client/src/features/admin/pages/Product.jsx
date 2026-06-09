@@ -13,15 +13,18 @@ import { IoSaveOutline } from "react-icons/io5";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import ProductForm from '../components/ProductForm';
 import { useProduct } from '../../shop/hooks/useProducts';
+import Loader from '../../../components/Loader';
+import Item from '../components/Item';
 
 
 
 
 const Product = () => {
     const { products, loading } = useProduct();
+    console.log(products)
     
-    const totalPages = products.length / 6;
-    
+    const totalPages = products.length/6  || 1;
+    console.log(totalPages)
     const [currentPage, setCurrentPage] = useState(0);
 
 
@@ -52,7 +55,7 @@ const Product = () => {
         },
     ]
     const [isAddProductClk, setIsAddProductClk] = useState(false);
-    
+
     return (
         <main className='flex h-screen! bg-black'>
             <SideNavbar />
@@ -84,14 +87,14 @@ const Product = () => {
 
                     {/* add product form */}
                     <ProductForm setIsAddProductClk={setIsAddProductClk} />
-                    
+
                 </div>
 
                 <div className='w-full h-fit flex gap-3 p-3 pb-0'>
                     {
                         adminHeaderSection.map((item, index) => (
                             <div className='w-1/4 h-fit ' key={index}>
-                                <div className='w-full h-full p-4 bg-[white]/10 rounded-md flex items-center justify-between'>
+                                <div className='w-full h-full p-4 bg-[#101012] rounded-md flex items-center justify-between'>
                                     <div className=''>
                                         <p className='text-white/70 text-xs font-body'>{item.name}</p>
                                         <p className='text-white font-semibold text-2xl font-body mt-2'>{item.value}</p>
@@ -111,7 +114,9 @@ const Product = () => {
                     }
                 </div>
                 <div className='w-full h-[calc(100%-183px)] p-3 '>
-                    <div className='size-full bg-[white]/10 rounded-md'>
+                    <div className='size-full bg-[#101012] rounded-md'>
+
+                        
                         <div className='w-full h-fit flex justify-between items-center px-5 py-4 text-white'>
                             <div className='w-fit flex items-center gap-3'>
                                 <div className='flex py-2 px-4 gap-4 items-center border border-white/10 rounded-md'>
@@ -140,9 +145,11 @@ const Product = () => {
                                 </fieldset>
                             </form>
                         </div>
+                        
                         <div className='w-full h-[calc(100%-132px)] '>
-                            <div className='w-full px-5 py-3 h-fit flex bg-[#222]/60 items-center'>
-                                <div className='w-3/10 flex items-center'>
+                            {/* product heading */}
+                            <div className='w-full px-5 py-3 h-fit flex bg-[#161618] items-center'>
+                                <div className='w-3/10 flex items-center gap-2'>
                                     <div className="size-3.5 border rounded-xs border-white/60"></div>
                                     <div className='text-xs text-white/70 font-body uppercase ml-3 w-[95%]'>Product Name</div>
                                 </div>
@@ -158,23 +165,32 @@ const Product = () => {
                                     <div className='w-1/3 text-xs text-white/70 font-body uppercase ml-3'>Actions</div>
                                 </div>
                             </div>
-                            <div className='w-full h-[calc(100%-40px)]'>
-                                {products ? products.map((item, index) => (
-                                    <div></div>
-                                )) : (<p className='size-full center text-white/70 font-body text-sm'>No products found</p>)}
+                            {/* products */}
+                            <div className='w-full h-[calc(100%-40px)] flex flex-col'>
+                                {loading ? (
+                                    <div className='size-full center'>
+                                        <Loader />
+                                    </div>
+                                ) : (
+                                    products?.length > 0 ? (products.slice(0, 6).map((item, index) => (
+                                        <Item item={item} key={index} />
+                                    ))) : (<p className='size-full center text-white/70 font-body text-sm'>No products found</p>)
+                                )}
                             </div>
                         </div>
+
+                        {/* page navigation */}
                         <div className='w-full h-fit flex justify-between items-center px-5 py-4 text-white'>
-                            <p className='font-body text-sm'>showing of {(6*currentPage) + 1} to {(6*currentPage) + 6} of {products.length} products</p>
+                            <p className='font-body text-sm'>showing of {(6 * currentPage) + 1} to {(6 * currentPage) + 6} of {products.length} products</p>
                             <div className='w-fit flex gap-3 items-center'>
-                                <p className='text-xs px-5 py-2 border border-white/10 rounded-md font-body tracking-wide'>6 per page</p>
-                                <div className='size-8 border border-white/10 rounded-md center text-sm font-heading text-white/70 cursor-pointer'><FaAngleLeft /></div>
-                                <div className='size-8 border border-white/10 rounded-md center text-sm font-heading text-white/70 cursor-pointer'>1</div>
-                                <div className='size-8 border border-white/10 rounded-md center text-sm font-heading text-white/70 cursor-pointer'>2</div>
-                                <div className='size-8 border border-white/10 rounded-md center text-sm font-heading text-white/70 cursor-pointer'>3</div>
-                                <div className='size-8 border border-white/10 rounded-md center text-sm font-heading text-white/70 cursor-pointer'>...</div>
-                                <div className='size-8 border border-white/10 rounded-md center text-sm font-heading text-white/70 cursor-pointer'>10</div>
-                                <div className='size-8 border border-white/10 rounded-md center text-sm font-heading text-white/70 cursor-pointer'><FaAngleRight /></div>
+                                <p className={`text-xs px-5 py-2 border border-white/10 rounded-md font-body tracking-wide `}>6 per page</p>
+                                <div className={`size-8 border border-white/10 rounded-md center text-sm font-heading text-white/70 cursor-pointer ${totalPages > 1 && currentPage+1 > 1 ? "flex" : "hidden!"}`}><FaAngleLeft /></div>
+                                {Array.from({ length: Math.min(totalPages, 4)}).map((_, index) => (
+                                    <div className={`size-8 border border-white/10 rounded-md center text-sm font-heading text-white/70 cursor-pointer ${currentPage === index ? 'bg-yellow-400/60' : ''}`}>{totalPages >= 4 && index === 2 ? (<span>...</span>) : ( <span>{index + 1}</span>)}</div>
+                                )
+                                )}
+                                
+                                <div className={`size-8 border border-white/10 rounded-md center text-sm font-heading text-white/70 cursor-pointer ${totalPages >= 1  && currentPage+1 === totalPages ? "hidden!" : "flex"}`}><FaAngleRight /></div>
                             </div>
                         </div>
                     </div>
