@@ -125,7 +125,7 @@ const Login = () => {
                                 <BsArrowRight />
                             </button>
                         </form>
-                        <p className='form-label mt-5'>Don't have an account? <a href='/signup' className='text-yellow-400/70'>Sign Up</a></p>
+                        <p className='form-label mt-5'>Don't have an account? <a href='/auth/signup' className='text-yellow-400/70'>Sign Up</a></p>
                     </div>
                 </div>
             </div>

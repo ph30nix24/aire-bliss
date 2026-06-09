@@ -15,7 +15,7 @@ const Protect = ({ children }) => {
     }
 
     if (!user) {
-        return <Navigate to="/login" replace state={{ from: location.pathname }} />;
+        return <Navigate to="/auth/login" replace state={{ from: location.pathname }} />;
     }
 
     return children;
