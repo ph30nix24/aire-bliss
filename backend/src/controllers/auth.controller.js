@@ -1,6 +1,7 @@
 import User from '../models/user.model.js'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import { optGenater } from '../utils/otpGenerater.js';
 
 
 const loginController = async (req, res) => {
@@ -58,11 +59,20 @@ const signupController = async (req, res) => {
         password: hashedPassword,
         role: "user"
     })
+
+    const otp = optGenater();
+
+    // saving otp
+    user.verificationOTP = otp
+    user.verificationOTPExpires = Date.now() + 10 * 60 * 1000;
+
     await user.save();
+
+    // creating token
     const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
         expiresIn: "1d",
     });
-    const { password: userPassword, ...safeUser } = user._doc;
+    const { password: userPassword, verificationOTP: userOtp, verificationOTPExpires: userVerificationOTPExpires,  ...safeUser } = user._doc;
 
     return res
         .status(200)
