@@ -31,6 +31,16 @@ const userSchema = mongoose.Schema({
     enum: ["admin", "user"],
     default: "user"
   },
+  dateOfBirth: {
+    type: Date,
+    default: null,
+  },
+
+  gender: {
+    type: String,
+    enum: ["male", "female", "other"],
+    default: null,
+  },
   addresses: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -72,6 +82,10 @@ const userSchema = mongoose.Schema({
   isBlocked: {
     type: Boolean,
     default: false
+  },
+  lastLogin: {
+    type: Date,
+    default: null,
   },
 }, { timestamps: true, })
 

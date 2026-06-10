@@ -26,7 +26,10 @@ const loginController = async (req, res) => {
             return res.status(400).json({ message: "Invalid credentials" });
         }
 
+
         const { password: userPassword, ...safeUser } = user._doc;
+
+        user.lastLogin = Date.now();
 
         const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
             expiresIn: "1d",
@@ -71,7 +74,7 @@ const signupController = async (req, res) => {
     // saving otp
     user.verificationOTP = otp
     user.verificationOTPExpires = Date.now() + 10 * 60 * 1000;
-
+    user.lastLogin = Date.now();
     await user.save();
 
     // creating token
