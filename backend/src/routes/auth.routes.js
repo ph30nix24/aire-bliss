@@ -1,6 +1,6 @@
 import express from 'express';
-import { loginController, signupController } from '../controllers/auth.controller.js';
-
+import { loginController, signupController, verifyEmailController } from '../controllers/auth.controller.js';
+import { authenticateToken } from '../middlewares/auth.middleware.js';
 const authRouter = express.Router();
 
 /**
@@ -18,6 +18,12 @@ authRouter.post("/login", loginController)
  */
 authRouter.post("/signup", signupController)
 
+/**
+ * @name VerifyEmail
+ * @route /aire-bliss/auth/verify-email
+ * @access public
+ */
+authRouter.put('/verify-email', authenticateToken, verifyEmailController)
 
 
 export default authRouter;

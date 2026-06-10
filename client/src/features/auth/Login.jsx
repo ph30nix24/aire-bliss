@@ -7,7 +7,7 @@ import { GrFormViewHide } from "react-icons/gr";
 import { BsArrowRight } from "react-icons/bs";
 import { useMediaQuery } from 'react-responsive';
 import { useAuth } from './hooks/useAuth';
-import { useNavigate, useLocation } from 'react-router';
+import { useNavigate, useLocation, Link } from 'react-router';
 import toast from 'react-hot-toast';
 
 
@@ -88,12 +88,12 @@ const Login = () => {
     return (
         <main className='w-full h-screen relative z-1 p-5 bg-[#111]'>
             <div className='size-full relative rounded-2xl overflow-hidden border border-yellow-500/50'>
-                <img src="./login.webp" className='absolute top-0 left-0 size-full object-cover z-1' alt="" />
+                <img src="./../../../login.webp" className='absolute top-0 left-0 size-full object-cover z-1' alt="" />
                 <div className='size-full relative z-3 flex justify-center items-center'>
                     <div className="w-1/2 h-full"></div>
                     <div className="w-1/2 h-full bg-[#111] rounded-2xl border-l border-yellow-500/50 py-10 px-40 flex flex-col justify-center items-center relative ">
-                        <img src="./footer-1.webp" className='absolute w-4/10 top-1/2 right-0 -translate-y-1/2 -scale-x-100 z-9' alt="" />
-                        <img src="./logo-2.png" className='size-15 object-contain' loading='lazy' alt="logo" />
+                        <img src="./../../../footer-1.webp" className='absolute w-4/10 top-1/2 right-0 -translate-y-1/2 -scale-x-100 z-9' alt="" />
+                        <img src="./../../../logo-2.png" className='size-15 object-contain' loading='lazy' alt="logo" />
                         <h1 className='font-stylish text-gradient text-xl mt-2 uppercase'>Aire Bliss</h1>
                         <p className='uppercase text-xs font-subheading text-white/90 mt-0.5 tracking-widest'>luxury fragrances</p>
                         <h1 className='font-heading text-3xl text-white mt-10 font-semibold '>welcome back</h1>
@@ -125,7 +125,7 @@ const Login = () => {
                                 <BsArrowRight />
                             </button>
                         </form>
-                        <p className='form-label mt-5'>Don't have an account? <a href='/auth/signup' className='text-yellow-400/70'>Sign Up</a></p>
+                        <p className='form-label mt-5'>Don't have an account? <Link to='/auth/signup' status={{ from }}  className='text-yellow-400/70'>Sign Up</Link></p>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../services/auth.context";
-import { loginApi, registerApi } from "../services/auth.api";
+import { emailVerifierApi, loginApi, registerApi } from "../services/auth.api";
 
 
 export const useAuth = () => {
@@ -36,6 +36,20 @@ export const useAuth = () => {
             setLoading(false);
         }
     }
+    const handleVerifyEmail = async ( otp ) => {
+        console.log(otp)
+        setLoading(true);
+        try {
+            const data = await emailVerifierApi(otp);
+            return data
+        }
+        catch ( error ) {
+            console.log("Error while verifying email", error.message)
+        }
+        finally {
+            setLoading(false)
+        }
+    }
 
-    return { user, loading, handleLogin, handleSignUp }
+    return { user, loading, handleLogin, handleSignUp, handleVerifyEmail }
 }

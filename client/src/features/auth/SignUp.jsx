@@ -8,15 +8,19 @@ import { useMediaQuery } from 'react-responsive';
 import { useAuth } from './hooks/useAuth';
 import Loader from '../../components/Loader';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 
 
 const SignUp = () => {
     const navigate = useNavigate()
+    const location = useLocation()
+
     const { loading, handleSignUp } = useAuth()
     const isMobile = useMediaQuery({ maxWidth: 768 })
     const [hidingPassword, setHidingPassword] = useState(true);
     const [hidingConfPassword, setHidingConfPassword] = useState(true);
+
+    const from = location.state?.from  || '/';
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -47,7 +51,7 @@ const SignUp = () => {
             password: formData.password,
         })
 
-        navigate('/user/profile')
+        navigate('/auth/verify-email', {state: { from }});
     }
 
     if (isMobile) {
@@ -117,12 +121,12 @@ const SignUp = () => {
     return (
         <main className='w-full h-screen relative z-1 p-5 bg-[#111]'>
             <div className='size-full relative rounded-2xl overflow-hidden border border-yellow-500/50'>
-                <img src="./signup.webp" className='absolute top-0 left-0 size-full object-cover z-1' alt="" />
+                <img src="./../../../signup.webp" className='absolute top-0 left-0 size-full object-cover z-1' alt="" />
                 <div className='size-full absolute z-2 top-0 left-0 bg-linear-to-r from-transparent to-black/20'></div>
                 <div className='size-full relative z-3 flex justify-center items-center '>
                     <div className="w-1/2 h-full bg-[#111] rounded-2xl border-l border-yellow-500/50 py-10 px-40 flex flex-col justify-center items-center relative ">
-                        <img src="./footer-1.webp" className='absolute w-4/10 top-1/2 left-0 -translate-y-1/2 z-1' alt="" />
-                        <img src="./logo-2.png" className='size-10 object-contain' loading='lazy' alt="logo" />
+                        <img src="./../../../footer-1.webp" className='absolute w-4/10 top-1/2 left-0 -translate-y-1/2 z-1' alt="" />
+                        <img src="./../../../logo-2.png" className='size-10 object-contain' loading='lazy' alt="logo" />
                         <h1 className='font-stylish text-gradient text-xl mt-2 uppercase z-2'>Aire Bliss</h1>
                         <p className='uppercase text-xs font-subheading text-white/90 mt-0.5 tracking-widest z-2'>luxury fragrances</p>
                         <h1 className='font-heading text-3xl text-white mt-4 font-semibold  z-2'>Join Aire Bliss</h1>
