@@ -48,8 +48,8 @@ const Login = () => {
     if (isMobile) {
         return (
             <main className='w-full h-screen relative z-1 py-10 px-10 bg-[#111] flex flex-col justify-center'>
-                <img src="./footer-1.webp" className='absolute w-4/10 top-1/2 right-0 -translate-y-1/2 -scale-x-100 -z-1' alt="" />
-                <img src="./logo-2.png" className='size-15 object-contain mx-auto' loading='lazy' alt="logo" />
+                <img src="./../../../footer-1.webp" className='absolute w-4/10 top-1/2 right-0 -translate-y-1/2 -scale-x-100 -z-1' alt="" />
+                <img src="./../../../logo-2.png" className='size-15 object-contain mx-auto' loading='lazy' alt="logo" />
                 <h1 className='font-stylish text-gradient text-[5vw] mt-2 uppercase text-center'>Aire Bliss</h1>
                 <p className='uppercase text-xs font-subheading text-white/90 mt-0.5 tracking-widest text-center'>luxury fragrances</p>
                 <h1 className='font-heading text-[7vw] text-white mt-10 font-semibold  text-center '>welcome back</h1>

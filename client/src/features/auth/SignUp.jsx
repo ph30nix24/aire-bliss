@@ -64,8 +64,8 @@ const SignUp = () => {
         }
         return (
             <main className='w-full h-screen relative z-1 py-10 px-10 bg-[#111] flex flex-col justify-center items-center'>
-                <img src="./footer-1.webp" className='absolute w-4/10 top-1/2 left-0 -translate-y-1/2 z-1 opacity-50 ' alt="" />
-                <img src="./logo-2.png" className='size-10 object-contain' loading='lazy' alt="logo" />
+                <img src="./../../../footer-1.webp" className='absolute w-4/10 top-1/2 left-0 -translate-y-1/2 z-1 opacity-50 ' alt="" />
+                <img src="./../../../logo-2.png" className='size-10 object-contain' loading='lazy' alt="logo" />
                 <h1 className='font-stylish text-gradient text-xl mt-2 uppercase z-2'>Aire Bliss</h1>
                 <p className='uppercase text-xs font-subheading text-white/90 mt-0.5 tracking-widest z-2'>luxury fragrances</p>
                 <h1 className='font-heading text-3xl text-white mt-4 font-semibold  z-2 text-center'>Join Aire Bliss</h1>
