@@ -56,22 +56,22 @@ const Login = () => {
                 <p className='text-white/80 font-light font-body text-[3.5vw] text-center mt-1 tracking-wide'>Sign in to continue your fragrance journey</p>
                 <div className='w-30 h-0.5 rounded-full relative bg-yellow-400/70 mx-auto my-5'><span className='absolute text-yellow-500 p-1 bg-[#111] backdrop-blur-2xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'> <PiFlowerLotus className='size-5 ' /></span>
                 </div>
-                <form className='w-full' action="">
+                <form className='w-full' onSubmit={handleSubmit}>
                     <p className='form-label'>Email Address</p>
                     <fieldset className='form-field'>
                         <label htmlFor=""><GoMail className='text-yellow-500/80 text-xl' /></label>
-                        <input className='form-input' type="email" name="email" id='email' placeholder='Enter your email' />
+                        <input className='form-input' type="email" name="email" id='email' placeholder='Enter your email' required onChange={handleChange}/>
                     </fieldset>
                     <p className='form-label'>Password</p>
                     <fieldset className='form-field'>
                         <label htmlFor=""><CiLock className='text-yellow-500/80 text-2xl' /></label>
-                        <input className='form-input' type={hidingPassword ? "password" : "text"} name='password' id='password' placeholder='Enter your password' />
+                        <input className='form-input' type={hidingPassword ? "password" : "text"} name='password' id='password' placeholder='Enter your password' required onChange={handleChange}/>
                         {hidingPassword ? <GrFormViewHide className='text-yellow-500/80 text-2xl cursor-pointer' onClick={() => setHidingPassword(false)} /> : <PiEyesLight className='text-yellow-500/80 text-2xl cursor-pointer' onClick={() => setHidingPassword(true)} />}
                     </fieldset>
 
                     <div className='w-full flex justify-between items-center '>
                         <fieldset className='flex items-center gap-1'>
-                            <input type="checkbox" className='' id='remember' name='remember' />
+                            <input type="checkbox" className='' id='remember' name='remember' className="cursor-pointer" />
                             <label className='form-label' htmlFor="remember">Remember me</label>
                         </fieldset>
                         <p><a href="" className='form-label capitalize text-yellow-400/70!'>forget password</a></p>
@@ -81,7 +81,7 @@ const Login = () => {
                         <BsArrowRight />
                     </button>
                 </form>
-                <p className='form-label mt-5'>Don't have an account? <a href='' className='text-yellow-400/70'>Sign Up</a></p>
+                <p className='form-label mt-5'>Don't have an account? <Link to='/auth/signup' status={{ from }}  className='text-yellow-400/70'>Sign Up</Link></p>
             </main >
         )
     }

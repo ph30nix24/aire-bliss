@@ -8,7 +8,7 @@ import { useMediaQuery } from 'react-responsive';
 import { useAuth } from './hooks/useAuth';
 import Loader from '../../components/Loader';
 import toast from 'react-hot-toast';
-import { useNavigate, useLocation } from 'react-router';
+import { useNavigate, useLocation, Link } from 'react-router';
 
 
 const SignUp = () => {
@@ -98,7 +98,7 @@ const SignUp = () => {
 
                     <div className='w-full flex justify-between items-center '>
                         <fieldset className='flex items-center gap-2'>
-                            <input type="checkbox" className='' id='remember' name='remember' required />
+                            <input type="checkbox" className='' id='remember' name='remember' className="cursor-pointer" required />
                             <label className='form-label' htmlFor="remember">I agree to the <a href='' className='text-yellow-400/80'>Terms & Condition</a> and <a href='' className='text-yellow-400/80'>Privacy Policy</a></label>
                         </fieldset>
                     </div>
@@ -107,7 +107,7 @@ const SignUp = () => {
                         <BsArrowRight />
                     </button>
                 </form>
-                <p className='form-label mt-5'>Already have an account? <a href='/login' className='text-yellow-400/70'>Login</a></p>
+                <p className='form-label mt-5'>Already have an account? <Link to='/auth/login' status={{ from }}  className='text-yellow-400/70'>Login</Link></p>
             </main >
         )
     }
@@ -159,16 +159,16 @@ const SignUp = () => {
 
                             <div className='w-full flex justify-between items-center '>
                                 <fieldset className='flex items-center gap-1'>
-                                    <input type="checkbox" className='' id='remember' name='remember' required />
+                                    <input type="checkbox" className='cursor-pointer' id='remember' name='remember' required />
                                     <label className='form-label' htmlFor="remember">I agree to the <a href='' className='text-yellow-400/80'>Terms & Condition</a> and <a href='' className='text-yellow-400/80'>Privacy Policy</a></label>
                                 </fieldset>
                             </div>
                             <button className='w-full h-fit center bg-linear-to-r from-yellow-400/90 via-yellow-500 to-yellow-400/90 py-3 rounded-lg font-body font-light mt-10 cursor-pointer  hover:from-yellow-400 hover:via-yellow-500 hover:to-yellow-400 gap-2'>
-                                <span>Login</span>
+                                <span> Create Account </span>
                                 <BsArrowRight />
                             </button>
                         </form>
-                        <p className='form-label mt-5'>Already have an account? <a href='/auth/login' className='text-yellow-400/70'>Login</a></p>
+                        <p className='form-label mt-5'>Already have an account? <Link to='/auth/login' status={{ from }}  className='text-yellow-400/70'>Login</Link></p>
                     </div>
                     <div className="w-1/2 h-full"></div>
                 </div>
