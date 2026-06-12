@@ -271,3 +271,57 @@ export const adminHeaderSection = [
         icon: TbPerfume
     },
 ]
+
+import { FaUser } from "react-icons/fa";
+import { BsFillBoxSeamFill } from "react-icons/bs";
+import { GoHeartFill } from "react-icons/go";
+import { IoLocationSharp } from "react-icons/io5";
+import { FaCreditCard } from "react-icons/fa6";
+import { MdOutlineStarPurple500 } from "react-icons/md";
+import { GoBellFill } from "react-icons/go";
+import { MdOutlineLogout } from "react-icons/md";
+import { IoIosSettings } from "react-icons/io";
+
+
+export const profileLinks = [
+    {
+        name: 'My Profile',
+        icon: FaUser,
+        route: '/user/profile'
+    },
+    {
+        name: 'Orders',
+        icon: BsFillBoxSeamFill,
+        route: '/user/profile/orders'
+    },
+    {
+        name: 'Wishlist',
+        icon: GoHeartFill,
+        route: '/user/profile/wishlist',
+    },
+    {
+        name: 'Addresses',
+            icon: IoLocationSharp,
+        route: '/user/profile/addresses',
+    },
+    {
+        name: 'Payment Methods',
+            icon: FaCreditCard,
+        route: '/user/profile/payment-methods',
+    },
+    {
+        name: 'My Reviews',
+        icon: MdOutlineStarPurple500,
+        route: '/user/profile/my-reviews',
+    },
+    {
+        name: 'Notification',
+        icon: GoBellFill,
+        route: '/user/profile/notification',
+    },
+    {
+        name: 'Settings',
+        icon: IoIosSettings,
+        route: '/user/profile/setting',
+    },
+]

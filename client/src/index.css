@@ -92,7 +92,9 @@ input:-webkit-autofill {
     @apply w-full text-sm font-body text-white/80 outline-none font-light tracking-wider
   }
 
-
+  .profile-navlinks {
+    @apply text-sm px-5 py-2.5 flex items-center gap-2 rounded
+  }
 
   /* admin navbar */
   .link-cls {

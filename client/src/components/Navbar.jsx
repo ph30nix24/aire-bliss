@@ -14,7 +14,7 @@ import { RiCustomerService2Fill } from "react-icons/ri";
 import { BsBox } from "react-icons/bs";
 
 
-const Navbar = () => {
+const Navbar = ({ additional }) => {
     const isMobile = useMediaQuery({ maxWidth: 768 });
     const [isSideNavClicked, setisSideNavClicked] = useState(false)
     if (isMobile) {
@@ -105,10 +105,10 @@ const Navbar = () => {
         )
     }
     return (
-        <nav className='w-full h-fit px-30 py-3 fixed top-0 z-50 bg-black flex justify-between items-center border-b border-yellow-400/20'>
+        <nav className={`w-full h-fit px-30 py-3 fixed top-0 z-50 bg-black flex justify-between items-center border-b border-yellow-400/20 ${ additional }`}>
             <div className='flex items-center font-stylish text-3xl capitalize text-gradient '>
                 <p>aire</p>
-                <img src="./logo.png" className='size-12' alt="" />
+                <img src="./../../logo.png" className='size-12' alt="" />
                 <p>bliss</p>
             </div>
             <ul className='flex items-center space-x-8 text-white font-body text-xs uppercase tracking-wider'>
@@ -120,7 +120,7 @@ const Navbar = () => {
             </ul>
             <div className="w-fit flex gap-4">
                 <FiSearch className="size-5 cursor-pointer text-white" />
-                <NavLink to="/user/profile"><PiUserCircleLight className="size-5 cursor-pointer text-white" /></NavLink>
+                <NavLink to="/user/profile/"><PiUserCircleLight className="size-5 cursor-pointer text-white" /></NavLink>
                 <GoHeart className="size-5 cursor-pointer text-white" />
                 <CiShoppingCart className="size-5 cursor-pointer text-white" />
             </div>
