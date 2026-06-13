@@ -95,6 +95,9 @@ input:-webkit-autofill {
   .profile-navlinks {
     @apply text-sm px-5 py-2.5 flex items-center gap-2 rounded
   }
+  .profile-navlinks-mob {
+    @apply 
+  }
 
   /* admin navbar */
   .link-cls {

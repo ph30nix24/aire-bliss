@@ -24,9 +24,9 @@ const Navbar = ({ additional }) => {
                 <div className="text-white/70 " >
                     <CgMenu className="size-5 cursor-pointer" onClick={() => setisSideNavClicked(true)} />
                 </div>
-                <div className='flex items-center font-subheading text-2xl capitalize text-gradient font-medium '>
+                <div className='flex items-center font-subheading text-2xl capitalize text-gradient font-medium gap-1'>
                     <p>aire</p>
-                    <img src="./logo.png" className='size-10' alt="" />
+                    <img src="./../../logo-2.png" className='size-8' alt="" />
                     <p>bliss</p>
                 </div>
                 <div className="w-fit flex gap-4">
@@ -38,7 +38,7 @@ const Navbar = ({ additional }) => {
                         <div>
                             <div className="w-full flex items-center justify-between">
                                 <div className="w-full items-center gap-2 flex ">
-                                    <img src="./logo.png" className="size-10" alt="" />
+                                    <img src="./../../logo.png" className="size-10" alt="" />
                                     <h1 className="text-2xl font-stylish  capitalize text-gradient">aire bliss</h1>
                                 </div>
                                 <RxCross2 className="text-yellow-500/70 size-8 cursor-pointer" onClick={() => setisSideNavClicked(false)} />
@@ -94,10 +94,12 @@ const Navbar = ({ additional }) => {
                             </div>
                         </div>
                         <div className="w-full h-fit px-1 py-3">
-                            <button className="w-full flex items-center border border-yellow-500/70 rounded-md px-5 py-3 gap-3 justify-center">
-                                <PiUserCircleLight className="text-yellow-500/70 size-6" />
-                                <span className="uppercase text-xs text-yellow-500/70">my account</span>
-                            </button>
+                            <a href="/user/profile">
+                                <button className="w-full flex items-center border border-yellow-500/70 rounded-md px-5 py-3 gap-3 justify-center cursor-pointer">
+                                    <PiUserCircleLight className="text-yellow-500/70 size-6" />
+                                    <span className="uppercase text-xs text-yellow-500/70">my account</span>
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -105,7 +107,7 @@ const Navbar = ({ additional }) => {
         )
     }
     return (
-        <nav className={`w-full h-fit px-30 py-3 fixed top-0 z-50 bg-black flex justify-between items-center border-b border-yellow-400/20 ${ additional }`}>
+        <nav className={`w-full h-fit px-30 py-3 fixed top-0 z-50 bg-black flex justify-between items-center border-b border-yellow-400/20 ${additional}`}>
             <div className='flex items-center font-stylish text-3xl capitalize text-gradient '>
                 <p>aire</p>
                 <img src="./../../logo.png" className='size-12' alt="" />

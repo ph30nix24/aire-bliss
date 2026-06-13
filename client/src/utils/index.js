@@ -196,7 +196,7 @@ export const footerDivs = [
         id: 3,
         title: "About Us",
         links: ["Our Story", "Ingredients", "Reviews", "FAQs"]
-    }, 
+    },
     {
         id: 4,
         title: "Help & Info",
@@ -287,41 +287,49 @@ export const profileLinks = [
     {
         name: 'My Profile',
         icon: FaUser,
-        route: '/user/profile'
+        route: '/user/profile',
+        desc: ''
     },
     {
         name: 'Orders',
         icon: BsFillBoxSeamFill,
-        route: '/user/profile/orders'
+        route: '/user/profile/orders',
+        desc: 'Track and manage your orders'
     },
     {
         name: 'Wishlist',
         icon: GoHeartFill,
         route: '/user/profile/wishlist',
+        desc: 'Your favourite fragrances'
     },
     {
         name: 'Addresses',
-            icon: IoLocationSharp,
+        icon: IoLocationSharp,
         route: '/user/profile/addresses',
+        desc: 'Manage your saved addresses'
     },
     {
         name: 'Payment Methods',
-            icon: FaCreditCard,
+        icon: FaCreditCard,
         route: '/user/profile/payment-methods',
+        desc: 'Manage cards and UPI options'
     },
     {
         name: 'My Reviews',
         icon: MdOutlineStarPurple500,
         route: '/user/profile/my-reviews',
+        desc: "Reviews that you've shared" 
     },
     {
         name: 'Notification',
         icon: GoBellFill,
         route: '/user/profile/notification',
+        desc: "Stay updated with latests alerts"
     },
     {
         name: 'Settings',
         icon: IoIosSettings,
         route: '/user/profile/setting',
+        desc: ''
     },
 ]
