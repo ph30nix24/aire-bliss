@@ -10,6 +10,8 @@ import { sendOTPemail } from '../services/email.services.js';
  * @req email, password
  * @returns 
  */
+
+
 const loginController = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -26,7 +28,6 @@ const loginController = async (req, res) => {
             return res.status(400).json({ message: "Invalid credentials" });
         }
 
-
         const { password: userPassword, ...safeUser } = user._doc;
 
         user.lastLogin = Date.now();
@@ -34,6 +35,14 @@ const loginController = async (req, res) => {
         const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
             expiresIn: "1d",
         });
+
+        // const totalOrders = await Order.countDocuments({
+        //     user: req.user._id
+        // });
+
+        
+
+
         return res.status(200)
             .cookie("token", token, {
                 httpOnly: true,
@@ -75,7 +84,11 @@ const signupController = async (req, res) => {
     user.verificationOTP = otp
     user.verificationOTPExpires = Date.now() + 10 * 60 * 1000;
     user.lastLogin = Date.now();
+
+
     await user.save();
+
+
 
     // creating token
     const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {

@@ -11,6 +11,7 @@ import EmailVerifier from "./features/auth/EmailVerifier";
 
 
 
+
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -42,7 +43,6 @@ export const router = createBrowserRouter([
     },
     {
         path: '/user/profile/',
-        // element: <Protect><Profile /></Protect>
-        element: <Profile />
+        element: <Protect><Profile /></Protect>
     }
 ])

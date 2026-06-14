@@ -31,13 +31,14 @@ export const createProduct = async (req, res) => {
         }
 
 
-        const notes = fragranceNotes.split(" ");
+        const notes = fragranceNotes.split(",");
 
         // Upload main image to Cloudinary
         const mainImageURL = await uploadImage(req.files.image[0], sku);
         const uploadedMainImageURL = await uploadToCloudinary(mainImageURL, "public/temp");
         console.log(uploadedMainImageURL)
 
+        
 
         // Upload preview images to Cloudinary
         const previewImageURLs = [];

@@ -14,7 +14,7 @@ import { bestproducts } from '../../../utils';
 import { BsThreeDots, BsThreeDotsVertical } from 'react-icons/bs';
 import { useMediaQuery } from 'react-responsive';
 import Footer from '../../../components/Footer'
-
+import { IoIosCheckmarkCircle } from 'react-icons/io';
 
 
 const Profile = () => {
@@ -361,9 +361,9 @@ const Profile = () => {
               <div className='w-fit h-full py-4 text-white flex flex-col justify-center'>
                 <p className='text-xs font-body font-extralight'>Welcome back...</p>
                 <div className='font-heading text-3xl mt-2 capitalize flex items-center gap-4'><p>{user?.name || "akash gupta"}</p> <div >{user?.isVerified === true ? (
-                  <div className='flex text-xs!'>
-                    <IoIosCheckmarkCircle />
-                    <p>Verified</p>
+                  <div className='flex text-xs gap-1 items-center font-body font-extralight px-3 py-1 bg-green-500/10 rounded-full border border-green-500 text-rgreen500'>
+                    <IoIosCheckmarkCircle className='text-green-500' />
+                    <p className='text-green-500'>Verified</p>
                   </div>
                 ) : (
                   <div className='flex text-xs gap-1 items-center font-body font-extralight px-3 py-1 bg-red-500/10 rounded-full border border-red-500 text-red-500'>
