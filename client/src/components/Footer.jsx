@@ -15,7 +15,7 @@ const Footer = () => {
             <footer className='w-full h-fit! p-5 relative z-10 bg-[#222]/40'>
                 <div className='w-full flex flex-col justify-center gap-3 text-white pb-3 relative z-10'>
                     <div className="w-full flex center gap-2">
-                        <img src="./../../logo.png" className='size-26 object-cover z-1 pr-3' alt="" />
+                        <img src="./../../logo.png"  className='size-26 object-cover z-1 pr-3' alt="" />
                         <div className='w-fit '>
                             <h1 className='font-stylish text-[6.5vw] text-gradient'>Aire Bliss</h1>
                             <p className='w-fit uppercase text-xs font-body pt-0.5'>Embrace the <br /> essence of luxury</p>
@@ -86,7 +86,7 @@ const Footer = () => {
             <div className='size-85  absolute top-0 right-0 z-2 bg-radial-[at_center_right] from-transparent to-25% to-[#222]/30'></div>
             <div className='w-full flex justify-center gap-5 text-white  pb-10 relative z-10'>
                 <div className="w-1/5 ">
-                    <img src="./logo.png" className='size-30 object-cover z-1 mx-auto' alt="" />
+                    <img src="./../../logo.png" className='size-30 object-cover z-1 mx-auto' alt="" />
                     <h1 className='text-center font-stylish text-3xl text-gradient mt-5'>Aire Bliss</h1>
                     <p className='text-center px-5 uppercase text-sm font-body pt-1'>Embrace the essence of luxury</p>
                 </div>

@@ -35,7 +35,10 @@ const Login = () => {
         e.preventDefault();
         try {
             console.log(formData)
-            await handleLogin({ email: formData.email, password: formData.password })
+            const success = await handleLogin({ email: formData.email, password: formData.password })
+            if(!success) {
+                throw new Error("Failed in login");
+            }
             toast.success("Logged in successfully");
             navigate(from, { replace: true});
         }
@@ -104,12 +107,12 @@ const Login = () => {
                             <p className='form-label'>Email Address</p>
                             <fieldset className='form-field'>
                                 <label htmlFor=""><GoMail className='text-yellow-500/80 text-xl' /></label>
-                                <input className='form-input' type="email" name="email" id='email' placeholder='Enter your email' onChange={handleChange} />
+                                <input className='form-input' type="email" name="email" id='email' placeholder='Enter your email ' required onChange={handleChange} />
                             </fieldset>
                             <p className='form-label'>Password</p>
                             <fieldset className='form-field'>
                                 <label htmlFor=""><CiLock className='text-yellow-500/80 text-2xl' /></label>
-                                <input className='form-input' type={hidingPassword ? "password" : "text"} name='password' id='password' placeholder='Enter your password' onChange={handleChange} />
+                                <input className='form-input' type={hidingPassword ? "password" : "text"} name='password' id='password' placeholder='Enter your password' required onChange={handleChange} />
                                 {hidingPassword ? <GrFormViewHide className='text-yellow-500/80 text-2xl cursor-pointer' onClick={() => setHidingPassword(false)} /> : <PiEyesLight className='text-yellow-500/80 text-2xl cursor-pointer' onClick={() => setHidingPassword(true)} />}
                             </fieldset>
 

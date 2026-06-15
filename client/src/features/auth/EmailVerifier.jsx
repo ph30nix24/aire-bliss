@@ -27,7 +27,7 @@ const EmailVerifier = () => {
 
     const handleChange = (e) => {
         setOtpDigits({
-            ...otpDigits, [e.target.name]: e.target.value
+            ...otpDigits, [e.target.name]: Number(e.target.value)
         })
     }
 
@@ -103,7 +103,7 @@ const EmailVerifier = () => {
                                 {Array.from({
                                     length: 6
                                 }).map((_, index) => (
-                                    <input type="number" name={`digit${index + 1}`} id={`digit-${index + 1}`} key={`input${index + 1}`} onChange={handleChange} className="w-1/6 h-14 border border-[#777]/80 rounded [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [appearance:textfield] text-white py-3 text-center text-xl font-subheading focus:outline-none focus:ring focus:ring-[#813A79]" />
+                                    <input type="text" name={`digit${index + 1}`} maxLength={1} id={`digit-${index + 1}`} key={`input${index + 1}`} onChange={handleChange} className="w-1/6 h-14 border border-[#777]/80 rounded text-white py-3 text-center text-xl font-subheading focus:outline-none focus:ring focus:ring-[#813A79]" />
                                 ))}
 
 

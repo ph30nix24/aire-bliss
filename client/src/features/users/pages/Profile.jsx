@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useAuth } from '../../auth/hooks/useAuth'
 import Navbar from '../../../components/Navbar'
 import ProfileNav from '../component/ProfileNav'
+import Loader from "../../../components/Loader"
 import { IoHeartSharp, IoLocationSharp, IoMail } from "react-icons/io5";
 import { HiMiniUser } from "react-icons/hi2";
 import { CiCirclePlus, CiClock2, CiLock, CiMail } from 'react-icons/ci';
@@ -10,11 +11,11 @@ import { RxCross2 } from 'react-icons/rx';
 import { FaBagShopping, FaBox, FaCalendar, FaCheck, FaChevronRight, FaPhone, FaUser } from 'react-icons/fa6';
 import { PiGenderIntersex } from 'react-icons/pi';
 import { VscWorkspaceTrusted, VscWorkspaceUntrusted } from "react-icons/vsc";
-import { bestproducts } from '../../../utils';
 import { BsThreeDots, BsThreeDotsVertical } from 'react-icons/bs';
 import { useMediaQuery } from 'react-responsive';
 import Footer from '../../../components/Footer'
 import { IoIosCheckmarkCircle } from 'react-icons/io';
+import AddressForm from '../component/AddressForm'
 
 
 const Profile = () => {
@@ -22,9 +23,16 @@ const Profile = () => {
 
   const [current, setCurrent] = useState(0)
   const isMobile = useMediaQuery({ maxWidth: 768 });
-
+  const [addAddress, setAddAddress] = useState(false);
 
   if (isMobile) {
+    if (loading) {
+      return (
+        <main className='h-screen! center bg-black'>
+          <Loader />
+        </main>
+      )
+    }
     return (
       <main className='relative bg-black'>
         <Navbar />
@@ -44,15 +52,15 @@ const Profile = () => {
               </div>
               <div className='w-fit h-full py-4 text-white flex flex-col justify-center'>
                 <p className='text-xs font-body font-extralight'>Welcome back...</p>
-                <div className='font-heading text-[7vw] capitalize flex items-center gap-4'><p>{user?.name || "akash gupta"}</p></div>
+                <div className='font-heading text-[7vw] capitalize flex items-center gap-4'><p>{user?.name}</p></div>
                 <div className='pb-6'>
                   <div className='flex gap-2 items-center'>
                     <CiMail />
-                    <p className='font-body text-xs font-extralight'>{user?.email || "arjun.mehta@gmail.com"}</p>
+                    <p className='font-body text-xs font-extralight'>{user?.email}</p>
                   </div>
                   <div className='flex gap-2 items-center pt-1'>
                     <MdOutlineLocalPhone />
-                    <p className='font-body text-xs font-extralight'>{user?.phoneNo || "+91 92102XXXXX"}</p>
+                    <p className='font-body text-xs font-extralight'>{user?.phoneNo || " - "}</p>
                   </div>
                 </div>
                 <p className='text-xs font-body font-extralight'>member since May 2023</p>
@@ -72,28 +80,28 @@ const Profile = () => {
               <IoHeartSharp className='size-8 text-yellow-400/80 p-2 border border-yellow-400/80 rounded-full' />
               <div className='text-white'>
                 <h1 className='font-body font-extralight text-[3vw] capitalize text-center py-1 leading-[90%]'>wishlist items</h1>
-                <p className='font-body font-extralight text-xl text-center'>12</p>
+                <p className='font-body font-extralight text-xl text-center'>{wishList?.products.length || 0}</p>
               </div>
             </div>
             <div className='flex w-fit h-full items-center flex-col border-r-2 border-[#777]/10 gap-1 px-2'>
               <IoLocationSharp className='size-8 text-yellow-400/80 p-2 border border-yellow-400/80 rounded-full' />
               <div className='text-white'>
                 <h1 className='font-body font-extralight text-[3vw] capitalize text-center py-1 leading-[90%]'>Saved Address</h1>
-                <p className='font-body font-extralight text-xl text-center'>3</p>
+                <p className='font-body font-extralight text-xl text-center'>{addresses.length}</p>
               </div>
             </div>
             <div className='flex w-fit h-full items-center flex-col border-r-2 border-[#777]/10 gap-1 px-2'>
               <FaBagShopping className='size-8 text-yellow-400/80 p-2 border border-yellow-400/80 rounded-full' />
               <div className='text-white'>
                 <h1 className='font-body font-extralight text-[3vw] capitalize text-center py-1 leading-[90%]'>cart items</h1>
-                <p className='font-body font-extralight text-xl text-center'>2</p>
+                <p className='font-body font-extralight text-xl text-center'>{cartLength}</p>
               </div>
             </div>
             <div className='flex w-fit h-full items-center flex-col gap-1 px-2'>
               <FaBox className='size-8 text-yellow-400/80 p-2 border border-yellow-400/80 rounded-full' />
               <div className='text-white'>
                 <h1 className='font-body font-extralight text-[3vw] capitalize text-center py-1 leading-[90%]'>Order placed</h1>
-                <p className='font-body font-extralight text-xl text-center'>5</p>
+                <p className='font-body font-extralight text-xl text-center'>{orders.length}</p>
               </div>
             </div>
 
@@ -118,7 +126,7 @@ const Profile = () => {
                 </div>
                 <p className='text-white text-sm font-body font-extralight'>Full Name</p>
               </div>
-              <div className='w-3/5 text-white text-sm font-body font-extralight'>Arjun Mehta</div>
+              <div className='w-3/5 text-white text-sm font-body font-extralight'>{user.name}</div>
             </div>
             <div className='w-full py-1.5 flex border-b border-[#777]/10'>
               <div className='w-2/5 flex gap-2 items-center'>
@@ -127,7 +135,7 @@ const Profile = () => {
                 </div>
                 <p className='text-white text-sm font-body font-extralight'>Email Address</p>
               </div>
-              <div className='w-3/5 text-white text-sm font-body font-extralight'>arjun.mehta@gmail.com</div>
+              <div className='w-3/5 text-white text-sm font-body font-extralight'>{user.email}</div>
             </div>
             <div className='w-full py-1.5 flex border-b border-[#777]/10'>
               <div className='w-2/5 flex gap-2 items-center'>
@@ -136,7 +144,7 @@ const Profile = () => {
                 </div>
                 <p className='text-white text-sm font-body font-extralight'>Phone Number</p>
               </div>
-              <div className='w-3/5 text-white text-sm font-body font-extralight'> - </div>
+              <div className='w-3/5 text-white text-sm font-body font-extralight'>{user?.phoneNo || " - "}</div>
             </div>
             <div className='w-full py-1.5 flex border-b border-[#777]/10'>
               <div className='w-2/5 flex gap-2 items-center'>
@@ -209,7 +217,13 @@ const Profile = () => {
                 <CiClock2 className='text-yellow-400/80 size-5' />
                 <div className='text-white'>
                   <h3 className='text-sm font-body font-medium'>Last Login</h3>
-                  <p className='text-xs font-body font-extralight'>{user?.login || 'today'}</p>
+                  <p className='text-xs font-body font-extralight'>{
+                    new Date(user.lastLogin).toLocaleDateString("en-GB", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })
+                  }</p>
                 </div>
               </div>
             </div>
@@ -261,7 +275,7 @@ const Profile = () => {
                   </div>
                 )
               )}
-              <div className='w-[26%]  border-dashed border rounded border-yellow-400/20  center flex-col'>
+              <div className='w-[26%]  border-dashed border rounded border-yellow-400/20  center flex-col p-4 cursor-pointer' onClick={() => setAddAddress(true)}>
                 <CiCirclePlus className='text-yellow-400/80 size-8' />
                 <p className='text-yellow-400/80 font-body text-xs mt-2 text-center'>Add New Address</p>
               </div>
@@ -273,8 +287,17 @@ const Profile = () => {
       </main>
     )
   }
+
+  if (loading) {
+    return (
+      <main className='h-screen! center bg-black'>
+        <Loader />
+      </main>
+    )
+  }
   return (
-    <main className='bg-black h-screen!'>
+    <main className='bg-black'>
+      { addAddress && <AddressForm setAddAddress={setAddAddress} />}
       <Navbar additional={`py-2! px-5! border-[#777]/20! bg-[#0C0E0F]!`} />
       <div className='size-full pt-20 pb-4 px-4 flex gap-3'>
         <div className='w-75 h-full '>
@@ -296,7 +319,6 @@ const Profile = () => {
             </div>
           </div>
         </div>
-
 
         <div className='w-[calc(100%-300px)] h-full overflow-y-auto'>
           <div className='border border-[#777]/20 w-full h-45 bg-[#0B0C0C] rounded flex'>
@@ -384,6 +406,7 @@ const Profile = () => {
             </div>
 
           </div>
+          
           <div className='w-full flex gap-3 h-65 rounded mt-3'>
 
             <div className="w-[35%] h-full border rounded border-[#777]/20 px-4 py-3 bg-[#0B0C0C]">
@@ -564,10 +587,10 @@ const Profile = () => {
 
               </div>
               <div className='w-full flex gap-2 mt-4 justify-center'>
-                { wishList?.products.length > 3 ? (
-                Array.from({ length: Math.min(wishList?.products.length - 3, 3) }).map((_, index) => (
-                  <div className={`size-2 ${current === index ? 'bg-yellow-400/70' : 'bg-white/10'} rounded-full cursor-pointer -translate-x-${current * 147}}`} onClick={() => setCurrent(index)}  key={index}></div>
-                ))) : (<div></div>)}
+                {wishList?.products.length > 3 ? (
+                  Array.from({ length: Math.min(wishList?.products.length - 3, 3) }).map((_, index) => (
+                    <div className={`size-2 ${current === index ? 'bg-yellow-400/70' : 'bg-white/10'} rounded-full cursor-pointer -translate-x-${current * 147}}`} onClick={() => setCurrent(index)} key={index}></div>
+                  ))) : (<div></div>)}
               </div>
             </div>
 
@@ -595,7 +618,7 @@ const Profile = () => {
                     </div>
                   )
                 )}
-                <div className='w-[26%] border-dashed border rounded border-yellow-400/20 h-full center flex-col'>
+                <div className='w-[26%] border-dashed border rounded border-yellow-400/20 h-full center flex-col cursor-pointer' onClick={() => setAddAddress(true)}>
                   <CiCirclePlus className='text-yellow-400/80 size-8' />
                   <p className='text-yellow-400/80 font-body text-xs mt-2'>Add New Address</p>
                 </div>
@@ -653,7 +676,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-
+      <Footer />
     </main>
   )
 }
