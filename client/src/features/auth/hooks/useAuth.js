@@ -8,13 +8,14 @@ export const useAuth = () => {
     if(!context) {
         throw new Error("useAuth must be used within an AuthProvider");
     }
-    const { user, setUser, loading, setLoading} = context;
+    const { user, setUser, loading, setLoading, wishList, setWishList, cartLength, setCartLength, addresses, setAddresses, orders, setOrders} = context;
 
     const handleSignUp = async ({ name, email, password}) => {
         setLoading(true);
         try{
             const data = await registerApi({name, email, password})
             setUser(data.user)
+            
         }
         catch (e) {
             console.log("Error While signup ", e.message)
@@ -27,7 +28,11 @@ export const useAuth = () => {
         setLoading(true);
         try{
             const data = await loginApi({ email, password })
-            setUser(data.user)
+            setUser(data.user);
+            setWishList(data.wishlist);
+            setCartLength(data.cartLength);
+            setAddresses(data.addresses);
+            setOrders(data.orders);
         }
         catch (e) {
             console.log("Error While signup ", e.message)
@@ -51,5 +56,5 @@ export const useAuth = () => {
         }
     }
 
-    return { user, loading, handleLogin, handleSignUp, handleVerifyEmail }
+    return { user, loading, handleLogin, handleSignUp, handleVerifyEmail, wishList,  cartLength, addresses, orders }
 }

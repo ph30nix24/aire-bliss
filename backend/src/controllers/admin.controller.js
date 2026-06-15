@@ -5,14 +5,20 @@ import { uploadToCloudinary } from '../services/cloudinary.controller.js'
  * @name createProduct
  * @route POST /aire-bliss/admin/product/create-product
  * @desc Create a new product
- * @access Private
+ * @access private
  */
 export const createProduct = async (req, res) => {
     try {
+        if(req.user.role !== "admin") {
+            return res.status(401).json({
+                success: false,
+                message: " Unauthorized Access "
+            })
+        }
         const { productName, brand, category, gender, price, discountPrice, stock, size, fragranceNotes, shortDescription, longDescription, featured, bestSeller } = req.body;
-        console.log("1")
+
         let sku = req.body.sku;
-        console.log("2")
+
         if (!productName || !category || !price || !stock || !size || !fragranceNotes || !shortDescription || !longDescription) {
             return res.status(400).json({ message: "Product name and category are required" });
         }
@@ -83,9 +89,23 @@ export const createProduct = async (req, res) => {
     }
 }
 
+
+/**
+ * @name allUsers
+ * @route GET /aire-bliss/admin/users/all-users
+ * @returns return array of all users
+ * @access private
+ */
 export const allUsers = async (req, res) => {
     try {
-        const users = await User.find().select('-password');
+        if(req.user.role !== "admin") {
+            return res.status(401).json({
+                success: false,
+                message: " Unauthorized Access "
+            })
+        }
+
+        const users = await User.find().select('-password -verificationOTP -verificationOTPExpires');
         res.status(200).json({
             users,
             message: "All users fetched successfully"

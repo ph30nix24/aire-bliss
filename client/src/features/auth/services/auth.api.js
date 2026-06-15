@@ -16,7 +16,7 @@ export const registerApi = async ({ name, email, password }) => {
     catch (error) {
         console.error(
             "Error:",
-            error.response?.data?.message || e.message
+            error.response?.data?.message || error.message
         );
     }
 }
@@ -26,6 +26,7 @@ export const loginApi = async ({ email, password }) => {
             withCredentials: true
         });
         console.log(res.data.message);
+        console.log(res.data);
         return res.data;
     }
     catch (error) {

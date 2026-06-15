@@ -41,7 +41,6 @@ const userSchema = new mongoose.Schema({
     enum: ["male", "female", "other"],
     default: null,
   },
-
   
   isVerified: {
     type: Boolean,

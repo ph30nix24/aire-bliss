@@ -65,12 +65,12 @@ const Footer = () => {
                             <h1 className='text-sm uppercase font-body tracking-wide text-white flex items-center gap-2 justify-center'>
                                 <CiMail className='text-yellow-500/70 size-5 ' />
                                 <span>stay inspired</span></h1>
-                            <p className='text-sm text-white/50 font-body mt-2 flex gap-2 items-center w-full'>
+                            <div className='text-sm text-white/50 font-body mt-2 flex gap-2 items-center w-full'>
                                 <form className="w-full flex items-center" action="">
                                     <input className='w-full h-[33.6px] px-2 text-xs outline-none border border-yellow-400/50 rounded-l-md' type="text" placeholder='Enter your email' />
                                     <button className='text-xs uppercase font-body text-yellow-500/50 py-2 px-3 border border-yellow-400/50 rounded-r-md cursor-pointer hover:text-black hover:bg-yellow-500/50'>Subscribe </button>
                                 </form>
-                            </p>
+                            </div>
                         </div>
                     </div>
 

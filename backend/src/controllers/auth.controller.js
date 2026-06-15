@@ -1,8 +1,12 @@
 import User from '../models/user.model.js'
+import Address from "../models/address.model.js"
+import Cart from '../models/cart.model.js'
+import Order from '../models/order.model.js'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { optGenater } from '../utils/otpGenerater.js';
 import { sendOTPemail } from '../services/email.services.js';
+import Wishlist from '../models/wishList.model.js'
 
 /**
  * @name loginController
@@ -16,32 +20,44 @@ const loginController = async (req, res) => {
     try {
         const { email, password } = req.body;
         console.log(email, password)
+
         if (!email || !password) {
             return res.status(403).json({ message: "Missing fields All fields are required." })
         }
+
         const user = await User.findOne({ email })
         if (!user) {
             return res.status(400).json({ message: "Invalid credentials" });
         }
+
         const isPasswordCorrect = await bcrypt.compare(password, user.password);
         if (!isPasswordCorrect) {
             return res.status(400).json({ message: "Invalid credentials" });
         }
 
-        const { password: userPassword, ...safeUser } = user._doc;
-
+        const { password: userPassword, verificationOTP: userOtp, verificationOTPExpires: userVerificationOTPExpires, ...safeUser } = user._doc;
         user.lastLogin = Date.now();
+
+        let cartLength = 0;
+        const cart = await Cart.findOne({
+            user: user._id
+        })
+        if (cart) {
+            cartLength = cart.products.length
+        }
+        const wishlist = await Wishlist.findOne({
+            user: user._id
+        }).populate("products.product");
+        const addresses = await Address.find({
+            user: user._id
+        });
+        const orders = await Order.find({
+            user: user._id
+        })
 
         const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
             expiresIn: "1d",
         });
-
-        // const totalOrders = await Order.countDocuments({
-        //     user: req.user._id
-        // });
-
-        
-
 
         return res.status(200)
             .cookie("token", token, {
@@ -51,7 +67,11 @@ const loginController = async (req, res) => {
             })
             .json({
                 message: "login successful",
-                user: safeUser
+                user: safeUser,
+                cartLength: cartLength,
+                wishlist,
+                addresses,
+                orders,
             })
     } catch (e) {
         return res.status(500).json({
