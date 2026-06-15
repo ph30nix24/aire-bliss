@@ -41,31 +41,8 @@ const userSchema = new mongoose.Schema({
     enum: ["male", "female", "other"],
     default: null,
   },
-  addresses: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Address",
-    },
-  ],
-  wishlist: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Product",
-    },
-  ],
-  cartItems: [
-    {
-      product: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
-      },
 
-      quantity: {
-        type: Number,
-        default: 1,
-      },
-    },
-  ],
+  
   isVerified: {
     type: Boolean,
     default: false

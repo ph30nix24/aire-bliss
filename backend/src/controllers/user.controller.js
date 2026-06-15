@@ -1,5 +1,7 @@
 import User from '../models/user.model.js';
-
+import Cart from '../models/cart.model.js';
+import WishList from '../models/wishList.model.js'
+import Address from '../models/address.model.js'
 
 /**
  * @name getUserProfile
@@ -15,24 +17,29 @@ export const getUserProfile = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
+
+        let cartLength = 0;
+        const cart = await Cart.findOne(userId)
+        if(cart) {
+            cartLength = cart.products.length
+        }
+
+        const wishlist = await Wishlist.findOne(userId);
+        
+        const addresses = await Address.find({
+            user: userId
+        });
+
         res.status(200).json({
+            success: true,
             user,
-            message: "User profile fetched successfully"
+            cart: cartLength,
+            wishlist,
+            addresses,
+            message: "User profile fetched successfully",
         });
     } catch (error) {
         res.status(500).json({ message: `Server error ${error.message}` });
     }
 }
 
-export const allUsers = async (req, res) => {
-    try {
-        const users = await User.find().select('-password');
-        res.status(200).json({
-            users,
-            message: "All users fetched successfully"
-        });
-    }
-    catch (error) {
-        res.status(500).json({ message: "Server error" });
-    }
-}

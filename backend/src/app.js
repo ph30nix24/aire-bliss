@@ -37,6 +37,11 @@ import productRouter from './routes/product.routes.js';
 app.use("/aire-bliss/products", productRouter)
 
 import userRouter from './routes/user.routes.js';
-app.use('/aire-bliss/user', userRouter)
+app.use('/aire-bliss/user', userRouter);
+
+import cartRouter from './routes/cart.routes.js';
+app.use('/aire-bliss/cart', cartRouter);
+
+
 
 export default app;

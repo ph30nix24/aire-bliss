@@ -15,7 +15,9 @@ const addressSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  alternateMobileNumber: String,
+  alternateMobileNumber: {
+    type: String
+  },
   addressLine1: {
     type: String,
     required: true
