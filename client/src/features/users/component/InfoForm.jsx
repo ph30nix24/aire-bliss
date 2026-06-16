@@ -31,7 +31,7 @@ const InfoForm = ({ setEditInfo }) => {
         console.log(2)
     }
     return (
-        <div className='absolute size-full top-0 left-0 bg-black/10 backdrop-blur-md max-lg:flex max-lg:justify-center max-lg:items-center text-white z-51'>
+        <div className='absolute size-full top-0 left-0 bg-black/10 backdrop-blur-md max-lg:flex max-lg:justify-center text-white z-51'>
             <div className='w-full h-screen center text-white bg-transparent'>
                 <div className='w-9/10 lg:w-200 h-fit p-5 lg:px-10 lg:py-10 bg-[#0B0C0C] rounded shadow shadow-yellow-400/10 border border-yellow-400/10'>
                     {/* heading */}
