@@ -66,6 +66,7 @@ const loginController = async (req, res) => {
                 sameSite: "None",
             })
             .json({
+                success: true,
                 message: "login successful",
                 user: safeUser,
                 cartLength: cartLength,
@@ -75,60 +76,69 @@ const loginController = async (req, res) => {
             })
     } catch (e) {
         return res.status(500).json({
+            success: false,
             message: `login failed ${e.message}`
         })
     }
 }
 
 const signupController = async (req, res) => {
-    const { name, email, password } = req.body;
-    console.log(name, email, password)
-    if (!name || !email || !password) {
-        return res.status(403).json({ message: "Missing fields All fields are required." })
-    }
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-        return res.status(400).json({ message: "user already exists" })
-    }
-    const hashedPassword = await bcrypt.hash(password, parseInt(process.env.SALT_ROUNDS));
-    const user = new User({
-        name,
-        email,
-        password: hashedPassword,
-        role: "user"
-    })
-
-    const otp = optGenater();
-
-    // saving otp
-    user.verificationOTP = otp
-    user.verificationOTPExpires = Date.now() + 10 * 60 * 1000;
-    user.lastLogin = Date.now();
-
-
-    await user.save();
-
-
-
-    // creating token
-    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
-        expiresIn: "1d",
-    });
-    const { password: userPassword, verificationOTP: userOtp, verificationOTPExpires: userVerificationOTPExpires, ...safeUser } = user._doc;
-
-    await sendOTPemail(user.email, otp);
-
-    return res
-        .status(200)
-        .cookie("token", token, {
-            httpOnly: true,
-            secure: true, // REQUIRED for cross-site
-            sameSite: "None",
+    try {
+        const { name, email, password } = req.body;
+        console.log(name, email, password)
+        if (!name || !email || !password) {
+            return res.status(403).json({ message: "Missing fields All fields are required." })
+        }
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: "user already exists" })
+        }
+        const hashedPassword = await bcrypt.hash(password, parseInt(process.env.SALT_ROUNDS));
+        const user = new User({
+            name,
+            email,
+            password: hashedPassword,
+            role: "user"
         })
-        .json({
-            message: "register successful",
-            user: safeUser
+
+        const otp = optGenater();
+
+        // saving otp
+        user.verificationOTP = otp
+        user.verificationOTPExpires = Date.now() + 10 * 60 * 1000;
+        user.lastLogin = Date.now();
+
+
+        await user.save();
+
+
+
+        // creating token
+        const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
+            expiresIn: "1d",
+        });
+        const { password: userPassword, verificationOTP: userOtp, verificationOTPExpires: userVerificationOTPExpires, ...safeUser } = user._doc;
+
+        await sendOTPemail(user.email, otp);
+
+        return res
+            .status(200)
+            .cookie("token", token, {
+                httpOnly: true,
+                secure: true, // REQUIRED for cross-site
+                sameSite: "None",
+            })
+            .json({
+                sucess: true,
+                message: "register successful",
+                user: safeUser
+            })
+    } catch (e) {
+        return res.status(500).json({
+            success: false,
+            message: `signup failed ${e.message}`
         })
+    }
 }
 
 const verifyEmailController = async (req, res) => {

@@ -16,15 +16,17 @@ import { useMediaQuery } from 'react-responsive';
 import Footer from '../../../components/Footer'
 import { IoIosCheckmarkCircle } from 'react-icons/io';
 import AddressForm from '../component/AddressForm'
+import InfoForm from '../component/InfoForm'
 
 
 const Profile = () => {
   const { user, loading, wishList, cartLength, addresses, orders } = useAuth();
 
+    
   const [current, setCurrent] = useState(0)
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const [addAddress, setAddAddress] = useState(false);
-
+  const [editInfo, setEditInfo] = useState(false);
   if (isMobile) {
     if (loading) {
       return (
@@ -35,6 +37,8 @@ const Profile = () => {
     }
     return (
       <main className='relative bg-black'>
+        { addAddress && <AddressForm setAddAddress={setAddAddress} />}
+        { editInfo && <InfoForm setEditInfo={setEditInfo} />}
         <Navbar />
         <div className='w-full px-3 h-fit pt-3'>
 
@@ -114,7 +118,7 @@ const Profile = () => {
           <div className="w-full h-fit border rounded border-[#777]/20 px-4 py-3 bg-[#0B0C0C] my-3">
             <div className='w-full flex justify-between pb-2'>
               <h1 className='text-yellow-400/80 font-body text-lg'>Personal Information</h1>
-              <div className='border px-2 py-1 border-yellow-400/50 flex gap-1 rounded items-center'>
+              <div className='border px-2 py-1 border-yellow-400/50 flex gap-1 rounded items-center cursor-pointer' onClick={() => setEditInfo(true)}>
                 <MdModeEdit className='text-yellow-400/80 size-3' />
                 <p className='text-yellow-400/80 text-xs font-body  tracking-wider'>Edit</p>
               </div>
@@ -290,7 +294,7 @@ const Profile = () => {
 
   if (loading) {
     return (
-      <main className='h-screen! center bg-black'>
+      <main className='h-screen! center bg-black!'>
         <Loader />
       </main>
     )
@@ -298,6 +302,7 @@ const Profile = () => {
   return (
     <main className='bg-black'>
       { addAddress && <AddressForm setAddAddress={setAddAddress} />}
+      { editInfo && <InfoForm setEditInfo={setEditInfo} />}
       <Navbar additional={`py-2! px-5! border-[#777]/20! bg-[#0C0E0F]!`} />
       <div className='size-full pt-20 pb-4 px-4 flex gap-3'>
         <div className='w-75 h-full '>
@@ -412,7 +417,7 @@ const Profile = () => {
             <div className="w-[35%] h-full border rounded border-[#777]/20 px-4 py-3 bg-[#0B0C0C]">
               <div className='w-full flex justify-between pb-2'>
                 <h1 className='text-yellow-400/80 font-body text-lg'>Personal Information</h1>
-                <div className='border px-2 py-1 border-yellow-400/50 flex gap-1 rounded items-center'>
+                <div className='border px-2 py-1 border-yellow-400/50 flex gap-1 rounded items-center cursor-pointer' onClick={() => setEditInfo(true)}>
                   <MdModeEdit className='text-yellow-400/80 size-3' />
                   <p className='text-yellow-400/80 text-xs font-body  tracking-wider'>Edit</p>
                 </div>
