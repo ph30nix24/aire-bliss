@@ -19,7 +19,7 @@ const Navbar = ({ additional }) => {
     const [isSideNavClicked, setisSideNavClicked] = useState(false)
     if (isMobile) {
         return (
-            <nav className="px-5 w-full h-fit py-3 bg-black fixed top-0 z-50 flex justify-between items-center border-b border-yellow-400/20">
+            <nav className={`px-5 w-full h-fit py-3 bg-black ${additional} fixed top-0 z-50 flex justify-between items-center border-b border-yellow-400/20`}>
 
                 <div className="text-white/70 " >
                     <CgMenu className="size-5 cursor-pointer" onClick={() => setisSideNavClicked(true)} />
@@ -31,7 +31,7 @@ const Navbar = ({ additional }) => {
                 </div>
                 <div className="w-fit flex gap-4">
                     <FiSearch className="size-5 cursor-pointer text-white/70" />
-                    <CiShoppingCart className="size-5 cursor-pointer text-white/80" />
+                    <NavLink to="/user/cart" className={({ isActive }) => isActive ? 'text-yellow-400' : 'text-white/80'}><CiShoppingCart className="size-5 cursor-pointer" /></NavLink>
                 </div>
                 <div className={`w-full absolute top-0 right-0 h-screen  ${isSideNavClicked ? "translate-x-0 bg-[#111]/70" : "translate-x-full bg-[#111]"} transform-all duration-500 ease-out flex justify-end`}>
                     <div className="w-3/4 h-full flex flex-col justify-between px-8 py-5 bg-[#111]">

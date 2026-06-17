@@ -303,7 +303,7 @@ const Profile = () => {
     <main className='bg-black'>
       { addAddress && <AddressForm setAddAddress={setAddAddress} />}
       { editInfo && <InfoForm setEditInfo={setEditInfo} />}
-      <Navbar additional={`py-2! px-5! border-[#777]/20! bg-[#0C0E0F]!`} />
+      <Navbar additional={`lg:py-2! lg:px-5! border-[#777]/20! bg-[#0C0E0F]!`} />
       <div className='size-full pt-20 pb-4 px-4 flex gap-3'>
         <div className='w-75 h-full '>
           <ProfileNav />
