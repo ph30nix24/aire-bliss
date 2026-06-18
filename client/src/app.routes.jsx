@@ -9,6 +9,7 @@ import Profile from "./features/users/pages/Profile";
 import Protect from "./components/Protect";
 import EmailVerifier from "./features/auth/EmailVerifier";
 import Cart from "./features/users/pages/Cart";
+import UserProfile from "./features/users/pages/UserProfile";
 
 
 
@@ -44,7 +45,7 @@ export const router = createBrowserRouter([
     },
     {
         path: '/user/profile/',
-        element: <Protect><Profile /></Protect>
+        element: <Protect><UserProfile /></Protect>
     },
     {
         path: '/user/cart/',

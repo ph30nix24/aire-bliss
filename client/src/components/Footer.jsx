@@ -7,7 +7,7 @@ import { IoIosStar } from "react-icons/io";
 import { useMediaQuery } from 'react-responsive';
 import { FaFacebookF, FaInstagram, FaPinterestP, FaTwitter } from 'react-icons/fa6';
 
-const Footer = () => {
+const Footer = ({ background, paddingY, overlay, toOver, translateY }) => {
     const isMobile = useMediaQuery({ maxWidth: 768 });
 
     if (isMobile) {
@@ -80,10 +80,10 @@ const Footer = () => {
         )
     }
     return (
-        <footer className='w-full h-fit! px-30 py-10 relative z-10 bg-[#222]/40'>
-            <img src="./../../footer-1.webp" className='absolute w-40 top-0 left-0' loading="lazy" alt="footersImg" />
-            <img src="./../../footer-2.webp" className='size-85 object-cover absolute top-0 right-0 z-1' loading="lazy" alt="footersImg" />
-            <div className='size-85  absolute top-0 right-0 z-2 bg-radial-[at_center_right] from-transparent to-25% to-[#222]/30'></div>
+        <footer className={`w-full h-fit! px-30 py-10 relative z-10 bg-[#222]/40 ${background} ${paddingY}`}>
+            <img src="./../../footer-1.webp" className={`absolute w-40 top-0 left-0 ${translateY}`} loading="lazy" alt="footersImg" />
+            <img src="./../../footer-2.webp" className={`size-85 object-cover absolute top-0 right-0 z-1 ${translateY}`} loading="lazy" alt="footersImg" />
+            <div className={`size-85  absolute top-0 right-0 z-2 bg-radial-[at_center_right] from-transparent to-25% to-[#222]/30 ${overlay} ${toOver} ${translateY}`}></div>
             <div className='w-full flex justify-center gap-5 text-white  pb-10 relative z-10'>
                 <div className="w-1/5 ">
                     <img src="./../../logo.png" className='size-30 object-cover z-1 mx-auto' alt="" />

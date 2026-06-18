@@ -1,9 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Modern+Antiqua&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&display=swap');
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import "tailwindcss";
 
 @theme {
   --font-heading: "Cinzel Decorative", cursive;
@@ -79,6 +78,10 @@ input:-webkit-autofill {
   .arrow-animate {
     animation: arrow-loop 1.4s linear infinite;
   }
+
+  .float-animation {
+    animation: float 2s ease-in-out infinite ;
+  }
   .nav-links {
     @apply font-body tracking-widest text-sm font-medium pb-1
   }
@@ -124,5 +127,17 @@ input:-webkit-autofill {
   100% {
     transform: translateY(120%);
     opacity: 0;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) scaleX(1) scaleY(1);
+  }
+  90% {
+    transform: translateY(20px) scaleX(1) scaleY(1); /* Moving down */
+  }
+  100% {
+    transform: translateY(00px); /* Slight squash on impact */
   }
 }

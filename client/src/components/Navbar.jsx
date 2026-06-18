@@ -113,7 +113,7 @@ const Navbar = ({ additional }) => {
                 <img src="./../../logo.png" className='size-12' alt="" />
                 <p>bliss</p>
             </div>
-            <ul className='flex items-center space-x-8 text-white font-body text-xs uppercase tracking-wider'>
+            <ul className='flex items-center space-x-8 text-white font-body text-xs uppercase tracking-[0.275em]'>
                 <li><NavLink to="/" className={({ isActive }) => isActive ? 'text-yellow-400' : 'text-white'}>Home</NavLink></li>
                 <li><NavLink to="/shop" className={({ isActive }) => isActive ? 'text-yellow-400' : 'text-white'}>Shop</NavLink></li>
                 <li><NavLink to="/collection" className={({ isActive }) => isActive ? 'text-yellow-400' : 'text-white'}>Collection</NavLink></li>
