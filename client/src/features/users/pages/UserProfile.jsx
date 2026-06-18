@@ -14,25 +14,26 @@ const UserProfile = () => {
 
             <Navbar additional={`bg-transparent! border-none! backdrop-blur-md!`} />
 
-            <img src="./../../../../profile/userImgBg.webp" className='w-full h-screen object-contain absolute top-0 left-0 z-1' alt="" />
-            <div className='w-full h-screen absolute bg-radial top-0 left-0 z-2 from-[#131313]/20 to-75% to-[#131313]'></div>
+            <img src="./../../../../profile/userImgBg.webp" className='w-full h-screen object-cover lg:object-contain absolute top-0 left-0 z-1' alt="" />
+            <div className='w-full h-screen absolute bg-radial top-0 left-0 z-2 from-[#131313]/10 lg:from-[#131313]/30 to-75% to-[#131313]'></div>
 
             <div className='w-full h-screen flex items-end relative z-5 p-10 pb-20'>
-                <div className='w-full flex justify-between items-center relative'>
+                <div className='w-full flex justify-center lg:justify-between items-center relative'>
 
                     {/* name */}
-                    <div className=''>
-                        <div className='w-full flex gap-3 items-center'>
+                    <div className='max-lg:w-full max-lg:pb-20'>
+                        <div className='w-full flex gap-3 max-lg:justify-center items-center'>
                             <div className='w-10 h-0.5 bg-[#A0852E]'></div>
-                            <h1 className='uppercase font-body font-medium tracking-widest text-[#A0852E]'>Welcome to the Aire Bliss</h1>
+                            <h1 className='uppercase font-body font-medium tracking-widest text-[#A0852E] max-lg:text-center '>Welcome to the <br className='lg:hidden'/> Aire Bliss</h1>
+                            <div className='w-10 h-0.5 bg-[#A0852E] lg:hidden'></div>
                         </div>
-                        <div className='font-heading text-7xl font-medium mt-3'>
+                        <div className='font-heading text-7xl font-medium max-lg:w-full max-lg:text-center mt-3'>
                             Anuj
                         </div>
-                        <div className='mt-3 flex gap-3 items-center'>
-                            <div className='uppercase text-xs font-body tracking-wider flex gap-1 text-[#A0852E] py-1 px-4 border items-center'>
+                        <div className=' mt-5 lg:mt-3 flex gap-3 items-center max-lg:justify-center'>
+                            <div className='uppercase text-xs font-body tracking-wider flex gap-1 text-[#A0852E] py-1 px-4 border items-center max-lg:rounded-full max-lg:backdrop-blur-xs'>
                                 <FaCircleCheck className='size-3' />
-                                <span className='pt-px'>Verified </span>
+                                <span className='pt-px '>Verified </span>
                             </div>
                             <p className='uppercase text-xs font-body tracking-widest'>Since 2026</p>
                         </div>
@@ -40,7 +41,7 @@ const UserProfile = () => {
 
 
                     {/* primary-contact */}
-                    <div className='w-fit p-8 bg-[#131313] border-t border-l border-yellow-400/30 relative overflow-hidden group'>
+                    <div className='w-fit p-8 bg-[#131313] border-t border-l border-yellow-400/30 relative overflow-hidden group max-lg:hidden'>
                         <p className='text-[10px] font-body font-medium uppercase tracking-wider text-white/60 text-end'>Digital Identity</p>
 
                         <p className='py-2 font-body font-light text-base text-end tracking-wider'>
@@ -54,20 +55,20 @@ const UserProfile = () => {
                         <div className='size-full absolute bg-[#A0852E]/10 bottom-0 left-0 translate-y-full group-hover:translate-y-0 transition-smooth'></div>
                     </div>
 
-                    <div className='absolute left-1/2 bottom-0 float-animation transition-smooth'>
+                    <div className='absolute left-1/2 bottom-0 max-lg:-translate-x-1/2 float-animation transition-smooth'>
                         <p className='text-[#A0852E] uppercase text-xs font-body tracking-widest pb-2'>Discover</p>
                         <div className='w-px h-10  mx-auto bg-linear-to-b from-[#A0852E] to-[#131313]'></div>
                     </div>
 
                     {/* capital-letter */}
-                    <div className=' absolute left-1/2 translate-x-[200%] translate-y-2/10 text-[208px] font-subheading italic text-[#A0852E]/20'>
+                    <div className=' absolute left-1/2 translate-x-1/2 lg:translate-x-[200%] translate-y-4/10 lg:translate-y-2/10 text-[208px] font-subheading italic text-[#A0852E]/10 lg:text-[#A0852E]/20'>
                         {"Anuj".slice(0, 1)}
                     </div>
                 </div>
             </div>
 
-            <div className='w-full py-30 flex gap-15 '>
-                <div className="w-3/10 px-10 pr-15 py-10 pt-20 border-r-2 border-[#232221]/50">
+            <div className='w-full py-30 flex max-lg:flex-col lg:gap-15 '>
+                <div className="w-full lg:w-3/10 px-10 lg:pr-15 py-10 pt-20 border-r-2 border-[#232221]/50">
 
                     <h1 className='font-subheading italic text-white/90 text-4xl'>Curation</h1>
                     <p className='py-5 font-body tracking-wide font-light text-white/70'>Your personal collection and <br /> interactions within the Maison.</p>
@@ -109,7 +110,7 @@ const UserProfile = () => {
                 </div>
 
 
-                <div className='w-7/10 px-15'>
+                <div className='w-full lg:w-7/10 px-10 lg:px-15'>
                     <div className='flex justify-between items-end w-full border-b border-yellow-400/50 pb-6'>
                         <div className=''>
                             <h1 className='font-subheading text-3xl tracking-wide text-[#c09b25]'>Personal</h1>
@@ -122,20 +123,20 @@ const UserProfile = () => {
                     </div>
 
                     <div className='w-full py-10 '>
-                        <div className='w-full flex gap-15'>
-                            <div className='w-1/2 pb-2 border-b-2 border-[#232221]/50'>
+                        <div className='w-full flex max-lg:flex-col gap-5 lg:gap-15'>
+                            <div className='w-full lg:w-1/2 pb-2 border-b-2 border-[#232221]/50'>
                                 <p className='uppercase text-xs font-body tracking-widest text-[#c09b25]'>Full Name</p>
                                 <h1 className='text-xl pt-2 font-body tracking-widest text-white/80'>Anuj</h1>
                             </div>
-                            <div className='w-1/2 pb-2 border-b-2 border-[#232221]/50'>
+                            <div className='w-full lg:w-1/2 pb-2 border-b-2 border-[#232221]/50'>
                                 <p className='uppercase text-xs font-body tracking-widest text-[#c09b25]'>Email Address</p>
                                 <h1 className='text-lg pt-2 font-body tracking-widest text-white/80'>akashsupreme124@gmail.com</h1>
                             </div>
                         </div>
-                        <div className='w-full flex gap-15 pt-10'>
+                        <div className='w-full flex gap-5 lg:gap-15 pt-5 lg:pt-10'>
                             <div className='w-1/2 pb-2 border-b-2 border-[#232221]/50'>
                                 <p className='uppercase text-xs font-body tracking-widest text-[#c09b25]'>phone number</p>
-                                <h1 className='text-lg pt-2 font-body tracking-widest text-white/80'> <span className='pl-2'> - </span></h1>
+                                <h1 className='text-lg pt-2 font-body tracking-widest text-white/80'><span className='pl-2'> - </span></h1>
                             </div>
 
 
@@ -145,12 +146,12 @@ const UserProfile = () => {
                             </div>
 
                         </div>
-                        <div className='w-full flex gap-15 pt-10'>
-                            <div className='w-1/2 pb-2 border-b-2 border-[#232221]/50'>
+                        <div className='w-full flex pt-5 lg:gap-15 lg:pt-10'>
+                            <div className='w-full lg:w-1/2 pb-2 border-b-2 border-[#232221]/50'>
                                 <p className='uppercase text-xs font-body tracking-widest text-[#c09b25]'>Gender</p>
                                 <h1 className='text-lg pt-2 font-body tracking-widest text-white/80'> <span className='pl-2'> - </span></h1>
                             </div>
-                            <div className='w-1/2'>
+                            <div className='w-1/2 max-lg:hidden'>
 
                             </div>
 
@@ -159,7 +160,7 @@ const UserProfile = () => {
 
 
                     <div className='flex justify-between items-end w-full border-b border-yellow-400/50 pt-20 pb-6'>
-                        <div className=''>
+                        <div className='max-lg:flex max-lg:gap-2'>
                             <h1 className='font-subheading text-3xl tracking-wide text-[#c09b25]'>Security &</h1>
                             <h1 className='font-subheading text-3xl italic'>Access</h1>
                         </div>
@@ -169,12 +170,12 @@ const UserProfile = () => {
 
                     <div className='w-full py-10 '>
 
-                        <div className='w-full h-fit flex items-center gap-5 py-8 px-10 border-2 border-[#232221]/50 justify-between hover:border-yellow-400/10 mb-8'
+                        <div className='w-full h-fit flex items-center gap-5 py-4 lg:py-8 px-5 lg:px-10 border-2 border-[#232221]/50 justify-between hover:border-yellow-400/10 mb-8'
                         >
                             <div className='flex items-center gap-5'>
                                 <VscWorkspaceTrusted className='text-[#c09b25] size-7' />
                                 <div>
-                                    <h1 className='text-lg tracking-wider font-body text-white/80 '>Authentication Status</h1>
+                                    <h1 className='text-[4vw] lg:text-lg tracking-wider font-body text-white/80 '>Authentication Status</h1>
                                     <p className='font-body text-white/60 font-extralight tracking-wide text-sm'>Identify verified via primary email.</p>
                                 </div>
                             </div>
@@ -182,12 +183,12 @@ const UserProfile = () => {
                         </div>
 
 
-                        <div className='w-full h-fit flex items-center gap-5 py-8 px-10 border-2 border-[#232221]/50 justify-between hover:border-yellow-400/10 mb-8 group cursor-pointer'
+                        <div className='w-full h-fit flex items-center gap-5 py-4 lg:py-8 px-5 lg:px-10 border-2 border-[#232221]/50 justify-between hover:border-yellow-400/10 mb-8 group cursor-pointer'
                         >
                             <div className='flex items-center gap-5'>
                                 <MdOutlineKey className='group-hover:text-[#c09b25] size-7 transition-smooth text-white/80' />
                                 <div>
-                                    <h1 className='text-lg tracking-wider font-body text-white/80 group-hover:text-[#c09b25] transition-smooth'>Cryptogrphic Key</h1>
+                                    <h1 className='text-[3.8vw] text-lg tracking-wider font-body text-white/80 group-hover:text-[#c09b25] transition-smooth'>Cryptogrphic Key</h1>
                                     <p className='font-body text-white/60 font-extralight tracking-wide text-sm'>Identify verified via primary email.</p>
                                 </div>
                             </div>
@@ -211,14 +212,14 @@ const UserProfile = () => {
                 </div>
             </div>
 
-            <div className='w-full h-[70vh] relative'>
+            <div className='w-full h-[40vh] lg:h-[70vh] relative'>
                 <img src="./../../../../profile/screen.webp" className='size-full object-cover absolute z-1 top-0 left-0' alt="" />
 
                 <div className='absolute size-full bg-[#131313]/75   z-3'></div>
 
-                <div className='size-full center flex-col relative z-5'>
-                    <h1 className='font-subheading text-6xl'>Indulge in <span className='italic text-[#deb324]'>Luxury</span></h1>
-                    <p className='text-center font-body tracking-wide text-white/70 leading-[110%] pt-5'>Discover our new exclusive collection, curated for those who <br /> understand the language of scent.</p>
+                <div className='size-full center flex-col relative z-5 max-lg:px-5'>
+                    <h1 className='font-subheading text-[7vw] lg:text-6xl'>Indulge in <span className='italic text-[#deb324]'>Luxury</span></h1>
+                    <p className='text-center font-body tracking-wide text-white/70 leading-[110%] pt-5 max-lg:px-5'>Discover our new exclusive collection, curated for those who <br className='max-lg:hidden' /> understand the language of scent.</p>
                     <button className='w-fit px-10 backdrop-blur-xs py-3 text-yellow-400/90 center gap-3 bg-[#111]/50 hover:text-[#111]  border hover:bg-yellow-400/90 mt-15 cursor-pointer transition-smooth'>
                         <p className='font-body text-sm font-light uppercase tracking-[0.175em]'>Enter the boutique</p>
                     </button>
