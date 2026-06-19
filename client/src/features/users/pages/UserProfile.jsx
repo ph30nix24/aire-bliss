@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FaCircleCheck } from "react-icons/fa6";
 import { FaPencilAlt } from "react-icons/fa";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
@@ -7,11 +7,19 @@ import { FaArrowRight } from "react-icons/fa6";
 import { FiArrowUpRight } from "react-icons/fi";
 import Footer from '../../../components/Footer'
 import Navbar from '../../../components/Navbar'
+import InfoForm from '../component/InfoForm';
+
+
+
 
 const UserProfile = () => {
+
+    const [isEditPersonalInfo, setIsEditPersonalInfo] = useState(false);
+
+
     return (
         <main className='bg-[#131313] text-white'>
-
+            
             <Navbar additional={`bg-transparent! border-none! backdrop-blur-md!`} />
 
             <img src="./../../../../profile/userImgBg.webp" className='w-full h-screen object-cover lg:object-contain absolute top-0 left-0 z-1' alt="" />
@@ -67,7 +75,8 @@ const UserProfile = () => {
                 </div>
             </div>
 
-            <div className='w-full py-30 flex max-lg:flex-col lg:gap-15 '>
+            <div className='w-full py-30 flex max-lg:flex-col lg:gap-15  relative '>
+                { isEditPersonalInfo && <InfoForm isEditPersonalInfo={isEditPersonalInfo} setIsEditPersonalInfo={setIsEditPersonalInfo} />}
                 <div className="w-full lg:w-3/10 px-10 lg:pr-15 py-10 pt-20 border-r-2 border-[#232221]/50">
 
                     <h1 className='font-subheading italic text-white/90 text-4xl'>Curation</h1>
@@ -116,7 +125,7 @@ const UserProfile = () => {
                             <h1 className='font-subheading text-3xl tracking-wide text-[#c09b25]'>Personal</h1>
                             <h1 className='font-subheading text-3xl italic'>Details</h1>
                         </div>
-                        <div className='text-xs uppercase font-body tracking-widest cursor-pointer text-white/70 hover:text-[#e4be43] transition-smooth flex items-center gap-2 group'>
+                        <div className='text-xs uppercase font-body tracking-widest cursor-pointer text-white/70 hover:text-[#e4be43] transition-smooth flex items-center gap-2 group' onClick={() => setIsEditPersonalInfo(true)}>
                             <p>[ edit ]</p>
                             <FaPencilAlt className='size-0 group-hover:size-2.5 transition-smooth' />
                         </div>
@@ -188,7 +197,7 @@ const UserProfile = () => {
                             <div className='flex items-center gap-5'>
                                 <MdOutlineKey className='group-hover:text-[#c09b25] size-7 transition-smooth text-white/80' />
                                 <div>
-                                    <h1 className='text-[3.8vw] text-lg tracking-wider font-body text-white/80 group-hover:text-[#c09b25] transition-smooth'>Cryptogrphic Key</h1>
+                                    <h1 className='text-[3.8vw] lg:text-lg tracking-wider font-body text-white/80 group-hover:text-[#c09b25] transition-smooth'>Cryptogrphic Key</h1>
                                     <p className='font-body text-white/60 font-extralight tracking-wide text-sm'>Identify verified via primary email.</p>
                                 </div>
                             </div>

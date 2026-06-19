@@ -1,184 +1,110 @@
 import React, { useState } from 'react'
-import { FaAngleLeft } from "react-icons/fa6";
-import { MdCalendarMonth, MdCheckBox, MdOutlineEmail, MdOutlineLocalPhone } from 'react-icons/md'
-import { TiUserOutline } from 'react-icons/ti'
-import Dropdown from '../../admin/components/DropDown';
-import { LuUserRoundCheck } from "react-icons/lu";
-import { IoIosLock } from 'react-icons/io';
+import { RxCross2 } from 'react-icons/rx'
+import Dropdown from '../../admin/components/DropDown'
 
+const InfoForm = ({ isEditPersonalInfo, setIsEditPersonalInfo }) => {
 
+    const [userData, setUserData] = useState({
+        name: "anuj",
+        email: "akashsupreme124@gmail.com",
+        phoneNo: '',
+        gender: '',
+        dob: ""
 
-const InfoForm = ({ setEditInfo }) => {
-
-    const [personalInfoForm, setPersonalInfoForm] = useState({
-        gender: ""
     })
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        setUserData((prevData) => ({
+            ...prevData,
+            [name]: value      // Update just the "name" field
+        }));
+    }
+
     const genderOptions = [
         { label: 'Male', value: 'male' },
         { label: 'Female', value: 'female' },
-        { label: 'Unisex', value: 'unisex' },
+        { label: 'Others', value: 'others' },
     ];
 
-    const handleButton = (e) => {
-
-    }
-
     const handleDropdownChange = (name, value) => {
-        setPersonalInfoForm(prev => ({ ...prev, [name]: value }));
+        setUserData(prev => ({ ...prev, [name]: value }));
     }
 
-    const handleChange = (e) => {
-        console.log(2)
-    }
     return (
-        <div className='absolute size-full top-0 left-0 bg-black/10 backdrop-blur-md max-lg:flex max-lg:justify-center text-white z-51'>
-            <div className='w-full h-screen center text-white bg-transparent'>
-                <div className='w-9/10 lg:w-200 h-fit p-5 lg:px-10 lg:py-10 bg-[#0B0C0C] rounded shadow shadow-yellow-400/10 border border-yellow-400/10'>
-                    {/* heading */}
-                    <div className='w-full flex justify-between items-center pb-3 lg:pb-4 border-b border-[#777]/20'>
-                        <div className='flex items-center w-fit gap-5'>
-                            <div className=''>
-                                <h1 className='font-heading text-[4vw] lg:text-xl'>Personal Information</h1>
-                                <p className='text-xs tracking-wider lg:text-sm font-body font-extralight pt-1 text-white/70'>
-                                    Update your personal details and keep your account secure.
-                                </p>
-                            </div>
-                        </div>
-                        <div className='cursor-pointer flex gap-1 px-3 py-1.5 items-center text-yellow-400/70 hover:text-yellow-400/90 border border-yellow-400/20 hover:bg-yellow-400/30 rounded' onClick={() => setEditInfo(false)}>
-                            <FaAngleLeft className='text-yellow-400/80 size-3' />
-                            <span className='font-body text-xs font-extralight lg:pb-px'>Back <span className='hidden lg:inline'>to Profile</span></span>
-                        </div>
+        <div className={`absolute w-full h-screen top-0 left-0 max-lg:translate-y-1/2 bg-[#131313]/60 backdrop-blur-sm z-55 center`}>
+            <form className='w-9/10 lg:w-160 bg-[#181818] relative h-fit py-10 px-5 lg:p-10 border-2 border-yellow-400/10'>
+                <RxCross2 className='size-5 text-white/70 absolute top-0 right-0 -translate-x-[120%] translate-y-[120%] cursor-pointer' onClick={() => setIsEditPersonalInfo(false)} />
 
-                    </div>
-
-                    <form className='w-full'>
-
-                        {/* full name, Email */}
-                        <div className='w-full flex justify-between gap-2 lg:gap-5 pt-3 lg:pt-4 max-lg:flex-wrap'>
-                            <div className="w-1/2 max-lg:grow">
-                                <p className='text-sm font-body font-light capitalize  pb-2'>full name </p>
-                                <fieldset className='border px-3 rounded border-[#777]/20 flex items-center gap-1 lg:gap-3'>
-                                    <label htmlFor='full-name'><TiUserOutline className='text-yellow-400/70 size-4' /></label>
-                                    <input type="text" name="name" required id="full-name" className='w-full py-2.5 lg:py-2 font-extralight text-xs lg:text-sm px-2 outline-none font-body' placeholder='Enter Full Name' onChange={handleChange} />
-                                </fieldset>
-                            </div>
-                            <div className="w-1/2 max-lg:grow">
-                                <p className='text-sm font-body font-light capitalize  pb-2'>Email Address </p>
-                                <fieldset className='border px-2 lg:px-3 rounded border-[#777]/20 flex items-center gap-1 lg:gap-3'>
-                                    <label htmlFor='email'><MdOutlineEmail className='text-yellow-400/70 size-4' /></label>
-                                    <input type="email" maxLength={10} name="phoneNo" required id="email" placeholder='Enter Your Email ' className='w-full py-2.5 lg:py-2 font-extralight text-xs lg:text-sm px-2 outline-none font-body' onChange={handleChange} />
-                                </fieldset>
-                            </div>
-
-                        </div>
+                <p className='text-xs uppercase text-primary text-center font-semibold tracking-[0.285em]'>member records</p>
+                <h1 className='text-[8vw] lg:text-4xl py-2 text-center tracking-wider font-subheading font-bold'>Edit Profile</h1>
+                <p className='italic text-center text-white/60 max-lg:text-sm'>"Your identity is the finest fragrance we curate."</p>
 
 
-                        {/* number and date of birth */}
-                        <div className='w-full flex justify-between gap-2 lg:gap-5 pt-3 lg:pt-4'>
-                            {/* number */}
-                            <div className="w-1/2">
-                                <p className='text-sm font-body font-light capitalize  pb-2'>Phone Number</p>
-                                <fieldset className='border px-3 rounded border-[#777]/20 flex items-center gap-1 lg:gap-3'>
-                                    <label htmlFor='phone-number'><MdOutlineLocalPhone className='text-yellow-400/70 size-4' /></label>
-                                    <input type="text" name="phoneNo" required id="phone-number" className='w-full py-2.5 lg:py-2 font-extralight text-xs lg:text-sm px-2 outline-none font-body' placeholder='Enter Full Name' onChange={handleChange} />
-                                </fieldset>
-                            </div>
-                            {/* date of birth */}
-                            <div className="w-1/2">
-                                <p className='text-sm font-body font-light capitalize  pb-2'>Date of Birth </p>
-                                <fieldset className='border px-2 lg:px-3 rounded border-[#777]/20 flex items-center gap-1 lg:gap-3'>
-                                    <label htmlFor='email'><MdCalendarMonth className='text-yellow-400/70 size-4' /></label>
-                                    <input type="date" maxLength={10} name="phoneNo" required id="email" placeholder='Enter Your Email ' className='w-full py-2.5 lg:py-2 font-extralight text-xs lg:text-sm px-2 outline-none font-body' onChange={handleChange} />
-                                </fieldset>
-                            </div>
-
-                        </div>
-
-                        {/* gender and role */}
-                        <div className='w-full flex justify-between gap-2 lg:gap-5 pt-3 lg:pt-4'>
-
-                            {/* gender */}
-                            <div className="w-1/2">
-                                <p className='text-sm font-body font-light capitalize  pb-2'>Gender </p>
-                                <fieldset className='border rounded border-[#777]/20 flex items-center gap-1 lg:gap-3'>
-                                    <Dropdown
-                                        label="Select Gender"
-                                        additionalCls={`bg-transparent!`}
-                                        options={genderOptions}
-                                        value={personalInfoForm.gender}
-                                        onChange={(value) => handleDropdownChange('category', value)}
-
-                                    />
-                                </fieldset>
-                            </div>
-
-                            {/* Role */}
-                            <div className="w-1/2">
-                                <p className='text-sm font-body font-light capitalize  pb-2'>Role </p>
-                                <fieldset className='border px-2 lg:px-3 rounded border-[#777]/20 flex items-center gap-1 lg:gap-3 bg-[#777]/10'>
-                                    <label htmlFor='role'><LuUserRoundCheck className='text-yellow-400/70 size-4' /></label>
-                                    <input type="role" maxLength={10} name="role" required id="role" readOnly placeholder='Customer ' className='w-full py-2.5 lg:py-2 font-extralight text-xs lg:text-sm px-2 outline-none font-body' />
-                                </fieldset>
-                            </div>
-
-                        </div>
-
-                        <div className='w-full px-5 py-3 pb-5 rounded border border-dashed border-[#777]/30 mt-3 lg:mt-15'>
-                            <div className='flex gap-4 items-center'>
-                                <IoIosLock className='text-yellow-400/80 size-6' />
-                                <div className='font-body'>
-                                    <h2 className='text-sm font-light text-yellow-400/80'>
-                                        Change Password
-                                    </h2>
-                                    <p className='text-xs font-extralight text-white/80'>
-                                        Leave Blank if you don't want to change your password.
-                                    </p>
-                                </div>
-                            </div>
-                            <div className='w-full flex items-center gap-4 mt-4 max-lg:flex-col'>
-                                <div className="w-full lg:w-1/3">
-                                    <p className='text-sm font-body font-light capitalize  pb-2'>Current Password </p>
-                                    <fieldset className='border px-3 rounded border-[#777]/20 flex items-center gap-1 lg:gap-3'>
-                                        <label htmlFor='full-name'><IoIosLock className='text-yellow-400/70 size-4' /></label>
-                                        <input type="password" name="currentPassword" required id="current-password" className='w-full py-2.5 lg:py-2.5 font-extralight text-xs lg:text-xs px-2 outline-none font-body' placeholder='Enter Current Password' onChange={handleChange} />
-                                    </fieldset>
-                                </div>
-                                <div className="w-full lg:w-1/3">
-                                    <p className='text-sm font-body font-light capitalize  pb-2'>New Password </p>
-                                    <fieldset className='border px-3 rounded border-[#777]/20 flex items-center gap-1 lg:gap-3'>
-                                        <label htmlFor='full-name'><IoIosLock className='text-yellow-400/70 size-4' /></label>
-                                        <input type="password" name="newPassword" required id="new-password" className='w-full py-2.5 lg:py-2.5 font-extralight text-xs lg:text-xs px-2 outline-none font-body' placeholder='Enter Current Password' onChange={handleChange} />
-                                    </fieldset>
-                                </div>
-                                <div className="w-full lg:w-1/3">
-                                    <p className='text-sm font-body font-light capitalize  pb-2'>Confirmed Password </p>
-                                    <fieldset className='border px-3 rounded border-[#777]/20 flex items-center gap-1 lg:gap-3'>
-                                        <label htmlFor='full-name'><IoIosLock className='text-yellow-400/70 size-4' /></label>
-                                        <input type="password" name="confirmedPassword" required id="confirmed-password" className='w-full py-2.5 lg:py-2.5 font-extralight text-xs lg:text-xs px-2 outline-none font-body' placeholder='Confirm New Password' onChange={handleChange} />
-                                    </fieldset>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className='w-full mt-10 flex items-center gap-5 '>
-                            <button className='w-fit px-8 center font-body font-light tracking-wider text-xs lg:text-xs bg-yellow-400/60 text-white py-2.5 lg:py-3 rounded cursor-pointer gap-3 hover:bg-yellow-400'>
-                                <MdCheckBox className='size-4' />
-                                <span className=''>
-                                    Save Changes
-                                </span>
-                            </button>
-                            <button className='w-fit  mt-1 center font-body font-light tracking-wider text-xs text-white py-2 rounded cursor-pointer gap-3 hover:text-yellow-400/80'>
-                                <span className=''>
-                                    Cancel
-                                </span>
-                            </button>
-                        </div>
+                <div className='w-full h-fit flex gap-5 mt-5 max-lg:flex-col'>
+                    <fieldset className='w-full lg:w-1/2'>
+                        <label htmlFor="name" className='block pb-2 font-subheading tracking-[0.175em] font-medium uppercase text-xs  text-primary'>
+                            Name
+                        </label>
+                        <input type="text" name="name" id="name" value={userData.name} placeholder='Enter your name' className='w-full outline-none bg-[#131313] px-3 py-3 font-body tracking-wider text-sm capitalize text-white/60  border border-[#777]/10' onChange={handleChange} />
+                    </fieldset>
 
 
-                    </form>
+                    <fieldset className='w-full lg:w-1/2'>
+                        <label htmlFor="name" className='block pb-2 font-subheading tracking-[0.175em] font-medium uppercase text-xs  text-primary'>
+                            phone number
+                        </label>
+                        <input type="text" name="phoneNo" id="phoneNo" value={userData.phoneNo} placeholder='+91 87000 00000' maxLength={10} className='w-full outline-none bg-[#131313] px-3 py-3 font-body tracking-wider text-sm capitalize text-white/60  border border-[#777]/10' onChange={handleChange} />
+                    </fieldset>
+                </div>
+
+
+                <div className='w-full h-fit flex gap-5 mt-5'>
+                    <fieldset className='w-full'>
+                        <label htmlFor="name" className='block pb-2 font-subheading tracking-[0.175em] font-medium uppercase text-xs  text-primary'>
+                            Email Address
+                        </label>
+                        <input type="text" name="email" id="email" value={userData.email} placeholder='Enter your name' className='w-full outline-none bg-[#131313] px-3 py-3 font-body tracking-wider text-sm text-white/60  border border-[#777]/10' onChange={handleChange} />
+                    </fieldset>
 
                 </div>
-            </div>
+
+                <div className='w-full h-fit flex gap-5 mt-5'>
+                    <fieldset className='w-1/2'>
+                        <label htmlFor="name" className='block pb-2 font-subheading tracking-[0.175em] font-medium uppercase text-xs  text-primary'>
+                            Gender
+                        </label>
+                        <Dropdown
+                            label='Select Gender'
+                            options={genderOptions}
+                            value={userData.gender}
+                            additionalCls={`rounded-none! py-3.25!`}
+                            onChange={(value) => handleDropdownChange('gender', value)}
+                         />
+                    </fieldset>
+
+
+                    <fieldset className='w-1/2'>
+                        <label htmlFor="name" className='block pb-2 font-subheading tracking-[0.175em] font-medium uppercase text-xs  text-primary'>
+                            birth date
+                        </label>
+                        <input type="date" name="dob" id="dob" value={userData.dob} placeholder='+91 87000 00000' maxLength={10} className='w-full outline-none bg-[#131313] px-3 py-3 font-body tracking-wider text-sm  text-white/60  border border-[#777]/10 [&::-webkit-calendar-picker-indicator]:invert
+    [&::-webkit-calendar-picker-indicator]:cursor-pointer' onChange={handleChange} />
+                    </fieldset>
+                </div>
+
+
+                <div className='w-full flex gap-2 lg:gap-5 items-center border-t-2 border-primary/10 pt-10 mt-20' onClick={() => setIsEditPersonalInfo(false)}>
+                    <button className='w-1/2 px-10 backdrop-blur-xs py-3 text-yellow-400/90 center gap-3 bg-[#111]/50 hover:text-[#111]  border hover:bg-yellow-400/90 cursor-pointer transition-smooth'>
+                        <p className='font-body text-[10px] lg:text-sm font-light uppercase tracking-[0.175em]'>cancel</p>
+                    </button>
+
+                    <button className='w-1/2 lg:px-10 backdrop-blur-xs py-3 text-[#131313] center gap-3 bg-primary hover:text-[#111]  border hover:bg-yellow-400/90 cursor-pointer transition-smooth'>
+                        <p className='font-body text-[10px] lg:text-sm font-medium uppercase tracking-[0.175em]'>Save changes</p>
+                    </button>
+                </div>
+            </form>
         </div>
     )
 }
