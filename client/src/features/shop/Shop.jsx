@@ -7,7 +7,7 @@ const Shop = () => {
   const isMobile = useMediaQuery({ maxWidth: 768});
   return (
     <main className='w-full min-h-screen bg-black shop'>
-      <Navbar  additional={`bg-transparent! py-3! border-none!`}/>
+      <Navbar  additional={`bg-transparent! backdrop-blur-xs! py-3! border-none!`}/>
       { isMobile ? <MobileShop /> : <DesktopShop />}
     </main>
   )

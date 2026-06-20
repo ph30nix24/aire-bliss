@@ -1,275 +1,220 @@
-// import React, { useState } from 'react'
-// import { BsHandbag, BsSliders } from "react-icons/bs";
-// import { FiMinus } from "react-icons/fi";
-// import { IoCheckmarkOutline } from "react-icons/io5";
-// import PriceRangeSlider from './PriceRangeSlider';
-// import StarRating from '../../home/components/StarRating';
-// import { bestproducts } from '../../../utils';
 
-
-// const DesktopShop = () => {
-//   const [attar, setAttar] = useState(false);
-//   const [perfumes, setPerfumes] = useState(true)
-//   const [room, setRoom] = useState(false)
-//   const [male, setMale] = useState(true)
-//   const [women, setWomen] = useState(true)
-//   const [inStock, setInStock] = useState(true)
-//   const [outOfStock, setOutOfStock] = useState(false)
-//   const [seeMore, setSeeMore] = useState(false)
-//   return (
-//     <main className='w-full min-h-screen bg-black shop'>
-//       {/* Hero Banner */}
-//       <div className='w-full h-[30vh] border-b border-yellow-500/20 flex mt-20'>
-//         <div className='w-1/2 h-full pl-30 py-5 flex flex-col justify-center'>
-//           <p className='font-body font-light text-yellow-400/80 capitalize'>
-//             home <span className='px-1 text-white/30'>/</span> shop
-//           </p>
-//           <h1 className='font-heading text-gradient-silver text-3xl font-semibold my-2'>
-//             Discover Luxury Fragrances
-//           </h1>
-//           <div className="w-10 h-0.5 mt-1 bg-linear-to-r rounded-full from-yellow-500 to-yellow-600 mb-5"></div>
-//           <p className='font-body text-white/70 font-light'>
-//             Timeless scents crafted with the rarest ingredients <br /> for unforgettable moments.
-//           </p>
-//         </div>
-//         <div className='w-1/2 h-full relative'>
-//           <div className='size-full absolute top-0 left-0 bg-linear-to-l to-black from-transparent from-55%'></div>
-//           <img src="./shop/shop-2.webp" className='size-full object-scale-down' alt="" />
-//         </div>
-//       </div>
-
-//       {/* Main Layout */}
-//       <div className='w-full flex' style={{ height: 'calc(100vh - 72px)' }}>
-
-//         {/* Filter Sidebar — fixed height, never scrolls */}
-//         <div
-//           className='w-1/6 border-r border-white/10 bg-[#222]/50 shrink-0'
-//           style={{ height: 'calc(100vh - 72px)', position: 'sticky', top: 0 }}
-//         >
-//           <div className='w-full px-5 py-5 flex gap-3 items-center border-b border-white/10'>
-//             <BsSliders className='text-yellow-400/80 text-lg' />
-//             <p className='text-white uppercase font-body text-sm font-light'>filter</p>
-//           </div>
-//            {/* Add filter options here */}
-//           <div className='w-full h-fit p-5 '>
-//             {/* categories */}
-//             <div className='text-white border-b border-white/10 pb-4'>
-//               <h1 className='flex justify-between items-center'>
-//                 <span className='font-body uppercase text-xs'>Category</span>
-//                 <FiMinus />
-//               </h1>
-//               <div className='w-full h-fit mt-3 '>
-//                 <div className='w-full flex items-center gap-2'>
-//                   <div className={`size-3.5 cursor-pointer  border rounded-xs center ${attar ? "bg-yellow-400/80 text-[#222]" : "border-white/70"}`} onClick={() => setAttar(!attar)}>
-//                     {attar && <IoCheckmarkOutline className='size-3' />}
-//                   </div>
-//                   <p className='font-body font-light text-xs'>Attars <span>(12)</span></p>
-//                 </div>
-//                 <div className='w-full flex items-center gap-2 mt-3'>
-//                   <div className={`size-3.5 cursor-pointer  border rounded-xs center ${perfumes ? "bg-yellow-400/80 text-[#222]" : "border-white/70"}`} onClick={() => setPerfumes(!attar)}>
-//                     {perfumes && <IoCheckmarkOutline className='size-3' />}
-//                   </div>
-//                   <p className='font-body font-light text-xs'>Perfumes <span>(52)</span></p>
-//                 </div>
-//                 <div className='w-full flex items-center gap-2 mt-3'>
-//                   <div className={`size-3.5 cursor-pointer  border rounded-xs center ${room ? "bg-yellow-400/80 text-[#222]" : "border-white/70"}`} onClick={() => setRoom(!attar)}>
-//                     {room && <IoCheckmarkOutline className='size-3' />}
-//                   </div>
-//                   <p className='font-body font-light text-xs'>Room Fragrances <span>(32)</span></p>
-//                 </div>
-//               </div>
-//             </div>
-//             {/* gender */}
-//             <div className='text-white border-b border-white/10 py-4'>
-//               <h1 className='flex justify-between items-center'>
-//                 <span className='font-body uppercase text-xs'>Gender</span>
-//                 <FiMinus />
-//               </h1>
-//               <div className='w-full h-fit mt-3 '>
-//                 <div className='w-full flex items-center gap-2'>
-//                   <div className={`size-3.5 cursor-pointer  border rounded-xs center ${male ? "bg-yellow-400/80 text-[#222]" : "border-white/70"}`} onClick={() => setMale(!male)}>
-//                     {male && <IoCheckmarkOutline className='size-3' />}
-//                   </div>
-//                   <p className='font-body font-light text-xs'>Men <span>(22)</span></p>
-//                 </div>
-//                 <div className='w-full flex items-center gap-2 mt-3'>
-//                   <div className={`size-3.5 cursor-pointer  border rounded-xs center ${women ? "bg-yellow-400/80 text-[#222]" : "border-white/70"}`} onClick={() => setWomen(!women)}>
-//                     {women && <IoCheckmarkOutline className='size-3' />}
-//                   </div>
-//                   <p className='font-body font-light text-xs'>Women <span>(52)</span></p>
-//                 </div>
-//               </div>
-//             </div>
-//             {/* price range */}
-//             <div className='w-full text-white border-b border-white/10 py-4'>
-//               <h1 className='flex justify-between items-center'>
-//                 <span className='font-body uppercase text-xs'>Price Range</span>
-//                 <FiMinus />
-//               </h1>
-//               <div className='w-full'>
-//                 <PriceRangeSlider />
-//               </div>
-//             </div>
-//             <div className='text-white border-b border-white/10 py-4'>
-//               <h1 className='flex justify-between items-center'>
-//                 <span className='font-body uppercase text-xs'>availability</span>
-//                 <FiMinus />
-//               </h1>
-//               <div className='w-full h-fit mt-5 '>
-//                 <div className='w-full flex items-center gap-2'>
-//                   <div className={`size-3.5 cursor-pointer  border rounded-xs center ${inStock ? "bg-yellow-400/80 text-[#222]" : "border-white/70"}`} onClick={() => setInStock(!inStock)}>
-//                     {inStock && <IoCheckmarkOutline className='size-3' />}
-//                   </div>
-//                   <p className='font-body font-light text-xs'>In Stock <span>(122)</span></p>
-//                 </div>
-//                 <div className='w-full flex items-center gap-2 mt-3'>
-//                   <div className={`size-3.5 cursor-pointer  border rounded-xs center ${outOfStock ? "bg-yellow-400/80 text-[#222]" : "border-white/70"}`} onClick={() => setOutOfStock(!outOfStock)}>
-//                     {outOfStock && <IoCheckmarkOutline className='size-3' />}
-//                   </div>
-//                   <p className='font-body font-light text-xs'>Out of Stock <span>(22)</span></p>
-//                 </div>
-//               </div>
-//             </div>
-//             <div className='text-white border-b border-white/10 py-4'>
-//               <h1 className='flex justify-between items-center'>
-//                 <span className='font-body uppercase text-xs'>Discounts</span>
-//                 <FiMinus />
-//               </h1>
-//               <div className='w-full h-fit mt-5 '>
-//                 <div className='w-full flex items-center gap-2'>
-//                   <div className={`size-3.5 cursor-pointer  border rounded-xs center ${inStock ? "bg-yellow-400/80 text-[#222]" : "border-white/70"}`} onClick={() => setInStock(!attar)}>
-//                     {inStock && <IoCheckmarkOutline className='size-3' />}
-//                   </div>
-//                   <p className='font-body font-light text-xs'>10% Off or more</p>
-//                 </div>
-//                 <div className='w-full flex items-center gap-2 mt-3'>
-//                   <div className={`size-3.5 cursor-pointer  border rounded-xs center ${outOfStock ? "bg-yellow-400/80 text-[#222]" : "border-white/70"}`} onClick={() => setOutOfStock(!attar)}>
-//                     {outOfStock && <IoCheckmarkOutline className='size-3' />}
-//                   </div>
-//                   <p className='font-body font-light text-xs'>25% Off or more</p>
-//                 </div>
-//                 <div className={`w-full flex items-center gap-2 mt-3 ${seeMore ? "" : "hidden"}`}>
-//                   <div className={`size-3.5 cursor-pointer  border rounded-xs center ${outOfStock ? "bg-yellow-400/80 text-[#222]" : "border-white/70"}`} onClick={() => setOutOfStock(!attar)}>
-//                     {outOfStock && <IoCheckmarkOutline className='size-3' />}
-//                   </div>
-//                   <p className='font-body font-light text-xs'>35% Off or more</p>
-//                 </div>
-//                 <div className={`w-full flex items-center gap-2 mt-3 ${seeMore ? "" : "hidden"}`}>
-//                   <div className={`size-3.5 cursor-pointer  border rounded-xs center ${outOfStock ? "bg-yellow-400/80 text-[#222]" : "border-white/70"}`} onClick={() => setOutOfStock(!attar)}>
-//                     {outOfStock && <IoCheckmarkOutline className='size-3' />}
-//                   </div>
-//                   <p className='font-body font-light text-xs'>50% Off or more</p>
-//                 </div>
-//                 <div className='w-full flex items-center gap-2 mt-3'>
-//                   { seeMore ? (<p className='font-body font-light text-sm cursor-pointer hover:text-yellow-400/80' onClick={() => setSeeMore(false)}>See less</p>) : (<p className='font-body font-light text-sm cursor-pointer hover:text-yellow-400/80' onClick={() => setSeeMore(true)}>See more</p>)}
-                  
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-
-//         {/* Products Column — flex-col so top bar is fixed, grid scrolls */}
-//         <div className='w-5/6 flex flex-col' style={{ height: 'calc(100vh - 72px)' }}>
-
-//           {/* Top bar — stuck, never scrolls */}
-//           <div className='bg-[#111]/70 shrink-0 border-b border-white/10 flex justify-between px-5  '>
-//             <div className='w-fit  text-white text-sm font-body py-5'>
-//               Showing 1-16 of 128 products
-//             </div>
-//             <form className='w-fit flex gap-2 text-white font-body items-center' >
-//               <label className='text-sm' htmlFor='sort'>Sort by: </label>
-//               <select className='text-sm border border-white/20 px-3 py-2 outline-none cursor-pointer appearance-none bg-transparent' name='sort' id="sort">
-//                 <option value="featured">featured</option>
-//                 <option value=""></option>
-//               </select>
-//             </form>
-//           </div>
-
-//           {/* Scrollable product grid */}
-//           <div className='flex-1 overflow-y-auto product-section'>
-//             <div className='flex gap-5 p-5 flex-wrap'>
-//               {bestproducts.map((product) => (
-//                 <div
-//                   className='h-fit border border-white/10 bg-[#222]/70 overflow-hidden relative shrink-0 grow'
-//                   style={{ width: 'calc(25% - 20px)' }}
-//                   key={product.id}
-//                 >
-//                   <img className='w-full h-auto' src={product.img} alt={product.name} />
-//                   <div className='w-full mt-2 text-white font-body px-5 py-3 text-center'>
-//                     <h2 className='text-[1.4vw] uppercase font-subheading font-medium'>{product.name}</h2>
-//                     <p className='font-body py-1 text-[1.2vw]'>
-//                       Rs. <span className='text-gradient font-semibold font-subheading'>{product.price.toFixed(2)}</span>
-//                     </p>
-//                     <p className='flex justify-center items-center gap-2'>
-//                       <StarRating rating={product.rating} extraClass={"text-[1.1vw]!"} />
-//                       <span className='text-white/70 text-sm'>({product.reviews})</span>
-//                     </p>
-//                     <button className='w-full flex items-center justify-center py-2 gap-3 border-2 border-yellow-400/40 text-yellow-400/70 mt-2 hover:bg-yellow-400/80 transition-all duration-300 hover:text-black cursor-pointer '>
-//                       <BsHandbag />
-//                       <p className='uppercase text-[0.9vw]'>Add to cart</p>
-//                     </button>
-//                   </div>
-//                 </div>
-//               ))}
-//               {bestproducts.map((product) => (
-//                 <div
-//                   className='h-fit border border-white/10 bg-[#222]/70 overflow-hidden relative shrink-0 grow'
-//                   style={{ width: 'calc(25% - 20px)' }}
-//                   key={product.id}
-//                 >
-//                   <img className='w-full h-auto' src={product.img} alt={product.name} />
-//                   <div className='w-full mt-2 text-white font-body px-5 py-3 text-center'>
-//                     <h2 className='text-xl uppercase font-subheading font-medium'>{product.name}</h2>
-//                     <p className='font-body py-1 text-xl'>
-//                       Rs. <span className='text-gradient font-semibold font-subheading'>{product.price.toFixed(2)}</span>
-//                     </p>
-//                     <p className='flex justify-center items-center gap-2'>
-//                       <StarRating rating={product.rating} />
-//                       <span className='text-white/70 text-sm'>({product.reviews})</span>
-//                     </p>
-//                     <button className='w-full flex items-center justify-center py-2 gap-3 border-2 border-yellow-400/40 text-yellow-400/70 mt-2 hover:bg-yellow-400/80 transition-all duration-300 hover:text-black cursor-pointer'>
-//                       <BsHandbag />
-//                       <p className='uppercase text-sm'>Add to cart</p>
-//                     </button>
-//                   </div>
-//                 </div>
-//               ))}
-//             </div>
-//           </div>
-//           <div className='bg-[#111]/70 shrink-0 border-b border-white/10 flex justify-between px-5'>
-//             <div className='w-full flex justify-start items-center text-white text-sm font-body py-5 gap-1.5'>
-//               <div className='size-10 border border-yellow-500/80 center bg-yellow-500/80 text-[#222]'>1</div>
-//               <div className='size-10 border border-yellow-500/80 center'>2</div>
-//               <div className='size-10 border border-yellow-500/80 center '>3</div>
-//               <div className='size-10 border border-yellow-500/80 center'>4</div>
-
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </main>
-//   )
-// }
-
-// export default DesktopShop
-
-
-
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../../../components/Navbar'
+import { BsHandbag, BsSliders } from "react-icons/bs";
+import Dropdown from "../../admin/components/DropDown"
+import { bestproducts } from '../../../utils';
+import ProductCard from '../../../components/ProductCard';
+import ShopItemCard from './ShopItemCard';
+import { FaCheck, FaChevronRight } from 'react-icons/fa6';
+import Footer from '../../../components/Footer'
+import { FiMinus } from 'react-icons/fi';
+import PriceRangeSlider from "../components/PriceRangeSlider"
 
 const DesktopShop = () => {
+
+  const [sort, setSort] = useState('featured')
+
+  const sortList = [
+    { label: 'Featured', value: 'featured' },
+    { label: 'New Arrival', value: 'new-arrival' },
+    { label: 'Low to High', value: 'low-to-high' },
+    { label: 'High to Low', value: 'high-to-low' },
+  ]
+
+
+  const [categoryFilter, setCategoryFilter] = useState('perfumes')
+
+  const categories = [
+    { label: 'Attars', value: 'attars', quantity: 12 },
+    { label: 'Perfumes', value: 'perfumes', quantity: 52 },
+    { label: 'Room Fragrances', value: 'room-fragrances', quantity: 18 }
+  ]
+
+  const [genderFilter, setGenderFilter] = useState([]);
+
+
+
+  const gender = [
+    { label: 'Men', value: 'men', quantity: 24 },
+    { label: 'Women', value: 'women', quantity: 32 },
+    { label: 'Unisex', value: 'unisex', quantity: 18 }
+  ]
+
+  const handleGenderFilter = (value) => {
+    console.log("click")
+    setGenderFilter((prev) =>
+      prev.includes(value)
+        ? prev.filter((item) => item !== value) // remove if already selected
+        : [...prev, value] // add if not selected
+    );
+  }
+
+  const [ selectedNotes, setSelectedNote ] = useState([]);
+
+  const handleNoteFilter = (value) => {
+    console.log("click")
+    setSelectedNote((prev) =>
+      prev.includes(value)
+        ? prev.filter((item) => item !== value) // remove if already selected
+        : [...prev, value] // add if not selected
+    );
+  }
+
+  const notes = ["floral", "woody", "oriental", "fresh"]
+
+
+  const [availableOpt, setAvailableOpt] = useState([])
+
+  const availability = [
+    { label: 'In Stock', value: 'in-stock' },
+    { label: 'Out of Stock', value: 'out-of-stock' },
+  ]
+
+  const handleAvalibleFilter = (value) => {
+    console.log("click")
+    setAvailableOpt((prev) =>
+      prev.includes(value)
+        ? prev.filter((item) => item !== value) // remove if already selected
+        : [...prev, value] // add if not selected
+    );
+  }
+
   return (
     <main className='bg-[#131313]'>
-      <div className='w-full h-screen center flex-col relative'>
+      <div className='w-full h-[70vh] center flex-col relative'>
         <img src="./../../../../shop/shopBg.webp" className='size-full object-cover absolute top-0 left-0 z-1' alt="" />
-        <div className='size-full absolute z-2 bg-radial-[at_center_top] from-[#131313]/50 to-75% to-[#131313]'></div>
+        <div className='size-full absolute z-2 bg-radial-[at_center_top] from-[#131313]/50 to-80% to-[#131313]'></div>
 
         <h1 className='relative z-5 text-6xl tracking-wider text-[#fbcc32] font-subheading font-bold '>The Massive Collection</h1>
-        <p className='relative z-5 text-white/70 mt-8 font-body tracking-widest'>Discover the olfactory masterpieces of the Aire Bliss atelier. A curated <br/> selection of our finest scents, crafted for the discerning connoisseur.</p>
+        <p className='relative z-5 text-white/70 mt-8 font-body tracking-widest'>Discover the olfactory masterpieces of the Aire Bliss atelier. A curated <br /> selection of our finest scents, crafted for the discerning connoisseur.</p>
       </div>
-      <div className='w-full h-screen'></div>
+      <div className='w-full px-20 pt-20 pb-50 flex gap-10'>
+
+        <div className='w-60'>
+          <div className='w-full flex items-center justify-between pb-4 border-yellow-400/10 border-b-2 '>
+            <p className='text-primary uppercase font-body text-base tracking-wider  font-medium '>filter</p>
+            <BsSliders className='text-yellow-400/80 text-lg' />
+          </div>
+
+          <div className='w-full py-10 '>
+            <div className='w-full'>
+              <h1 className='font-body uppercase text-xs tracking-widest text-yellow-100/80 font-medium'>category</h1>
+
+              <ul className='w-full mt-5'>
+                {categories.map((category, index) => (
+                  <li className='flex gap-2 items-center my-3 cursor-pointer' key={index} onClick={() => setCategoryFilter(category.value)}>
+                    <div className={`size-4 border-2 ${category.value === categoryFilter ? 'bg-yellow-400/90 border-none' : 'border-white/20'} rounded-xs center text-white`} >
+                      {category.value === categoryFilter && <FaCheck className='size-2' />}
+                    </div>
+                    <p className={`text-sm font-body text-white/80 tracking-wider ${category.value === categoryFilter ? 'text-yellow-400/90' : 'text-white/80'}`}>
+                      {category.label} <span className='text-xs'>({category.quantity})</span></p>
+                  </li>
+                ))}
+
+              </ul>
+
+
+              <h1 className='font-body uppercase text-xs tracking-widest text-yellow-100/80 font-medium mt-10'>Gender</h1>
+              <ul className='w-full mt-5'>
+                {gender.map((category, index) => (
+                  <li className='flex gap-2 items-center my-3 cursor-pointer' key={index} onClick={() => handleGenderFilter(category.value)}>
+                    <div className={`size-4 border-2 ${genderFilter.includes(category.value) ? 'bg-yellow-400/90 border-none' : 'border-white/20'} rounded-xs center text-white`} >
+                      {genderFilter.includes(category.value) && <FaCheck className='size-2' />}
+                    </div>
+                    <p className={`text-sm font-body text-white/80 tracking-wider ${genderFilter.includes(category.value) ? 'text-yellow-400/90' : 'text-white/80'}`}>
+                      {category.label} <span className='text-xs'>({category.quantity})</span></p>
+                  </li>
+                ))}
+
+              </ul>
+
+
+
+              <h1 className='font-body uppercase text-xs tracking-widest text-yellow-100/80 font-medium mt-10'>
+                Price Range
+              </h1>
+              <div className='w-full mt-3 pr-5'>
+                <PriceRangeSlider />
+              </div>
+
+
+              <h1 className='font-body uppercase text-xs tracking-widest text-yellow-100/80 font-medium mt-10'>
+                Select Note
+              </h1>
+              <div className='w-full mt-5 flex flex-wrap gap-3 '>
+                { notes.map((note, index) => (
+                  <p className={`uppercase text-xs font-body font-medium px-3 py-1 border cursor-pointer ${selectedNotes.includes(note) ? 'bg-yellow-400/90 text-[#131313]' : 'text-white/70'} tracking-wider transition-smooth`} onClick={() => handleNoteFilter(note)}>{ note }</p>
+                ))}
+              </div>
+
+
+              <h1 className='font-body uppercase text-xs tracking-widest text-yellow-100/80 font-medium mt-10'>
+                Availibility 
+              </h1>
+              
+              <ul className='w-full mt-5'>
+                {availability.map((category, index) => (
+                  <li className='flex gap-2 items-center my-3 cursor-pointer' key={index} onClick={() => handleAvalibleFilter(category.value)}>
+                    <div className={`size-4 border-2 ${availableOpt.includes(category.value) ? 'bg-yellow-400/90 border-none' : 'border-white/20'} rounded-xs center text-white`} >
+                      {availableOpt.includes(category.value) && <FaCheck className='size-2' />}
+                    </div>
+                    <p className={`text-sm font-body text-white/80 tracking-wider ${availableOpt.includes(category.value) ? 'text-yellow-400/90' : 'text-white/80'}`}>
+                      {category.label}</p>
+                  </li>
+                ))}
+
+              </ul>
+
+
+
+            </div>
+          </div>
+        </div>
+
+        
+
+
+        <div className='w-[calc(100%-280px)] '>
+          <div className='w-full flex justify-between items-center border-b-2 border-yellow-400/10 pb-2'>
+            <div className='italic font-body text-white/70 font-light text-sm w-fit'>showing 1-14 of 52 products</div>
+
+
+            <div className='flex w-fit items-center gap-3'>
+              <p className='w-fit text-nowrap uppercase font-body text-xs text-white/50'>sort by</p>
+              <Dropdown
+                options={sortList}
+                value={sort}
+                additionalCls={`border-none! rounded-none! gap-5! bg-transparent! text-primary! uppercase!`}
+              />
+            </div>
+          </div>
+            
+          <div className='w-full flex gap-5 flex-wrap py-10'>
+            {bestproducts.map((product) => (
+              <ShopItemCard product={product} width={`w-[23.62%]`} />
+            ))}
+            {bestproducts.map((product) => (
+              <ShopItemCard product={product} width={`w-[23.62%]`} />
+            ))}
+            {bestproducts.slice(0, 2).map((product) => (
+              <ShopItemCard product={product} width={`w-[23.62%]`} />
+            ))}
+          </div>
+
+          <div className='w-full flex justify-center text-white gap-2 mt-20'>
+            <div className='size-10 border border-yellow-400/90 center bg-yellow-400/90 text-[#222]'>1</div>
+            <div className='size-10 border-2 text-white/60 border-[#777]/10  center'>2</div>
+            <div className='size-10 border-2 text-white/60 border-[#777]/10  center '>3</div>
+            <div className='size-10 border-2 text-white/60 border-[#777]/10  center'>...</div>
+            <div className='size-10 border-2 text-white/60 border-[#777]/10  center '><FaChevronRight size={12} /></div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <Footer background={`bg-[#111]!`} paddingY={`pt-30!`} overlay={`to-[#111]!`} toOver={`to-75%!`} translateY={`translate-y-2/10!`} />
     </main>
   )
 }
