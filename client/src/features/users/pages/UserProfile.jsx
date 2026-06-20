@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaCircleCheck } from "react-icons/fa6";
 import { FaPencilAlt } from "react-icons/fa";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
@@ -8,19 +8,28 @@ import { FiArrowUpRight } from "react-icons/fi";
 import Footer from '../../../components/Footer'
 import Navbar from '../../../components/Navbar'
 import InfoForm from '../component/InfoForm';
+import { useWindowScroll } from 'react-use';
 
 
 
 
 const UserProfile = () => {
 
+    const { y: currentY } = useWindowScroll();
+
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        setIsScrolled(currentY > 100)
+    }, [currentY])
+
     const [isEditPersonalInfo, setIsEditPersonalInfo] = useState(false);
 
 
     return (
         <main className='bg-[#131313] text-white'>
-            
-            <Navbar additional={`bg-transparent! border-none! backdrop-blur-md!`} />
+
+            <Navbar additional={`bg-transparent! border-none! ${ isScrolled && 'backdrop-blur-md!'}`} />
 
             <img src="./../../../../profile/userImgBg.webp" className='w-full h-screen object-cover lg:object-contain absolute top-0 left-0 z-1' alt="" />
             <div className='w-full h-screen absolute bg-radial top-0 left-0 z-2 from-[#131313]/10 lg:from-[#131313]/30 to-75% to-[#131313]'></div>
@@ -32,7 +41,7 @@ const UserProfile = () => {
                     <div className='max-lg:w-full max-lg:pb-20'>
                         <div className='w-full flex gap-3 max-lg:justify-center items-center'>
                             <div className='w-10 h-0.5 bg-[#A0852E]'></div>
-                            <h1 className='uppercase font-body font-medium tracking-widest text-[#A0852E] max-lg:text-center '>Welcome to the <br className='lg:hidden'/> Aire Bliss</h1>
+                            <h1 className='uppercase font-body font-medium tracking-widest text-[#A0852E] max-lg:text-center '>Welcome to the <br className='lg:hidden' /> Aire Bliss</h1>
                             <div className='w-10 h-0.5 bg-[#A0852E] lg:hidden'></div>
                         </div>
                         <div className='font-heading text-7xl font-medium max-lg:w-full max-lg:text-center mt-3'>
@@ -76,7 +85,7 @@ const UserProfile = () => {
             </div>
 
             <div className='w-full py-30 flex max-lg:flex-col lg:gap-15  relative '>
-                { isEditPersonalInfo && <InfoForm isEditPersonalInfo={isEditPersonalInfo} setIsEditPersonalInfo={setIsEditPersonalInfo} />}
+                {isEditPersonalInfo && <InfoForm isEditPersonalInfo={isEditPersonalInfo} setIsEditPersonalInfo={setIsEditPersonalInfo} />}
                 <div className="w-full lg:w-3/10 px-10 lg:pr-15 py-10 pt-20 border-r-2 border-[#232221]/50">
 
                     <h1 className='font-subheading italic text-white/90 text-4xl'>Curation</h1>

@@ -12,14 +12,8 @@ export const mobileNavLinks = [
         icon: AiOutlineHome,
     },
     {
-        id: 2,
-        link: "/shop",
-        name: "shop",
-        icon: BsHandbag,
-    },
-    {
         id: 3,
-        link: "/collection",
+        link: "/shop",
         name: "collection",
         icon: TbPerfume,
     },
