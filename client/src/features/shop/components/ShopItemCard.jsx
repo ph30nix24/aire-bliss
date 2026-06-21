@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import StarRating from '../../home/components/StarRating'
+import { GoHeart, GoHeartFill } from "react-icons/go";
+
+
 const ShopItemCard = ({ product, width }) => {
+
+    const [isWishlisted, setIsWishlisted] = useState(false)
     return (
-        <div className={` ${width} h-fit p-2  rounded cursor-pointer hover:bg-[#222] transition-smooth  max-lg:shrink-0`} key={product.name}>
+        <div className={` ${width} h-fit p-2  rounded cursor-pointer hover:bg-[#222] transition-smooth  max-lg:shrink-0 relative`} key={product.name}>
             <img src={`./../../${product.img}`} className='w-full hover:' alt="" />
+
+            <button className='absolute text-2xl top-0 right-0 translate-y-1/2 -translate-x-1/2 cursor-pointer text-yellow-400 p-1.5 rounded-full backdrop-blur-sm' onClick={() => setIsWishlisted(!isWishlisted)}>
+                { isWishlisted ? <GoHeartFill/> : <GoHeart />}
+            </button>
 
             <div className='w-full h-fit pt-2 lg:pt-5 '>
                 <h1 className='font-subheading tracking-wider text-white/90 text-[5vw] md:text-2xl lg:text-xl lg:font-semibold uppercase lg:text-'>

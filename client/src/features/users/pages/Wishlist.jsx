@@ -4,6 +4,7 @@ import { useWindowScroll } from 'react-use';
 import { bestproducts } from '../../../utils';
 import { IoBagHandle } from "react-icons/io5";
 import Footer from '../../../components/Footer';
+import { RxCross2 } from 'react-icons/rx';
 
 const Wishlist = () => {
     const { y: currentY } = useWindowScroll();
@@ -42,7 +43,12 @@ const Wishlist = () => {
                                 </div>
                                     <div className={`absolute bottom-0   font-heading text-6xl text-white/10  -z-1 -translate-y-[200%] ${index % 2 === 0 ? 'translate-x-[40%] right-0 rotate-90' : 'left-0 -translate-x-[40%] -rotate-90'}`}>Aire Bliss</div>
                             </div>
-                            <div className={`w-1/2 ${index % 2 === 0 ? 'order-2' : 'order-1'} pr-10`}>
+                            <div className={`w-1/2 ${index % 2 === 0 ? 'order-2' : 'order-1'} pr-10 relative`}>
+
+                                <button className='text-white/70 hover:text-yellow-400/90 absolute top-0 right-0 -translate-x-full text-xl cursor-pointer'>
+                                    <RxCross2 />
+                                </button>
+
                                 <p className='text-xs uppercase font-body tracking-[0.275em] text-yellow-400 font-medium pb-4'>Item - {index + 1}</p>
                                 <h1 className='text-7xl font-subheading italic capitalize'>{product.name}</h1>
                                 <p className='pl-5 my-10 text-base text-white/60 font-extralight italic font-body tracking-wider border-l-2 border-yellow-400/20'>"{product.desc}"</p>
@@ -75,8 +81,7 @@ const Wishlist = () => {
     before:translate-y-full
     before:transition-transform
     before:duration-500
-    before:ease-out
-
+    before:ease-out cursor-pointer
     group-hover:before:translate-y-0
     group-hover:text-[#131313]
     group-hover:border-none
