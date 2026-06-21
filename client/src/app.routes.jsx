@@ -10,6 +10,7 @@ import Protect from "./components/Protect";
 import EmailVerifier from "./features/auth/EmailVerifier";
 import Cart from "./features/users/pages/Cart";
 import UserProfile from "./features/users/pages/UserProfile";
+import Wishlist from "./features/users/pages/Wishlist";
 
 
 
@@ -50,5 +51,9 @@ export const router = createBrowserRouter([
     {
         path: '/user/cart/',
         element: <Protect><Cart /></Protect>
+    },
+    {
+        path: '/user/wishlist/',
+        element: <Wishlist />
     }
 ])

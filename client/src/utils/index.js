@@ -40,7 +40,8 @@ export const bestproducts = [
         price: 399,
         reviews: 90,
         rating: 4,
-        img: './best-sellers/gucci_flora.webp'
+        img: './best-sellers/gucci_flora.webp',
+        desc: ""
     },
     {
         id: 2,
@@ -58,7 +59,8 @@ export const bestproducts = [
         price: 429,
         reviews: 90,
         rating: 4,
-        img: './best-sellers/white_oud.webp'
+        img: './best-sellers/white_oud.webp',
+        desc: "Experience the timeless allure of White Oud by Aire Bliss, a refined fragrance crafted for those who appreciate elegance and sophistication. Rich oud notes blend seamlessly with warm, delicate accords to create a luxurious scent that lingers beautifully throughout the day. A perfect expression of grace, confidence, and lasting charm"
     },
     {
         id: 4,
@@ -67,7 +69,8 @@ export const bestproducts = [
         price: 459,
         reviews: 90,
         rating: 4.7,
-        img: './best-sellers/tamdao.webp'
+        img: './best-sellers/tamdao.webp',
+        desc: "Experience the serene beauty of Tam Dao, a sophisticated fragrance inspired by tranquil forests and timeless craftsmanship. Creamy sandalwood, soft spices, and subtle woody accords create a smooth, comforting scent. Elegant, refined, and effortlessly versatile, it leaves a lasting impression of warmth, balance, sophistication, and natural charm throughout the day."
     },
     {
         id: 5,
@@ -76,7 +79,8 @@ export const bestproducts = [
         price: 399,
         reviews: 140,
         rating: 4.8,
-        img: './best-sellers/oud_malaki.webp'
+        img: './best-sellers/oud_malaki.webp',
+        desc: "Oud Malaki by Aire Bliss is a bold and captivating fragrance crafted for those who command attention. Deep oud notes blend with smoky, woody accords to create a rich and powerful scent. Mysterious, intense, and undeniably luxurious, it leaves a lasting impression of confidence, strength, elegance, and timeless sophistication."
     },
     {
         id: 6,

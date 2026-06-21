@@ -123,7 +123,7 @@ const Navbar = ({ additional }) => {
             <div className="w-fit flex gap-4">
                 <FiSearch className="size-5 cursor-pointer text-white" />
                 <NavLink to="/user/profile/" className={({ isActive }) => isActive ? 'text-yellow-400' : 'text-white'}><PiUserCircleLight className="size-5 cursor-pointer " /></NavLink>
-                <GoHeart className="size-5 cursor-pointer text-white" />
+                <NavLink to="/user/wishlist/" className={({ isActive }) => isActive ? 'text-yellow-400' : 'text-white'}><GoHeart className="size-5 cursor-pointer" /></NavLink>
                 <NavLink to="/user/cart/" className={({ isActive }) => isActive ? 'text-yellow-400' : 'text-white'} ><CiShoppingCart className="size-5 cursor-pointer" /></NavLink>
             </div>
         </nav>
