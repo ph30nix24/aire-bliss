@@ -11,6 +11,7 @@ import EmailVerifier from "./features/auth/EmailVerifier";
 import Cart from "./features/users/pages/Cart";
 import UserProfile from "./features/users/pages/UserProfile";
 import Wishlist from "./features/users/pages/Wishlist";
+import Address from "./features/users/pages/Address";
 
 
 
@@ -55,5 +56,9 @@ export const router = createBrowserRouter([
     {
         path: '/user/wishlist/',
         element: <Wishlist />
+    },
+    {
+        path: '/user/addresses',
+        element: <Address />
     }
 ])

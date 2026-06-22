@@ -142,7 +142,7 @@ const Footer = ({ background, paddingY, overlay, toOver, translateY }) => {
                     </div>
                 </div>
             </div>
-            <p className='text-center text-white/50 text-xs font-light tracking-wide font-body'>© 2026 Aire Bliss. All rights reserved. | Designed by Team Aire Bliss</p>
+                
         </footer>
     )
 }

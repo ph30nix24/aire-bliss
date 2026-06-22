@@ -108,7 +108,7 @@ const Navbar = ({ additional }) => {
     }
     return (
         <nav className={`w-full h-fit px-30 py-3 fixed top-0 z-50 bg-black flex justify-between items-center border-b border-yellow-400/20 ${additional}`}>
-            <div className='flex items-center font-stylish text-3xl capitalize text-gradient '>
+            <div className='flex items-center font-stylish text-3xl capitalize text-gradient italic'>
                 <p>aire</p>
                 <img src="./../../logo.png" className='size-12' alt="" />
                 <p>bliss</p>
