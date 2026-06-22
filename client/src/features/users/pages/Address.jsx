@@ -70,24 +70,24 @@ const Address = () => {
             <Navbar additional={`bg-transparent! border-none! ${isScrolled && 'backdrop-blur-md!'}`} />
 
 
-            <button className='fixed bottom-0 right-0 z-30 flex items-center px-8 py-5 bg-linear-to-b -translate-y-8/10 -translate-x-2/10 from-[#F2CA50] to-[#f7cc4b] gap-5 rounded-full text-[#222] group cursor-pointer hover:shadow-[0_0_40px_rgba(242,202,80,0.4)]'>
+            <button className='fixed bottom-0 right-0 z-30 flex items-center p-3 lg:px-8 lg:py-5 bg-linear-to-b -translate-y-full lg:-translate-y-8/10 -translate-x-8/10 lg:-translate-x-2/10 from-[#F2CA50] to-[#f7cc4b] gap-5 rounded-full text-[#222] group cursor-pointer hover:shadow-[0_0_40px_rgba(242,202,80,0.4)]'>
                 <GoPlus className='size-5 group-hover:rotate-90 transition-smooth'/>
-                <span className='font-light uppercase font-body text-xs tracking-[0.175em]'>add new residence</span>
+                <span className='font-light uppercase font-body text-xs tracking-[0.175em] max-lg:hidden'>add new residence</span>
             </button>
 
-            <section className='w-full pt-44 h-fit! pb-30'>
+            <section className='w-full pt-24 lg:pt-44 h-fit! pb-30 px-5'>
                 <p className='uppercase text-center text-primary text-xs font-body  tracking-[0.375em] font-bold'>for future arrivals</p>
 
-                <h1 className='text-center text-white/90 text-8xl font-subheading italic capitalize mt-5 '>where luxury  <br /> finds you</h1>
+                <h1 className='text-center text-white/90 text-7xl max-lg:px-10 lg:text-8xl font-subheading italic capitalize mt-5 '>where luxury  <br /> finds you</h1>
 
-                <p className='w-180 text-center mx-auto text-lg font-body font-light mt-10 text-white/50 tracking-wider'>A collection of destinations chosen for effortless deliveries, ensuring every Aire Bliss creation arrives exactly where it belongs</p>
+                <p className='w-full lg:w-180 text-center mx-auto text-base px-5 lg:text-lg font-body font-light mt-10 text-white/50 tracking-wider'>A collection of destinations chosen for effortless deliveries, ensuring every Aire Bliss creation arrives exactly where it belongs</p>
 
 
                 {/* address */}
-                <div className='mt-25 w-full py-10 px-30'>
+                <div className='mt-25 w-full py-10 lg:px-30'>
                     <div className='w-full flex flex-wrap gap-10 justify-end'>
                         { addresses.map((address, index) => (
-                            <div className={`w-[48%] flex flex-col ${index % 2 === 0 ? 'border-l-2 items-start' : 'border-r-2 items-end'}  border-white/10 py-10 px-10 text-white bg-[#131313]/50 backdrop-blur-sm group hover:border-yellow-400/70 transition-smooth`}>
+                            <div className={`w-9/10 lg:w-[48%] flex flex-col ${index % 2 === 0 ? 'border-l-2 items-start' : 'border-r-2 items-end'}  border-white/10 p-5 lg:p-10 text-white bg-[#131313]/50 backdrop-blur-sm group hover:border-yellow-400/70 transition-smooth max-lg:grow`}>
                                 <h1 className='text-[40px] font-subheading italic group-hover:text-yellow-400/90 transition-smooth'>{address.title}</h1>
 
                                 <div className='w-15 h-px my-3 bg-white/20'></div>
@@ -117,13 +117,13 @@ const Address = () => {
                 </div>
                 
 
-                <div className='w-full px-30 pt-20'>
-                    <div className='w-200 mx-auto py-8 px-25 font-light border-b-2 flex gap-10 items-center bg-[#0E0E0E]/80 border-yellow-400/80'>
+                <div className='w-full px-5 lg:px-30 pt-20'>
+                    <div className='w-full lg:w-200 mx-auto py-8 px-5 lg:px-25 font-light border-b-2 flex gap-3 lg:gap-10 items-center bg-[#0E0E0E]/40 border-yellow-400/80 max-lg:flex-col'>
                         <GoShieldLock className='size-18 text-yellow-400/90'/>
                         <div className=''>
-                            <h1 className='text-2xl font-body text-yellow-400/90 font-medium tracking-wider'>Your addresses are secure</h1>
+                            <h1 className='text-2xl font-body text-yellow-400/90 font-medium tracking-wider  max-lg:text-center'>Your addresses are secure</h1>
 
-                            <p className='text-white/80 pt-2 font-body tracking-widest'>We utilize advanced encryption protocols to ensure your personal information remains entirely confidetial.</p>
+                            <p className='text-white/80 pt-2 font-body max-lg:text-sm max-lg:font-extralight tracking-widest max-lg:text-center'>We utilize advanced encryption protocols to ensure your personal information remains entirely confidetial.</p>
                         </div>
                     </div>
                 </div>
