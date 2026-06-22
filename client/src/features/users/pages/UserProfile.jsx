@@ -29,7 +29,7 @@ const UserProfile = () => {
     return (
         <main className='bg-[#131313] text-white'>
 
-            <Navbar additional={`bg-transparent! border-none! ${ isScrolled && 'backdrop-blur-md!'}`} />
+            <Navbar additional={`bg-transparent! border-none! ${isScrolled && 'backdrop-blur-md!'}`} />
 
             <img src="./../../../../profile/userImgBg.webp" className='w-full h-screen object-cover lg:object-contain absolute top-0 left-0 z-1' alt="" />
             <div className='w-full h-screen absolute bg-radial top-0 left-0 z-2 from-[#131313]/10 lg:from-[#131313]/30 to-75% to-[#131313]'></div>
@@ -92,30 +92,36 @@ const UserProfile = () => {
                     <p className='py-5 font-body tracking-wide font-light text-white/70'>Your personal collection and <br /> interactions within the Maison.</p>
 
                     <div className='mt-10 w-full '>
-                        <div className='py-5 flex border-b-2 border-[#232221]/50 items-center justify-between group cursor-pointer'>
-                            <div className='w-fit flex gap-5 items-center'>
-                                <p className='font-heading text-5xl text-[#deb324]'>0</p>
-                                <div className='text-sm tracking-widest text-white/60 uppercase font-body group-hover:text-[#967c26] transition-smooth'>Wishlist <br /> items</div>
-                            </div>
+                        <a href="/user/wishlist/">
+                            <div className='py-5 flex border-b-2 border-[#232221]/50 items-center justify-between group cursor-pointer'>
+                                <div className='w-fit flex gap-5 items-center'>
+                                    <p className='font-heading text-5xl text-[#deb324]'>0</p>
+                                    <div className='text-sm tracking-widest text-white/60 uppercase font-body group-hover:text-[#967c26] transition-smooth'>Wishlist <br /> items</div>
+                                </div>
 
-                            <FiArrowUpRight className='size-5 text-white/40 group-hover:text-[#deb324] transition-smooth' />
-                        </div>
-                        <div className='py-5 flex border-b-2 border-[#232221]/50 items-center justify-between group cursor-pointer'>
-                            <div className='w-fit flex gap-5 items-center'>
-                                <p className='font-heading text-5xl text-[#deb324]'>0</p>
-                                <div className='text-sm tracking-widest text-white/60 uppercase font-body group-hover:text-[#967c26] transition-smooth'>Saved <br /> address</div>
+                                <FiArrowUpRight className='size-5 text-white/40 group-hover:text-[#deb324] transition-smooth' />
                             </div>
+                        </a>
+                        <a href="/user/addresses/">
+                            <div className='py-5 flex border-b-2 border-[#232221]/50 items-center justify-between group cursor-pointer'>
+                                <div className='w-fit flex gap-5 items-center'>
+                                    <p className='font-heading text-5xl text-[#deb324]'>0</p>
+                                    <div className='text-sm tracking-widest text-white/60 uppercase font-body group-hover:text-[#967c26] transition-smooth'>Saved <br /> address</div>
+                                </div>
 
-                            <FiArrowUpRight className='size-5 text-white/40 group-hover:text-[#deb324] transition-smooth' />
-                        </div>
-                        <div className='py-5 flex border-b-2 border-[#232221]/50 items-center justify-between group cursor-pointer'>
-                            <div className='w-fit flex gap-5 items-center'>
-                                <p className='font-heading text-5xl text-[#deb324]'>0</p>
-                                <div className='text-sm tracking-widest text-white/60 uppercase font-body group-hover:text-[#967c26] transition-smooth'>Cart <br /> items</div>
+                                <FiArrowUpRight className='size-5 text-white/40 group-hover:text-[#deb324] transition-smooth' />
                             </div>
+                        </a>
+                        <a href="/user/cart/">
+                            <div className='py-5 flex border-b-2 border-[#232221]/50 items-center justify-between group cursor-pointer'>
+                                <div className='w-fit flex gap-5 items-center'>
+                                    <p className='font-heading text-5xl text-[#deb324]'>0</p>
+                                    <div className='text-sm tracking-widest text-white/60 uppercase font-body group-hover:text-[#967c26] transition-smooth'>Cart <br /> items</div>
+                                </div>
 
-                            <FiArrowUpRight className='size-5 text-white/40 group-hover:text-[#deb324] transition-smooth' />
-                        </div>
+                                <FiArrowUpRight className='size-5 text-white/40 group-hover:text-[#deb324] transition-smooth' />
+                            </div>
+                        </a>
                         <div className='py-5 flex border-b-2 border-[#232221]/50 items-center justify-between group cursor-pointer'>
                             <div className='w-fit flex gap-5 items-center'>
                                 <p className='font-heading text-5xl text-[#deb324]'>0</p>
