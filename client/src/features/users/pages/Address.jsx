@@ -107,8 +107,8 @@ const Address = () => {
                                 <p className='py-5 font-body font-light tracking-wide text-yellow-400/50'>{address.phoneNumber}</p>
 
                                 <div className='w-fit flex gap-5 items-center mt-15'>
-                                    <button className='uppercase text-xs font-body tracking-[0.255em] font-light py-1 cursor-pointer hover:border-b hover:text-yellow-400/90 border-yellow-400/90 transition-smooth  group-hover:opacity-100 opacity-0'>Revise</button>
-                                    <button className='uppercase text-xs font-body tracking-[0.255em] font-light py-1 cursor-pointer hover:border-b hover:text-yellow-400/90 border-yellow-400/90 transition-smooth text-white/60 group-hover:opacity-100 opacity-0'>erase</button>
+                                    <button className='uppercase text-xs font-body tracking-[0.255em] font-light py-1 cursor-pointer hover:border-b hover:text-yellow-400/90 border-yellow-400/90 transition-smooth  group-hover:opacity-100 lg:opacity-0'>Revise</button>
+                                    <button className='uppercase text-xs font-body tracking-[0.255em] font-light py-1 cursor-pointer hover:border-b hover:text-yellow-400/90 border-yellow-400/90 transition-smooth text-white/60 group-hover:opacity-100 lg:opacity-0'>erase</button>
                                 </div>
                                 
                             </div>
