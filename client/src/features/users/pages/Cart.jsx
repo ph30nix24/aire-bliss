@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../../../components/Navbar'
 import Footer from '../../../components/Footer'
 import { bestproducts } from '../../../utils'
@@ -12,17 +12,50 @@ import ProductCard from '../../../components/ProductCard';
 import { VscWorkspaceTrusted } from 'react-icons/vsc';
 import { useMediaQuery } from 'react-responsive';
 import { RxCross2 } from 'react-icons/rx';
+import { useWindowScroll } from 'react-use';
 
 
 const Cart = () => {
 
     const isMobile = useMediaQuery({ maxWidth: 768 });
+    const { y: currentY } = useWindowScroll();
 
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        setIsScrolled(currentY > 100)
+    }, [currentY])
+    
     return (
-        <main className='bg-[#131313]'>
-            <Navbar additional={`lg:py-2! lg:px-35! bg-[#131313]! border-none`} />
+        <main className='bg-[#131313] bg-[radial-gradient(circle_at_50%_0%,#1a1a1a_0%,transparent_70%)]'>
+            <Navbar additional={`lg:py-2! lg:px-35! bg-transparent! border-none ${isScrolled && 'backdrop-blur-md!'}`} />
 
             <div className='w-full lg:w-310 mx-auto pt-25 px-5 lg:pt-27 pb-15 text-white'>
+                <div className='w-full h-fit center gap-5 pt-5 pb-20'>
+                    <div className='w-fit flex gap-2 items-end text-yellow-400/80'>
+                        <p className='font-heading text-base tracking-widest'>01</p>
+                        <p className='font-stylish italic text- uppercase font-semibold tracking-widest border-b-2 pb-1 text-center'>cart</p>
+                    </div>
+                    <div className='w-15 h-0.5 bg-linear-to-r from-yellow-300/80 to-yellow-200/10 rounded-full'></div>
+                    
+                    <div className='w-fit flex gap-2 items-end'>
+                        <p className='font-heading text-base tracking-widest text-white/40'>02</p>
+                        <p className='font-stylish italic text-lg uppercase font-medium tracking-widest  text-center text-white/40'>Address</p>
+                    </div>
+
+                    <div className='w-15 h-0.5 bg-yellow-200/10'></div> 
+                    <div className='w-fit flex gap-2 items-end'>
+                        <p className='font-heading text-base tracking-widest text-white/40'>03</p>
+                        <p className='font-stylish italic text-lg uppercase font-medium tracking-widest  text-center text-white/40'>Review</p>
+                    </div>
+
+                    <div className='w-15 h-0.5 bg-yellow-200/10'></div>
+                    <div className='w-fit flex gap-2 items-end'>
+                        <p className='font-heading text-base tracking-widest text-white/40'>04</p>
+                        <p className='font-stylish italic text-lg uppercase font-medium tracking-widest  text-center text-white/40'>payment</p>
+                    </div>
+
+                </div>
                 <div className='size-full lg:flex lg:gap-10 relative'>
                     <div className="w-full lg:w-7/10 h-fit lg:pr-10">
 

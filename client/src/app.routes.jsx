@@ -12,6 +12,7 @@ import Cart from "./features/users/pages/Cart";
 import UserProfile from "./features/users/pages/UserProfile";
 import Wishlist from "./features/users/pages/Wishlist";
 import Address from "./features/users/pages/Address";
+import OrderAddress from "./features/order/pages/OrderAddress";
 
 
 
@@ -60,5 +61,9 @@ export const router = createBrowserRouter([
     {
         path: '/user/addresses',
         element: <Address />
+    },
+    {
+        path: '/checkout/address',
+        element: <OrderAddress />
     }
 ])
