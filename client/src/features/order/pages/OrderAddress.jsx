@@ -63,7 +63,7 @@ const OrderAddress = () => {
     ]
 
     return (
-        <main className='bg-[#131313] bg-[radial-gradient(circle_at_50%_0%,#1a1a1a_0%,transparent_70%)]'>
+        <main className='bg-[#131313] bg-[radial-gradient(circle_at_50%_0%,#212121_0%,transparent_70%)]'>
             <Navbar additional={`lg:py-2! lg:px-35! bg-transparent! border-none ${isScrolled && 'backdrop-blur-md!'}`} />
 
             <div className='w-full h-fit center gap-5 pt-25 pb-20'>
@@ -99,7 +99,7 @@ const OrderAddress = () => {
                 <div className='mt-25 w-full py-10 lg:px-30'>
                     <div className='w-full flex flex-wrap gap-10 justify-end'>
                         {addresses.map((address, index) => (
-                            <div className={`w-9/10 lg:w-[48%] flex flex-col ${index % 2 === 0 ? 'border-l-2 items-start' : 'border-r-2 items-end'}  border-white/10 p-5 lg:p-10 text-white bg-[#131313]/50 backdrop-blur-sm group hover:border-yellow-300/80 transition-smooth max-lg:grow`}>
+                            <div className={`w-9/10 lg:w-[48%] flex flex-col ${index % 2 === 0 ? 'border-l-2 items-start' : 'border-r-2 items-end'}  border-white/10 p-5 lg:p-10 text-white bg-[#131313]/50 backdrop-blur-sm group hover:border-yellow-300/80 transition-smooth max-lg:grow relative`}>
                                 <h1 className='text-[40px] font-subheading italic group-hover:text-yellow-300/80 transition-smooth'>{address.title}</h1>
 
                                 <div className='w-15 h-px my-3 bg-white/20'></div>
@@ -119,15 +119,17 @@ const OrderAddress = () => {
                                 <p className='py-5 font-body font-light tracking-wide text-yellow-400/50'>{address.phoneNumber}</p>
 
                                 <div className='w-fit flex gap-5 items-center mt-15'>
-                                    <button className='uppercase text-xs font-body tracking-[0.255em] font-light py-1 cursor-pointer hover:border-b hover:text-yellow-400/90 border-yellow-400/90 transition-smooth  group-hover:opacity-100 lg:opacity-0'>Revise</button>
+                                    <button className='uppercase text-xs font-body tracking-[0.255em] font-light py-1 cursor-pointer hover:border-b hover:text-yellow-400/90 border-yellow-400/90 transition-smooth  group-hover:opacity-100 lg:opacity-0'>Use</button>
                                     <button className='uppercase text-xs font-body tracking-[0.255em] font-light py-1 cursor-pointer hover:border-b hover:text-yellow-400/90 border-yellow-400/90 transition-smooth text-white/60 group-hover:opacity-100 lg:opacity-0'>erase</button>
                                 </div>
+
+                                <p className={`absolute top-0 translate-y-1/2 -translate-x-1/10 right-0 ${!address.isDefault && 'hidden'} px-5 py-2 text-[8px] font-body font-extralight uppercase tracking-widest text-yellow-300 border-2 bg-yellow-300/10 border-yellow-300/30`}>default address</p>
 
                             </div>
                         ))}
 
                         <div className='lg:w-[48%] border-2 center border-dashed border-[#777]/20 flex-col cursor-pointer group hover:border-yellow-300/80 transition-smooth p-10'>
-                            <CiCirclePlus  className='text-white/40 size-18 group-hover:text-yellow-300/80 transition-smooth'/>
+                            <CiCirclePlus className='text-white/40 size-18 group-hover:text-yellow-300/80 transition-smooth' />
                             <h3 className='font-body text-white/60 text-lg font-medium my-3 tracking-normal group-hover:text-yellow-300/80'>Add new address</h3>
                             <p className='font-body text-base font-extralight text-white/60 tracking-wider transition-smooth group-hover:text-yellow-300/80'>
                                 Enter a new delivery address
@@ -142,10 +144,12 @@ const OrderAddress = () => {
                         </button>
 
 
-                        <button className='w-fit flex gap-3 items-center font-body text-xs tracking-[0.155em] group bg-yellow-300/80 hover:bg-yellow-300 transition-smooth px-8 rounded py-3 cursor-pointer uppercase'>
-                            <span className='transition-smooth text-[#131313]'>Continue to Review</span>
-                            <FaChevronRight className='size-3 transition-smooth text-[#131313]' />
-                        </button>
+                        <a href="/checkout/review">
+                            <button className='w-fit flex gap-3 items-center font-body text-xs tracking-[0.155em] group bg-yellow-300/80 hover:bg-yellow-300 transition-smooth px-8 rounded py-3 cursor-pointer uppercase'>
+                                <span className='transition-smooth text-[#131313]'>Continue to Review</span>
+                                <FaChevronRight className='size-3 transition-smooth text-[#131313]' />
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>
