@@ -88,7 +88,7 @@ const OrderReview = () => {
 
                         {/* address */}
 
-                        <div className='w-full p-10 flex items-start gap-5 bg-[#181818]/50 backdrop-blur-sm border border-[#777]/10 hover:bg-[#131313]/50'>
+                        <div className='w-full p-10 flex items-start gap-5 bg-[#181818]/50 backdrop-blur-sm border border-[#777]/10 hover:bg-[#131313]/70'>
                             <CiLocationOn className='text-yellow-300/70 size-8 pt-2' />
                             <div>
                                 <h2 className='font-body font-light uppercase pb-4 text-sm tracking-[0.175em] text-white/80'>{address.fullName}</h2>
@@ -165,7 +165,7 @@ const OrderReview = () => {
                                 </div>
 
 
-                                <p className='w-full py-4 bg-yellow-400/90 hover:bg-yellow-400 font-extralight center gap-3 text-[#111] cursor-pointer transition-smooth'>
+                                <p className='w-full py-4 bg-yellow-300/80 font-extralight center gap-3 text-[#111]'>
                                     <LuTag className='size-4' />
                                     <p className='font-body text-[10px] uppercase tracking-widest font-medium'>You Preserved &#x20B9; 200.00</p>
                                 </p>
@@ -224,15 +224,19 @@ const OrderReview = () => {
 
                             </div>
 
-                            <button className='w-full py-4 bg-yellow-400/90 hover:bg-yellow-400 center gap-3 text-[#111] cursor-pointer transition-smooth'>
-                                <p className='font-body text-xs uppercase tracking-widest font-medium'>Proceed to Payment</p>
-                                <FaArrowRight  className='size-3' />
-                            </button>
-                            <button className='w-full py-4 hover:bg-yellow-400/90 center gap-3 text-white/80 hover:text-[#111] cursor-pointer transition-smooth mt-3'>
-                                <FaArrowLeft  className='size-3' />
-                                <p className='font-body text-[10px] uppercase tracking-widest font-medium'>Return to Address</p>
-                                
-                            </button> 
+                            <a href="/checkout/payment">
+                                <button className='w-full py-4 bg-yellow-400/90 hover:bg-yellow-400 center gap-3 text-[#111] cursor-pointer transition-smooth'>
+                                    <p className='font-body text-xs uppercase tracking-widest font-medium'>Proceed to Payment</p>
+                                    <FaArrowRight className='size-3' />
+                                </button>
+                            </a>
+                            <a href="/checkout/address">
+                                <button className='w-full center gap-3 text-white/80 hover:text-yellow-300/80 cursor-pointer transition-smooth mt-4'>
+                                    <FaArrowLeft className='size-3' />
+                                    <p className='font-body text-xs uppercase tracking-[0.175em] font-extralight '>Return to Address</p>
+
+                                </button>
+                            </a>
                         </div>
                     </div>
 
@@ -247,7 +251,11 @@ const OrderReview = () => {
                     <h1 className='text-3xl capitalize font-subheading italic text-yellow-400/80 tracking-wider'>aire bliss</h1>
                 </div>
 
-                
+                <div className='w-fit flex items-center gap-5'>
+                    <a href="" className='text-sm text-white/60 font-body capitalize'>shopping policy</a>
+                    <a href="" className='text-sm text-white/60 font-body capitalize'>Return & refund</a>
+                    <a href="" className='text-sm text-white/60 font-body capitalize'>Terms & condition</a>
+                </div>
 
             </footer>
         </main>

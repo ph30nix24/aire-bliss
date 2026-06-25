@@ -14,7 +14,8 @@ import Wishlist from "./features/users/pages/Wishlist";
 import Address from "./features/users/pages/Address";
 import OrderAddress from "./features/order/pages/OrderAddress";
 import OrderReview from "./features/order/pages/OrderReview";
-
+import OrderPayment from "./features/order/pages/OrderPayment";
+import ProductPage from "./features/Product/pages/ProductPage"
 
 
 
@@ -70,5 +71,13 @@ export const router = createBrowserRouter([
     {
         path: '/checkout/review',
         element: <OrderReview />
+    },
+    {
+        path: '/checkout/payment',
+        element: <OrderPayment />
+    },
+    {
+        path: '/product/:id',
+        element: <ProductPage />
     }
 ])

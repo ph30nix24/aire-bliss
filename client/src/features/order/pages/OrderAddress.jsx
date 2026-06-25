@@ -138,9 +138,9 @@ const OrderAddress = () => {
                     </div>
 
                     <div className='w-full flex justify-between mt-30 pt-10 border-t-2 border-[#777]/20 px-10'>
-                        <button className='w-fit flex gap-3 items-center font-body text-sm tracking-wider group hover:bg-white transition-smooth px-8 rounded py-3 cursor-pointer'>
-                            <FaChevronLeft className='size-3 text-white transition-smooth group-hover:text-[#131313]' />
-                            <span className='text-white transition-smooth group-hover:text-[#131313]'>Back to Cart</span>
+                        <button className='w-fit flex gap-3 items-center font-body text-sm tracking-wider group transition-smooth px-8 rounded py-3 cursor-pointer'>
+                            <FaChevronLeft className='size-3 text-white transition-smooth group-hover:text-yellow-300/70' />
+                            <span className='text-white transition-smooth group-hover:text-yellow-300/70'>Back to Cart</span>
                         </button>
 
 

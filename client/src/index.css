@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Modern+Antiqua&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -9,6 +10,7 @@
   --font-subheading: "Playfair Display", serif;
   --font-body: "Outfit", sans-serif;
   --font-stylish: "Modern Antiqua", serif;
+  --font-jet: "JetBrains Mono", monospace;
   --color-primary: #e2b625;
 }
 
