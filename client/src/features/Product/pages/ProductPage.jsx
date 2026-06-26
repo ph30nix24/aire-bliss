@@ -92,16 +92,23 @@ const ProductPage = () => {
 
         <div className='w-full h-[95vh] bg-radial-[at_center_top] from-[#131313]/80 to-[#131313] absolute to-70% z-4'></div>
 
-        <div className='w-full px-5 pt-25 pb-20 flex gap-10 relative z-10'>
+        <div className='w-full px-5 pt-25 pb-20 relative z-10'>
           <div className='w-full overflow-x-hidden flex '
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
 
-            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            
           >
             {allImages.map((path, i) => (
-              <img src={path} className='w-full rounded' key={i} alt={`preview-image-${i + 1}`}/>
+              <img src={path} className='w-full rounded transition-smooth' key={i} alt={`preview-image-${i + 1}`} style={{ transform: `translateX(-${currentIndex * 100}%)` }}/>
             ))}
+          </div>
+          <div className='w-full mt-4 center gap-2 '>
+            {Array.from({length : allImages.length}).map(
+              (_, i) => (
+                <div className={`size-3 rounded-full border border-[#777]/40 ${currentIndex === i && "bg-yellow-300"}`} key={i}></div>
+              )
+            )}
           </div>
         </div>
       </main>
@@ -119,7 +126,7 @@ const ProductPage = () => {
 
       <div className='w-full px-35 pt-35 pb-20 flex gap-20 relative z-10'>
         <div className="w-3/5">
-
+          <img src={product.mainImage} className='w-full rounded' alt="" />
           <div className='w-full flex gap-4 mt-4'>
             {product.previewImages?.map((img, i) => (
               <img src={img} className='w-[18.2%] shrink-0 rounded' key={i} alt="" />
