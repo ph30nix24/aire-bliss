@@ -67,7 +67,7 @@ const OrderAddress = () => {
             <Navbar additional={`lg:py-2! lg:px-35! bg-transparent! border-none ${isScrolled && 'backdrop-blur-md!'}`} />
 
             <div className='w-full h-fit center gap-2 lg:gap-5 pt-25 pb-10 lg:pb-20 max-lg:px-5'>
-                <div className='w-fit flex gap-2 items-end text-yellow-300/80'>
+                <div className='w-fit flex gap-2 items-end text-yellow-300/80 pb-1'>
                     <p className='font-heading text-base tracking-widest max-lg:hidden'>01</p>
                     <p className='font-body text-lg capitalize font-extralight tracking-widest text-center max-lg:text-sm'>cart</p>
                 </div>
@@ -79,13 +79,13 @@ const OrderAddress = () => {
                 </div>
 
                 <div className='w-5 lg:w-15 h-0.5 bg-linear-to-r from-yellow-300/80 to-yellow-200/10'></div>
-                <div className='w-fit flex gap-2 items-end'>
+                <div className='w-fit flex gap-2 items-end pb-1'>
                     <p className='font-heading text-base tracking-widest text-white/40 max-lg:hidden'>03</p>
                     <p className='font-body text-lg capitalize font-extralight tracking-widest  text-center text-white/40 max-lg:text-sm'>Review</p>
                 </div>
 
                 <div className='w-5 lg:w-15 h-0.5 bg-yellow-200/10'></div>
-                <div className='w-fit flex gap-2 items-end'>
+                <div className='w-fit flex gap-2 items-end pb-1'>
                     <p className='font-heading text-base tracking-widest text-white/40 max-lg:hidden'>04</p>
                     <p className='font-body text-lg capitalize font-extralight tracking-widest  text-center text-white/40 max-lg:text-sm'>payment</p>
                 </div>
