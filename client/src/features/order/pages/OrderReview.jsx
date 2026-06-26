@@ -40,28 +40,28 @@ const OrderReview = () => {
         <main className='bg-[#131313] bg-[radial-gradient(circle_at_50%_0%,#212121_0%,transparent_70%)]'>
             <Navbar additional={`lg:py-2! lg:px-35! bg-transparent! border-none ${isScrolled && 'backdrop-blur-md!'}`} />
 
-            <div className='w-full h-fit center gap-5 pt-25 pb-20'>
-                <div className='w-fit flex gap-2 items-end text-yellow-300/80'>
-                    <p className='font-heading text-base tracking-widest'>01</p>
-                    <p className='font-body text-lg capitalize font-extralight tracking-widest text-center'>cart</p>
+            <div className='w-full h-fit center gap-2 lg:gap-5 pt-25 pb-10 lg:pb-20 max-lg:px-5'>
+                <div className='w-fit flex gap-2 items-end text-yellow-300/80 pb-1'>
+                    <p className='font-heading text-base tracking-widest max-lg:hidden'>01</p>
+                    <p className='font-body text-lg capitalize font-extralight tracking-widest text-center max-lg:text-sm'>cart</p>
                 </div>
-                <div className='w-15 h-0.5 bg-yellow-300/80 rounded-full'></div>
+                <div className='w-5 lg:w-15 h-0.5 bg-yellow-300/80 rounded-full'></div>
 
-                <div className='w-fit flex gap-2 items-end text-yellow-300/80'>
-                    <p className='font-heading text-base tracking-widest'>02</p>
-                    <p className='font-body text-lg capitalize font-extralight tracking-widest  text-center'>Address</p>
-                </div>
-
-                <div className='w-15 h-0.5 bg-yellow-300/80'></div>
-                <div className='w-fit flex gap-2 items-end text-yellow-300/80'>
-                    <p className='font-heading text-base tracking-widest'>03</p>
-                    <p className='font-body text-lg capitalize font-extralight tracking-widest text-center border-b-2 pb-1'>Review</p>
+                <div className='w-fit flex gap-2 items-end text-yellow-300/80 pb-1'>
+                    <p className='font-heading text-base tracking-widest max-lg:hidden'>02</p>
+                    <p className='font-body text-lg capitalize font-extralight tracking-widest  text-center max-lg:text-sm'>Address</p>
                 </div>
 
-                <div className='w-15 h-0.5 bg-linear-to-r from-yellow-300/80 to-yellow-200/10 rounded-full'></div>
-                <div className='w-fit flex gap-2 items-end'>
-                    <p className='font-heading text-base tracking-widest text-white/40'>04</p>
-                    <p className='font-body text-lg capitalize font-extralight tracking-widest  text-center text-white/40'>payment</p>
+                <div className='w-5 lg:w-15 h-0.5 bg-yellow-300/80 rounded-full'></div>
+                <div className='w-fit flex gap-2 items-end text-yellow-300/80'>
+                    <p className='font-heading text-base tracking-widest max-lg:hidden'>03</p>
+                    <p className='font-body text-lg capitalize font-extralight tracking-widest text-center max-lg:text-sm border-b-2 pb-1'>Review</p>
+                </div>
+
+                <div className='w-5 lg:w-15 h-0.5 bg-linear-to-r from-yellow-300/80 to-yellow-200/10'></div>
+                <div className='w-fit flex gap-2 items-end pb-1'>
+                    <p className='font-heading text-base tracking-widest text-white/40 max-lg:hidden'>04</p>
+                    <p className='font-body text-lg capitalize font-extralight tracking-widest  text-center text-white/40 max-lg:text-sm'>payment</p>
                 </div>
 
             </div>
