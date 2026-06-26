@@ -3,11 +3,12 @@ import { useParams } from 'react-router'
 import { useWindowScroll } from 'react-use';
 import Navbar from '../../../components/Navbar';
 import StarRating from '../../home/components/StarRating';
-import { FaMinus, FaPlus } from 'react-icons/fa6';
+import { FaChevronLeft, FaChevronRight, FaMinus, FaPlus } from 'react-icons/fa6';
 import { CiDeliveryTruck, CiLock, CiShoppingCart } from 'react-icons/ci';
-import { bestproducts } from '../../../utils';
+import { bestproducts, testimonials } from '../../../utils';
 import ProductCard from '../../../components/ProductCard';
 import ShopItemCard from '../../shop/components/ShopItemCard';
+import Footer from '../../../components/Footer';
 
 const ProductPage = () => {
 
@@ -20,6 +21,9 @@ const ProductPage = () => {
   useEffect(() => {
     setIsScrolled(currentY > 30)
   }, [currentY])
+
+
+  const [current, setCurrent] = useState(0);
 
   const product = {
     "_id": {
@@ -108,7 +112,7 @@ const ProductPage = () => {
               <p className='font-jet text-white/80 text-xs px-3'>1</p>
               <FaPlus className='size-3 hover:text-yellow-400/90 text-white/60 cursor-pointer' />
             </div>
-            <button className='w-full bg-yellow-300/90 rounded flex gap-4 py-3 center text-[#131313]'>
+            <button className='w-full bg-yellow-300/90 rounded flex gap-4 py-3 center text-[#131313] cursor-pointer hover:bg-yellow-300'>
               <CiShoppingCart className='size-5' />
               <span className='text-sm font-jet uppercase font-light'>Add to cart</span>
             </button>
@@ -158,13 +162,30 @@ const ProductPage = () => {
         </div>
       </div>
 
-      <div className='w-full py-20 px-35 bg-[#111] mt-20 text-white/80'>
+      <div className='w-full py-20 px-35 mt-20 text-white/80 relative'>
           <h1 className='text-center font-subheading italic text-6xl pb-20'>
             Customer <br/> Reviews
           </h1>
 
-          <div className='w-full '></div>
+          <div className='w-full flex h-fit gap-14 pb-40 overflow-x-hidden relative '>
+            {testimonials.map((review, i) => (
+              <div className={`w-150 p-10 bg-[#181818] shrink-0 h-fit border border-yellow-400/10 ${i % 2 !== 0 && "translate-y-30"} transition-smooth`}
+                style={{ transform: `translateX(calc(-${current} * (600px + 56px)))` }}
+              >
+                <div className='w-fit'><StarRating rating={review.stars} extraClass={`text-3xl!`}/></div>
+                <p className='pt-10 font-body italic text-3xl text-white/60 tracking-wide'>"{review.feedback}"</p>
+
+                <h3 className='mt-30 font-jet text-yellow-300/80'>{review.name}</h3>
+                <p className='font-jet text-white/60'>{review.place}</p>
+              </div>
+            ))}
+
+          </div>
+            <FaChevronLeft  className={`absolute top-1/2 translate-y-1/2 left-0 translate-x-[350%] cursor-pointer ${current === 0 && "hidden"}`} onClick={() => setCurrent(current - 1)}/>
+            <FaChevronRight  className={`absolute top-1/2 translate-y-1/2 right-0 -translate-x-[350%] cursor-pointer ${ current === 4 && "hidden"}`} onClick={() => setCurrent(current + 1)}/>
       </div>
+
+      <Footer background={`bg-[#111]!`} paddingY={`pt-30!`} overlay={`to-[#111]!`} toOver={`to-75%!`} translateY={`translate-y-2/10!`} />
     </main>
   )
 }
