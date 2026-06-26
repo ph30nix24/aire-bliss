@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router'
 import { useWindowScroll } from 'react-use';
 import Navbar from '../../../components/Navbar';
@@ -9,18 +9,40 @@ import { bestproducts, testimonials } from '../../../utils';
 import ProductCard from '../../../components/ProductCard';
 import ShopItemCard from '../../shop/components/ShopItemCard';
 import Footer from '../../../components/Footer';
+import { useMediaQuery } from 'react-responsive';
 
 const ProductPage = () => {
-
   const { id } = useParams();
+  const isMobile = useMediaQuery({ maxWidth: 768 });
+  const startX = useRef(0);
+  const isDragging = useRef(false);
 
   const { y: currentY } = useWindowScroll();
 
   const [isScrolled, setIsScrolled] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     setIsScrolled(currentY > 30)
   }, [currentY])
+
+  // 2. handlers
+  const handleTouchStart = (e) => {
+    startX.current = e.touches[0].clientX;
+    isDragging.current = true;
+  };
+
+  const handleTouchEnd = (e) => {
+    if (!isDragging.current) return;
+    const diff = startX.current - e.changedTouches[0].clientX;
+
+    if (diff > 50 && currentIndex < allImages.length - 1)
+      setCurrentIndex(i => i + 1);  // swipe left
+    else if (diff < -50 && currentIndex > 0)
+      setCurrentIndex(i => i - 1);  // swipe right
+
+    isDragging.current = false;
+  };
 
 
   const [current, setCurrent] = useState(0);
@@ -59,9 +81,36 @@ const ProductPage = () => {
     "ratings": [],
   }
 
+  const allImages = [product.mainImage, ...(product.previewImages ?? [])];
+
+  if (isMobile) {
+    return (
+      <main className='bg-[#131313] relative'>
+        <Navbar additional={`lg:py-5! lg:px-35! bg-transparent! border-none ${isScrolled && 'backdrop-blur-md!'} z-50!`} />
+
+        <img src={product.mainImage} className='absolute w-full h-[95vh] object-cover z-2 opacity-20' alt="" />
+
+        <div className='w-full h-[95vh] bg-radial-[at_center_top] from-[#131313]/80 to-[#131313] absolute to-70% z-4'></div>
+
+        <div className='w-full px-5 pt-25 pb-20 flex gap-10 relative z-10'>
+          <div className='w-full overflow-x-hidden flex '
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+
+            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          >
+            {allImages.map((path, i) => (
+              <img src={path} className='w-full rounded' key={i} alt={`preview-image-${i + 1}`}/>
+            ))}
+          </div>
+        </div>
+      </main>
+    )
+  }
+
 
   return (
-    <main className='bg-[#131313] bg-[radial-gradient(circle_at_50%_0%,#212121_0%, relative'>
+    <main className='bg-[#131313] relative'>
       <Navbar additional={`lg:py-5! lg:px-35! bg-transparent! border-none ${isScrolled && 'backdrop-blur-md!'} z-50!`} />
 
       <img src={product.mainImage} className='absolute w-full h-[95vh] object-cover z-2 opacity-20' alt="" />
@@ -70,9 +119,9 @@ const ProductPage = () => {
 
       <div className='w-full px-35 pt-35 pb-20 flex gap-20 relative z-10'>
         <div className="w-3/5">
-          <img src={product.mainImage} className='w-full rounded' alt="" />
+
           <div className='w-full flex gap-4 mt-4'>
-            {product.previewImages.map((img, i) => (
+            {product.previewImages?.map((img, i) => (
               <img src={img} className='w-[18.2%] shrink-0 rounded' key={i} alt="" />
             ))}
           </div>
@@ -163,26 +212,26 @@ const ProductPage = () => {
       </div>
 
       <div className='w-full py-20 px-35 mt-20 text-white/80 relative'>
-          <h1 className='text-center font-subheading italic text-6xl pb-20'>
-            Customer <br/> Reviews
-          </h1>
+        <h1 className='text-center font-subheading italic text-6xl pb-20'>
+          Customer <br /> Reviews
+        </h1>
 
-          <div className='w-full flex h-fit gap-14 pb-40 overflow-x-hidden relative '>
-            {testimonials.map((review, i) => (
-              <div className={`w-150 p-10 bg-[#181818] shrink-0 h-fit border border-yellow-400/10 ${i % 2 !== 0 && "translate-y-30"} transition-smooth`}
-                style={{ transform: `translateX(calc(-${current} * (600px + 56px)))` }}
-              >
-                <div className='w-fit'><StarRating rating={review.stars} extraClass={`text-3xl!`}/></div>
-                <p className='pt-10 font-body italic text-3xl text-white/60 tracking-wide'>"{review.feedback}"</p>
+        <div className='w-full flex h-fit gap-14 pb-40 overflow-x-hidden relative '>
+          {testimonials.map((review, i) => (
+            <div className={`w-150 p-10 bg-[#181818] shrink-0 h-fit border border-yellow-400/10 ${i % 2 !== 0 && "translate-y-30"} transition-smooth`}
+              style={{ transform: `translateX(calc(-${current} * (600px + 56px)))` }}
+            >
+              <div className='w-fit'><StarRating rating={review.stars} extraClass={`text-3xl!`} /></div>
+              <p className='pt-10 font-body italic text-3xl text-white/60 tracking-wide'>"{review.feedback}"</p>
 
-                <h3 className='mt-30 font-jet text-yellow-300/80'>{review.name}</h3>
-                <p className='font-jet text-white/60'>{review.place}</p>
-              </div>
-            ))}
+              <h3 className='mt-30 font-jet text-yellow-300/80'>{review.name}</h3>
+              <p className='font-jet text-white/60'>{review.place}</p>
+            </div>
+          ))}
 
-          </div>
-            <FaChevronLeft  className={`absolute top-1/2 translate-y-1/2 left-0 translate-x-[350%] cursor-pointer ${current === 0 && "hidden"}`} onClick={() => setCurrent(current - 1)}/>
-            <FaChevronRight  className={`absolute top-1/2 translate-y-1/2 right-0 -translate-x-[350%] cursor-pointer ${ current === 4 && "hidden"}`} onClick={() => setCurrent(current + 1)}/>
+        </div>
+        <FaChevronLeft className={`absolute top-1/2 translate-y-1/2 left-0 translate-x-[350%] cursor-pointer ${current === 0 && "hidden"}`} onClick={() => setCurrent(current - 1)} />
+        <FaChevronRight className={`absolute top-1/2 translate-y-1/2 right-0 -translate-x-[350%] cursor-pointer ${current === 4 && "hidden"}`} onClick={() => setCurrent(current + 1)} />
       </div>
 
       <Footer background={`bg-[#111]!`} paddingY={`pt-30!`} overlay={`to-[#111]!`} toOver={`to-75%!`} translateY={`translate-y-2/10!`} />
