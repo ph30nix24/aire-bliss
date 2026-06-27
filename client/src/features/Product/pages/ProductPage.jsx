@@ -13,6 +13,7 @@ import { useMediaQuery } from 'react-responsive';
 import { GoHeart } from 'react-icons/go';
 import { RiCustomerService2Fill } from 'react-icons/ri';
 import { BsBox } from 'react-icons/bs';
+import { TbArrowBigRightLine } from "react-icons/tb";
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -205,6 +206,10 @@ const ProductPage = () => {
             <button className='w-full bg-yellow-300/90 rounded flex gap-4 py-3 center text-[#131313] cursor-pointer hover:bg-yellow-300 mt-5'>
               <CiShoppingCart className='size-5' />
               <span className='text-sm font-jet uppercase font-light'>Add to cart</span>
+            </button>
+            <button className='w-full bg-orange-400/90 rounded flex gap-4 py-3 center text-[#131313] cursor-pointer hover:bg-yellow-300 mt-3'>
+              <span className='text-sm font-jet uppercase font-light'>Buy Now</span>
+              <TbArrowBigRightLine  className='size-4' />
             </button>
 
             <button className='text-xs font-jet mt-4 text-yellow-300/90'>Add to Wishlist</button>
