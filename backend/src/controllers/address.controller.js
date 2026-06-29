@@ -283,3 +283,96 @@ export const deleteAddress = async (req, res) => {
         });
     }
 };
+
+/**
+ * @desc    Set an address as the default for the authenticated user
+ * @route   PATCH /api/address/default/:id
+ * @access  Private
+ *
+ * @description
+ * Marks the specified address as the user's default address.
+ * Any existing default address for the user is first unset,
+ * ensuring that only one address is marked as default at a time.
+ *
+ * @returns {Object} 200 - Default address updated successfully
+ * @returns {Object} 404 - Address not found
+ * @returns {Object} 500 - Internal server error
+ */
+export const setDefaultAddress = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const address = await Address.findOne({
+            _id: id,
+            user: req.user._id,
+        });
+
+        if (!address) {
+            return res.status(404).json({
+                success: false,
+                message: "Address not found.",
+            });
+        }
+
+        // Remove default status from all user's addresses
+        await Address.updateMany(
+            { user: req.user._id },
+            { $set: { isDefault: false } }
+        );
+
+        // Set selected address as default
+        address.isDefault = true;
+        await address.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Default address updated successfully.",
+            address,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message || "Failed to set default address.",
+        });
+    }
+};
+
+
+/**
+ * @desc    Get the default address of the authenticated user
+ * @route   GET /api/address/default
+ * @access  Private
+ *
+ * @description
+ * Retrieves the default address associated with the authenticated
+ * user. If no default address exists, a 404 response is returned.
+ *
+ * @returns {Object} 200 - Default address retrieved successfully
+ * @returns {Object} 404 - Default address not found
+ * @returns {Object} 500 - Internal server error
+ */
+export const getDefaultAddress = async (req, res) => {
+    try {
+        const address = await Address.findOne({
+            user: req.user._id,
+            isDefault: true,
+        });
+
+        if (!address) {
+            return res.status(404).json({
+                success: false,
+                message: "Default address not found.",
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            address,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message || "Failed to fetch default address.",
+        });
+    }
+};
