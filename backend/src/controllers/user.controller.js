@@ -13,10 +13,8 @@ import Order from '../models/order.model.js';
 
 export const getUserProfile = async (req, res) => {
     try {
-        const user = await User.findById(req.user.id).select('-password');
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
+        const user = req.user
+        const { verificationOTP: userOtp, verificationOTPExpires: userVerificationOTPExpires, ...safeUser } = user._doc;
 
         const cart = await Cart.findOne({
             user: req.user._id
@@ -42,7 +40,7 @@ export const getUserProfile = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            user,
+            user: safeUser,
             totalCartLength,
             totalWishlistProduct,
             totalAddresses,
