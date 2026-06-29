@@ -12,13 +12,15 @@ const AddressForm = ({ setAddAddress }) => {
     const [addressForm, setAddressForm] = useState({
         name: "",
         phoneNo: "",
-        type: "home",
+        alternatePhoneNo: "",
         addressLine1: "",
         addressLine2: "",
         landmark: "",
         city: "",
         state: "",
         pincode: "",
+        addressType: "home",
+        isDefault: false
     })
 
     const types = [
