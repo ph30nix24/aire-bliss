@@ -17,35 +17,36 @@ export const getUserProfile = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-        
-        let cartLength = 0;
+
         const cart = await Cart.findOne({
             user: req.user._id
         })
 
-        if(cart) {
-            cartLength = cart?.products.length
-        }
+        const totalCartLength = cart?.products.length || 0
 
         const wishlist = await WishList.findOne({
             user: req.user._id
-        }).populate("products.product");
-
-
-        const addresses = await Address.find({
-            user: req.user.id
         });
 
-        const orders = await Order.find({
+        const totalWishlistProduct = wishlist?.products.length || 0;
+
+        const totalAddresses = await Address.countDocuments({
+            user: userId
+        });
+
+        const totalOrders = await Order.countDocuments({
             user: req.user.id
         })
+
+
+
         res.status(200).json({
             success: true,
             user,
-            cart: cartLength,
-            wishlist,
-            addresses,
-            orders,
+            totalCartLength,
+            totalWishlistProduct,
+            totalAddresses,
+            totalOrders,
             message: "User profile fetched successfully",
         });
     } catch (error) {
@@ -99,6 +100,8 @@ export const updateProfile = async (req, res) => {
         });
     }
 };
+
+
 
 
 
