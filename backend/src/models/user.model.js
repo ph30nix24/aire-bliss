@@ -21,6 +21,8 @@ const userSchema = new mongoose.Schema({
   phoneNo: {
     type: String,
     default: "",
+    minlength: 10,
+    maxlength: 10
   },
   avatar: {
     type: String,

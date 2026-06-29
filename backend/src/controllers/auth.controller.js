@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken'
 import { optGenater } from '../utils/otpGenerater.js';
 import { sendOTPemail } from '../services/email.services.js';
 import Wishlist from '../models/wishList.model.js'
+import BlackList from '../models/blackList.Model.js'
 
 /**
  * @name loginController
@@ -288,7 +289,7 @@ export const logout = async (req, res) => {
         })
     }
 
-    await BlacklistedToken.create({
+    await BlackList.create({
         token,
     });
 

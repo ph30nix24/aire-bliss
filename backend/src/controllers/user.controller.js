@@ -53,3 +53,52 @@ export const getUserProfile = async (req, res) => {
     }
 }
 
+
+/**
+ * @desc    Update authenticated user's profile
+ * @route   PUT /api/user/profile
+ * @access  Private
+ */
+export const updateProfile = async (req, res) => {
+    try {
+        const { name, phoneNo, gender, dob } = req.body;
+
+        const updatedUser = await User.findByIdAndUpdate(
+            req.user.id,
+            {
+                $set: {
+                    ...(name !== undefined && { name }),
+                    ...(phoneNo !== undefined && { phoneNo }),
+                    ...(gender !== undefined && { gender }),
+                    ...(dob !== undefined && { dob }),
+                },
+            },
+            {
+                new: true,
+                runValidators: true,
+            }
+        ).select("-password");
+
+        if (!updatedUser) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found.",
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Profile updated successfully.",
+            user: updatedUser,
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+
+
+
