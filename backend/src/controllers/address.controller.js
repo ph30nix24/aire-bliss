@@ -64,16 +64,94 @@ export const addAddress = async (req, res) => {
             isDefault,
         });
 
+        const addresses = await Address.find({ user: req.user._id })
         return res.status(201).json({
             success: true,
             message: "Address added successfully.",
-            address,
+            addresses,
         });
 
     } catch (error) {
         return res.status(500).json({
             success: false,
             message: error.message || "Failed to add address.",
+        });
+    }
+};
+
+/**
+ * @desc    Get all addresses of the authenticated user
+ * @route   GET /api/address
+ * @access  Private
+ *
+ * @description
+ * Retrieves all addresses associated with the logged-in user.
+ * Addresses are sorted with the default address first, followed
+ * by the most recently created addresses.
+ *
+ * @returns {Object} 200 - List of user addresses
+ * @returns {Object} 500 - Internal server error
+ */
+export const getUserAddresses = async (req, res) => {
+    try {
+        const addresses = await Address.find({
+            user: req.user._id,
+        }).sort({
+            isDefault: -1,
+            createdAt: -1,
+        });
+        return res.status(200).json({
+            success: true,
+            count: addresses.length || 0,
+            addresses: addresses || [],
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message || "Failed to fetch addresses.",
+        });
+    }
+};
+
+
+/**
+ * @desc    Get a single address of the authenticated user
+ * @route   GET /api/address/:id
+ * @access  Private
+ *
+ * @description
+ * Retrieves a specific address by its ID. The address must belong
+ * to the authenticated user; otherwise, a 404 response is returned.
+ *
+ * @returns {Object} 200 - Address retrieved successfully
+ * @returns {Object} 404 - Address not found
+ * @returns {Object} 500 - Internal server error
+ */
+export const getSingleAddress = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const address = await Address.findOne({
+            _id: id,
+            user: req.user._id,
+        });
+
+        if (!address) {
+            return res.status(404).json({
+                success: false,
+                message: "Address not found.",
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            address,
+        });
+        
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message || "Failed to fetch address.",
         });
     }
 };
