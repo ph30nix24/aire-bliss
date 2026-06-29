@@ -16,7 +16,7 @@ import Wishlist from '../models/wishList.model.js'
  */
 
 
-const loginController = async (req, res) => {
+export const loginController = async (req, res) => {
     try {
         const { email, password } = req.body;
         console.log(email, password)
@@ -82,7 +82,7 @@ const loginController = async (req, res) => {
     }
 }
 
-const signupController = async (req, res) => {
+export const signupController = async (req, res) => {
     try {
         const { name, email, password } = req.body;
         console.log(name, email, password)
@@ -141,7 +141,7 @@ const signupController = async (req, res) => {
     }
 }
 
-const verifyEmailController = async (req, res) => {
+export const verifyEmailController = async (req, res) => {
     try {
         const otp = req.body.code
         const user = await User.findOne(req.user._id).select("+verificationOTP +verificationOTPExpires -password")
@@ -184,4 +184,123 @@ const verifyEmailController = async (req, res) => {
         })
     }
 }
-export { loginController, signupController, verifyEmailController }
+
+/**
+ * @desc    Change the authenticated user's password
+ * @route   PUT /aire-bliss/user/change-password
+ * @access  Private
+ *
+ * @body
+ * {
+ *   currentPassword: string,
+ *   newPassword: string,
+ * }
+ *
+ * @returns {Object} 200 - Password changed successfully.
+ * @returns {Object} 400 - Validation failed, passwords do not match, or current password is incorrect.
+ * @returns {Object} 401 - Unauthorized.
+ * @returns {Object} 404 - User not found.
+ * @returns {Object} 500 - Internal server error.
+ */
+export const changePassword = async (req, res) => {
+    try {
+        const { currentPassword, newPassword } = req.body;
+
+        // Check required fields
+        if (!currentPassword || !newPassword) {
+            return res.status(400).json({
+                success: false,
+                message: 'All fields are required.'
+            });
+        }
+
+        // Find authenticated user
+        const user = await User.findById(req.user.id).select("+password");
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found."
+            });
+        }
+
+        // Verify current password
+        const isPasswordCorrect = await bcrypt.compare(
+            currentPassword,
+            user.password
+        );
+
+        if (!isPasswordCorrect) {
+            return res.status(400).json({
+                success: false,
+                message: "Current password is incorrect."
+            });
+
+        }
+
+        // Prevent using the same password
+        const isSamePassword = await bcrypt.compare(
+            newPassword,
+            user.password
+        );
+
+        if (isSamePassword) {
+            return res.status(400).json({
+                success: false,
+                message: "New password cannot be the same as the current password."
+            });
+
+        }
+
+        // Hash new password
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        // Update password
+        user.password = hashedPassword;
+
+        await user.save();
+
+        return res.status(200).json({
+            success: true,
+            message: 'password changed successfully'
+        });
+    } catch (e) {
+        return res.status(500).json({
+            success: false,
+            message: 'Internal server error'
+        });
+    }
+};
+
+
+/**
+ * @desc    Logout the authenticated user
+ * @route   POST /api/auth/logout
+ * @access  Private
+ */
+export const logout = async (req, res) => {
+    const token = req.cookies?.token;
+
+    if (!token) {
+        return res.status(401).json({
+            success: false,
+            message: "Unauthorized."
+        })
+    }
+
+    await BlacklistedToken.create({
+        token,
+    });
+
+    res.clearCookie("accessToken", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None",
+    });
+    return res.status(200).json({
+        success: true,
+        message: "Logout successful!"
+    });
+};
+
+
