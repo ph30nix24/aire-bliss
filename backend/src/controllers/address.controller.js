@@ -21,7 +21,7 @@ export const addAddress = async (req, res) => {
     try {
         const { name, phoneNo, alternatePhoneNo, addressLine1, addressLine2, landmark, city, state, pincode, addressType } = req.body;
 
-        if ( !name || !phoneNo || !addressLine1 || !city || !state || !pincode) {
+        if (!name || !phoneNo || !addressLine1 || !city || !state || !pincode) {
             return res.state(403).json({
                 success: false,
                 message: "Missing fields"
@@ -51,9 +51,9 @@ export const addAddress = async (req, res) => {
 
         const address = await Address.create({
             user: req.user._id,
-            fullName: name,
-            mobileNumber: phoneNo,
-            alternateMobileNumber: alternatePhoneNo,
+            name: name,
+            phoneNo: phoneNo,
+            alternatePhoneNo: alternatePhoneNo,
             addressLine1: addressLine1,
             addressLine2: addressLine2,
             landmark: landmark,
@@ -78,6 +78,8 @@ export const addAddress = async (req, res) => {
         });
     }
 };
+
+
 
 /**
  * @desc    Get all addresses of the authenticated user
@@ -147,11 +149,137 @@ export const getSingleAddress = async (req, res) => {
             success: true,
             address,
         });
-        
+
     } catch (error) {
         return res.status(500).json({
             success: false,
             message: error.message || "Failed to fetch address.",
+        });
+    }
+};
+
+
+
+
+/**
+ * @desc    Update an existing address of the authenticated user
+ * @route   PUT /api/address/:id
+ * @access  Private
+ *
+ * @description
+ * Updates an address belonging to the authenticated user. Only the
+ * allowed fields can be modified. If the address is marked as the
+ * default, any other default address for the user is unset to ensure
+ * there is only one default address.
+ *
+ * @returns {Object} 200 - Address updated successfully
+ * @returns {Object} 404 - Address not found
+ * @returns {Object} 500 - Internal server error
+ */
+export const updateAddress = async (req, res) => {
+    try {
+        const { name, phoneNo, alternatePhoneNo, addressLine1, addressLine2, landmark, city, state, pincode, addressType } = req.body;
+
+        const upadatedAddress = await Address.findByIdAndUpdate(
+            req.params.id,
+            {
+                #set: {
+                    ...(name !== undefined && { name }),
+                    ...(phoneNo !== undefined && { phoneNo }),
+                    ...(alternatePhoneNo !== undefined && { alternatePhoneNo }),
+                    ...(addressLine1 !== undefined && { addressLine1 }),
+                    ...(addressLine2 !== undefined && { addressLine2 }),
+                    ...(landmark !== undefined && { landmark }),
+                    ...(city !== undefined && { city }),
+                    ...(state !== undefined && { state }),
+                    ...(pincode !== undefined && { pincode }),
+                    ...(addressType !== undefined && { addressType })
+                },
+            },
+            {
+                new: true,
+                runValidators: true,
+            }
+        )
+
+        if(!upadatedAddress) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found.",
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Address updated successfully.",
+            address: upadatedAddress,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message || "Failed to update address.",
+        });
+    }
+};
+
+
+
+/**
+ * @desc    Delete an address of the authenticated user
+ * @route   DELETE /api/address/:id
+ * @access  Private
+ *
+ * @description
+ * Deletes an address belonging to the authenticated user.
+ * If the deleted address is the user's default address and
+ * other addresses exist, the most recently created remaining
+ * address is automatically set as the new default.
+ *
+ * @returns {Object} 200 - Address deleted successfully
+ * @returns {Object} 404 - Address not found
+ * @returns {Object} 500 - Internal server error
+ */
+export const deleteAddress = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const address = await Address.findOne({
+            _id: id,
+            user: req.user._id,
+        });
+
+        if (!address) {
+            return res.status(404).json({
+                success: false,
+                message: "Address not found.",
+            });
+        }
+
+        const wasDefault = address.isDefault;
+
+        await address.deleteOne();
+
+        // If the deleted address was the default,
+        // make another address the default (if one exists).
+        if (wasDefault) {
+            const nextDefault = await Address.findOne({
+                user: req.user._id,
+            }).sort({ createdAt: -1 });
+
+            if (nextDefault) {
+                nextDefault.isDefault = true;
+                await nextDefault.save();
+            }
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Address deleted successfully.",
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message || "Failed to delete address.",
         });
     }
 };

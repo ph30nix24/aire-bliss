@@ -9,13 +9,13 @@ const addressSchema = new mongoose.Schema(
       index: true,
     },
 
-    fullName: {
+    name: {
       type: String,
       required: true,
       trim: true,
     },
 
-    mobileNumber: {
+    phoneNo: {
       type: String,
       required: true,
       validate: {
@@ -24,7 +24,7 @@ const addressSchema = new mongoose.Schema(
       },
     },
 
-    alternateMobileNumber: {
+    alternatePhoneNo: {
       type: String,
       default: "",
       validate: {
