@@ -5,6 +5,8 @@ const cartSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true,
+        unique: true, // One cart per user
+        index: true,
     },
     products: [
         {
@@ -24,10 +26,12 @@ const cartSchema = new mongoose.Schema({
     totalItems: {
         type: Number,
         default: 0,
+        min: 0,
     },
     totalPrice: {
         type: Number,
         default: 0,
+        min: 0,
     },
 }, { timestamps: true })
 

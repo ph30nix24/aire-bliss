@@ -55,7 +55,6 @@ export const getCart = async (req, res) => {
 export const addCart = async (req, res) => {
     try {
         const { productId, quantity } = req.body;
-        const userId = req.user._id;
 
         const product = await Product.findbyId(productId);
 
@@ -67,12 +66,12 @@ export const addCart = async (req, res) => {
         }
 
         let cart = await Cart.findOne({
-            user: userId
+            user: req.user._id
         })
 
         if (!cart) {
             cart = await Cart.create({
-                user: userId,
+                user: req.user._id,
                 products: []
             })
         }
@@ -107,3 +106,155 @@ export const addCart = async (req, res) => {
         })
     }
 }
+
+
+/**
+ * @desc Update the quantity of a product in the authenticated user's cart
+ * @route PATCH /api/cart/:productId
+ * @access Private
+ *
+ * @param {string} req.params.productId - The ID of the product to update.
+ * @param {number} req.body.quantity - The new quantity for the product.
+ *
+ * @returns {Object} 200 - Cart updated successfully with updated cart data.
+ * @returns {Object} 400 - Invalid quantity or requested quantity exceeds available stock.
+ * @returns {Object} 404 - Cart or product not found.
+ * @returns {Object} 500 - Internal server error.
+ */
+export const updateCartItemQuantity = async (req, res) => {
+    try {
+        const { productId } = req.params;
+        const { quantity } = req.body;
+
+        if (!quantity || quantity < 1) {
+            return res.status(400).json({
+                success: false,
+                message: "Quantity must be at least 1.",
+            });
+        }
+
+        const cart = await Cart.findOne({ user: req.user._id }).populate("products.product");
+
+        if (!cart) {
+            return res.status(404).json({
+                success: false,
+                message: "Cart not found.",
+            });
+        }
+
+        const cartItem = cart.products.find(
+            (item) => item.product._id.toString() === productId
+        );
+
+        if (!cartItem) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found in cart.",
+            });
+        }
+
+        if (quantity > cartItem.product.stock) {
+            return res.status(400).json({
+                success: false,
+                message: `Only ${cartItem.product.stock} item(s) available in stock.`,
+            });
+        }
+
+        cartItem.quantity = quantity;
+
+        cart.totalItems = cart.products.reduce(
+            (total, item) => total + item.quantity,
+            0
+        );
+
+        cart.totalPrice = cart.products.reduce(
+            (total, item) => total + item.quantity * item.product.price,
+            0
+        );
+
+        await cart.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Cart updated successfully.",
+            cart,
+        });
+    } catch (error) {
+        console.error("Update Cart Quantity Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error.",
+        });
+    }
+};
+
+
+
+/**
+ * @desc Remove a product from the authenticated user's cart
+ * @route DELETE /api/cart/:productId
+ * @access Private
+ *
+ * @param {string} req.params.productId - The ID of the product to remove from the cart.
+ *
+ * @returns {Object} 200 - Product removed successfully with updated cart data.
+ * @returns {Object} 404 - Cart or product not found in the cart.
+ * @returns {Object} 500 - Internal server error.
+ */
+export const removeCartItem = async (req, res) => {
+    try {
+        const { productId } = req.params;
+
+        const cart = await Cart.findOne({ user: req.user._id }).populate("products.product");
+
+        if (!cart) {
+            return res.status(404).json({
+                success: false,
+                message: "Cart not found.",
+            });
+        }
+
+        const cartItem = cart.products.find(
+            (item) => item.product._id.toString() === productId
+        );
+
+        if (!cartItem) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found in cart.",
+            });
+        }
+
+        cart.products = cart.products.filter(
+            (item) => item.product._id.toString() !== productId
+        );
+
+        cart.totalItems = cart.products.reduce(
+            (total, item) => total + item.quantity,
+            0
+        );
+
+        cart.totalPrice = cart.products.reduce(
+            (total, item) => total + item.quantity * item.product.price,
+            0
+        );
+
+        await cart.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Product removed from cart successfully.",
+            cart,
+        });
+    } catch (error) {
+        console.error("Remove Cart Item Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error.",
+        });
+    }
+};
+
+
