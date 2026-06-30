@@ -28,7 +28,7 @@ wishListRouter.post("/:productId", authenticateToken, addToWishlist);
 
 
 /**
- * @name    removeFromWishlist
+ * @name        
  * @desc    Remove a product from the authenticated user's wishlist
  * @route   DELETE /aire-bliss/user/wishlist/:productId
  * @access  Private
