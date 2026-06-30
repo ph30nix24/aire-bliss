@@ -6,7 +6,7 @@ import Order from '../models/order.model.js';
 
 /**
  * @name getUserProfile
- * @route /aire-bliss/user/get-me
+ * @route /aire-bliss/user/
  * @desc fetch user from database
  * @returns user
  */
@@ -55,7 +55,7 @@ export const getUserProfile = async (req, res) => {
 
 /**
  * @desc    Update authenticated user's profile
- * @route   PUT /api/user/profile
+ * @route   PUT /api/user/
  * @access  Private
  */
 export const updateProfile = async (req, res) => {
@@ -98,8 +98,4 @@ export const updateProfile = async (req, res) => {
         });
     }
 };
-
-
-
-
 

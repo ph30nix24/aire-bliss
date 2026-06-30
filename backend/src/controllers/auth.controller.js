@@ -188,7 +188,7 @@ export const verifyEmailController = async (req, res) => {
 
 /**
  * @desc    Change the authenticated user's password
- * @route   PUT /aire-bliss/user/change-password
+ * @route   PUT /aire-bliss/auth/change-password
  * @access  Private
  *
  * @body
