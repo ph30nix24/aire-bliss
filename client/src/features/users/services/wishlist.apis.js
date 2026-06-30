@@ -1,5 +1,4 @@
 import axios from "axios";
-import Product from "../../../../../backend/src/models/product.model";
 
 const API = import.meta.env.VITE_API_URI;
 
@@ -31,6 +30,21 @@ export const addToWishlistApi = async (ProductId) => {
     } catch (error) {
         console.error(
             "Error While adding item in Wishlist:",
+            error.response?.data?.message || error.message
+        );
+    }
+}
+
+export const removeFromWishlistApi = async (productId) => {
+    try {
+        const res = await axios.delete(`${WISHLIST_API}/${productId}`, {
+            withCredentials: true
+        })
+        console.log(res.data.message);
+        return res.data;
+    } catch (error) {
+        console.error(
+            "Error While deleting item in Wishlist:",
             error.response?.data?.message || error.message
         );
     }
