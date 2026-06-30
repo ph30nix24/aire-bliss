@@ -20,6 +20,21 @@ export const getCart = async () => {
     }
 }
 
+export const addItemToCart = async (productID) => {
+    try {
+        const res = await axios.post(`${CART_API}/${productID}`, {
+            withCredentials: true
+        })
+        console.log(res.data.message);
+        return res.data
+    } catch (e) {
+        console.error(
+            "Error While Adding item in Cart:",
+            e.response?.data?.message || e.message
+        );
+    }
+}
+
 
 export const updateCartItemQuantityApi = async (productID) => {
     try {

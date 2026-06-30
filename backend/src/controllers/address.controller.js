@@ -209,10 +209,12 @@ export const updateAddress = async (req, res) => {
             });
         }
 
+        const addresses = await Address.find({ user: req.user._id })
+
         return res.status(200).json({
             success: true,
             message: "Address updated successfully.",
-            address: upadatedAddress,
+            addresses,
         });
     } catch (error) {
         return res.status(500).json({
@@ -272,9 +274,11 @@ export const deleteAddress = async (req, res) => {
             }
         }
 
+        const addresses = await Address.find({ user: req.user._id })
         return res.status(200).json({
             success: true,
             message: "Address deleted successfully.",
+            addresses
         });
     } catch (error) {
         return res.status(500).json({

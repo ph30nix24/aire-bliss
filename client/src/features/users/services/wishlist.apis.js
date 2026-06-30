@@ -20,9 +20,9 @@ export const getWishListApi = async () => {
     }
 }
 
-export const addToWishlistApi = async (ProductId) => {
+export const addToWishlistApi = async (productId) => {
     try {
-        const res = await axios.post(`${WISHLIST_API}/${ProductId}`, {
+        const res = await axios.post(`${WISHLIST_API}/${productId}`, {
             withCredentials: true
         }) 
         console.log(res.data.message);

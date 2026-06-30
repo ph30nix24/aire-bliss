@@ -21,7 +21,7 @@ export const getUserAddresses = async () => {
     }
 }
 
-export const addAddress = async ({ name, phoneNo, alternatePhoneNo, addressLine1, addressLine2, landmark, city, state, pincode, addressType }) => {
+export const addAddressApi = async ({ name, phoneNo, alternatePhoneNo, addressLine1, addressLine2, landmark, city, state, pincode, addressType }) => {
     try {
         const res = await axios.post(`${ADDRESS_URI}/`,{ name, phoneNo, alternatePhoneNo, addressLine1, addressLine2, landmark, city, state, pincode, addressType }, {
             withCredentials: true
@@ -36,7 +36,7 @@ export const addAddress = async ({ name, phoneNo, alternatePhoneNo, addressLine1
     }
 }
 
-export const updateAddress = async ({ name, phoneNo, alternatePhoneNo, addressLine1, addressLine2, landmark, city, state, pincode, addressType, id}) => {
+export const updateAddressApi = async ({ name, phoneNo, alternatePhoneNo, addressLine1, addressLine2, landmark, city, state, pincode, addressType, id}) => {
     try {
         const res = await axios.put(`${ADDRESS_URI}/${id}`, { name, phoneNo, alternatePhoneNo, addressLine1, addressLine2, landmark, city, state, pincode, addressType }, {
             withCredentials: true
@@ -69,7 +69,7 @@ export const getSingleAddress = async (id) => {
     }
 }
 
-export const deleteAddress = async (id) => {
+export const deleteAddressApi = async (id) => {
     try {
         const res = await axios.delete(`${ADDRESS_URI}/${id}`, {
             withCredentials: true
@@ -85,7 +85,7 @@ export const deleteAddress = async (id) => {
 }
 
 
-export const setDefaultAddress = async (id) => {
+export const setDefaultAddressApi = async (id) => {
     try {
         const res = await axios.patch(`${ADDRESS_URI}/default/${id}`, {
             withCredentials: true
@@ -100,7 +100,7 @@ export const setDefaultAddress = async (id) => {
     }
 }
 
-export const getDefaultAddress = async () => {
+export const getDefaultAddressApi = async () => {
     try {
         const res = await axios.get(`${ADDRESS_URI}/default`, {
             withCredentials: true
