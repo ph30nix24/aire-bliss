@@ -40,6 +40,7 @@ addressesRouter.get('/:id', authenticateToken, getSingleAddress);
 
 addressesRouter.put('/:id', authenticateToken, updateAddress);
 
+
 /**
  * @name    deleteAddress
  * @route   DELETE /aire-bliss/user/address/:id
@@ -47,7 +48,8 @@ addressesRouter.put('/:id', authenticateToken, updateAddress);
  * @access  private
  */
 
-addressesRouter.delete("/:id", authenticateToken, deleteAddress)
+addressesRouter.delete("/:id", authenticateToken, deleteAddress);
+
 
 /**
  * @name    setDefaultAddress

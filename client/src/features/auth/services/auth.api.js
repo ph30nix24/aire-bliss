@@ -56,7 +56,7 @@ export const emailVerifierApi = async (otp) => {
 
 export const getCurrentUserApi = async () => {
     try {
-        const res = await axios.get(`${User_API}/get-user`, {
+        const res = await axios.get(`${User_API}/`, {
             withCredentials: true
         })
         console.log(res.data.message);
