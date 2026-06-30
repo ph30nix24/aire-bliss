@@ -51,29 +51,26 @@ export const getCart = async (req, res) => {
  * @require user-id, product-id, quantity
  * @access private
 */
-
 export const addCart = async (req, res) => {
     try {
-        const { productId, quantity } = req.body;
+        const { productId } = req.params;
 
-        const product = await Product.findbyId(productId);
+        const product = await Product.findById(productId);
 
         if (!product) {
             return res.status(404).json({
                 success: false,
-                message: "product is missing or not found"
-            })
+                message: "Product not found.",
+            });
         }
 
-        let cart = await Cart.findOne({
-            user: req.user._id
-        })
+        let cart = await Cart.findOne({ user: req.user._id });
 
         if (!cart) {
             cart = await Cart.create({
                 user: req.user._id,
-                products: []
-            })
+                products: [],
+            });
         }
 
         const existingProduct = cart.products.find(
@@ -81,31 +78,42 @@ export const addCart = async (req, res) => {
         );
 
         if (existingProduct) {
-            existingProduct.quantity += Number(quantity);
+            existingProduct.quantity += 1;
         } else {
             cart.products.push({
                 product: productId,
-                quantity: quantity
-            })
+                quantity: 1,
+            });
         }
+
+        await cart.populate("products.product");
+
+        cart.totalItems = cart.products.reduce(
+            (total, item) => total + item.quantity,
+            0
+        );
+
+        cart.totalPrice = cart.products.reduce(
+            (total, item) => total + item.quantity * item.product.price,
+            0
+        );
 
         await cart.save();
 
-        await cart.populate("products.product")
         return res.status(200).json({
             success: true,
-            message: "Product added to cart",
+            message: "Product added to cart successfully.",
             cart,
         });
+    } catch (error) {
+        console.error("Error in addCart:", error);
 
-    } catch (e) {
-        console.log("Error in getCart ", e.message);
         return res.status(500).json({
             success: false,
-            message: e.message
-        })
+            message: "Internal server error.",
+        });
     }
-}
+};
 
 
 /**

@@ -42,6 +42,9 @@ app.use('/aire-bliss/user', userRouter);
 import cartRouter from './routes/cart.routes.js';
 app.use('/aire-bliss/cart', cartRouter);
 
+import wishListRouter from './routes/wishList.routes.js';
+app.use("/aire-bliss/wishlist", wishListRouter)
+
 
 
 export default app;
