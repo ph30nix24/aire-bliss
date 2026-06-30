@@ -7,7 +7,7 @@ const cartRouter = Router();
 /**
  * @name getCart
  * @desc fetch all items of cart and return it
- * @route Get /aire-bliss/cart/
+ * @route Get /aire-bliss/user/cart/
  * @access private
  */
 
@@ -17,7 +17,7 @@ cartRouter.get('/', authenticateToken, getCart );
 /**
  * @name addCart
  * @desc add product into cart
- * @route Post /aire-bliss/cart/add-cart
+ * @route Post /aire-bliss/user/cart/:productId
  * @access private
  */
 cartRouter.post("/:productId", authenticateToken, addCart);
@@ -26,7 +26,7 @@ cartRouter.post("/:productId", authenticateToken, addCart);
 
 /**
  * @name updateCartItemQuantity
- * @route PATCH /aire-bliss/cart/:productId
+ * @route PATCH /aire-bliss/user/cart/:productId
  * @desc Update the quantity of a product in the authenticated user's cart
  * @access Private
  * @param {string} req.params.productId - The ID of the product to update.
@@ -37,7 +37,7 @@ cartRouter.patch("/:productId", authenticateToken, updateCartItemQuantity)
 
 /**
  * @name removeCartItem
- * @route DELETE /api/cart/:productId
+ * @route DELETE /api/user/cart/:productId
  * @desc Remove a product from the authenticated user's cart
  * @param {string} req.params.productId - The ID of the product to remove from the cart.
  */

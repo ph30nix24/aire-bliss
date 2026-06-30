@@ -7,7 +7,7 @@ const wishListRouter = Router()
 
 /**
  * @name    getWishList
- * @route   GET /aire-bliss/wishlist/
+ * @route   GET /aire-bliss/user/wishlist/
  * @desc    Get authenticated user's wishlist
  * @access  Private
  */
@@ -19,7 +19,7 @@ wishListRouter.get("/", authenticateToken, getWishlist);
 /**
  * @name    addToWishlist
  * @desc    Add a product to the authenticated user's wishlist
- * @route   POST /aire-bliss/wishlist/:productId
+ * @route   POST /aire-bliss/user/wishlist/:productId
  * @access  Private
  */
 
@@ -30,7 +30,7 @@ wishListRouter.post("/:productId", authenticateToken, addToWishlist);
 /**
  * @name    removeFromWishlist
  * @desc    Remove a product from the authenticated user's wishlist
- * @route   DELETE /aire-bliss/wishlist/:productId
+ * @route   DELETE /aire-bliss/user/wishlist/:productId
  * @access  Private
  */
 

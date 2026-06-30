@@ -40,11 +40,12 @@ import userRouter from './routes/user.routes.js';
 app.use('/aire-bliss/user', userRouter);
 
 import cartRouter from './routes/cart.routes.js';
-app.use('/aire-bliss/cart', cartRouter);
+app.use('/aire-bliss/user/cart', cartRouter);
 
 import wishListRouter from './routes/wishList.routes.js';
-app.use("/aire-bliss/wishlist", wishListRouter)
+app.use("/aire-bliss/user/wishlist", wishListRouter)
 
-
+import addressesRouter from './routes/addresses.routes.js';
+app.use('/aire-bliss/user/address', addressesRouter);
 
 export default app;

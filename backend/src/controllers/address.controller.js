@@ -2,7 +2,7 @@ import Address from "../models/address.model.js";
 
 /**
  * @desc    Add a new address for the authenticated user
- * @route   POST /api/address
+ * @route   POST /aire-bliss/user/address/
  * @access  Private
  *
  * @description
@@ -83,7 +83,7 @@ export const addAddress = async (req, res) => {
 
 /**
  * @desc    Get all addresses of the authenticated user
- * @route   GET /api/address
+ * @route   GET /aire-bliss/user/address/
  * @access  Private
  *
  * @description
@@ -118,7 +118,7 @@ export const getUserAddresses = async (req, res) => {
 
 /**
  * @desc    Get a single address of the authenticated user
- * @route   GET /api/address/:id
+ * @route   GET /aire-bliss/user/address/:id
  * @access  Private
  *
  * @description
@@ -163,7 +163,7 @@ export const getSingleAddress = async (req, res) => {
 
 /**
  * @desc    Update an existing address of the authenticated user
- * @route   PUT /api/address/:id
+ * @route   PUT /aire-bliss/user/address/:id
  * @access  Private
  *
  * @description
@@ -226,7 +226,7 @@ export const updateAddress = async (req, res) => {
 
 /**
  * @desc    Delete an address of the authenticated user
- * @route   DELETE /api/address/:id
+ * @route   DELETE /aire-bliss/user/address/:id
  * @access  Private
  *
  * @description
@@ -286,7 +286,7 @@ export const deleteAddress = async (req, res) => {
 
 /**
  * @desc    Set an address as the default for the authenticated user
- * @route   PATCH /api/address/default/:id
+ * @route   PATCH /aire-bliss/user/address/default/:id
  * @access  Private
  *
  * @description
@@ -340,7 +340,7 @@ export const setDefaultAddress = async (req, res) => {
 
 /**
  * @desc    Get the default address of the authenticated user
- * @route   GET /api/address/default
+ * @route   GET /aire-bliss/user/address/default
  * @access  Private
  *
  * @description
