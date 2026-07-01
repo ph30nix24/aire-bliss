@@ -15,3 +15,14 @@ export const getAllProductApi = async () => {
     }
 }
 
+export const getProductByIdApi = async (id) => {
+    try {
+        const res = await axios.get(`${API}aire-bliss/products/${id}`, {
+            withCredentials: true
+        })
+        return res.data
+    } catch(error) {
+        console.error(error.message)
+    }
+}
+

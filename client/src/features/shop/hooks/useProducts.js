@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { ProductContext } from "../services/product.context";
+import { getProductByIdApi } from "../services/product.api";
 
 export const useProduct = () => {
     const context = useContext(ProductContext);
@@ -8,5 +9,16 @@ export const useProduct = () => {
     }
     const { product, products, loading, setProduct, setProducts, setLoading} = context
 
-    return { product, products, loading, setProduct, setProducts }
+
+    const handleSetProduct =  async (productId)  => {
+        try{
+            const data = await getProductByIdApi(productId)
+            setProduct(data.product)
+
+        } catch (error) {
+            console.error(error.message)
+        }
+    }
+
+    return { product, products, loading, setProducts, handleSetProduct }
 }

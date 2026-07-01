@@ -94,7 +94,7 @@ const productSchema = new mongoose.Schema({
     ],
     averageRating: {
         type: Number,
-        default: 0,
+        default: 4.5,
         min: 0,
         max: 5
     },

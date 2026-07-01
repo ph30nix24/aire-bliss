@@ -14,7 +14,6 @@ import InfoForm from '../component/InfoForm';
 
 const UserProfile = () => {
 
-
     const [isEditPersonalInfo, setIsEditPersonalInfo] = useState(false);
 
 

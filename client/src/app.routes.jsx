@@ -15,7 +15,7 @@ import Address from "./features/users/pages/Address";
 import OrderAddress from "./features/order/pages/OrderAddress";
 import OrderReview from "./features/order/pages/OrderReview";
 import OrderPayment from "./features/order/pages/OrderPayment";
-import ProductPage from "./features/Product/pages/ProductPage"
+import ProductPage from "./features/shop/components/ProductPage"
 
 //layouts
 import MainLayout from "./Layouts/MainLayout";
@@ -40,7 +40,7 @@ export const router = createBrowserRouter([
                 element: <Shop />
             },
             {
-                path: "product/:id",
+                path: "products/:id",
                 element: <ProductPage />,
             },
         ]
