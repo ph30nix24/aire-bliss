@@ -5,7 +5,7 @@ import { uploadToCloudinary } from '../services/cloudinary.controller.js'
  * @name createProduct
  * @route POST /aire-bliss/admin/product/create-product
  * @desc Create a new product
- * @access private
+ * @access admin
  */
 export const createProduct = async (req, res) => {
     try {
@@ -94,7 +94,7 @@ export const createProduct = async (req, res) => {
  * @name allUsers
  * @route GET /aire-bliss/admin/users/all-users
  * @returns return array of all users
- * @access private
+ * @access admin
  */
 export const allUsers = async (req, res) => {
     try {
@@ -116,4 +116,8 @@ export const allUsers = async (req, res) => {
     }
 }
 
+
+/**
+ * @name 
+ */
 
