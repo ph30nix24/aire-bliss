@@ -52,10 +52,12 @@ const productSchema = new mongoose.Schema({
         uppercase: true,
         trim: true
     },
-    size: {
-        type: String,
-        required: true
-    },
+    size: [
+        {
+            type: String,
+            required: true
+        }
+    ],
     fragranceNotes: {
         type: [String],
         required: true
@@ -68,13 +70,17 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    featured : {
+    featured: {
         type: Boolean,
         default: false
     },
-    bestseller : {
+    bestseller: {
         type: Boolean,
         default: false
+    },
+    quantity: {
+        type: Number,
+        default: 1
     },
     isActive: {
         type: Boolean,
@@ -86,7 +92,7 @@ const productSchema = new mongoose.Schema({
             ref: 'Rating'
         }
     ]
-}, {timestamps: true});
+}, { timestamps: true });
 
 const Product = mongoose.model('Product', productSchema);
 

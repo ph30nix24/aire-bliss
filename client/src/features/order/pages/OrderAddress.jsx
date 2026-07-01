@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { useWindowScroll } from 'react-use';
+import React, { useState } from 'react'
+
 import Navbar from '../../../components/Navbar';
 import { CiCirclePlus } from 'react-icons/ci';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
 
 const OrderAddress = () => {
 
-    const { y: currentY } = useWindowScroll();
-
-    const [isScrolled, setIsScrolled] = useState(false);
-
-    useEffect(() => {
-        setIsScrolled(currentY > 100)
-    }, [currentY])
+    const [selectedAddress, setSelectedAddress] = useState(null);
 
     const addresses = [
         {
@@ -64,7 +58,7 @@ const OrderAddress = () => {
 
     return (
         <main className='bg-[#131313] bg-[radial-gradient(circle_at_50%_0%,#212121_0%,transparent_70%)]'>
-            <Navbar additional={`lg:py-2! lg:px-35! bg-transparent! border-none ${isScrolled && 'backdrop-blur-md!'}`} />
+            
 
             <div className='w-full h-fit center gap-2 lg:gap-5 pt-25 pb-10 lg:pb-20 max-lg:px-5'>
                 <div className='w-fit flex gap-2 items-end text-yellow-300/80 pb-1'>
@@ -138,10 +132,12 @@ const OrderAddress = () => {
                     </div>
 
                     <div className='w-full flex justify-between mt-30 pt-10 border-t-2 border-[#777]/20 px-5 lg:px-10 max-lg:pb-10'>
-                        <button className='w-fit flex gap-1 lg:gap-3 items-center font-body text-xs lg:text-sm tracking-wider group transition-smooth px-3 lg:px-8 rounded py-1 lg:py-3 cursor-pointer '>
-                            <FaChevronLeft className='size-3 text-white transition-smooth group-hover:text-yellow-300/70' />
-                            <span className='text-white transition-smooth group-hover:text-yellow-300/70'>Back to Cart</span>
-                        </button>
+                        <a href="/user/cart">
+                            <button className='w-fit flex gap-1 lg:gap-3 items-center font-body text-xs lg:text-sm tracking-wider group transition-smooth px-3 lg:px-8 rounded py-1 lg:py-3 cursor-pointer '>
+                                <FaChevronLeft className='size-3 text-white transition-smooth group-hover:text-yellow-300/70' />
+                                <span className='text-white transition-smooth group-hover:text-yellow-300/70'>Back to Cart</span>
+                            </button>
+                        </a>
 
 
                         <a href="/checkout/review">

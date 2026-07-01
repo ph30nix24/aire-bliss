@@ -67,7 +67,6 @@ const Address = () => {
 
     return (
         <main className='bg-[#131313] bg-[radial-gradient(circle_at_50%_0%,#2a2a2a_0%,transparent_70%)]'>
-            <Navbar additional={`bg-transparent! border-none! ${isScrolled && 'backdrop-blur-md!'}`} />
 
 
             <button className='fixed bottom-0 right-0 z-30 flex items-center p-3 lg:px-8 lg:py-5 bg-linear-to-b -translate-y-full lg:-translate-y-8/10 -translate-x-8/10 lg:-translate-x-2/10 from-[#F2CA50] to-[#f7cc4b] gap-5 rounded-full text-[#222] group cursor-pointer hover:shadow-[0_0_40px_rgba(242,202,80,0.4)]'>
@@ -130,8 +129,6 @@ const Address = () => {
             </section>
 
 
-            {/* <UserFooter /> */}
-            <Footer background={`bg-[#111]!`} paddingY={`pt-30!`} overlay={`to-[#111]!`} toOver={`to-75%!`} translateY={`translate-y-2/10!`} />
 
         </main>
     )

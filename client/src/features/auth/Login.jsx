@@ -35,12 +35,16 @@ const Login = () => {
         e.preventDefault();
         try {
             console.log(formData)
-            const success = await handleLogin({ email: formData.email, password: formData.password })
-            if(!success) {
-                throw new Error("Failed in login");
+            const loginResult = await handleLogin({ email: formData.email, password: formData.password })
+            if(!loginResult.success) {
+                throw new Error(loginResult.message);
             }
             toast.success("Logged in successfully");
-            navigate(from, { replace: true});
+            if(loginResult.role === "admin") {
+                navigate('/admin/dashboard', { replace: true });
+            } else {
+                navigate(from, { replace: true });
+            }
         }
         catch (e) {
             toast.error(e.message);

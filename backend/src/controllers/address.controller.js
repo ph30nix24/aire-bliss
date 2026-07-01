@@ -183,7 +183,7 @@ export const updateAddress = async (req, res) => {
         const upadatedAddress = await Address.findByIdAndUpdate(
             req.params.id,
             {
-                #set: {
+                $set: {
                     ...(name !== undefined && { name }),
                     ...(phoneNo !== undefined && { phoneNo }),
                     ...(alternatePhoneNo !== undefined && { alternatePhoneNo }),

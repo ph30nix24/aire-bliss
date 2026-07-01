@@ -1,23 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import Navbar from '../../../components/Navbar'
-import { useWindowScroll } from 'react-use';
+import React from 'react'
 import { bestproducts } from '../../../utils';
 import { IoBagHandle } from "react-icons/io5";
 import Footer from '../../../components/Footer';
 import { RxCross2 } from 'react-icons/rx';
 
 const Wishlist = () => {
-    const { y: currentY } = useWindowScroll();
-
-    const [isScrolled, setIsScrolled] = useState(false);
-
-    useEffect(() => {
-        setIsScrolled(currentY > 100)
-    }, [currentY])
-
     return (
         <main className='bg-[#131313] text-white overflow-hidden'>
-            <Navbar additional={`bg-transparent! border-none! ${isScrolled && 'backdrop-blur-md!'}`} />
 
             <div className='w-full h-[75vh] relative'>
                 <img src="./../../../../wishlist/wishlistBg.webp" className='absolute size-full object-cover z-2' alt="" />
@@ -96,7 +85,7 @@ const Wishlist = () => {
             </div>
 
 
-            <Footer background={`bg-[#111]!`} paddingY={`pt-30!`} overlay={`to-[#111]!`} toOver={`to-75%!`} translateY={`translate-y-2/10!`} />
+            
         </main>
     )
 }

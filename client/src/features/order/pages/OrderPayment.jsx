@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import Navbar from '../../../components/Navbar'
-import { useWindowScroll } from 'react-use';
+import React, { useState } from 'react'
 import { CiDeliveryTruck, CiLock } from 'react-icons/ci';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6';
 import { HiCash } from 'react-icons/hi';
@@ -11,13 +9,6 @@ import { BsBox } from 'react-icons/bs';
 
 const OrderPayment = () => {
 
-  const { y: currentY } = useWindowScroll();
-
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    setIsScrolled(currentY > 100)
-  }, [currentY])
 
   const [selectedPayment, setSelectedPayment] = useState('online-payment');
 
@@ -25,8 +16,6 @@ const OrderPayment = () => {
 
   return (
     <main className='bg-[#131313] bg-[radial-gradient(circle_at_50%_0%,#212121_0%,transparent_70%)]'>
-
-      <Navbar additional={`lg:py-2! lg:px-35! bg-transparent! border-none ${isScrolled && 'backdrop-blur-md!'}`} />
 
       <div className='w-full h-fit center gap-2 lg:gap-5 pt-25 pb-10 lg:pb-20 max-lg:px-5'>
         <div className='w-fit flex gap-2 items-end text-yellow-300/80 pb-1'>
@@ -221,20 +210,6 @@ const OrderPayment = () => {
         </div>
       </div>
 
-
-      <footer className='w-full py-10 px-5 max-lg:gap-5 md:px-20 flex justify-between items-center border-t-2 border-[#777]/10 max-md:flex-col'>
-        <div className='w-fit flex items-center gap-3'>
-          <img src="./../../../../logo-2.png" className='size-10' alt="" />
-          <h1 className='text-3xl capitalize font-subheading italic text-yellow-400/80 tracking-wider'>aire bliss</h1>
-        </div>
-
-        <div className='w-fit flex items-center gap-5'>
-          <a href="" className='text-sm text-white/60 font-body capitalize'>shopping policy</a>
-          <a href="" className='text-sm text-white/60 font-body capitalize'>Return & refund</a>
-          <a href="" className='text-sm text-white/60 font-body capitalize'>Terms & condition</a>
-        </div>
-
-      </footer>
     </main>
   )
 }

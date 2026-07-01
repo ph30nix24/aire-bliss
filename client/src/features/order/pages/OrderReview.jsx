@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import Navbar from '../../../components/Navbar'
-import { useWindowScroll } from 'react-use';
+import React, { useState } from 'react'
 import { CiDeliveryTruck, CiLocationOn, CiLock } from 'react-icons/ci';
 import { bestproducts } from '../../../utils';
 import { FaArrowLeft, FaArrowRight, FaChevronDown } from 'react-icons/fa6';
@@ -12,13 +10,6 @@ import { LuTag } from 'react-icons/lu';
 
 const OrderReview = () => {
 
-    const { y: currentY } = useWindowScroll();
-
-    const [isScrolled, setIsScrolled] = useState(false);
-
-    useEffect(() => {
-        setIsScrolled(currentY > 100)
-    }, [currentY])
 
     const address = {
         "_id": "addr_001",
@@ -38,7 +29,6 @@ const OrderReview = () => {
 
     return (
         <main className='bg-[#131313] bg-[radial-gradient(circle_at_50%_0%,#212121_0%,transparent_70%)]'>
-            <Navbar additional={`lg:py-2! lg:px-35! bg-transparent! border-none ${isScrolled && 'backdrop-blur-md!'}`} />
 
             <div className='w-full h-fit center gap-2 lg:gap-5 pt-25 pb-10 lg:pb-20 max-lg:px-5'>
                 <div className='w-fit flex gap-2 items-end text-yellow-300/80 pb-1'>
@@ -66,7 +56,7 @@ const OrderReview = () => {
 
             </div>
 
-            <div className='w-full h-fit px-5 lg:px-35 mb-20'>
+            <div className='w-full h-fit px-5 lg:px-35 pb-20'>
                 <p className='uppercase text-center text-primary text-[10px] lg:text-xs font-jet tracking-[0.375em] font-bold'>The final correction</p>
 
                 <h1 className='text-center text-white/90 text-5xl max-lg:px-10 lg:text-7xl font-subheading italic capitalize mt-5'>Review Your <br /> Order</h1>
@@ -245,19 +235,7 @@ const OrderReview = () => {
             </div>
 
 
-            <footer className='w-full py-10 px-5 lg:px-20 flex max-lg:gap-4 max-lg:flex-col justify-between items-center border-t-2 border-[#777]/10'>
-                <div className='w-fit flex items-center gap-3'>
-                    <img src="./../../../../logo-2.png" className='size-10' alt="" />
-                    <h1 className='text-3xl capitalize font-subheading italic text-yellow-400/80 tracking-wider'>aire bliss</h1>
-                </div>
-
-                <div className='w-fit flex items-center gap-5'>
-                    <a href="" className='text-sm text-white/60 font-body capitalize'>shopping policy</a>
-                    <a href="" className='text-sm text-white/60 font-body capitalize'>Return & refund</a>
-                    <a href="" className='text-sm text-white/60 font-body capitalize'>Terms & condition</a>
-                </div>
-
-            </footer>
+            
         </main>
     )
 }

@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import BlackList from "../models/blackList.Model.js"
-
+import User from "../models/user.model.js";
 /**
  * @name authenticateToken
  * @desc Middleware to authenticate JWT token and reject blacklisted tokens
@@ -23,17 +23,16 @@ export const authenticateToken = async (req, res, next) => {
         const blacklistedToken = await BlackList.findOne({ token });
 
         if (blacklistedToken) {
+            console.log("Blacklisted token found:", token);
             return res.status(401).json({
                 success: false,
                 message: "Session has expired. Please login again.",
             });
         }
 
-        // Verify JWT
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-        const user = await User.findById(decoded._id).select("-password");
-
+        const user = await User.findById(decoded.id).select("-password");
+        console.log("User found:", user);
         if (!user) {
             return res.status(401).json({
                 success: false,
@@ -42,7 +41,6 @@ export const authenticateToken = async (req, res, next) => {
         }
 
         req.user = user;
-
         next();
     } catch (error) {
         return res.status(401).json({

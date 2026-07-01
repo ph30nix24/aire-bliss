@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { FaCircleCheck } from "react-icons/fa6";
 import { FaPencilAlt } from "react-icons/fa";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
@@ -6,22 +6,14 @@ import { MdOutlineKey } from "react-icons/md";
 import { FaArrowRight } from "react-icons/fa6";
 import { FiArrowUpRight } from "react-icons/fi";
 import Footer from '../../../components/Footer'
-import Navbar from '../../../components/Navbar'
 import InfoForm from '../component/InfoForm';
-import { useWindowScroll } from 'react-use';
+
 
 
 
 
 const UserProfile = () => {
 
-    const { y: currentY } = useWindowScroll();
-
-    const [isScrolled, setIsScrolled] = useState(false);
-
-    useEffect(() => {
-        setIsScrolled(currentY > 100)
-    }, [currentY])
 
     const [isEditPersonalInfo, setIsEditPersonalInfo] = useState(false);
 
@@ -29,8 +21,7 @@ const UserProfile = () => {
     return (
         <main className='bg-[#131313] text-white'>
 
-            <Navbar additional={`bg-transparent! border-none! ${isScrolled && 'backdrop-blur-md!'}`} />
-
+            
             <img src="./../../../../profile/userImgBg.webp" className='w-full h-screen object-cover lg:object-contain absolute top-0 left-0 z-1' alt="" />
             <div className='w-full h-screen absolute bg-radial top-0 left-0 z-2 from-[#131313]/10 lg:from-[#131313]/30 to-75% to-[#131313]'></div>
 
@@ -249,7 +240,6 @@ const UserProfile = () => {
                     </button>
                 </div>
             </div>
-            <Footer background={`bg-[#131313]!`} paddingY={`pt-30!`} overlay={`to-[#131313]!`} toOver={`to-75%!`} translateY={`translate-y-2/10!`} />
 
         </main>
     )

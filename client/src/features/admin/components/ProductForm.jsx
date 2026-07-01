@@ -6,6 +6,7 @@ import Dropdown from './DropDown';
 import { toast } from 'react-hot-toast';
 import { addProductApi } from '../services/admin.api';
 import { useNavigate } from 'react-router';
+import { useProduct } from '../../shop/hooks/useProducts';
 
 const ProductForm = ({ setIsAddProductClk }) => {
     const navigate = useNavigate()
@@ -19,14 +20,15 @@ const ProductForm = ({ setIsAddProductClk }) => {
         price: '',
         discountPrice: '',
         stock: '',
-        sku: '',
-        size: "",
+        quantity: 1,
+        size: [],
         fragranceNotes: "",
         shortDescription: "",
         longDescription: "",
         featured: false,
-        bestSeller: false,
+        bestseller: false,
     })
+    const {setProducts} = useProduct()
 
     const inputRef = useRef(null);
     const previewRefs = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
@@ -90,8 +92,16 @@ const ProductForm = ({ setIsAddProductClk }) => {
         { label: 'Room Fragrance', value: 'room-fragrance' },
     ];
 
-    const [sizeOptions, setSizeOptions] = useState(null);
+    const [sizeOptions, setSizeOptions] = useState([]);
     const sizes = ['30ml', '50ml', '100ml', '150ml', '200ml'];
+
+    const handleSizeFilter = (value) => {
+        setSizeOptions((prev) =>
+            prev.includes(value)
+                ? prev.filter((item) => item !== value) // remove if already selected
+                : [...prev, value] // add if not selected
+        );
+    }
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -139,6 +149,11 @@ const ProductForm = ({ setIsAddProductClk }) => {
             });
 
             const data = await addProductApi(formDataToSend);
+            if(!data.success) {
+                toast.error(data.message)
+                throw new Error(data.message)
+            }
+            setProducts(data.products)
             toast.success("Product added successfully!");
             setIsAddProductClk(false);
             navigate("/admin/product");
@@ -317,8 +332,8 @@ const ProductForm = ({ setIsAddProductClk }) => {
                                 <div className="flex w-full gap-5 mt-2 justify-center">
                                     {
                                         sizes.map((size, index) => (
-                                            <div className='text-white/70 text-xs font-body mb-1 flex items-center gap-2' key={index} onClick={() => setSizeOptions(size)}>
-                                                <div className={'w-4 h-4 border border-white/10 rounded-sm flex items-center justify-center cursor-pointer' + (sizeOptions === size ? ' bg-yellow-400/80' : ' bg-transparent')}>
+                                            <div className='text-white/70 text-xs font-body mb-1 flex items-center gap-2' key={index} onClick={() => handleSizeFilter(size)}>
+                                                <div className={'w-4 h-4 border border-white/10 rounded-sm flex items-center justify-center cursor-pointer' + (sizeOptions.includes(size) ? ' bg-yellow-400/80' : ' bg-transparent')}>
 
                                                 </div>
                                                 <span>{size}</span>
@@ -398,12 +413,12 @@ const ProductForm = ({ setIsAddProductClk }) => {
 
                             {/* stock keeping unit field */}
                             <fieldset className='w-full flex flex-col gap-1 mb-3'>
-                                <label className="text-white text-sm font-body ">SKU (Stock Keeping Unit)</label>
+                                <label className="text-white text-sm font-body ">Quantity</label>
                                 <input
                                     type="number"
-                                    placeholder="Enter SKU (optional)"
-                                    name='sku'
-                                    value={formData.sku}
+                                    placeholder="Enter quantity (optional)"
+                                    name='quantity'
+                                    value={formData.quantity}
                                     onChange={handleInputChange}
                                     className="bg-[#111]/70 border w-full text-xs border-white/10 rounded-md py-2 px-4 text-white placeholder:text-white/50 focus:outline-none focus:ring focus:ring-yellow-400/80 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [appearance:textfield]"
                                 />
@@ -445,7 +460,7 @@ const ProductForm = ({ setIsAddProductClk }) => {
                                         Add this product in Best Seller section
                                     </p>
                                 </div>
-                                <div className={`w-11 h-6  shadow rounded-full flex items-center justify-center cursor-pointer relative ${formData.bestSeller ? 'bg-yellow-300/90' : 'bg-transparent border border-white/50'}`} onClick={() => handleToggle('bestSeller')}>
+                                <div className={`w-11 h-6  shadow rounded-full flex items-center justify-center cursor-pointer relative ${formData.bestSeller ? 'bg-yellow-300/90' : 'bg-transparent border border-white/50'}`} onClick={() => handleToggle('bestseller')}>
                                     <div className={`size-5  absolute rounded-full left-0 shadow-xl transform duration-300 ${formData.bestSeller ? 'translate-x-[105%] bg-white' : 'translate-x-0.5 bg-yellow-300/90'}`}></div>
                                 </div>
                             </fieldset>

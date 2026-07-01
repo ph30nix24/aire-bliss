@@ -12,7 +12,7 @@ const Footer = ({ background, paddingY, overlay, toOver, translateY }) => {
 
     if (isMobile) {
         return (
-            <footer className='w-full h-fit! p-5 relative z-10 bg-[#222]/40'>
+            <footer className={`w-full h-fit! p-5 relative z-10 bg-[#222]/40 ${background}`}>
                 <div className='w-full flex flex-col justify-center gap-3 text-white pb-3 relative z-10'>
                     <div className="w-full flex center gap-2">
                         <img src="./../../logo.png"  className='size-26 object-cover z-1 pr-3' alt="" />

@@ -8,14 +8,17 @@ import { uploadToCloudinary } from '../services/cloudinary.controller.js'
  * @access admin
  */
 export const createProduct = async (req, res) => {
+    
     try {
+        console.log(req.user)
+        console.log(1)
         if(req.user.role !== "admin") {
             return res.status(401).json({
                 success: false,
                 message: " Unauthorized Access "
             })
         }
-        const { productName, brand, category, gender, price, discountPrice, stock, size, fragranceNotes, shortDescription, longDescription, featured, bestSeller } = req.body;
+        const { productName, brand, category, gender, price, discountPrice, stock, quantity, size, fragranceNotes, shortDescription, longDescription, featured, bestseller } = req.body;
 
         let sku = req.body.sku;
 
@@ -33,7 +36,6 @@ export const createProduct = async (req, res) => {
             console.log(nextNumber)
 
             sku = `AB-${String(nextNumber).padStart(6, '0')}`;
-            console.log(sku)
         }
 
 
@@ -73,14 +75,16 @@ export const createProduct = async (req, res) => {
             shortDescription,
             longDescription,
             featured,
-            bestSeller
+            bestseller,
+            quantity
         })
 
         await newProduct.save();
-        console.log("created succesfully")
+        const products = await Product.find();
         return res.status(201).json({
             success: true,
-            message: "product successfully created"
+            message: "product successfully created",
+            products
         })
     }
     catch (error) {

@@ -3,6 +3,38 @@ import Product from "../models/product.model.js";
 
 
 
+const calculateCartTotals = (cart) => {
+    const totalItems = cart.products.reduce(
+        (total, item) => total + item.quantity,
+        0
+    );
+
+    const totalPrice = cart.products.reduce(
+        (total, item) => total + item.quantity * item.product.price,
+        0
+    );
+
+    const totalDiscount = cart.products.reduce((total, item) => {
+        const discount =
+            (item.product.originalPrice || item.product.price) - item.product.price;
+
+        return total + discount * item.quantity;
+    }, 0);
+
+    const shippingCharge = totalPrice >= 999 ? 0 : 99;
+
+    const finalPrice =
+        totalPrice -
+        totalDiscount +
+        shippingCharge;
+
+    cart.totalItems = totalItems;
+    cart.totalPrice = totalPrice;
+    cart.totalDiscount = totalDiscount;
+    cart.shippingCharge = shippingCharge;
+    cart.finalPrice = finalPrice;
+};
+
 /**
  * @name getCart
  * @desc fetch all the cart items and return
@@ -88,16 +120,7 @@ export const addCart = async (req, res) => {
 
         await cart.populate("products.product");
 
-        cart.totalItems = cart.products.reduce(
-            (total, item) => total + item.quantity,
-            0
-        );
-
-        cart.totalPrice = cart.products.reduce(
-            (total, item) => total + item.quantity * item.product.price,
-            0
-        );
-
+        calculateCartTotals(cart);
         await cart.save();
 
         return res.status(200).json({
@@ -170,15 +193,7 @@ export const updateCartItemQuantity = async (req, res) => {
 
         cartItem.quantity = quantity;
 
-        cart.totalItems = cart.products.reduce(
-            (total, item) => total + item.quantity,
-            0
-        );
-
-        cart.totalPrice = cart.products.reduce(
-            (total, item) => total + item.quantity * item.product.price,
-            0
-        );
+        calculateCartTotals(cart);
 
         await cart.save();
 
@@ -238,15 +253,7 @@ export const removeCartItem = async (req, res) => {
             (item) => item.product._id.toString() !== productId
         );
 
-        cart.totalItems = cart.products.reduce(
-            (total, item) => total + item.quantity,
-            0
-        );
-
-        cart.totalPrice = cart.products.reduce(
-            (total, item) => total + item.quantity * item.product.price,
-            0
-        );
+        calculateCartTotals(cart);
 
         await cart.save();
 

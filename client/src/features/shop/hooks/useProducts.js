@@ -8,5 +8,5 @@ export const useProduct = () => {
     }
     const { product, products, loading, setProduct, setProducts, setLoading} = context
 
-    return { product, products, loading }
+    return { product, products, loading, setProduct, setProducts }
 }

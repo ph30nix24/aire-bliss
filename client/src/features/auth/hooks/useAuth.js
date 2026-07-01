@@ -33,8 +33,12 @@ export const useAuth = () => {
             setCartLength(data.cartLength);
             setAddresses(data.addresses);
             setOrders(data.orders);
+            return {
+                success: data.success,
+                message: data.message,
+                role: data.user.role
 
-            return data.success
+            }
         }
         catch (e) {
             console.log("Error While signup ", e.message)

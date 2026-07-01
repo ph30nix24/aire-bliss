@@ -17,67 +17,116 @@ import OrderReview from "./features/order/pages/OrderReview";
 import OrderPayment from "./features/order/pages/OrderPayment";
 import ProductPage from "./features/Product/pages/ProductPage"
 
+//layouts
+import MainLayout from "./Layouts/MainLayout";
+import AuthLayout from "./Layouts/AuthLayout";
+import UserLayout from "./Layouts/UserLayout";
+import CheckoutLayout from "./Layouts/CheckoutLayout";
+import AdminLayout from "./Layouts/AdminLayout";
 
 
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <Home />
+        element: <MainLayout />,
+        children: [
+            {
+                index: true,
+                element: <Home />
+            },
+            {
+                path: 'shop',
+                element: <Shop />
+            },
+            {
+                path: "product/:id",
+                element: <ProductPage />,
+            },
+        ]
+    },
+
+    //auth routes
+    {
+        path: '/auth',
+        element: <AuthLayout />,
+        children: [
+            {
+                path: "login",
+                element: <Login />,
+            },
+            {
+                path: "signup",
+                element: <SignUp />,
+            },
+            {
+                path: "verify-email",
+                element: <EmailVerifier />,
+            },
+        ]
+    },
+
+
+    //user routes
+    {
+        path: "/user",
+        element: <UserLayout />,
+        children: [
+            {
+                path: "profile",
+                element: <UserProfile />,
+            },
+            {
+                path: "cart",
+                element: <Cart />,
+            },
+            {
+                path: "wishlist",
+                element: <Wishlist />,
+            },
+            {
+                path: "addresses",
+                element: <Address />,
+            },
+        ],
+    },
+
+    // Checkout
+    {
+        path: "/checkout",
+        element: <CheckoutLayout />,    
+        children: [
+            {
+                path: "address",
+                element: <OrderAddress />,
+            },
+            {
+                path: "review",
+                element: <OrderReview />,
+            },
+            {
+                path: "payment",
+                element: <OrderPayment />,
+            },
+        ],
     },
     {
-        path: '/auth/login',
-        element: <Login />
+        path: "/admin",
+        element: <AdminLayout />,
+        children: [
+            {
+                path: "dashboard",
+                element: <Dashboard />,
+            },
+            {
+                path: "product",
+                element: <Product />,
+            },
+        ],
     },
+
     {
-        path: '/auth/signup',
-        element: <SignUp />
+        path: "*",
+        element: <h1>404 Page Not Found</h1>,
     },
-    {
-        path: '/auth/verify-email',
-        element: <EmailVerifier />
-    },
-    {
-        path: "/shop",
-        element: <Shop />
-    },
-    {
-        path: '/admin/dashboard',
-        element: <Dashboard />
-    },
-    {
-        path: '/admin/product',
-        element: <Product />
-    },
-    {
-        path: '/user/profile/',
-        element: <UserProfile />
-    },
-    {
-        path: '/user/cart/',
-        element: <Protect><Cart /></Protect>
-    },
-    {
-        path: '/user/wishlist/',
-        element: <Wishlist />
-    },
-    {
-        path: '/user/addresses',
-        element: <Address />
-    },
-    {
-        path: '/checkout/address',
-        element: <OrderAddress />
-    },
-    {
-        path: '/checkout/review',
-        element: <OrderReview />
-    },
-    {
-        path: '/checkout/payment',
-        element: <OrderPayment />
-    },
-    {
-        path: '/product/:id',
-        element: <ProductPage />
-    }
+
 ])

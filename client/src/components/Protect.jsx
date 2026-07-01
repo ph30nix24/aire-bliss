@@ -8,7 +8,7 @@ const Protect = ({ children }) => {
     console.log(user)
     if (loading) {
         return (
-            <div className='w-full h-screen center'>
+            <div className='w-full h-screen center bg-[#131313]'>
                 <Loader />
             </div>
         );
