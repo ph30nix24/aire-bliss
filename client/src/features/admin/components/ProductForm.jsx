@@ -4,12 +4,13 @@ import { RxCross2 } from "react-icons/rx";
 import { TbBulbFilled } from "react-icons/tb";
 import Dropdown from './DropDown';
 import { toast } from 'react-hot-toast';
-import { addProductApi } from '../services/admin.api';
 import { useNavigate } from 'react-router';
-import { useProduct } from '../../shop/hooks/useProducts';
+import { useAdmin } from '../hooks/useAdmin';
+import Loader from '../../../components/Loader';
 
 const ProductForm = ({ setIsAddProductClk }) => {
     const navigate = useNavigate()
+    const { adminLoading, handleAddProduct } = useAdmin()
     const [formData, setFormData] = useState({
         productName: '',
         image: null,
@@ -28,7 +29,6 @@ const ProductForm = ({ setIsAddProductClk }) => {
         featured: false,
         bestseller: false,
     })
-    const {setProducts} = useProduct()
 
     const inputRef = useRef(null);
     const previewRefs = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
@@ -148,12 +148,11 @@ const ProductForm = ({ setIsAddProductClk }) => {
                 }
             });
 
-            const data = await addProductApi(formDataToSend);
+            const data = await handleAddProduct(formDataToSend);
             if(!data.success) {
                 toast.error(data.message)
                 throw new Error(data.message)
             }
-            setProducts(data.products)
             toast.success("Product added successfully!");
             setIsAddProductClk(false);
             navigate("/admin/product");
@@ -162,6 +161,13 @@ const ProductForm = ({ setIsAddProductClk }) => {
             console.error('Error during product submission:', error);
             toast.error("An error occurred while saving the product. Please try again.", error);
         }
+    }
+    if (adminLoading) {
+        return (
+            <div className='w-full h-screen center bg-[#131313]'>
+                <Loader />
+            </div>
+        )
     }
     return (
         <form onSubmit={handleSubmit} className='size-full pt-3 px-5 pb-8'>
@@ -460,8 +466,8 @@ const ProductForm = ({ setIsAddProductClk }) => {
                                         Add this product in Best Seller section
                                     </p>
                                 </div>
-                                <div className={`w-11 h-6  shadow rounded-full flex items-center justify-center cursor-pointer relative ${formData.bestSeller ? 'bg-yellow-300/90' : 'bg-transparent border border-white/50'}`} onClick={() => handleToggle('bestseller')}>
-                                    <div className={`size-5  absolute rounded-full left-0 shadow-xl transform duration-300 ${formData.bestSeller ? 'translate-x-[105%] bg-white' : 'translate-x-0.5 bg-yellow-300/90'}`}></div>
+                                <div className={`w-11 h-6  shadow rounded-full flex items-center justify-center cursor-pointer relative ${formData.bestseller ? 'bg-yellow-300/90' : 'bg-transparent border border-white/50'}`} onClick={() => handleToggle('bestseller')}>
+                                    <div className={`size-5  absolute rounded-full left-0 shadow-xl transform duration-300 ${formData.bestseller ? 'translate-x-[105%] bg-white' : 'translate-x-0.5 bg-yellow-300/90'}`}></div>
                                 </div>
                             </fieldset>
                         </div>

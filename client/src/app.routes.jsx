@@ -23,6 +23,7 @@ import AuthLayout from "./Layouts/AuthLayout";
 import UserLayout from "./Layouts/UserLayout";
 import CheckoutLayout from "./Layouts/CheckoutLayout";
 import AdminLayout from "./Layouts/AdminLayout";
+import { AdminProvider } from "./features/admin/services/admin.context";
 
 
 export const router = createBrowserRouter([
@@ -111,7 +112,11 @@ export const router = createBrowserRouter([
     },
     {
         path: "/admin",
-        element: <AdminLayout />,
+        element: (
+            <AdminProvider>
+                <AdminLayout />
+            </AdminProvider>
+        ),
         children: [
             {
                 path: "dashboard",
