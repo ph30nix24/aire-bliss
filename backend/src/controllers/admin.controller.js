@@ -1,6 +1,7 @@
 import Product from '../models/product.model.js';
 import { uploadImage } from './imageUpload.controller.js';
 import { uploadToCloudinary } from '../services/cloudinary.controller.js'
+import User from '../models/user.model.js';
 /**
  * @name createProduct
  * @route POST /aire-bliss/admin/product/create-product

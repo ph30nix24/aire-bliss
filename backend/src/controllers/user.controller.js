@@ -14,6 +14,7 @@ import Order from '../models/order.model.js';
 export const getUserProfile = async (req, res) => {
     try {
         const user = req.user
+
         const { verificationOTP: userOtp, verificationOTPExpires: userVerificationOTPExpires, ...safeUser } = user._doc;
 
         const cart = await Cart.findOne({
@@ -29,7 +30,7 @@ export const getUserProfile = async (req, res) => {
         const totalWishlistProduct = wishlist?.products.length || 0;
 
         const totalAddresses = await Address.countDocuments({
-            user: userId
+            user: req.user._id
         });
 
         const totalOrders = await Order.countDocuments({

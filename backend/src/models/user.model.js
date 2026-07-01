@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
   },
   phoneNo: {
     type: String,
-    default: "",
+    default: null,
     minlength: 10,
     maxlength: 10
   },
@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema({
   gender: {
     type: String,
     enum: ["male", "female", "other"],
-    default: null,
+    default: "male",
   },
   
   isVerified: {

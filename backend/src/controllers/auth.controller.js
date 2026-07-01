@@ -91,9 +91,11 @@ export const signupController = async (req, res) => {
             return res.status(403).json({ message: "Missing fields All fields are required." })
         }
         const existingUser = await User.findOne({ email });
+        console.log(1)
         if (existingUser) {
             return res.status(400).json({ message: "user already exists" })
         }
+        console.log(2)
         const hashedPassword = await bcrypt.hash(password, parseInt(process.env.SALT_ROUNDS));
         const user = new User({
             name,
@@ -130,15 +132,17 @@ export const signupController = async (req, res) => {
                 sameSite: "None",
             })
             .json({
-                sucess: true,
+                success: true,
                 message: "register successful",
                 user: safeUser
             })
     } catch (e) {
+        console.log("error while signup", e.message)
         return res.status(500).json({
             success: false,
             message: `signup failed ${e.message}`
         })
+
     }
 }
 

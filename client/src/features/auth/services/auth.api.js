@@ -59,7 +59,7 @@ export const getCurrentUserApi = async () => {
         const res = await axios.get(`${User_API}/`, {
             withCredentials: true
         })
-        console.log(res.data.message);
+        console.log(res.data);
         return res.data
     }
     catch (error) {

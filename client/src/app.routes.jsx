@@ -70,7 +70,11 @@ export const router = createBrowserRouter([
     //user routes
     {
         path: "/user",
-        element: <UserLayout />,
+        element: (
+            <Protect>
+                <UserLayout />
+            </Protect>
+        ),
         children: [
             {
                 path: "profile",

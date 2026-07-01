@@ -34,7 +34,12 @@ const EmailVerifier = () => {
     const handleSubmit = async () => {
         try {
             const otp = Object.values(otpDigits).join('')
-            const data = handleVerifyEmail(otp)
+            const data = await handleVerifyEmail(otp)
+            console.log(data)
+            if (!data.success) {
+                toast.error(data.message);
+                throw new Error(data.message);
+            }
             toast.success(data.message);
             navigate(from, { replace: true });
         }

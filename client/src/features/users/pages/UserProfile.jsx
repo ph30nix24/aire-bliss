@@ -7,6 +7,8 @@ import { FaArrowRight } from "react-icons/fa6";
 import { FiArrowUpRight } from "react-icons/fi";
 import Footer from '../../../components/Footer'
 import InfoForm from '../component/InfoForm';
+import { useAuth } from '../../auth/hooks/useAuth';
+import Loader from '../../../components/Loader';
 
 
 
@@ -14,13 +16,23 @@ import InfoForm from '../component/InfoForm';
 
 const UserProfile = () => {
 
+    const { user, wishList, cartLength, addresses, orders } = useAuth();
+
     const [isEditPersonalInfo, setIsEditPersonalInfo] = useState(false);
 
+
+    if (!user) {
+        return (
+            <div className='w-full h-screen center bg-[#131313] '>
+                <Loader />
+            </div>
+        )
+    }
+    const [localPart, domain] = (user?.email || '').split('@');
 
     return (
         <main className='bg-[#131313] text-white'>
 
-            
             <img src="./../../../../profile/userImgBg.webp" className='w-full h-screen object-cover lg:object-contain absolute top-0 left-0 z-1' alt="" />
             <div className='w-full h-screen absolute bg-radial top-0 left-0 z-2 from-[#131313]/10 lg:from-[#131313]/30 to-75% to-[#131313]'></div>
 
@@ -35,14 +47,17 @@ const UserProfile = () => {
                             <div className='w-10 h-0.5 bg-[#A0852E] lg:hidden'></div>
                         </div>
                         <div className='font-heading text-7xl font-medium max-lg:w-full max-lg:text-center mt-3'>
-                            Anuj
+                            {user?.name}
                         </div>
                         <div className=' mt-5 lg:mt-3 flex gap-3 items-center max-lg:justify-center'>
                             <div className='uppercase text-xs font-body tracking-wider flex gap-1 text-[#A0852E] py-1 px-4 border items-center max-lg:rounded-full max-lg:backdrop-blur-xs'>
                                 <FaCircleCheck className='size-3' />
                                 <span className='pt-px '>Verified </span>
                             </div>
-                            <p className='uppercase text-xs font-body tracking-widest'>Since 2026</p>
+                            <p className='uppercase text-xs font-body tracking-widest'>Since, {new Date(user.createdAt).toLocaleDateString("en-GB", {
+                                month: "long",
+                                year: "numeric",
+                            })}</p>
                         </div>
                     </div>
 
@@ -52,7 +67,7 @@ const UserProfile = () => {
                         <p className='text-[10px] font-body font-medium uppercase tracking-wider text-white/60 text-end'>Digital Identity</p>
 
                         <p className='py-2 font-body font-light text-base text-end tracking-wider'>
-                            akashsupreme124<br />@gmail.com
+                            {localPart}<br />@{domain}
                         </p>
                         <div className='flex gap-2 items-center mt-1'>
                             <p className=" font-body tracking-wider text-[#A0852E] capitalize font-medium">primary contact</p>
@@ -68,8 +83,8 @@ const UserProfile = () => {
                     </div>
 
                     {/* capital-letter */}
-                    <div className=' absolute left-1/2 translate-x-1/2 lg:translate-x-[200%] translate-y-4/10 lg:translate-y-2/10 text-[208px] font-subheading italic text-[#A0852E]/10 lg:text-[#A0852E]/20'>
-                        {"Anuj".slice(0, 1)}
+                    <div className=' absolute left-1/2 translate-x-1/2 lg:translate-x-[200%] translate-y-4/10 lg:translate-y-2/10 text-[208px] font-subheading italic text-[#A0852E]/10 lg:text-[#A0852E]/20 uppercase'>
+                        {user?.name?.slice(0, 1)}
                     </div>
                 </div>
             </div>
@@ -85,7 +100,7 @@ const UserProfile = () => {
                         <a href="/user/wishlist/">
                             <div className='py-5 flex border-b-2 border-[#232221]/50 items-center justify-between group cursor-pointer'>
                                 <div className='w-fit flex gap-5 items-center'>
-                                    <p className='font-heading text-5xl text-[#deb324]'>0</p>
+                                    <p className='font-heading text-5xl text-[#deb324]'>{wishList}</p>
                                     <div className='text-sm tracking-widest text-white/60 uppercase font-body group-hover:text-[#967c26] transition-smooth'>Wishlist <br /> items</div>
                                 </div>
 
@@ -95,7 +110,7 @@ const UserProfile = () => {
                         <a href="/user/addresses/">
                             <div className='py-5 flex border-b-2 border-[#232221]/50 items-center justify-between group cursor-pointer'>
                                 <div className='w-fit flex gap-5 items-center'>
-                                    <p className='font-heading text-5xl text-[#deb324]'>0</p>
+                                    <p className='font-heading text-5xl text-[#deb324]'>{addresses}</p>
                                     <div className='text-sm tracking-widest text-white/60 uppercase font-body group-hover:text-[#967c26] transition-smooth'>Saved <br /> address</div>
                                 </div>
 
@@ -105,7 +120,7 @@ const UserProfile = () => {
                         <a href="/user/cart/">
                             <div className='py-5 flex border-b-2 border-[#232221]/50 items-center justify-between group cursor-pointer'>
                                 <div className='w-fit flex gap-5 items-center'>
-                                    <p className='font-heading text-5xl text-[#deb324]'>0</p>
+                                    <p className='font-heading text-5xl text-[#deb324]'>{cartLength}</p>
                                     <div className='text-sm tracking-widest text-white/60 uppercase font-body group-hover:text-[#967c26] transition-smooth'>Cart <br /> items</div>
                                 </div>
 
@@ -114,7 +129,7 @@ const UserProfile = () => {
                         </a>
                         <div className='py-5 flex border-b-2 border-[#232221]/50 items-center justify-between group cursor-pointer'>
                             <div className='w-fit flex gap-5 items-center'>
-                                <p className='font-heading text-5xl text-[#deb324]'>0</p>
+                                <p className='font-heading text-5xl text-[#deb324]'>{orders}</p>
                                 <div className='text-sm tracking-widest text-white/60 uppercase font-body group-hover:text-[#967c26] transition-smooth'>Orders <br /> placed</div>
                             </div>
 
@@ -140,30 +155,30 @@ const UserProfile = () => {
                         <div className='w-full flex max-lg:flex-col gap-5 lg:gap-15'>
                             <div className='w-full lg:w-1/2 pb-2 border-b-2 border-[#232221]/50'>
                                 <p className='uppercase text-xs font-body tracking-widest text-[#c09b25]'>Full Name</p>
-                                <h1 className='text-xl pt-2 font-body tracking-widest text-white/80'>Anuj</h1>
+                                <h1 className='text-xl pt-2 font-body tracking-widest text-white/80'>{user?.name}</h1>
                             </div>
                             <div className='w-full lg:w-1/2 pb-2 border-b-2 border-[#232221]/50'>
                                 <p className='uppercase text-xs font-body tracking-widest text-[#c09b25]'>Email Address</p>
-                                <h1 className='text-lg pt-2 font-body tracking-widest text-white/80'>akashsupreme124@gmail.com</h1>
+                                <h1 className='text-lg pt-2 font-body tracking-widest text-white/80'>{user?.email}</h1>
                             </div>
                         </div>
                         <div className='w-full flex gap-5 lg:gap-15 pt-5 lg:pt-10'>
                             <div className='w-1/2 pb-2 border-b-2 border-[#232221]/50'>
                                 <p className='uppercase text-xs font-body tracking-widest text-[#c09b25]'>phone number</p>
-                                <h1 className='text-lg pt-2 font-body tracking-widest text-white/80'><span className='pl-2'> - </span></h1>
+                                <h1 className='text-lg pt-2 font-body tracking-widest text-white/80'><span className='pl-2'>{user?.phoneNo || '-'}</span></h1>
                             </div>
 
 
                             <div className='w-1/2 pb-2 border-b-2 border-[#232221]/50'>
                                 <p className='uppercase text-xs font-body tracking-widest text-[#c09b25]'>Birth Date</p>
-                                <h1 className='text-lg pt-2 font-body tracking-widest text-white/80'> <span className='pl-2'> - </span></h1>
+                                <h1 className='text-lg pt-2 font-body tracking-widest text-white/80'> <span className='pl-2'>{user?.dateOfBirth || '-'}</span></h1>
                             </div>
 
                         </div>
                         <div className='w-full flex pt-5 lg:gap-15 lg:pt-10'>
                             <div className='w-full lg:w-1/2 pb-2 border-b-2 border-[#232221]/50'>
                                 <p className='uppercase text-xs font-body tracking-widest text-[#c09b25]'>Gender</p>
-                                <h1 className='text-lg pt-2 font-body tracking-widest text-white/80'> <span className='pl-2'> - </span></h1>
+                                <h1 className='text-lg pt-2 font-body tracking-widest text-white/80'> <span className='pl-2'>{user?.gender || '-'}</span></h1>
                             </div>
                             <div className='w-1/2 max-lg:hidden'>
 
@@ -212,10 +227,14 @@ const UserProfile = () => {
                         <div className='w-full pt-7 border-t-2 border-[#232221]/50 flex items-center justify-between'>
                             <div className=''>
                                 <p className='uppercase text-xs font-body tracking-widest text-[#c09b25]'>Last known presence</p>
-                                <h1 className='text-base pt-2 font-body tracking-widest text-white/80'>15 June 2026</h1>
+                                <h1 className='text-base pt-2 font-body tracking-widest text-white/80'>{new Date(user.lastLogin).toLocaleDateString("en-GB", {
+                                    day: "numeric",
+                                    month: "long",
+                                    year: "numeric",
+                                })}</h1>
                             </div>
                             <div className=''>
-                                <p className='uppercase text-[10px] font-body tracking-widest text-white/70'>Status: Active</p>
+                                <p className='uppercase text-[10px] font-body tracking-widest text-white/70'>Status: <span className='text-green-500'>Active</span></p>
                             </div>
                         </div>
 
@@ -234,9 +253,11 @@ const UserProfile = () => {
                 <div className='size-full center flex-col relative z-5 max-lg:px-5'>
                     <h1 className='font-subheading text-[7vw] lg:text-6xl'>Indulge in <span className='italic text-[#deb324]'>Luxury</span></h1>
                     <p className='text-center font-body tracking-wide text-white/70 leading-[110%] pt-5 max-lg:px-5'>Discover our new exclusive collection, curated for those who <br className='max-lg:hidden' /> understand the language of scent.</p>
-                    <button className='w-fit px-10 backdrop-blur-xs py-3 text-yellow-400/90 center gap-3 bg-[#111]/50 hover:text-[#111]  border hover:bg-yellow-400/90 mt-15 cursor-pointer transition-smooth'>
-                        <p className='font-body text-sm font-light uppercase tracking-[0.175em]'>Enter the boutique</p>
-                    </button>
+                    <a href="/shop">
+                        <button className='w-fit px-10 backdrop-blur-xs py-3 text-yellow-400/90 center gap-3 bg-[#111]/50 hover:text-[#111]  border hover:bg-yellow-400/90 mt-15 cursor-pointer transition-smooth'>
+                            <p className='font-body text-sm font-light uppercase tracking-[0.175em]'>Enter the boutique</p>
+                        </button>
+                    </a>
                 </div>
             </div>
 

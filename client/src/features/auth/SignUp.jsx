@@ -45,12 +45,16 @@ const SignUp = () => {
             toast.error("Passwords do not match");
             return;
         }
-        await handleSignUp({
+        const res = await handleSignUp({
             name: formData.name,
             email: formData.email,
             password: formData.password,
         })
 
+        if (!res.success) {
+            toast.error(res.message);
+            throw new Error(res.message);
+        }
         navigate('/auth/verify-email', {state: { from }});
     }
 

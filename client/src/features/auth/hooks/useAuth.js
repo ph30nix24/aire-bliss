@@ -15,7 +15,10 @@ export const useAuth = () => {
         try{
             const data = await registerApi({name, email, password})
             setUser(data.user)
-            
+            return {
+                success: data.success,
+                message: data.message,
+            }
         }
         catch (e) {
             console.log("Error While signup ", e.message)
@@ -37,7 +40,6 @@ export const useAuth = () => {
                 success: data.success,
                 message: data.message,
                 role: data.user.role
-
             }
         }
         catch (e) {
@@ -52,7 +54,10 @@ export const useAuth = () => {
         setLoading(true);
         try {
             const data = await emailVerifierApi(otp);
-            return data
+            return {
+                success: data.success,
+                message: data.message,
+            }
         }
         catch ( error ) {
             console.log("Error while verifying email", error.message)
