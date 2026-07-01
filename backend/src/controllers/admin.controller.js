@@ -10,8 +10,6 @@ import { uploadToCloudinary } from '../services/cloudinary.controller.js'
 export const createProduct = async (req, res) => {
     
     try {
-        console.log(req.user)
-        console.log(1)
         if(req.user.role !== "admin") {
             return res.status(401).json({
                 success: false,
@@ -19,7 +17,6 @@ export const createProduct = async (req, res) => {
             })
         }
         const { productName, brand, category, gender, price, discountPrice, stock, quantity, size, fragranceNotes, shortDescription, longDescription, featured, bestseller } = req.body;
-
         let sku = req.body.sku;
 
         if (!productName || !category || !price || !stock || !size || !fragranceNotes || !shortDescription || !longDescription) {
@@ -38,8 +35,8 @@ export const createProduct = async (req, res) => {
             sku = `AB-${String(nextNumber).padStart(6, '0')}`;
         }
 
-
-        const notes = fragranceNotes.split(",");
+        const sizeOptions = size.split(",").map(s => s.trim());
+        const notes = fragranceNotes.split(",").map(s => s.trim());
 
         // Upload main image to Cloudinary
         const mainImageURL = await uploadImage(req.files.image[0], sku);
@@ -70,7 +67,7 @@ export const createProduct = async (req, res) => {
             discount: discountPrice,
             stock,
             sku,
-            size,
+            size : sizeOptions,
             fragranceNotes: notes,
             shortDescription,
             longDescription,

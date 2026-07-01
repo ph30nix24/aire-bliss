@@ -96,11 +96,12 @@ const ProductForm = ({ setIsAddProductClk }) => {
     const sizes = ['30ml', '50ml', '100ml', '150ml', '200ml'];
 
     const handleSizeFilter = (value) => {
-        setSizeOptions((prev) =>
-            prev.includes(value)
-                ? prev.filter((item) => item !== value) // remove if already selected
-                : [...prev, value] // add if not selected
-        );
+        setFormData(prev => ({
+            ...prev,
+            size: prev.size.includes(value)
+                ? prev.size.filter((item) => item !== value) // remove if already selected
+                : [...prev.size, value] // add if not selected
+        }));
     }
 
     const handleInputChange = (e) => {
@@ -339,7 +340,7 @@ const ProductForm = ({ setIsAddProductClk }) => {
                                     {
                                         sizes.map((size, index) => (
                                             <div className='text-white/70 text-xs font-body mb-1 flex items-center gap-2' key={index} onClick={() => handleSizeFilter(size)}>
-                                                <div className={'w-4 h-4 border border-white/10 rounded-sm flex items-center justify-center cursor-pointer' + (sizeOptions.includes(size) ? ' bg-yellow-400/80' : ' bg-transparent')}>
+                                                <div className={'w-4 h-4 border border-white/10 rounded-sm flex items-center justify-center cursor-pointer' + (formData.size.includes(size) ? ' bg-yellow-400/80' : ' bg-transparent')}>
 
                                                 </div>
                                                 <span>{size}</span>
