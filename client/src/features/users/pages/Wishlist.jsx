@@ -1,22 +1,19 @@
 import React, { useEffect } from 'react'
-import { bestproducts } from '../../../utils';
 import { IoBagHandle } from "react-icons/io5";
 import Footer from '../../../components/Footer';
 import { RxCross2 } from 'react-icons/rx';
 import { useUserData } from '../../users/hooks/useUserData'
 import Loader from '../../../components/Loader';
-import { useAuth } from '../../auth/hooks/useAuth';
 import { GoHeart } from 'react-icons/go';
 
 const Wishlist = () => {
 
     const { wishlist, wishListLoading, handleGetWishlist } = useUserData()
-    const { user, loading } = useAuth()
     useEffect(() => {
         handleGetWishlist()
     }, [])
 
-    if (wishListLoading && loading) {
+    if (wishListLoading) {
         return (
             <div className='w-full h-screen bg-[#131313] center'>
                 <Loader />

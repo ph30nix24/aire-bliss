@@ -36,7 +36,6 @@ export const createProduct = async (req, res) => {
             sku = `AB-${String(nextNumber).padStart(6, '0')}`;
         }
 
-        const sizeOptions = size.split(",").map(s => s.trim());
         const notes = fragranceNotes.split(",").map(s => s.trim());
 
         // Upload main image to Cloudinary
@@ -68,7 +67,7 @@ export const createProduct = async (req, res) => {
             discount: discountPrice,
             stock,
             sku,
-            size : sizeOptions,
+            size,
             fragranceNotes: notes,
             shortDescription,
             longDescription,
