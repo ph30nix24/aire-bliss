@@ -85,7 +85,7 @@ const Wishlist = () => {
                                 <div className='w-full flex justify-between items-center mt-5 lg:mt-20 pb-5 lg:pb-10 border-b-2 border-yellow-400/20'>
                                     <div className=''>
                                         <h3 className='text-[10px] text-xs uppercase font-body tracking-[0.275em] text-white/80 font-bold pb-0.5 lg:pb-2'>size</h3>
-                                        <p className='text-sm lg:text-base uppercase font-body font-extralight tracking-widest'>50ml</p>
+                                        <p className='text-sm lg:text-base uppercase font-body font-extralight tracking-widest'>{product.product.size}</p>
                                     </div>
                                     <div className=''>
                                         <h3 className='text-[10px] text-xs uppercase font-body tracking-[0.275em] text-white/80 font-bold pb-0.5 lg:pb-2 text-end'>price</h3>

@@ -14,7 +14,7 @@ export const getWishlist = async (req, res) => {
             user: req.user._id,
         }).populate({
             path: "products.product",
-            select: "productName mainImage price discount stock sku shortDescription",
+            select: "productName mainImage price discount stock sku shortDescription size",
         });
 
         return res.status(200).json({

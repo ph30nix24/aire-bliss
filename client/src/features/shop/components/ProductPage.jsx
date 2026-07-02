@@ -3,7 +3,7 @@ import { useParams } from 'react-router'
 import { useWindowScroll } from 'react-use';
 import Navbar from '../../../components/Navbar';
 import StarRating from '../../home/components/StarRating';
-import { FaChevronLeft, FaChevronRight,  FaMinus, FaPlus, } from 'react-icons/fa6';
+import { FaChevronDown, FaChevronLeft, FaChevronRight, FaChevronUp, FaMinus, FaPlus, FaUser, } from 'react-icons/fa6';
 import { CiDeliveryTruck, CiLock, CiShoppingCart } from 'react-icons/ci';
 import { testimonials } from '../../../utils';
 import ShopItemCard from './ShopItemCard';
@@ -12,10 +12,16 @@ import { useMediaQuery } from 'react-responsive';
 import { TbArrowBigRightLine } from "react-icons/tb";
 import { useProduct } from '../hooks/useProducts';
 import Loader from '../../../components/Loader';
+import { GoHeart, GoHeartFill } from 'react-icons/go';
+import { BsBox } from 'react-icons/bs';
+import { RiCustomerService2Fill } from 'react-icons/ri';
+import { useUserData } from '../../users/hooks/useUserData';
+import toast from 'react-hot-toast';
 
 const ProductPage = () => {
   const { id } = useParams();
   const { product, products, handleSetProduct } = useProduct();
+  const { handleAddItemInWishlist } = useUserData();
   useEffect(() => {
     if (id) {
       handleSetProduct(id);
@@ -62,6 +68,23 @@ const ProductPage = () => {
 
     isDragging.current = false;
   };
+
+  const [isWishlisted, setIsWishlisted] = useState(false)
+  const handleWishlistBtn = async (productId) => {
+    try {
+      const data = await handleAddItemInWishlist(productId);
+      if (!data.success) {
+        toast.error(data.message);
+        throw new Error(data.message);
+      }
+      setIsWishlisted(true)
+      toast.success(data.message);
+    } catch (error) {
+      toast.error('Failed to add item to cart. Please try again later.');
+      console.error('Error adding item to cart:', error);
+    }
+  }
+
 
   const [isAdditionalClicked, setSsAdditionalClicked] = useState(false);
 
@@ -119,7 +142,7 @@ const ProductPage = () => {
                 <p className='pt-3 line-through text-white/60 font-jet text-xs'>MRP: ₹ {product.price}</p>
               </div>
 
-              <GoHeart className='size-6 mt-4 text-yellow-400/90 cursor-pointer' />
+              {isWishlisted ? <GoHeartFill /> : <GoHeart onClick={() => handleWishlistBtn(product._id)}/>}
 
             </div>
 
@@ -170,8 +193,6 @@ const ProductPage = () => {
             <h4 className='text-sm  uppercase font-jet font-medium text-yellow-400/80'>Size</h4>
             <div className='w-full flex gap-3 mt-3'>
               <div className='px-6 py-2 rounded text-xs text-white/70  font-jet border-2 border-yellow-300/80 w-fit bg-[#1D1B15] cursor-pointer'>{product.size}</div>
-              <div className='px-6 py-2 rounded text-xs text-white/70  font-jet border border-yellow-400/10 w-fit hover:border-yellow-400/50 cursor-pointer'>50ml</div>
-              <div className='px-6 py-2 rounded text-xs text-white/70  font-jet border border-yellow-400/10 w-fit hover:border-yellow-400/50 cursor-pointer'>75ml</div>
             </div>
           </div>
 
@@ -303,7 +324,7 @@ const ProductPage = () => {
           <div className='w-full pt-15 text-white'>
             <h1 className='uppercase font-subheading tracking-wide text-[5.5vw] lg:text-3xl pb-5'>Recommended Items</h1>
             <div className='w-full flex gap-3 lg:gap-5 max-lg:overflow-x-scroll pb-10'>
-              {bestproducts.slice(0, 6).map((product, index) => (
+              {products.filter(product => product._id.toString() !== id).slice(0, 4).map((product, index) => (
                 <ShopItemCard product={product} width={`w-8/10 `} />
               ))}
             </div>
@@ -357,8 +378,6 @@ const ProductPage = () => {
           <h3 className='font-jet uppercase text-sm mt-10  tracking-[0.125em] text-white/60 font-semibold'>size</h3>
           <div className='w-full flex gap-3 mt-3'>
             <div className='px-10 py-2 rounded text-sm text-white/70  font-jet border-2 border-yellow-300/80 w-fit bg-[#1D1B15] cursor-pointer'>{product.size}</div>
-            <div className='px-10 py-2 rounded text-sm text-white/70  font-jet border border-yellow-400/10 w-fit hover:border-yellow-400/50 cursor-pointer'>50ml</div>
-            <div className='px-10 py-2 rounded text-sm text-white/70  font-jet border border-yellow-400/10 w-fit hover:border-yellow-400/50 cursor-pointer'>75ml</div>
           </div>
 
           <div className='w-full mt-10 flex gap-5'>
@@ -412,7 +431,7 @@ const ProductPage = () => {
         <h1 className='uppercase font-subheading tracking-wide text-[5.5vw] lg:text-3xl pb-5'>Recommended Items</h1>
         <div className='w-full flex gap-3 lg:gap-5 max-lg:overflow-scroll pb-10'>
           {products.filter(product => product._id.toString() !== id).slice(0, 4).map((product, index) => (
-            <ShopItemCard product={product} width={`w-1/4 `} height={`lg:h-[63vh]`} key={index}/>
+            <ShopItemCard product={product} width={`w-1/4 `} height={`lg:h-[63vh]`} key={index} />
           ))}
         </div>
       </div>
