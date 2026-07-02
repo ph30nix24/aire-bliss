@@ -58,7 +58,7 @@ export const useUserData = () => {
         setCartLoading(true);
         try {
             const data = await getCart();
-            setCart(data.cart.products);
+            setCart(data.cart);
         }
         catch(e) {
             console.error("Error while fetching cart: ", e.message);
@@ -86,7 +86,12 @@ export const useUserData = () => {
         setCartLoading(true);
         try {
             const data = await addItemToCart(productID);
-            setCart(data.cart.products);
+            setCart(data.cart);
+            console.log(data.cart)
+            return {
+                success: data.success,
+                message: data.message
+            }
         }
         catch(e) {
             console.error("Error while adding item in cart: ", e.message);
@@ -100,7 +105,7 @@ export const useUserData = () => {
         setCartLoading(true);
         try {
             const data = await removeCartItemApi(productID);
-            setCart(data.cart.products);
+            setCart(data.cart);
         }
         catch(e) {
             console.error("Error while removing item from cart: ", e.message);

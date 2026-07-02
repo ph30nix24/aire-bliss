@@ -22,7 +22,7 @@ export const getCart = async () => {
 
 export const addItemToCart = async (productID) => {
     try {
-        const res = await axios.post(`${CART_API}/${productID}`, {
+        const res = await axios.post(`${CART_API}/${productID}`,{}, {
             withCredentials: true
         })
         console.log(res.data.message);

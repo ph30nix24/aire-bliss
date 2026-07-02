@@ -9,17 +9,13 @@ const calculateCartTotals = (cart) => {
         0
     );
 
+
     const totalPrice = cart.products.reduce(
         (total, item) => total + item.quantity * item.product.price,
         0
     );
 
-    const totalDiscount = cart.products.reduce((total, item) => {
-        const discount =
-            (item.product.originalPrice || item.product.price) - item.product.price;
-
-        return total + discount * item.quantity;
-    }, 0);
+    const totalDiscount = cart.products.reduce((total, item) => total + item.quantity * item.product.discount, 0);
 
     const shippingCharge = totalPrice >= 999 ? 0 : 99;
 
@@ -129,6 +125,7 @@ export const addCart = async (req, res) => {
             cart,
         });
     } catch (error) {
+
         console.error("Error in addCart:", error);
 
         return res.status(500).json({
@@ -230,7 +227,6 @@ export const removeCartItem = async (req, res) => {
         const { productId } = req.params;
 
         const cart = await Cart.findOne({ user: req.user._id }).populate("products.product");
-
         if (!cart) {
             return res.status(404).json({
                 success: false,
@@ -239,7 +235,7 @@ export const removeCartItem = async (req, res) => {
         }
 
         const cartItem = cart.products.find(
-            (item) => item.product._id.toString() === productId
+            (item) => item._id.toString() === productId
         );
 
         if (!cartItem) {
@@ -250,9 +246,8 @@ export const removeCartItem = async (req, res) => {
         }
 
         cart.products = cart.products.filter(
-            (item) => item.product._id.toString() !== productId
+            (item) => item._id.toString() !== productId
         );
-
         calculateCartTotals(cart);
 
         await cart.save();

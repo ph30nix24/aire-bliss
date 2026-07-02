@@ -2,7 +2,7 @@ import React from 'react'
 
 const ProductCard = ({ product, width }) => {
     return (
-        <div className={` ${width} h-fit p-2  rounded cursor-pointer hover:bg-[#222] transition-smooth max-lg:w-[40vw] max-lg:shrink-0`} key={product.name}>
+        <div className={` ${width} h-fit p-2  rounded cursor-pointer hover:bg-[#222] transition-smooth max-lg:w-[40vw] max-lg:shrink-0`} key={product._id}>
             <img src={`./../../${product.img}`} className='w-full hover:' alt="" />
 
             <div className='w-full h-fit pt-2 lg:pt-5 '>

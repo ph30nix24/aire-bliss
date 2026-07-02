@@ -17,7 +17,6 @@ export const AuthProvider = ({ children }) => {
             setLoading(true)
             try {
                 const data = await getCurrentUserApi();
-                console.log(data)
                 setUser(data.user);
                 setWishList(data.totalWishlistProduct);
                 setCartLength(data.totalCartLength);

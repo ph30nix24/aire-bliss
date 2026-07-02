@@ -3,27 +3,24 @@ import { useParams } from 'react-router'
 import { useWindowScroll } from 'react-use';
 import Navbar from '../../../components/Navbar';
 import StarRating from '../../home/components/StarRating';
-import { FaChevronDown, FaChevronLeft, FaChevronRight, FaChevronUp, FaMinus, FaPlus, FaUser } from 'react-icons/fa6';
+import { FaChevronLeft, FaChevronRight,  FaMinus, FaPlus, } from 'react-icons/fa6';
 import { CiDeliveryTruck, CiLock, CiShoppingCart } from 'react-icons/ci';
-import { bestproducts, testimonials } from '../../../utils';
+import { testimonials } from '../../../utils';
 import ShopItemCard from './ShopItemCard';
 import Footer from '../../../components/Footer';
 import { useMediaQuery } from 'react-responsive';
-import { GoHeart } from 'react-icons/go';
-import { RiCustomerService2Fill } from 'react-icons/ri';
-import { BsBox } from 'react-icons/bs';
 import { TbArrowBigRightLine } from "react-icons/tb";
 import { useProduct } from '../hooks/useProducts';
 import Loader from '../../../components/Loader';
 
 const ProductPage = () => {
   const { id } = useParams();
-  const { product, handleSetProduct } = useProduct();
+  const { product, products, handleSetProduct } = useProduct();
   useEffect(() => {
-  if (id) {
-    handleSetProduct(id);
-  }
-}, [id]);
+    if (id) {
+      handleSetProduct(id);
+    }
+  }, [id]);
 
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const startX = useRef(0);
@@ -71,44 +68,7 @@ const ProductPage = () => {
 
   const [current, setCurrent] = useState(0);
 
-  // const product = {
-  //   "_id": {
-  //     "$oid": "6a24445673dfd9a12256b207"
-  //   },
-  //   "productName": "Gucci Flora",
-  //   "mainImage": "https://res.cloudinary.com/dcvrvbfmw/image/upload/v1780761679/public/temp/cp99sqbf1fg9oxdsi8wg.webp",
-  //   "previewImages": [
-  //     "https://res.cloudinary.com/dcvrvbfmw/image/upload/v1780761680/public/temp/zuqbc20fhryq4hmmsup7.webp",
-  //     "https://res.cloudinary.com/dcvrvbfmw/image/upload/v1780761682/public/temp/riet5ks4ar30mp6bbsk1.webp",
-  //     "https://res.cloudinary.com/dcvrvbfmw/image/upload/v1780761683/public/temp/ltuqomb5qfciseuybnql.webp",
-  //     "https://res.cloudinary.com/dcvrvbfmw/image/upload/v1780761685/public/temp/x5d9iyurxcaehrkm651o.webp",
-  //     "https://res.cloudinary.com/dcvrvbfmw/image/upload/v1780761686/public/temp/excqof5xjr1smrpzdi57.webp"
-  //   ],
-  //   "brand": "Aire Bliss",
-  //   "category": "perfume",
-  //   "gender": "unisex",
-  //   "price": 500,
-  //   "discount": 100,
-  //   "stock": 20,
-  //   "sku": "AB-000002",
-  //   "size": "30ml",
-  //   "fragranceNotes": [
-  //     "Floral",
-  //     "Woody",
-  //     "Feminine"
-  //   ],
-  //   "shortDescription": "Experience the elegance of Guccii Flora by Aire Bliss, a graceful floral fragrance crafted for women who love timeless beauty. Delicate blooming flowers blend with soft, fresh notes to create a scent that is feminine, refreshing, and effortlessly sophisticated—perfect.",
-
-  //   "longDescription": `Immerse yourself in the enchanting charm of Guccii Flora by Aire Bliss, a fragrance inspired by blooming gardens and the beauty of nature. Designed for women who embrace elegance and confidence, this perfume opens with a fresh burst of delicate floral notes that instantly uplift your senses. As the fragrance develops, a soft bouquet of romantic blossoms creates a graceful and feminine heart, while warm, subtle base notes provide a smooth and long-lasting finish.\n\nPerfect for both everyday wear and special occasions, Guccii Flora offers a balanced scent that is fresh, floral, and effortlessly sophisticated. Its refined composition makes it an ideal choice for work, brunches, evening gatherings, or romantic dates, leaving a memorable impression wherever you go.\n\nHoused in a beautifully crafted bottle, this fragrance reflects luxury, elegance, and timeless style. With its long-lasting performance and captivating floral aroma, Guccii Flora by Aire Bliss is more than just a perfume—it's an expression of confidence, beauty, and femininity that stays with you throughout the day.`,
-  //   "featured": true,
-  //   "rating": 4.5,
-  //   "bestseller": true,
-  //   "ratings": [],
-  // }
-
-  
-
-  if(!product) {
+  if (!product) {
     return (
       <div className='w-full h-screen bg-[#131313] center'>
         <Loader />
@@ -117,7 +77,7 @@ const ProductPage = () => {
   }
 
   const allImages = [product.mainImage, ...(product.previewImages ?? [])];
-  
+
   if (isMobile) {
     return (
       <main className='bg-[#131313] relative'>
@@ -451,8 +411,8 @@ const ProductPage = () => {
       <div className='w-full pt-15 px-35 text-white'>
         <h1 className='uppercase font-subheading tracking-wide text-[5.5vw] lg:text-3xl pb-5'>Recommended Items</h1>
         <div className='w-full flex gap-3 lg:gap-5 max-lg:overflow-scroll pb-10'>
-          {bestproducts.slice(2, 6).map((product, index) => (
-            <ShopItemCard product={product} width={`w-1/4 `} />
+          {products.filter(product => product._id.toString() !== id).slice(0, 4).map((product, index) => (
+            <ShopItemCard product={product} width={`w-1/4 `} height={`lg:h-[63vh]`} key={index}/>
           ))}
         </div>
       </div>

@@ -5,7 +5,6 @@ import { Navigate, useLocation } from 'react-router'
 const Protect = ({ children }) => {
     const { user, loading } = useAuth();
     const location = useLocation()
-    console.log(user)
     if (loading) {
         return (
             <div className='w-full h-screen center bg-[#131313]'>

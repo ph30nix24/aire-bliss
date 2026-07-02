@@ -12,6 +12,7 @@ export const authenticateToken = async (req, res, next) => {
     const token = req.cookies?.token;
 
     if (!token) {
+        console.log("token not found")
         return res.status(401).json({
             success: false,
             message: "Unauthorized. Please login.",
