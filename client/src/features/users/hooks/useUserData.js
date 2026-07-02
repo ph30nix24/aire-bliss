@@ -30,6 +30,10 @@ export const useUserData = () => {
         try {
             const data = await addToWishlistApi(productId);
             setWishlist(data.products);
+            return {
+                success: data.success,
+                message: data.message
+            }
         }
         catch(e) {
             console.error("Error while Adding item in wishlist: ", e.message);
@@ -44,6 +48,10 @@ export const useUserData = () => {
         try {
             const data = await removeFromWishlistApi(productId);
             setWishlist(data.products);
+            return {
+                success: data.success,
+                message: data.message
+            }
         }
         catch(e) {
             console.error("Error while removing item from wishlist: ", e.message);
@@ -59,6 +67,10 @@ export const useUserData = () => {
         try {
             const data = await getCart();
             setCart(data.cart);
+            return {
+                success: data.success,
+                message: data.message
+            }
         }
         catch(e) {
             console.error("Error while fetching cart: ", e.message);
@@ -73,6 +85,10 @@ export const useUserData = () => {
         try {
             const data = await updateCartItemQuantityApi(productID);
             setCart(data.cart.products);
+            return {
+                success: data.success,
+                message: data.message
+            }
         }
         catch(e) {
             console.error("Error while updating items quantity in cart: ", e.message);

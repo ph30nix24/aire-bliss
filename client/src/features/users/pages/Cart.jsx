@@ -27,7 +27,7 @@ const Cart = () => {
         handleGetCart()
     }, [])
 
-    if (cartLoading || !cart ) {
+    if (cartLoading) {
         return (
             <div className='w-full h-screen bg-[#131313] center'>
                 <Loader />

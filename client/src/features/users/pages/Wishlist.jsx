@@ -1,10 +1,54 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { bestproducts } from '../../../utils';
 import { IoBagHandle } from "react-icons/io5";
 import Footer from '../../../components/Footer';
 import { RxCross2 } from 'react-icons/rx';
+import { useUserData } from '../../users/hooks/useUserData'
+import Loader from '../../../components/Loader';
+import { useAuth } from '../../auth/hooks/useAuth';
+import { GoHeart } from 'react-icons/go';
 
 const Wishlist = () => {
+
+    const { wishlist, wishListLoading, handleGetWishlist } = useUserData()
+    const { user, loading } = useAuth()
+    useEffect(() => {
+        handleGetWishlist()
+    }, [])
+
+    if (wishListLoading && loading) {
+        return (
+            <div className='w-full h-screen bg-[#131313] center'>
+                <Loader />
+            </div>
+        )
+    }
+    console.log(wishlist)
+
+    if (wishlist.length === 0 && !wishListLoading) {
+        return (
+            <main className={`w-full min-h-screen bg-[#080808] `}>
+                <div className='w-full h-screen center flex-col pb-20'>
+                    <div className='w-4/5 lg:size-125 relative'>
+                        <img src={`../../../../wishlist/MEWL.webp`} className='size-full relative z-1' alt="" />
+                        <div className='size-full absolute top-0 left-0 z-5 bg-radial from-transparent to-90% to-[#080808]'></div>
+                    </div>
+                    <h1 className='text-[5.5vw] italic md:text-4xl font-subheading text-white/80 tracking-wide'>Your wishlist is empty</h1>
+                    <p className='text-white/60 font-body mt-4 font-light text-center tracking-wider max-md:text-sm'>Looks like you haven't added anything to <br /> your wishlist.</p>
+                    <div className='w-fit flex items-center gap-2 mt-5'>
+                        <div className='size-1 md:size-1.5 rounded-full bg-yellow-400/90 '></div>
+                        <div className='w-15 md:w-30 h-px bg-linear-to-r from-transparent to-yellow-400/80 '></div>
+                        <div className='rounded-full'><GoHeart className='text-yellow-400/90 size-4 md:size-6' /></div>
+                        <div className='w-15 md:w-30 h-px bg-linear-to-l from-transparent to-yellow-400/80 '></div>
+                        <div className='size-1 md:size-1.5 rounded-full bg-yellow-400/90 '></div>
+                    </div>
+                    <a href="/shop">
+                        <button className='w-fit bg-yellow-400 text-[#080808] text-[10px] md:text-xs uppercase tracking-[0.175em] font-body mt-10 lg:mt-5 px-10 py-3 hover:bg-yellow-400/90 cursor-pointer'>Explore Collection</button>
+                    </a>
+                </div>
+            </main>
+        )
+    }
     return (
         <main className='bg-[#131313] text-white overflow-hidden'>
 
@@ -19,14 +63,13 @@ const Wishlist = () => {
                 </div>
             </div>
 
-
             <div className='w-full pt-20 px-5 lg:px-20 h-fit'>
                 {
-                    bestproducts.slice(2, 5).map((product, index) => (
+                    wishlist.map((product, index) => (
                         <div className='w-full flex gap-5 lg:gap-15 items-center lg:h-180 mb-40 group max-lg:flex-col'>
                             <div className={`w-full lg:w-1/2 ${index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'} h-full center relative z-4 max-lg:h-90`}>
                                 <div className={`w-8/10 lg:w-9/10 ${index % 2 === 0 ? '[clip-path:polygon(0_0,100%_7%,95%_100%,5%_96%)]' : '[clip-path:polygon(0_9%,100%_0%,96%_93%,6%_99%)]'} h-full relative overflow-hidden`}>
-                                    <img src={`./../../../.${product.img}`} className='w-full h-full object-cover group-hover:scale-105 transition-smooth z-1' alt="" />
+                                    <img src={`${product.product.mainImage}`} className='w-full h-full object-cover group-hover:scale-105 transition-smooth z-1' alt="" />
                                     <div className='size-full absolute bg-[#131313]/40 z-5 top-0 left-0'></div>
 
                                 </div>
@@ -39,8 +82,8 @@ const Wishlist = () => {
                                 </button>
 
                                 <p className='text-xs uppercase font-body tracking-[0.275em] text-yellow-400 font-medium pb-2 lg:pb-4'>Item - {index + 1}</p>
-                                <h1 className='text-4xl lg:text-7xl font-subheading italic capitalize'>{product.name}</h1>
-                                <p className='lg:pl-5 lg:my-10 my-3 max-lg:text-sm text-base text-white/60 font-extralight italic font-body tracking-wider lg:border-l-2 border-yellow-400/20'>"<span className='lg:hidden'>{product.tagline}</span> <span className='max-lg:hidden'>{product.desc}</span>"</p>
+                                <h1 className='text-4xl lg:text-7xl font-subheading italic capitalize'>{product.product.productName}</h1>
+                                <p className='lg:pl-5 lg:my-10 my-3 max-lg:text-sm text-base text-white/60 font-extralight italic font-body tracking-wider lg:border-l-2 border-yellow-400/20'>"<span className='lg:hidden'>{product.tagline}</span> <span className='max-lg:hidden'>{product.product.shortDescription}</span>"</p>
 
                                 <div className='w-full flex justify-between items-center mt-5 lg:mt-20 pb-5 lg:pb-10 border-b-2 border-yellow-400/20'>
                                     <div className=''>
@@ -49,7 +92,7 @@ const Wishlist = () => {
                                     </div>
                                     <div className=''>
                                         <h3 className='text-[10px] text-xs uppercase font-body tracking-[0.275em] text-white/80 font-bold pb-0.5 lg:pb-2 text-end'>price</h3>
-                                        <p className='text-sm lg:text-base uppercase font-body font-extralight tracking-widest text-yellow-400'>₹ {product.price.toFixed(2)}</p>
+                                        <p className='text-sm lg:text-base uppercase font-body font-extralight tracking-widest text-yellow-400'>₹ {product.product.price.toFixed(2)}</p>
                                     </div>
                                 </div>
 
@@ -78,14 +121,12 @@ const Wishlist = () => {
                         <p className='font-body pt-2 max-lg:text-sm font-extralight tracking-wider italic text-white/60'>Invite someone special to explore your private collection. Perfect for gifting hints or sharing your refined palette with fellow connoisseurs.</p>
                     </div>
                     <form className='w-full max-lg:flex-col max-lg:gap-2 lg:w-1/2 flex z-5'>
-                        <input type="email" name="email" id="email" placeholder='Recipients email...' className='w-full px-5 py-3 text-sm tracking-wider outline-none border border-white/10 text-white/80 font-body font-extralight focus:border-yellow-400/90'/>
+                        <input type="email" name="email" id="email" placeholder='Recipients email...' className='w-full px-5 py-3 text-sm tracking-wider outline-none border border-white/10 text-white/80 font-body font-extralight focus:border-yellow-400/90' />
                         <button className='text-nowrap px-5 py-3 text-xs text-[#131313] tracking-widest font-body bg-yellow-400/90 uppercase cursor-pointer hover:bg-yellow-400'>Send collection</button>
                     </form>
                 </div>
             </div>
 
-
-            
         </main>
     )
 }

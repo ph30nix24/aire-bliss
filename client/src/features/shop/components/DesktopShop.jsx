@@ -10,8 +10,12 @@ import { FaCheck, FaChevronRight } from 'react-icons/fa6';
 import Footer from '../../../components/Footer'
 import { FiMinus } from 'react-icons/fi';
 import PriceRangeSlider from "../components/PriceRangeSlider"
+import { useProduct } from '../hooks/useProducts';
+import Loader from '../../../components/Loader';
 
 const DesktopShop = () => {
+
+  const { products, loading} = useProduct()
 
   const [sort, setSort] = useState('featured')
 
@@ -78,6 +82,14 @@ const DesktopShop = () => {
         ? prev.filter((item) => item !== value) // remove if already selected
         : [...prev, value] // add if not selected
     );
+  }
+
+  if(loading) {
+    return (
+      <div className='w-full h-screen center bg-[#131313]'>
+        <Loader />
+      </div>
+    )
   }
 
   return (
@@ -191,14 +203,14 @@ const DesktopShop = () => {
           </div>
             
           <div className='w-full flex gap-5 flex-wrap py-10'>
-            {bestproducts.map((product) => (
-              <ShopItemCard product={product} width={`w-[23.62%]`} />
+            {products.map((product) => (
+              <ShopItemCard product={product} width={`w-[23.62%]`} height={`lg:h-[60vh]`} />
             ))}
-            {bestproducts.map((product) => (
-              <ShopItemCard product={product} width={`w-[23.62%]`} />
+            {products.map((product) => (
+              <ShopItemCard product={product} width={`w-[23.62%]`} height={`lg:h-[60vh]`} />
             ))}
-            {bestproducts.slice(0, 2).map((product) => (
-              <ShopItemCard product={product} width={`w-[23.62%]`} />
+            {products.slice(0, 2).map((product) => (
+              <ShopItemCard product={product} width={`w-[23.62%]`} height={`lg:h-[60vh]`} />
             ))}
           </div>
 

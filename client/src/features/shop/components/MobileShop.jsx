@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Navbar from '../../../components/Navbar'
 import { BsSliders } from "react-icons/bs";
 import Dropdown from "../../admin/components/DropDown"
 import { bestproducts } from '../../../utils';
@@ -8,10 +7,10 @@ import { FaCheck, FaChevronRight } from 'react-icons/fa6';
 import Footer from '../../../components/Footer'
 import { FiMinus } from 'react-icons/fi';
 import PriceRangeSlider from "../components/PriceRangeSlider"
-import { useWindowScroll } from "react-use"
+import { useProduct } from '../hooks/useProducts';
 
 const MobileShop = () => {
-
+    const { products } =  useProduct()
     const [sort, setSort] = useState('featured')
     
 
@@ -113,11 +112,11 @@ const MobileShop = () => {
                 </div>
 
                 <div className='w-full flex gap-3 justify-center flex-wrap py-5'>
-                    {bestproducts.map((product, idx) => (
-                        <ShopItemCard key={`a-${product.id ?? idx}`} product={product} width={`w-[48%]`} />
+                    {products.map((product, idx) => (
+                        <ShopItemCard key={`a-${product._id ?? idx}`} product={product} width={`w-[48%]`} height={`h-[44vh]!`}/>
                     ))}
-                    {bestproducts.slice(0, 4).map((product, idx) => (
-                        <ShopItemCard key={`b-${product.id ?? idx}`} product={product} width={`w-[48%]`} />
+                    {products.slice(0, 4).map((product, idx) => (
+                        <ShopItemCard key={`b-${product._id ?? idx}`} product={product} width={`w-[48%]`} height={`h-[44vh]!`}/>
                     ))}
                 </div>
 
