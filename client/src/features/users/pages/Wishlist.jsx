@@ -5,13 +5,42 @@ import { RxCross2 } from 'react-icons/rx';
 import { useUserData } from '../../users/hooks/useUserData'
 import Loader from '../../../components/Loader';
 import { GoHeart } from 'react-icons/go';
+import toast from 'react-hot-toast';
 
 const Wishlist = () => {
 
-    const { wishlist, wishListLoading, handleGetWishlist } = useUserData()
+    const { wishlist, wishListLoading, handleGetWishlist, handleRemoveItemWishlist, handleAddItemCart } = useUserData()
     useEffect(() => {
         handleGetWishlist()
     }, [])
+
+
+    const handleRemovebtn = async (productId) => {
+        try {
+            const data = await handleRemoveItemWishlist(productId);
+            if (!data.success) {
+                toast.error(data.message);
+                throw new Error(data.message);
+            }
+            toast.success(data.message);
+        } catch (error) {
+            toast.error('Failed to remove item from wishlist. Please try again later.');
+            console.error('Error removing item from wishlist:', error);
+        }
+    }
+    const handleAddCartBtn = async (productId) => {
+        try {
+            const data = await handleAddItemCart(productId);
+            if (!data.success) {
+                toast.error(data.message);
+                throw new Error(data.message);
+            }
+            toast.success(data.message);
+        } catch (error) {
+            toast.error('Failed to Add item in Cart. Please try again later.');
+            console.error('Error adding item in cart:', error);
+        }
+    }
 
     if (wishListLoading) {
         return (
@@ -20,9 +49,9 @@ const Wishlist = () => {
             </div>
         )
     }
-    console.log(wishlist)
 
-    if (wishlist.length === 0 && !wishListLoading) {
+
+    if (wishlist.length === 0 && !wishListLoading || !wishlist) {
         return (
             <main className={`w-full min-h-screen bg-[#080808] `}>
                 <div className='w-full h-screen center flex-col pb-20'>
@@ -46,6 +75,7 @@ const Wishlist = () => {
             </main>
         )
     }
+
     return (
         <main className='bg-[#131313] text-white overflow-hidden'>
 
@@ -63,24 +93,23 @@ const Wishlist = () => {
             <div className='w-full pt-20 px-5 lg:px-20 h-fit'>
                 {
                     wishlist.map((product, index) => (
-                        <div className='w-full flex gap-5 lg:gap-15 items-center lg:h-180 mb-40 group max-lg:flex-col'>
+                        <div className='w-full flex gap-5 lg:gap-15 items-center lg:h-180 mb-40 group max-lg:flex-col' key={product._id}>
                             <div className={`w-full lg:w-1/2 ${index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'} h-full center relative z-4 max-lg:h-90`}>
                                 <div className={`w-8/10 lg:w-9/10 ${index % 2 === 0 ? '[clip-path:polygon(0_0,100%_7%,95%_100%,5%_96%)]' : '[clip-path:polygon(0_9%,100%_0%,96%_93%,6%_99%)]'} h-full relative overflow-hidden`}>
-                                    <img src={`${product.product.mainImage}`} className='w-full h-full object-cover group-hover:scale-105 transition-smooth z-1' alt="" />
+                                    <img src={`${product?.product?.mainImage}`} className='w-full h-full object-cover group-hover:scale-105 transition-smooth z-1' alt="" />
                                     <div className='size-full absolute bg-[#131313]/40 z-5 top-0 left-0'></div>
-
                                 </div>
                                 <div className={`absolute bottom-0 font-heading text-4xl lg:text-6xl text-white/10  -z-1 -translate-y-[170%] lg:-translate-y-[200%]  ${index % 2 === 0 ? ' translate-x-[30%] lg:translate-x-[40%] right-0 rotate-90' : 'left-0 -translate-x-[30%] lg:-translate-x-[40%] -rotate-90'}`}>Aire Bliss</div>
                             </div>
                             <div className={`w-full lg:w-1/2 ${index % 2 === 0 ? 'order-2' : 'order-1'} max-lg:px-10 lg:pr-10 relative`}>
 
                                 <button className='text-white/70 hover:text-yellow-400/90 absolute top-0 right-0 -translate-x-full text-xl cursor-pointer'>
-                                    <RxCross2 />
+                                    <RxCross2 onClick={() => handleRemovebtn(product?._id)} />
                                 </button>
 
                                 <p className='text-xs uppercase font-body tracking-[0.275em] text-yellow-400 font-medium pb-2 lg:pb-4'>Item - {index + 1}</p>
-                                <h1 className='text-4xl lg:text-7xl font-subheading italic capitalize'>{product.product.productName}</h1>
-                                <p className='lg:pl-5 lg:my-10 my-3 max-lg:text-sm text-base text-white/60 font-extralight italic font-body tracking-wider lg:border-l-2 border-yellow-400/20'>"<span className='lg:hidden'>{product.tagline}</span> <span className='max-lg:hidden'>{product.product.shortDescription}</span>"</p>
+                                <h1 className='text-4xl lg:text-7xl font-subheading italic capitalize'>{product?.product?.productName}</h1>
+                                <p className='lg:pl-5 lg:my-10 my-3 max-lg:text-sm text-base text-white/60 font-extralight italic font-body tracking-wider lg:border-l-2 border-yellow-400/20'>"<span className='max-lg:hidden'>{product?.product?.shortDescription}</span>"</p>
 
                                 <div className='w-full flex justify-between items-center mt-5 lg:mt-20 pb-5 lg:pb-10 border-b-2 border-yellow-400/20'>
                                     <div className=''>
@@ -89,13 +118,14 @@ const Wishlist = () => {
                                     </div>
                                     <div className=''>
                                         <h3 className='text-[10px] text-xs uppercase font-body tracking-[0.275em] text-white/80 font-bold pb-0.5 lg:pb-2 text-end'>price</h3>
-                                        <p className='text-sm lg:text-base uppercase font-body font-extralight tracking-widest text-yellow-400'>₹ {product.product.price.toFixed(2)}</p>
+                                        <p className='text-sm lg:text-base uppercase font-body font-extralight tracking-widest text-yellow-400'>₹ {product?.product?.price.toFixed(2)}</p>
                                     </div>
                                 </div>
 
                                 <div className='pt-5 lg:pt-10'>
                                     <button
                                         className="max-lg:mx-auto relative overflow-hidden w-fit px-5 lg:px-10 py-2 lg:py-3 uppercase font-body tracking-[0.275em] text-[10px] lg:text-xs lg:font-semibold border-2 border-yellow-400/60 text-yellow-400/90 flex items-center gap-5 before:absolute before:inset-0 before:bg-yellow-400/90 before:translate-y-full before:transition-transform before:duration-500 before:ease-out cursor-pointer group-hover:before:translate-y-0 group-hover:text-[#131313] group-hover:border-none "
+                                        onClick={() => handleAddCartBtn(product.product._id)}
                                     >
                                         <span className="relative z-10 flex items-center gap-5 transition-smooth">
                                             <IoBagHandle size={16} />

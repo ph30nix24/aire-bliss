@@ -22,6 +22,7 @@ export const loginController = async (req, res) => {
         const { email, password } = req.body;
         console.log(email, password)
 
+
         if (!email || !password) {
             return res.status(403).json({ message: "Missing fields All fields are required." })
         }
@@ -38,22 +39,25 @@ export const loginController = async (req, res) => {
 
         const { password: userPassword, verificationOTP: userOtp, verificationOTPExpires: userVerificationOTPExpires, ...safeUser } = user._doc;
         user.lastLogin = Date.now();
-
-        let cartLength = 0;
+        
         const cart = await Cart.findOne({
             user: user._id
         })
-        if (cart) {
-            cartLength = cart.products.length
-        }
+        
+        const totalCartLength = cart?.products.length || 0
+        console.log(7)
         const wishlist = await Wishlist.findOne({
             user: user._id
-        }).populate("products.product");
-        const addresses = await Address.find({
+        });
+
+        const totalWishlistProduct = wishlist?.products.length || 0;
+
+        const totalAddresses = await Address.countDocuments({
             user: user._id
         });
-        const orders = await Order.find({
-            user: user._id
+
+        const totalOrders = await Order.countDocuments({
+            user: user.id
         })
 
         const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
@@ -70,10 +74,10 @@ export const loginController = async (req, res) => {
                 success: true,
                 message: "login successful",
                 user: safeUser,
-                cartLength: cartLength,
-                wishlist,
-                addresses,
-                orders,
+                totalCartLength,
+                totalWishlistProduct,
+                totalAddresses,
+                totalOrders,
             })
     } catch (e) {
         return res.status(500).json({

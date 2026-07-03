@@ -20,34 +20,36 @@ import Address from "../models/address.model.js";
 export const addAddress = async (req, res) => {
     try {
         const { name, phoneNo, alternatePhoneNo, addressLine1, addressLine2, landmark, city, state, pincode, addressType } = req.body;
-
+        
         if (!name || !phoneNo || !addressLine1 || !city || !state || !pincode) {
-            return res.state(403).json({
+            return res.status(403).json({
                 success: false,
                 message: "Missing fields"
             })
 
         }
+        
         // Check if the user already has any addresses
         const addressCount = await Address.countDocuments({ user: req.user._id });
-
+        
         let isDefault = req.body.isDefault || false;
-
+        
         // First address is always the default
         if (addressCount === 0) {
             isDefault = true;
         }
-
+        
 
 
         // If this address is being set as default,
         // remove default status from all other addresses
         if (isDefault) {
             await Address.updateMany(
-                { user: userId },
+                { user: req.user._id },
                 { $set: { isDefault: false } }
             );
         }
+        
 
         const address = await Address.create({
             user: req.user._id,
@@ -63,6 +65,7 @@ export const addAddress = async (req, res) => {
             addressType: addressType,
             isDefault,
         });
+        
 
         const addresses = await Address.find({ user: req.user._id })
         return res.status(201).json({
@@ -72,6 +75,7 @@ export const addAddress = async (req, res) => {
         });
 
     } catch (error) {
+        
         return res.status(500).json({
             success: false,
             message: error.message || "Failed to add address.",
@@ -104,6 +108,7 @@ export const getUserAddresses = async (req, res) => {
         });
         return res.status(200).json({
             success: true,
+            message: "successfully fetch addresses",
             count: addresses.length || 0,
             addresses: addresses || [],
         });

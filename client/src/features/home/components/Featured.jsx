@@ -17,7 +17,7 @@ const Featured = ({ isMobile }) => {
                 <div className="w-50 mx-auto h-0.5 mt-2 bg-linear-to-r rounded-full from-black via-yellow-600 to-black mb-5"></div>
                 <div className='w-full h-fit flex gap-3 mt-10 flex-col'>
                     <div className='w-full h-auto rounded-2xl overflow-hidden relative border border-yellow-400/50 shadow-2xl shadow-yellow-400/0'>
-                        <img src="./featured_products/oud_malaki_mobile.webp" loading='lazy'  className='size-full object-cover relative z-1' alt="" />
+                        <img src="./featured_products/oud_malaki_mobile.webp" loading='lazy' className='size-full object-cover relative z-1' alt="" />
                         <div className='size-full bg-black/60 absolute top-0 z-2'></div>
                         <div className='absolute w-full h-full top-0 left-0 z-2 p-5 flex flex-col '>
                             <p className='flex items-center '>
@@ -31,9 +31,11 @@ const Featured = ({ isMobile }) => {
                                 <p className='font-body text-white/70 text-[3.5vw] pr-25'>
                                     A rich blend of oud and spice that <br /> embodies strength and sophistication.
                                 </p>
-                                <button className='flex items-center gap-2 text-[3vw] font-body uppercase border-2 border-yellow-400/50 text-yellow-400/80 hover:text-white transition-colors duration-300 px-6 py-2 mt-[70%] rounded-md hover:bg-yellow-400/80 cursor-pointer bg-[#222]/40 backdrop-blur-sm'>
-                                    <span>Explore Now</span> <FaArrowRight />
-                                </button>
+                                <a href="/products/6a44c2042d2eb9e08062ff7f">
+                                    <button className='flex items-center gap-2 text-[3vw] font-body uppercase border-2 border-yellow-400/50 text-yellow-400/80 hover:text-white transition-colors duration-300 px-6 py-2 mt-[70%] rounded-md hover:bg-yellow-400/80 cursor-pointer bg-[#222]/40 backdrop-blur-sm'>
+                                        <span>Explore Now</span> <FaArrowRight />
+                                    </button>
+                                </a>
                             </div>
                             <div className='flex items-center gap-3 mt-3'>
                                 <div>
@@ -49,10 +51,10 @@ const Featured = ({ isMobile }) => {
                     </div>
                     <div className='w-full h-fit gap-3  flex flex-col'>
                         <div className="w-full h-1/2 rounded-2xl overflow-hidden relative border border-yellow-400/50 shadow-2xl shadow-yellow-400/0">
-                            <img src="./featured_products/featured_white_oud.webp" loading='lazy'  className='size-full object-cover relative z-1' alt="" />
+                            <img src="./featured_products/featured_white_oud.webp" loading='lazy' className='size-full object-cover relative z-1' alt="" />
                             <div className="w-full h-full absolute top-0 left-0 z-2 flex justify-center flex-col p-5">
                                 <p className='uppercase text-[3vw] font-body bg-clip-text text-transparent bg-linear-to-r from-yellow-700 to-yellow-800'>Timeless & elegant</p>
-                                
+
                                 <h1 className='text-[#222] font-medium font-heading text-[5.5vw]'>White Oud</h1>
 
                                 <p className='text-[3vw] font-body text-black/70 mt-0.5'>Clean. Sophisticated. Timeless.</p>
@@ -64,7 +66,7 @@ const Featured = ({ isMobile }) => {
                             </div>
                         </div>
                         <div className="w-full h-1/2 rounded-2xl overflow-hidden relative border border-yellow-400/50 shadow-2xl shadow-yellow-400/0">
-                            <img src="./featured_products/featured_pink_cheffron.webp" loading='lazy'  className='size-full object-cover' alt="" />
+                            <img src="./featured_products/featured_pink_cheffron.webp" loading='lazy' className='size-full object-cover' alt="" />
                             <div className="w-full h-full absolute top-0 left-0 z-2 flex justify-center flex-col p-5">
                                 <p className='uppercase text-[3vw] font-body bg-clip-text text-transparent bg-linear-to-r from-pink-500 to-pink-400'>soft & romantic</p>
                                 <h1 className='text-[#222] font-medium font-heading text-[5.5vw]'>Pink Chiffon</h1>
@@ -129,9 +131,11 @@ const Featured = ({ isMobile }) => {
                             <p className='font-body text-white/40'>
                                 A rich blend of oud and spice that <br /> embodies strength and sophistication.
                             </p>
-                            <button className='flex items-center gap-2 text-sm font-body uppercase border-2 border-yellow-400/50 text-yellow-400/80 hover:text-white transition-colors duration-300 px-6 py-2 mt-15 rounded-md hover:bg-yellow-400/80 cursor-pointer'>
-                                <span>Explore Now</span> <FaArrowRight />
-                            </button>
+                            <a href="/products/6a44c2042d2eb9e08062ff7f">
+                                <button className='flex items-center gap-2 text-sm font-body uppercase border-2 border-yellow-400/50 text-yellow-400/80 hover:text-white transition-colors duration-300 px-6 py-2 mt-15 rounded-md hover:bg-yellow-400/80 cursor-pointer'>
+                                    <span>Explore Now</span> <FaArrowRight />
+                                </button>
+                            </a>
                         </div>
                         <div className='flex items-center gap-3'>
                             <div>
@@ -154,11 +158,13 @@ const Featured = ({ isMobile }) => {
                             <h1 className='text-[#222] font-medium font-heading text-2xl'>White Oud</h1>
 
                             <p className='text-xs font-body text-black/70 mt-1'>Clean. Sophisticated. Timeless.</p>
-                            <p className='text-base font-body text-[#222] mt-4 font-light'>Rs. 429.00</p>
-                            <button className='flex items-center gap-1.5 mt-10 cursor-pointer'>
-                                <span className='uppercase text-xs font-body bg-clip-text text-transparent bg-linear-to-r from-yellow-700 to-yellow-800 mt-0.5'>Discover</span>
-                                <FaArrowRight className='size-3 text-yellow-700/70' />
-                            </button>
+                            <p className='text-base font-body text-[#222] mt-4 font-light'>Rs. 449.00</p>
+                            <a href="/products/6a44f411db7bcc66ab4be08b">
+                                <button className='flex items-center gap-1.5 mt-10 cursor-pointer'>
+                                    <span className='uppercase text-xs font-body bg-clip-text text-transparent bg-linear-to-r from-yellow-700 to-yellow-800 mt-0.5'>Discover</span>
+                                    <FaArrowRight className='size-3 text-yellow-700/70' />
+                                </button>
+                            </a>
                         </div>
                     </div>
                     <div className="w-full h-1/2 rounded-2xl overflow-hidden relative border border-yellow-400/50 shadow-2xl shadow-yellow-400/0">
@@ -169,11 +175,13 @@ const Featured = ({ isMobile }) => {
                             <h1 className='text-[#222] font-medium font-heading text-2xl'>Pink Chiffon</h1>
 
                             <p className='text-xs font-body text-black/70 mt-1'>Feminine. Delicate. Captivating.</p>
-                            <p className='text-base font-body text-[#222] mt-4 font-light'>Rs. 459.00</p>
-                            <button className='flex items-center gap-1.5 mt-13 cursor-pointer'>
-                                <span className='uppercase text-xs font-body bg-clip-text text-transparent bg-linear-to-r from-pink-700 to-pink-600 mt-0.5'>Discover</span>
-                                <FaArrowRight className='size-3 text-pink-700/70' />
-                            </button>
+                            <p className='text-base font-body text-[#222] mt-4 font-light'>Rs. 499.00</p>
+                            <a href="/products/6a44bebde03d168f65ba6cb4">
+                                <button className='flex items-center gap-1.5 mt-13 cursor-pointer'>
+                                    <span className='uppercase text-xs font-body bg-clip-text text-transparent bg-linear-to-r from-pink-700 to-pink-600 mt-0.5'>Discover</span>
+                                    <FaArrowRight className='size-3 text-pink-700/70' />
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>

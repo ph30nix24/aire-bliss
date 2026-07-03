@@ -13,7 +13,10 @@ import { useMediaQuery } from 'react-responsive';
 import { RxCross2 } from 'react-icons/rx';
 import { useUserData } from '../hooks/useUserData';
 import { useAuth } from '../../auth/hooks/useAuth'
+import { useProduct } from '../../shop/hooks/useProducts'
 import Loader from '../../../components/Loader';
+import ShopItemCard from '../../shop/components/ShopItemCard';
+import toast from 'react-hot-toast';
 
 
 
@@ -22,6 +25,7 @@ const Cart = () => {
     const isMobile = useMediaQuery({ maxWidth: 768 });
     const { cart, cartLoading, handleGetCart, handleCartItemQuantity, handleRemoveCartItem } = useUserData();
     const { user } = useAuth()
+    const { products } = useProduct()
 
     useEffect(() => {
         handleGetCart()
@@ -34,7 +38,20 @@ const Cart = () => {
             </div>
         )
     }
-    console.log(cart)
+
+    const handleQuantityBtn = async(productId, quantity) => {
+        try {
+            const data = await handleCartItemQuantity(productId, quantity);
+        if (!data.success) {
+                toast.error(data.message);
+                throw new Error(data.message);
+            }
+            toast.success(data.message);
+        } catch (error) {
+            toast.error('Failed to Add quantity in Cart. Please try again later.');
+            console.error('Error adding quantity in cart:', error);
+        }
+    } 
 
 
 
@@ -97,12 +114,13 @@ const Cart = () => {
                                 <div className='flex justify-between pb-2'>
                                     <p className='text-xs tracking-widest uppercase font-body text-yellow-400 font-semibold'>Free shipping Eligibilty</p>
                                     {cart.finalPrice > 999 ? (<p className='text-xs tracking-widest font-body text-white/70 font-semibold'>Free Shipping Applied!</p>) : (<div>
-                                        
-                                        <p className='text-xs tracking-widest font-body text-white/70 font-semibold'><span className='max-lg:hidden'>Add </span>&#x20B9;{(999 - cart.totalPrice ).toFixed(2)}<span className='max-lg:hidden'>more for Free Shipping!</span> <span className='lg:hidden uppercase'>Away</span></p>
+
+                                        <p className='text-xs tracking-widest font-body text-white/70 font-semibold'><span className='max-lg:hidden'>Add </span>&#x20B9;{(999 - cart.totalPrice).toFixed(2)}<span className='max-lg:hidden'>more for Free Shipping!</span> <span className='lg:hidden uppercase'>Away</span></p>
                                     </div>)}
                                 </div>
                                 <div className='w-full h-1 bg-white/20 rounded-full relative mt-1 '>
-                                    <div className={`h-full absolute left-0 top-0 bg-yellow-400  rounded-full ${cart.finalPrice > 999 && 'w-full'}`} style={{ width: `${(cart.totalPrice / 999)*100}%`}}></div>
+                                    {cart.finalPrice > 999 ? (<div className='size-full absolute top-0 left-0 bg-yellow-400 rounded-full'></div>) : (<div className={`h-full absolute left-0 top-0 bg-yellow-400  rounded-full ${cart.finalPrice > 999 && 'w-full'}`} style={{ width: `${(cart.totalPrice / 999) * 100}%` }}></div>)}
+
                                 </div>
 
                             </div>
@@ -130,9 +148,9 @@ const Cart = () => {
 
                                                 <div className='w-full h-fit flex justify-between items-center'>
                                                     <div className='py-2 px-3 border border-[#777]/40 flex gap-3 items-center'>
-                                                        <FaMinus className='size-2 hover:text-yellow-400/90 cursor-pointer' />
+                                                        <FaMinus className='size-2 hover:text-yellow-400/90 cursor-pointer' onClick={() => handleQuantityBtn(product.product._id, product.quantity - 1)}/>
                                                         <p className='font-body text-white/80 text-xs px-2'>{product.quantity}</p>
-                                                        <FaPlus className='size-2 hover:text-yellow-400/90 cursor-pointer' />
+                                                        <FaPlus className='size-2 hover:text-yellow-400/90 cursor-pointer' onClick={() => handleQuantityBtn(product.product._id, product.quantity + 1)}/>
                                                     </div>
 
                                                     <div className='center w-fit gap-5'>
@@ -165,9 +183,9 @@ const Cart = () => {
 
                                                 <div className='w-full h-fit flex justify-between items-center'>
                                                     <div className='py-2 px-3 border border-[#777]/40 flex gap-3 items-center'>
-                                                        <FaMinus className='size-3 hover:text-yellow-400/90 cursor-pointer' />
+                                                        <FaMinus className='size-3 hover:text-yellow-400/90 cursor-pointer' onClick={() => handleQuantityBtn(product.product._id, product.quantity - 1)}/>
                                                         <p className='font-body text-white/80 px-4'>{product.quantity}</p>
-                                                        <FaPlus className='size-3 hover:text-yellow-400/90 cursor-pointer' />
+                                                        <FaPlus className='size-3 hover:text-yellow-400/90 cursor-pointer' onClick={() => handleQuantityBtn(product.product._id, product.quantity + 1)}/>
                                                     </div>
 
                                                     <div className='center w-fit gap-5'>
@@ -235,8 +253,11 @@ const Cart = () => {
                             <div className='w-full pt-5'>
                                 <h1 className='uppercase font-subheading tracking-wide text-[5.5vw] lg:text-3xl pb-5'>Complete the set</h1>
                                 <div className='w-full flex gap-3 lg:gap-5 max-lg:overflow-scroll pb-10'>
-                                    {bestproducts.slice(3, 6).map((product, index) => (
-                                        <ProductCard product={product} width={`w-1/3 `} key={product.name} />
+                                    {products.filter(product =>
+                                        // 2. Exclude products that are already in the cart
+                                        !cart.products.some(cartItem => cartItem.product._id.toString() === product._id.toString())
+                                    ).slice(0, 3).map((product, index) => (
+                                        <ShopItemCard product={product} width={`w-1/3`} height={`lg:h-[60vh]`} key={index} />
                                     ))}
                                 </div>
                             </div>

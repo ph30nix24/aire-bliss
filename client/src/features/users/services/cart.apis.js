@@ -36,9 +36,11 @@ export const addItemToCart = async (productID) => {
 }
 
 
-export const updateCartItemQuantityApi = async (productID) => {
+export const updateCartItemQuantityApi = async (productID, quantity) => {
     try {
-        const res = await axios.patch(`${API}/${productID}`, {
+        const res = await axios.patch(`${CART_API}/${productID}`, {
+            quantity
+        }, {
             withCredentials: true
         })
         console.log(res.data.message)

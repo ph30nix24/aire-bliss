@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { authenticateToken } from "../middlewares/auth.middleware.js";
-import { addToWishlist, getWishlist } from "../controllers/wishlist.controller.js";
-import { removeCartItem } from "../controllers/cart.controller.js";
+import { addToWishlist, getWishlist, removeFromWishlist } from "../controllers/wishlist.controller.js";
 
 const wishListRouter = Router()
 
@@ -28,13 +27,13 @@ wishListRouter.post("/:productId", authenticateToken, addToWishlist);
 
 
 /**
- * @name        
+ * @name       
  * @desc    Remove a product from the authenticated user's wishlist
  * @route   DELETE /aire-bliss/user/wishlist/:productId
  * @access  Private
  */
 
-wishListRouter.delete("/:productId", authenticateToken, removeCartItem)
+wishListRouter.delete("/:productId", authenticateToken, removeFromWishlist)
 
 
 

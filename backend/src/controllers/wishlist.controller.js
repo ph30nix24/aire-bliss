@@ -14,7 +14,7 @@ export const getWishlist = async (req, res) => {
             user: req.user._id,
         }).populate({
             path: "products.product",
-            select: "productName mainImage price discount stock sku shortDescription size",
+            select: "productName mainImage price discount shortDescription size",
         });
 
         return res.status(200).json({
@@ -82,6 +82,10 @@ export const addToWishlist = async (req, res) => {
         });
 
         await wishlist.save();
+        await wishlist.populate({
+            path: "products.product",
+            select: "productName mainImage price discount shortDescription size",
+        })
 
         return res.status(200).json({
             success: true,
@@ -106,7 +110,6 @@ export const addToWishlist = async (req, res) => {
 export const removeFromWishlist = async (req, res) => {
     try {
         const { productId } = req.params;
-
         const wishlist = await Wishlist.findOne({
             user: req.user._id,
         });
@@ -119,9 +122,9 @@ export const removeFromWishlist = async (req, res) => {
         }
 
         const productExists = wishlist.products.some(
-            (item) => item.product.toString() === productId
+            (item) => item._id.toString() === productId
         );
-
+        
         if (!productExists) {
             return res.status(404).json({
                 success: false,
@@ -130,10 +133,14 @@ export const removeFromWishlist = async (req, res) => {
         }
 
         wishlist.products = wishlist.products.filter(
-            (item) => item.product.toString() !== productId
+            (item) => item._id.toString() !== productId
         );
 
         await wishlist.save();
+        await wishlist.populate({
+            path: "products.product",
+            select: "productName mainImage price discount shortDescription size",
+        })
 
         return res.status(200).json({
             success: true,

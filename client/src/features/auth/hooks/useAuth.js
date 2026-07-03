@@ -5,15 +5,15 @@ import { emailVerifierApi, loginApi, registerApi } from "../services/auth.api";
 
 export const useAuth = () => {
     const context = useContext(AuthContext)
-    if(!context) {
+    if (!context) {
         throw new Error("useAuth must be used within an AuthProvider");
     }
-    const { user, setUser, loading, setLoading, wishList, setWishList, cartLength, setCartLength, addresses, setAddresses, orders, setOrders} = context;
+    const { user, setUser, loading, setLoading, wishList, setWishList, cartLength, setCartLength, addresses, setAddresses, orders, setOrders } = context;
 
-    const handleSignUp = async ({ name, email, password}) => {
+    const handleSignUp = async ({ name, email, password }) => {
         setLoading(true);
-        try{
-            const data = await registerApi({name, email, password})
+        try {
+            const data = await registerApi({ name, email, password })
             setUser(data.user)
             return {
                 success: data.success,
@@ -27,15 +27,15 @@ export const useAuth = () => {
             setLoading(false);
         }
     }
-    const handleLogin = async ({ email, password}) => {
+    const handleLogin = async ({ email, password }) => {
         setLoading(true);
-        try{
+        try {
             const data = await loginApi({ email, password })
             setUser(data.user);
-            setWishList(data.wishlist);
-            setCartLength(data.cartLength);
-            setAddresses(data.addresses);
-            setOrders(data.orders);
+            setWishList(data.totalWishlistProduct);
+            setCartLength(data.totalCartLength);
+            setAddresses(data.totalAddresses);
+            setOrders(data.totalOrders);
             return {
                 success: data.success,
                 message: data.message,
@@ -49,7 +49,7 @@ export const useAuth = () => {
             setLoading(false);
         }
     }
-    const handleVerifyEmail = async ( otp ) => {
+    const handleVerifyEmail = async (otp) => {
         console.log(otp)
         setLoading(true);
         try {
@@ -59,7 +59,7 @@ export const useAuth = () => {
                 message: data.message,
             }
         }
-        catch ( error ) {
+        catch (error) {
             console.log("Error while verifying email", error.message)
         }
         finally {
@@ -67,5 +67,5 @@ export const useAuth = () => {
         }
     }
 
-    return { user, loading, handleLogin, handleSignUp, handleVerifyEmail, wishList,  cartLength, addresses, orders }
+    return { user, loading, handleLogin, handleSignUp, handleVerifyEmail, wishList, cartLength, addresses, orders }
 }

@@ -47,7 +47,7 @@ export const useUserData = () => {
         setWishListLoading(true);
         try {
             const data = await removeFromWishlistApi(productId);
-            setWishlist(data.products);
+            await setWishlist(data.products);
             return {
                 success: data.success,
                 message: data.message
@@ -80,11 +80,11 @@ export const useUserData = () => {
         }
     }
 
-    const handleCartItemQuantity = async (productID) => {
+    const handleCartItemQuantity = async (productID, quantity) => {
         setCartLoading(true);
         try {
-            const data = await updateCartItemQuantityApi(productID);
-            setCart(data.cart.products);
+            const data = await updateCartItemQuantityApi(productID, quantity);
+            setCart(data.cart);
             return {
                 success: data.success,
                 message: data.message
@@ -151,6 +151,10 @@ export const useUserData = () => {
         try {
             const data = await addAddressApi({ name, phoneNo, alternatePhoneNo, addressLine1, addressLine2, landmark, city, state, pincode, addressType });
             setAddresses(data.addresses);
+            return {
+                success: data.success,
+                message: data.message
+            }
         }
         catch(e) {
             console.error("Error while adding address: ", e.message);
@@ -166,6 +170,10 @@ export const useUserData = () => {
         try {
             const data = await updateAddressApi({ name, phoneNo, alternatePhoneNo, addressLine1, addressLine2, landmark, city, state, pincode, addressType, id });
             setAddresses(data.addresses);
+            return {
+                success: data.success,
+                message: data.message
+            }
         }
         catch(e) {
             console.error("Error while updating address: ", e.message);
@@ -181,6 +189,10 @@ export const useUserData = () => {
         try {
             const data = await deleteAddressApi(id);
             setAddresses(data.addresses);
+            return {
+                success: data.success,
+                message: data.message
+            }
         }
         catch(e) {
             console.error("Error while deleting address: ", e.message);
@@ -195,6 +207,10 @@ export const useUserData = () => {
         try {
             const data = await getDefaultAddressApi();
             setDefaultAddress(data.address);
+            return {
+                success: data.success,
+                message: data.message
+            }
         }
         catch(e) {
             console.error("Error while fetching default address: ", e.message);
@@ -210,6 +226,10 @@ export const useUserData = () => {
         try {
             const data = await setDefaultAddressApi(id);
             setDefaultAddress(data.address);
+            return {
+                success: data.success,
+                message: data.message
+            }
         }
         catch(e) {
             console.error("Error while setting default address: ", e.message);

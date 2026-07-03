@@ -25,7 +25,7 @@ const addressSchema = new mongoose.Schema(
 
     alternatePhoneNo: {
       type: String,
-      default: "",
+      default: null,
       validate: {
         validator: (v) => !v || /^[0-9]{10}$/.test(v),
         message: "Invalid alternate mobile number",
