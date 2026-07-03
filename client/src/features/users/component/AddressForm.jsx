@@ -10,24 +10,23 @@ import { useUserData } from '../hooks/useUserData';
 import { useNavigate } from 'react-router'
 import toast from 'react-hot-toast';
 
-const AddressForm = ({ setIsFormClick }) => {
+const AddressForm = ({ address, setIsFormClick, edit }) => {
 
-    const { handleAddAddress } = useUserData();
+    const { handleAddAddress, handleUpdateAddress } = useUserData();
     const navigate = useNavigate();
 
-
     const [addressForm, setAddressForm] = useState({
-        name: "",
-        phoneNo: "",
-        alternatePhoneNo: "",
-        addressLine1: "",
-        addressLine2: "",
-        landmark: "",
-        city: "",
-        state: "",
-        pincode: "",
-        addressType: "home",
-        isDefault: false
+        name: address?.name || "",
+        phoneNo: address?.phoneNo || "",
+        alternatePhoneNo: address?.alternatePhoneNo || "",
+        addressLine1: address?.addressLine1 || "",
+        addressLine2: address?.addressLine2 || "",
+        landmark: address?.landmark || "",
+        city: address?.city || "",
+        state: address?.state || "",
+        pincode: address?.pincode || "",
+        addressType: address?.addressType || "home",
+        isDefault: address?.isDefault || false
     })
 
     const types = [
@@ -60,18 +59,39 @@ const AddressForm = ({ setIsFormClick }) => {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault()
-        try {
-            const data =  await handleAddAddress(addressForm);
-            if (!data.success) {
-                toast.error(data.message);
-                throw new Error(data.message);
+        if (edit) {
+            try {
+                const data = await handleUpdateAddress({ ...addressForm, id: address._id })
+                if (!data.success) {
+                    toast.error(data.message);
+                    throw new Error(data.message);
+                }
+                toast.success(data.message)
+                setIsFormClick(false)
+                navigate('/user/addresses')
+                
+
+            } catch (error) {
+                toast.error('Failed to Add item in Cart. Please try again later.');
+                console.error('Error adding item in cart:', error);
             }
-            toast.success(data.message)
-        } catch (error) {
-            toast.error('Failed to Add item in Cart. Please try again later.');
-            console.error('Error adding item in cart:', error);
+        } else {
+            try {
+                const data = await handleAddAddress(addressForm);
+                if (!data.success) {
+                    toast.error(data.message);
+                    throw new Error(data.message);
+                }
+                toast.success(data.message)
+                setIsFormClick(false)
+                navigate('/user/addresses')
+            } catch (error) {
+                toast.error('Failed to Add item in Cart. Please try again later.');
+                console.error('Error adding item in cart:', error);
+            }
+
         }
-        navigate('/user/addresses')
+        
     }
 
     return (
@@ -104,14 +124,14 @@ const AddressForm = ({ setIsFormClick }) => {
                                 <p className='text-xs lg:text-sm font-body font-light capitalize  pb-2'>full name </p>
                                 <fieldset className='border px-1.5 lg:px-3 rounded border-[#777]/20 flex items-center gap-1 lg:gap-3'>
                                     <label htmlFor='full-name'><TiUserOutline className='text-yellow-400/70 size-4' /></label>
-                                    <input type="text" name="name" required id="full-name" className='w-full py-2 font-extralight text-xs lg:text-sm px-2 outline-none font-body' placeholder='Enter Full Name' onChange={handleInputChange} />
+                                    <input type="text" name="name" value={addressForm.name} required id="full-name" className='w-full py-2 font-extralight text-xs lg:text-sm px-2 outline-none font-body' placeholder='Enter Full Name' onChange={handleInputChange} />
                                 </fieldset>
                             </div>
                             <div className="w-1/2">
                                 <p className='text-xs lg:text-sm font-body font-light capitalize  pb-2'>Phone Number </p>
                                 <fieldset className='border px-1.5 lg:px-3 rounded border-[#777]/20 flex items-center gap-1 lg:gap-3'>
                                     <label htmlFor='phone-no'><MdOutlineLocalPhone className='text-yellow-400/70 size-4' /></label>
-                                    <input type="text" maxLength={10} name="phoneNo" required id="phone-no" placeholder='Enter Moblie Number ' className='w-full py-2 font-extralight text-xs lg:text-sm px-2 outline-none font-body' onChange={handleInputChange} />
+                                    <input type="text" maxLength={10} name="phoneNo" required id="phone-no" value={addressForm.phoneNo} placeholder='Enter Moblie Number ' className='w-full py-2 font-extralight text-xs lg:text-sm px-2 outline-none font-body' onChange={handleInputChange} />
                                 </fieldset>
                             </div>
 
@@ -120,7 +140,7 @@ const AddressForm = ({ setIsFormClick }) => {
                             <p className='text-xs lg:text-sm font-body font-light capitalize  pb-2'>Alternate Phone Number </p>
                             <fieldset className='border px-1.5 lg:px-3 rounded border-[#777]/20 flex items-center gap-1 lg:gap-3'>
                                 <label htmlFor='phone-no'><MdOutlineLocalPhone className='text-yellow-400/70 size-4' /></label>
-                                <input type="text" maxLength={10} name="alternatePhoneNo" required id="phone-no" placeholder='Enter Alternate Moblie Number ' className='w-full py-2 font-extralight text-xs lg:text-sm px-2 outline-none font-body' onChange={handleInputChange} />
+                                <input type="text" maxLength={10} name="alternatePhoneNo" value={addressForm.alternatePhoneNo} required id="phone-no" placeholder='Enter Alternate Moblie Number ' className='w-full py-2 font-extralight text-xs lg:text-sm px-2 outline-none font-body' onChange={handleInputChange} />
                             </fieldset>
                         </div>
 
@@ -130,7 +150,7 @@ const AddressForm = ({ setIsFormClick }) => {
                                 <p className='text-xs lg:text-sm font-body font-light capitalize pb-2'>House No, Building Name </p>
                                 <fieldset className='border px-3 rounded border-[#777]/20 flex items-center gap-3'>
                                     <label htmlFor='house-no'><FaHouse className='text-yellow-400/70 size-4' /></label>
-                                    <input type="text" name="addressLine1" required id="house-no" className='w-full py-2 lg:py-3 font-extralight px-2 outline-none font-body text-xs' placeholder='E.g. 123, Green Villa Apartments' onChange={handleInputChange} />
+                                    <input type="text" name="addressLine1" value={addressForm.addressLine1} required id="house-no" className='w-full py-2 lg:py-3 font-extralight px-2 outline-none font-body text-xs' placeholder='E.g. 123, Green Villa Apartments' onChange={handleInputChange} />
                                 </fieldset>
                             </div>
 
@@ -142,7 +162,7 @@ const AddressForm = ({ setIsFormClick }) => {
                                 <p className='text-xs lg:text-sm font-body font-light capitalize  pb-2'>Area, Street, Sector</p>
                                 <fieldset className='border px-3 rounded border-[#777]/20 flex items-center gap-3'>
                                     <label htmlFor='sector'><FaStreetView className='text-yellow-400/70 size-4' /></label>
-                                    <input type="text" name="addressLine2" required id="sector" className='w-full py-2 lg:py-3 font-extralight text-xs font-body px-2 outline-none' placeholder='E.g. MG Road, Sector 16' onChange={handleInputChange} />
+                                    <input type="text" name="addressLine2" value={addressForm.addressLine2} required id="sector" className='w-full py-2 lg:py-3 font-extralight text-xs font-body px-2 outline-none' placeholder='E.g. MG Road, Sector 16' onChange={handleInputChange} />
                                 </fieldset>
                             </div>
 
@@ -154,7 +174,7 @@ const AddressForm = ({ setIsFormClick }) => {
                                 <p className='text-xs lg:text-sm font-body font-light capitalize  pb-2'>Landmark (optional) </p>
                                 <fieldset className='border px-3 rounded border-[#777]/20 flex items-center gap-3'>
                                     <label htmlFor='landmark'><FaLandmarkFlag className='text-yellow-400/70 size-4' /></label>
-                                    <input type="text" name="landmark" id="landmark" className='w-full py-2.5 lg:py-3 font-extralight text-xs px-2 outline-none font-body' placeholder='E.g. Near City Mall, Opposite Metro Station' onChange={handleInputChange} />
+                                    <input type="text" name="landmark" value={addressForm.landmark} id="landmark" className='w-full py-2.5 lg:py-3 font-extralight text-xs px-2 outline-none font-body' placeholder='E.g. Near City Mall, Opposite Metro Station' onChange={handleInputChange} />
                                 </fieldset>
                             </div>
 
@@ -166,21 +186,21 @@ const AddressForm = ({ setIsFormClick }) => {
                                 <p className='text-sm font-body font-light capitalize  pb-2'>City </p>
                                 <fieldset className='border px-3 rounded border-[#777]/20 flex items-center gap-3'>
                                     <label htmlFor='city'><FaCity className='text-yellow-400/70 size-4' /></label>
-                                    <input type="text" name="city" id="city" className='w-full py-3 font-extralight text-xs px-2 outline-none font-body' placeholder='Enter City' onChange={handleInputChange} required />
+                                    <input type="text" name="city" value={addressForm.city} id="city" className='w-full py-3 font-extralight text-xs px-2 outline-none font-body' placeholder='Enter City' onChange={handleInputChange} required />
                                 </fieldset>
                             </div>
                             <div className="w-[48%] lg:w-1/3">
                                 <p className='text-sm font-body font-light capitalize  pb-2'>State </p>
                                 <fieldset className='border px-3 rounded border-[#777]/20 flex items-center gap-3'>
                                     <label htmlFor='state'><FaMap className='text-yellow-400/70 size-4' /></label>
-                                    <input type="text" name="state" id="state" className='w-full py-3 font-extralight text-xs px-2 outline-none font-body' placeholder='Enter State' onChange={handleInputChange} required />
+                                    <input type="text" name="state" value={addressForm.state} id="state" className='w-full py-3 font-extralight text-xs px-2 outline-none font-body' placeholder='Enter State' onChange={handleInputChange} required />
                                 </fieldset>
                             </div>
                             <div className="w-1/2 lg:w-1/3 max-lg:grow">
                                 <p className='text-sm font-body font-light capitalize  pb-2'>Pincode </p>
                                 <fieldset className='border px-3 rounded border-[#777]/20 flex items-center gap-3'>
                                     <label htmlFor='pincode'><BsFillPinMapFill className='text-yellow-400/70 size-4' /></label>
-                                    <input type="text" minLength={6} maxLength={6} name="pincode" id="pincode" className='w-full py-3 font-extralight text-xs px-2 outline-none font-body' placeholder='Enter Pincode' onChange={handleInputChange} required />
+                                    <input type="text" minLength={6} maxLength={6} name="pincode" value={addressForm.pincode} id="pincode" className='w-full py-3 font-extralight text-xs px-2 outline-none font-body' placeholder='Enter Pincode' onChange={handleInputChange} required />
                                 </fieldset>
                             </div>
 
@@ -215,7 +235,7 @@ const AddressForm = ({ setIsFormClick }) => {
                                     Save Address
                                 </span>
                             </button>
-                            <button className='w-full mt-1 center font-body font-light tracking-wider text-xs text-white py-2 rounded cursor-pointer gap-3 hover:text-yellow-400/80'>
+                            <button className='w-full mt-1 center font-body font-light tracking-wider text-xs text-white py-2 rounded cursor-pointer gap-3 hover:text-yellow-400/80' type='button'>
                                 <span className='uppercase'>
                                     Cancel
                                 </span>

@@ -15,53 +15,14 @@ const Address = () => {
         handleGetAddress();
     }, [])
 
-    // const addresses = [
-    //     {
-    //         "_id": "addr_001",
-    //         "title": "The Penthouse",
-    //         "addressType": "Home",
-    //         "isDefault": true,
-    //         "fullName": "Arjun Sharma",
-    //         "phoneNumber": "+91 98765 43210",
-    //         "addressLine1": "123, Green Villa Apartments",
-    //         "addressLine2": "MG Road, Sector 15",
-    //         "landmark": "Near City Mall",
-    //         "city": "Mumbai",
-    //         "state": "Maharashtra",
-    //         "postalCode": "400001",
-    //         "country": "India"
-    //     },
-    //     {
-    //         "_id": "addr_002",
-    //         "title": "The Studio",
-    //         "addressType": "Work",
-    //         "isDefault": false,
-    //         "fullName": "Arjun Sharma",
-    //         "phoneNumber": "+91 98765 43210",
-    //         "addressLine1": "Infinity Corporate Park",
-    //         "addressLine2": "Tower B, 5th Floor, Link Road",
-    //         "landmark": "Andheri West",
-    //         "city": "Mumbai",
-    //         "state": "Maharashtra",
-    //         "postalCode": "400053",
-    //         "country": "India"
-    //     },
-    //     {
-    //         "_id": "addr_003",
-    //         "title": "The Summer Estate",
-    //         "addressType": "Other",
-    //         "isDefault": false,
-    //         "fullName": "Arjun Sharma",
-    //         "phoneNumber": "+91 98765 43210",
-    //         "addressLine1": "Flat 8, Shanti Residency",
-    //         "addressLine2": "12th Cross",
-    //         "landmark": "Jayanagar 4th Block",
-    //         "city": "Bengaluru",
-    //         "state": "Karnataka",
-    //         "postalCode": "560041",
-    //         "country": "India"
-    //     }
-    // ]
+    const [edit, setEdit] = useState(false);
+
+    const [editId, setEditId] = useState('');
+
+    const handleEdit = (id) => {
+        setEditId(id)
+        setEdit(true)
+    }
 
     const [isFormClick, setIsFormClick] = useState(false)
 
@@ -98,7 +59,7 @@ const Address = () => {
                     </div>
                     <h1 className='text-white/80 font-subheading italic text-3xl text-center'>Where Should We Send <br/> Your Orders?</h1>
 
-                    <button className='w-fit bg-yellow-400 text-[#080808] text-[10px] md:text-xs uppercase tracking-[0.255em] font-body mt-10 lg:mt-5 px-10 py-3 hover:bg-yellow-400/90 cursor-pointer flex gap-3 items-center' onClick={() => setIsFormClick(true)}><GoPlus /><span className='text-[10px] '>Add Address</span></button>
+                    <button className='w-fit bg-yellow-400 text-[#080808] text-[10px] md:text-xs uppercase tracking-[0.255em] font-body mt-10 lg:mt-10 px-10 py-3 hover:bg-yellow-400/90 cursor-pointer flex gap-3 items-center' onClick={() => setIsFormClick(true)}><GoPlus /><span className='text-[10px] '>Add Address</span></button>
                 </div>
             </main>
         )
@@ -109,6 +70,7 @@ const Address = () => {
     return (
         <main className='bg-[#131313] bg-[radial-gradient(circle_at_50%_0%,#2a2a2a_0%,transparent_70%)]'>
             { isFormClick && <AddressForm setIsFormClick={setIsFormClick} />}
+            { edit && <AddressForm address={addresses.find(addr => addr._id.toString() === editId)} edit={edit} setIsFormClick={setEdit} />}
 
             <button className='fixed bottom-0 right-0 z-30 flex items-center p-3 lg:px-8 lg:py-5 bg-linear-to-b -translate-y-full lg:-translate-y-8/10 -translate-x-8/10 lg:-translate-x-2/10 from-[#F2CA50] to-[#f7cc4b] gap-5 rounded-full text-[#222] group cursor-pointer hover:shadow-[0_0_40px_rgba(242,202,80,0.4)]' onClick={() => setIsFormClick(true)}>
                 <GoPlus className='size-5 group-hover:rotate-90 transition-smooth'/>
@@ -127,7 +89,7 @@ const Address = () => {
                 <div className='mt-25 w-full py-10 lg:px-30'>
                     <div className='w-full flex flex-wrap gap-10 justify-end'>
                         { addresses.map((address, index) => (
-                            <div className={`w-9/10 lg:w-[48%] flex flex-col ${index % 2 === 0 ? 'border-l-2 items-start' : 'border-r-2 items-end'}  border-white/10 p-5 lg:p-10 text-white bg-[#131313]/50 backdrop-blur-sm group hover:border-yellow-400/70 transition-smooth max-lg:grow relative`}>
+                            <div className={`w-9/10 lg:w-[48%] flex flex-col ${index % 2 === 0 ? 'border-l-2 items-start' : 'border-r-2 items-end'}  border-white/10 p-5 lg:p-10 text-white bg-[#131313]/50 backdrop-blur-sm group hover:border-yellow-400/70 transition-smooth max-lg:grow relative`} key={address._id}>
                                 <p className={`absolute top-0 translate-y-1/2 -translate-x-1/10 right-0 ${!address.isDefault && 'hidden'} px-5 py-2 text-[8px] font-body font-extralight uppercase tracking-widest text-yellow-300 border-2 bg-yellow-300/10 border-yellow-300/30`}>default address</p>
                                 <h1 className='text-[40px] font-subheading italic group-hover:text-yellow-400/90 transition-smooth'>{address.addressType}</h1>
 
@@ -148,7 +110,7 @@ const Address = () => {
                                 <p className='py-5 font-body font-light tracking-wide text-yellow-400/50'>{address.phoneNumber}</p>
 
                                 <div className='w-fit flex gap-5 items-center mt-15'>
-                                    <button className='uppercase text-xs font-body tracking-[0.255em] font-light py-1 cursor-pointer hover:border-b hover:text-yellow-400/90 border-yellow-400/90 transition-smooth  group-hover:opacity-100 lg:opacity-0'>Revise</button>
+                                    <button className='uppercase text-xs font-body tracking-[0.255em] font-light py-1 cursor-pointer hover:border-b hover:text-yellow-400/90 border-yellow-400/90 transition-smooth  group-hover:opacity-100 lg:opacity-0' onClick={() => handleEdit(address._id)}>Revise</button>
                                     <button className='uppercase text-xs font-body tracking-[0.255em] font-light py-1 cursor-pointer hover:border-b hover:text-yellow-400/90 border-yellow-400/90 transition-smooth text-white/60 group-hover:opacity-100 lg:opacity-0' onClick={() => handleRemovebtn(address._id)}>erase</button>
                                 </div>
                                 
