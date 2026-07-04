@@ -101,6 +101,7 @@ const ProductPage = () => {
 
   const allImages = [product.mainImage, ...(product.previewImages ?? [])];
 
+  console.log(product)
   if (isMobile) {
     return (
       <main className='bg-[#131313] relative'>

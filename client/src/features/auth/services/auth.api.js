@@ -65,3 +65,15 @@ export const getCurrentUserApi = async () => {
         console.error('Error during getting current user:', error.message);
     }
 }
+
+
+export const updateUserApi = async ({ name, phoneNo, gender, dateOfBirth }) => {
+    try {
+        const res = await axios.patch(`${User_API}/`,{ name, phoneNo, gender, dateOfBirth }, {
+            withCredentials: true
+        })
+        return res.data
+    } catch (error) {
+        console.error('Error during getting current user:', error.message);
+    }
+}

@@ -76,6 +76,8 @@ export const addToWishlist = async (req, res) => {
             });
         }
 
+        
+
         // Add the product
         wishlist.products.push({
             product: productId,
@@ -124,6 +126,7 @@ export const removeFromWishlist = async (req, res) => {
         const productExists = wishlist.products.some(
             (item) => item._id.toString() === productId
         );
+
         
         if (!productExists) {
             return res.status(404).json({

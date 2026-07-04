@@ -9,7 +9,7 @@ import toast from 'react-hot-toast';
 
 const Address = () => {
 
-    const { addresses, addressLoading, defaultAddress, handleGetAddress, handleAddAddress, handleUpdateAddress, handleDeleteAddress, handleGetDefaultAddress, handleSetDefaultAddress } = useUserData()
+    const { addresses, addressLoading, handleGetAddress, handleDeleteAddress } = useUserData()
 
     useEffect(() => {
         handleGetAddress();

@@ -61,8 +61,8 @@ export const getUserProfile = async (req, res) => {
  */
 export const updateProfile = async (req, res) => {
     try {
-        const { name, phoneNo, gender, dob } = req.body;
-
+        const { name, phoneNo, gender, dateOfBirth } = req.body;
+        console.log(1)
         const updatedUser = await User.findByIdAndUpdate(
             req.user.id,
             {
@@ -70,7 +70,7 @@ export const updateProfile = async (req, res) => {
                     ...(name !== undefined && { name }),
                     ...(phoneNo !== undefined && { phoneNo }),
                     ...(gender !== undefined && { gender }),
-                    ...(dob !== undefined && { dob }),
+                    ...(dateOfBirth !== undefined && { dateOfBirth }),
                 },
             },
             {
@@ -78,13 +78,14 @@ export const updateProfile = async (req, res) => {
                 runValidators: true,
             }
         ).select("-password");
-
+        console.log(2)
         if (!updatedUser) {
             return res.status(404).json({
                 success: false,
                 message: "User not found.",
             });
-        }
+        }  
+        console.log(3)
 
         return res.status(200).json({
             success: true,

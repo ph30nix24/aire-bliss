@@ -84,6 +84,11 @@ const productSchema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
+
+    isWishlisted: {
+        type: Boolean,
+        default: false
+    },
     ratings: [
         {
             type: mongoose.Schema.Types.ObjectId,

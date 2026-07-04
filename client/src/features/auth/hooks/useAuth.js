@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../services/auth.context";
-import { emailVerifierApi, loginApi, registerApi } from "../services/auth.api";
+import { emailVerifierApi, loginApi, registerApi, updateUserApi } from "../services/auth.api";
 
 
 export const useAuth = () => {
@@ -67,5 +67,22 @@ export const useAuth = () => {
         }
     }
 
-    return { user, loading, handleLogin, handleSignUp, handleVerifyEmail, wishList, cartLength, addresses, orders }
+    const handleUserUpdate = async ({ name, phoneNo, gender, dateOfBirth }) => {
+        setLoading(true);
+        try {
+            const data = await updateUserApi({ name, phoneNo, gender, dateOfBirth});
+            setUser(data.user)
+            return {
+                success: data.success,
+                message: data.message,
+            }
+        }
+        catch (error) {
+            console.log("Error while updating user", error.message)
+        }
+        finally {
+            setLoading(false)
+        }
+    }
+    return { user, loading, handleLogin, handleSignUp, handleVerifyEmail, handleUserUpdate, wishList, cartLength, addresses, orders }
 }

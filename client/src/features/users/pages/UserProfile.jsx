@@ -90,7 +90,7 @@ const UserProfile = () => {
             </div>
 
             <div className='w-full py-30 flex max-lg:flex-col lg:gap-15  relative '>
-                {isEditPersonalInfo && <InfoForm isEditPersonalInfo={isEditPersonalInfo} setIsEditPersonalInfo={setIsEditPersonalInfo} />}
+                {isEditPersonalInfo && <InfoForm isEditPersonalInfo={isEditPersonalInfo} setIsEditPersonalInfo={setIsEditPersonalInfo} user={user} />}
                 <div className="w-full lg:w-3/10 px-10 lg:pr-15 py-10 pt-20 border-r-2 border-[#232221]/50">
 
                     <h1 className='font-subheading italic text-white/90 text-4xl'>Curation</h1>
@@ -165,20 +165,30 @@ const UserProfile = () => {
                         <div className='w-full flex gap-5 lg:gap-15 pt-5 lg:pt-10'>
                             <div className='w-1/2 pb-2 border-b-2 border-[#232221]/50'>
                                 <p className='uppercase text-xs font-body tracking-widest text-[#c09b25]'>phone number</p>
-                                <h1 className='text-lg pt-2 font-body tracking-widest text-white/80'><span className='pl-2'>{user?.phoneNo || '-'}</span></h1>
+                                <h1 className='text-lg pt-2 font-body tracking-widest text-white/80'><span className=''>{user?.phoneNo || ' -'}</span></h1>
                             </div>
 
 
                             <div className='w-1/2 pb-2 border-b-2 border-[#232221]/50'>
                                 <p className='uppercase text-xs font-body tracking-widest text-[#c09b25]'>Birth Date</p>
-                                <h1 className='text-lg pt-2 font-body tracking-widest text-white/80'> <span className='pl-2'>{user?.dateOfBirth || '-'}</span></h1>
+                                <h1 className='text-lg pt-2 font-body tracking-widest text-white/80'>
+                                    <span className=''>
+                                        {
+                                            new Date(user.dateOfBirth).toLocaleDateString("en-GB", {
+                                                month: "long",
+                                                year: "numeric",
+                                            }).trim()
+                                            || ' -'}
+
+                                    </span>
+                                </h1>
                             </div>
 
                         </div>
                         <div className='w-full flex pt-5 lg:gap-15 lg:pt-10'>
                             <div className='w-full lg:w-1/2 pb-2 border-b-2 border-[#232221]/50'>
                                 <p className='uppercase text-xs font-body tracking-widest text-[#c09b25]'>Gender</p>
-                                <h1 className='text-lg pt-2 font-body tracking-widest text-white/80'> <span className='pl-2'>{user?.gender || '-'}</span></h1>
+                                <h1 className='text-lg pt-2 font-body tracking-widest text-white/80'> <span className=''>{user?.gender || ' -'}</span></h1>
                             </div>
                             <div className='w-1/2 max-lg:hidden'>
 

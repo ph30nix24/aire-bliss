@@ -20,7 +20,7 @@ userRouter.get("/", authenticateToken, getUserProfile);
  * @access  Private
  */
 
-userRouter.put("/", authenticateToken, updateProfile);
+userRouter.patch("/", authenticateToken, updateProfile);
 
 
 
