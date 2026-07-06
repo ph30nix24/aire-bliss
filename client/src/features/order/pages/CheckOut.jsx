@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useProduct } from '../../shop/hooks/useProducts'
 import Loader from '../../../components/Loader'
 import { useMediaQuery } from 'react-responsive';
@@ -29,8 +29,9 @@ const CheckOut = ({ productId, quantity }) => {
     //         </div>
     //     )
     // }
-    let finalPrice = 867
-    let totalPrice = 1000
+
+    const [itemsQuantity, setItemsQuantity] = useState(quantity || 1)
+    
     let shippingCharge = 0
 
     const handleQuantityBtn = () => {
@@ -47,13 +48,7 @@ const CheckOut = ({ productId, quantity }) => {
         },
         "productName": "pink cheffron",
         "mainImage": "https://res.cloudinary.com/h82pr8mc/image/upload/v1782890168/public/temp/kt8ztsix8wjzt2o6cxmd.webp",
-        "previewImages": [
-            "https://res.cloudinary.com/h82pr8mc/image/upload/v1782890169/public/temp/qhe09m2ihvmm2kp9qmwl.webp",
-            "https://res.cloudinary.com/h82pr8mc/image/upload/v1782890171/public/temp/zqy4hxwhnqjkqvfuwuld.webp",
-            "https://res.cloudinary.com/h82pr8mc/image/upload/v1782890172/public/temp/oxdotlnis81gy9yyczlb.webp"
-        ],
-        "brand": "Aire Bliss",
-        "category": "perfume",
+
         "gender": "female",
         "price": 499,
         "discount": 100,
@@ -124,14 +119,13 @@ const CheckOut = ({ productId, quantity }) => {
                         <div className='my-8 lg:my-10 p-5 w-full h-fit bg-[#1C1B1B] rounded'>
                             <div className='flex justify-between pb-2'>
                                 <p className='text-xs tracking-widest uppercase font-body text-yellow-400 font-semibold'>Free shipping Eligibilty</p>
-                                {finalPrice > 999 ? (<p className='text-xs tracking-widest font-body text-white/70 font-semibold'>Free Shipping Applied!</p>) : (<div>
+                                {(product.price - product.discount) > 999 ? (<p className='text-xs tracking-widest font-body text-white/70 font-semibold'>Free Shipping Applied!</p>) : (<div>
 
-                                    <p className='text-xs tracking-widest font-body text-white/70 font-semibold'><span className='max-lg:hidden'>Add </span>&#x20B9;{(999 - totalPrice).toFixed(2)}<span className='max-lg:hidden'>more for Free Shipping!</span> <span className='lg:hidden uppercase'>Away</span></p>
+                                    <p className='text-xs tracking-widest font-body text-white/70 font-semibold'><span className='max-lg:hidden'>Add </span>&#x20B9;{(999 - product.price).toFixed(2)}<span className='max-lg:hidden'>more for Free Shipping!</span> <span className='lg:hidden uppercase'>Away</span></p>
                                 </div>)}
                             </div>
                             <div className='w-full h-1 bg-white/20 rounded-full relative mt-1 '>
-                                {finalPrice > 999 ? (<div className='size-full absolute top-0 left-0 bg-yellow-400 rounded-full'></div>) : (<div className={`h-full absolute left-0 top-0 bg-yellow-400  rounded-full ${finalPrice > 999 && 'w-full'}`} style={{ width: `${(totalPrice / 999) * 100}%` }}></div>)}
-
+                                {(product.price - product.discount) > 999 ? (<div className='size-full absolute top-0 left-0 bg-yellow-400 rounded-full'></div>) : (<div className={`h-full absolute left-0 top-0 bg-yellow-400  rounded-full ${(product.price - product.discount) > 999 && 'w-full'}`} style={{ width: `${(product.price / 999) * 100}%` }}></div>)}
                             </div>
 
                         </div>
@@ -143,19 +137,19 @@ const CheckOut = ({ productId, quantity }) => {
                             <div className='w-[calc(100%-180px)] h-full flex flex-col justify-between relative z-5'>
                                 <div className='w-full h-fit flex justify-between items-start'>
                                     <div className=''>
-                                        <h1 className='font-subheading capitalize text-xl text-white/90 font-medium'>
+                                        <h1 className='font-subheading capitalize text-3xl text-white/90 font-medium'>
                                             {product.productName}
                                         </h1>
-                                        <p className='text-sm pt-1 text-white/70 font-body'>Size: 50ml</p>
+                                        <p className='text-sm pt-1 text-white/70 font-body'>Size: {product.size}</p>
                                     </div>
                                     <p className='text-yellow-400/90 font-body tracking-wider font-medium'>&#x20B9; {product.price}.00</p>
                                 </div>
 
                                 <div className='w-full h-fit flex justify-between items-center'>
                                     <div className='py-2 px-3 border border-[#777]/40 flex gap-3 items-center'>
-                                        <FaMinus className='size-3 hover:text-yellow-400/90 cursor-pointer' onClick={() => handleQuantityBtn(product._id, product.quantity - 1)} />
-                                        <p className='font-body text-white/80 px-4'>{product.quantity}</p>
-                                        <FaPlus className='size-3 hover:text-yellow-400/90 cursor-pointer' onClick={() => handleQuantityBtn(product._id, product.quantity + 1)} />
+                                        <FaMinus className={`size-3 hover:text-yellow-400/90 cursor-pointer ${itemsQuantity === 1 && `pointer-events-none cursor-not-allowed`}`} onClick={() => setItemsQuantity(prevItemQuantity => prevItemQuantity - 1)}  />
+                                        <p className='font-body text-white/80 px-4'>{itemsQuantity}</p>
+                                        <FaPlus className='size-3 hover:text-yellow-400/90 cursor-pointer' onClick={() => setItemsQuantity(prevItemQuantity => prevItemQuantity + 1)} />
                                     </div>
 
                                     <div className='center w-fit gap-5'>
@@ -183,7 +177,7 @@ const CheckOut = ({ productId, quantity }) => {
                                             <h1 className='font-subheading capitalize text-[5.5vw] text-white/90 font-medium '>
                                                 {product.productName}
                                             </h1>
-                                            <p className='text-sm text-white/70 font-body'>Size: 50ml</p>
+                                            <p className='text-sm text-white/70 font-body'>Size: {product.size}</p>
                                             <p className='text-yellow-400/90 font-body text-sm tracking-wider font-medium'>&#x20B9; {product.price}.00</p>
                                         </div>
                                         <div className='w-fit flex items-center gap-2 py-1.5 text-red-400/80 cursor-pointer hover:text-red-500/90 '>
@@ -193,9 +187,9 @@ const CheckOut = ({ productId, quantity }) => {
 
                                     <div className='w-full h-fit flex justify-between items-center'>
                                         <div className='py-2 px-3 border border-[#777]/40 flex gap-3 items-center'>
-                                            <FaMinus className='size-2 hover:text-yellow-400/90 cursor-pointer' onClick={() => handleQuantityBtn(product._id, product.quantity - 1)} />
-                                            <p className='font-body text-white/80 text-xs px-2'>{product.quantity}</p>
-                                            <FaPlus className='size-2 hover:text-yellow-400/90 cursor-pointer' onClick={() => handleQuantityBtn(product._id, product.quantity + 1)} />
+                                            <FaMinus className={`size-2 hover:text-yellow-400/90 cursor-pointer ${itemsQuantity === 1 && `pointer-events-none cursor-not-allowed!`}`} onClick={() => setItemsQuantity(prevItemsQuantity => prevItemsQuantity - 1)}  />
+                                            <p className='font-body text-white/80 text-xs px-2'>{itemsQuantity}</p>
+                                            <FaPlus className='size-2 hover:text-yellow-400/90 cursor-pointer' onClick={() => setItemsQuantity(prevItemsQuantity => prevItemsQuantity + 1)} />
                                         </div>
 
                                         <div className='center w-fit gap-5'>

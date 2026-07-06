@@ -138,7 +138,7 @@ const Cart = () => {
                                                         <h1 className='font-subheading capitalize text-[5.5vw] text-white/90 font-medium '>
                                                             {product.product.productName}
                                                         </h1>
-                                                        <p className='text-sm text-white/70 font-body'>Size: 50ml</p>
+                                                        <p className='text-sm text-white/70 font-body'>Size: {product.product.size}</p>
                                                         <p className='text-yellow-400/90 font-body text-sm tracking-wider font-medium'>&#x20B9; {product.product.price}.00</p>
                                                     </div>
                                                     <div className='w-fit flex items-center gap-2 py-1.5 text-red-400/80 cursor-pointer hover:text-red-500/90 '>
@@ -176,7 +176,7 @@ const Cart = () => {
                                                         <h1 className='font-subheading capitalize text-3xl text-white/90 font-medium'>
                                                             {product.product.productName}
                                                         </h1>
-                                                        <p className='text-sm pt-1 text-white/70 font-body'>Size: 50ml</p>
+                                                        <p className='text-sm pt-1 text-white/70 font-body'>Size: {product.product.size}</p>
                                                     </div>
                                                     <p className='text-yellow-400/90 font-body tracking-wider font-medium'>&#x20B9; {product.product.price}.00</p>
                                                 </div>
