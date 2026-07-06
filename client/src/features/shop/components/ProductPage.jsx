@@ -17,17 +17,19 @@ import { BsBox } from 'react-icons/bs';
 import { RiCustomerService2Fill } from 'react-icons/ri';
 import { useUserData } from '../../users/hooks/useUserData';
 import toast from 'react-hot-toast';
-
+import { useAuth } from '../../auth/hooks/useAuth';
+import { Navigate, useLocation } from 'react-router';
 const ProductPage = () => {
   const { id } = useParams();
   const { product, products, handleSetProduct } = useProduct();
-  const { handleAddItemInWishlist } = useUserData();
+  const { user } = useAuth()
+  const { handleAddItemInWishlist, handleAddItemCart } = useUserData();
   useEffect(() => {
     if (id) {
       handleSetProduct(id);
     }
   }, [id]);
-
+  const location = useLocation()
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const startX = useRef(0);
   const isDragging = useRef(false);
@@ -72,6 +74,10 @@ const ProductPage = () => {
   const [isWishlisted, setIsWishlisted] = useState(false)
   const handleWishlistBtn = async (productId) => {
     try {
+      if (!user) {
+        toast.error('User is not Logged in')
+        return <Navigate to="/auth/login" replace state={{ from: location.pathname }} />;
+      }
       const data = await handleAddItemInWishlist(productId);
       if (!data.success) {
         toast.error(data.message);
@@ -84,6 +90,27 @@ const ProductPage = () => {
       console.error('Error adding item to cart:', error);
     }
   }
+
+  const [quantity, setQuantity] = useState(1)
+
+  const handleAddCartBtn = async (productId, quantity) => {
+    try {
+      if (!user) {
+        toast.error('User is not Logged in')
+        return <Navigate to="/auth/login" replace state={{ from: location.pathname }} />;
+      }
+      const data = await handleAddItemCart(productId, quantity);
+      if (!data.success) {
+        toast.error(data.message);
+        throw new Error(data.message);
+      }
+      toast.success(data.message);
+    } catch (error) {
+      toast.error('Failed to add item to cart. Please try again later.');
+      console.error('Error adding item to cart:', error);
+    }
+  }
+
 
 
   const [isAdditionalClicked, setSsAdditionalClicked] = useState(false);
@@ -143,7 +170,7 @@ const ProductPage = () => {
                 <p className='pt-3 line-through text-white/60 font-jet text-xs'>MRP: ₹ {product.price}</p>
               </div>
 
-              {isWishlisted ? <GoHeartFill /> : <GoHeart onClick={() => handleWishlistBtn(product._id)}/>}
+              {isWishlisted ? <GoHeartFill /> : <GoHeart onClick={() => handleWishlistBtn(product._id)} />}
 
             </div>
 
@@ -339,7 +366,7 @@ const ProductPage = () => {
 
   return (
     <main className='bg-[#131313] relative'>
-      <Navbar additional={`lg:py-5! lg:px-35! bg-transparent! border-none ${isScrolled && 'backdrop-blur-md!'} z-50!`} />
+      <Navbar additional={`lg:py-2! lg:mt-3 lg:px-35! bg-transparent! border-none ${isScrolled && 'backdrop-blur-md!'} z-50!`} />
 
       <img src={product.mainImage} className='absolute w-full h-[95vh] object-cover z-2 opacity-20' alt="" />
       <div className='w-full h-[95vh] bg-radial-[at_center_top] from-[#131313]/80 to-[#131313] absolute to-70% z-4'></div>
@@ -371,7 +398,6 @@ const ProductPage = () => {
 
             <h3 className='text-[5vw] lg:text-sm font-body text-white/60 tracking-wide font-extralight line-through'><span className='font-subheading font-light'>₹</span> {(product.price).toFixed(2)}</h3>
 
-
           </div>
 
           <p className='font-jet text-sm  text-white/60 my-3' >Inclusive of all taxes</p>
@@ -383,11 +409,11 @@ const ProductPage = () => {
 
           <div className='w-full mt-10 flex gap-5'>
             <div className='py-4 px-5 border border-[#777]/20 flex gap-3 items-center w-fit rounded'>
-              <FaMinus className='size-3 hover:text-yellow-400/90 text-white/60 cursor-pointer' />
-              <p className='font-jet text-white/80 text-xs px-3'>1</p>
-              <FaPlus className='size-3 hover:text-yellow-400/90 text-white/60 cursor-pointer' />
+              <FaMinus className={`size-3 hover:text-yellow-400/90 text-white/60 cursor-pointer ${quantity === 1 && `pointer-events-none cursor-not-allowed`}`} onClick={() => setQuantity(prevQuantity => prevQuantity - 1)} />
+              <p className='font-jet text-white/80 text-xs px-3'>{quantity}</p>
+              <FaPlus className='size-3 hover:text-yellow-400/90 text-white/60 cursor-pointer' onClick={() => setQuantity(prevQuantity => prevQuantity + 1)} />
             </div>
-            <button className='w-full bg-yellow-300/90 rounded flex gap-4 py-3 center text-[#131313] cursor-pointer hover:bg-yellow-300'>
+            <button className='w-full bg-yellow-300/90 rounded flex gap-4 py-3 center text-[#131313] cursor-pointer hover:bg-yellow-300' onClick={() => handleAddCartBtn(id, quantity)}>
               <CiShoppingCart className='size-5' />
               <span className='text-sm font-jet uppercase font-light'>Add to cart</span>
             </button>
@@ -395,7 +421,7 @@ const ProductPage = () => {
 
           <div className='w-full flex gap-5 mt-10 pt-5 border-t border-[#777]/20'>
             <div className='w-full h-full flex items-center gap-2  py-3'>
-              < CiDeliveryTruck className='size-9  text-yellow-500/70 p-2 rounded-full bg-[#222]/40 center' />
+              <CiDeliveryTruck className='size-9  text-yellow-500/70 p-2 rounded-full bg-[#222]/40 center' />
               <div className='text-white font-body pr-5'>
                 <h1 className='text-xs uppercase'>Free Shipping</h1>
                 <p className='text-white/80 text-xs mt-1 font-light tracking-wide'>On all orders over ₹ 999</p>
@@ -410,7 +436,6 @@ const ProductPage = () => {
             </div>
           </div>
         </div>
-
       </div>
 
       <div className='w-full flex gap-10 items-center px-35 mt-30 pb-20'>

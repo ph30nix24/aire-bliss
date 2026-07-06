@@ -98,10 +98,10 @@ export const useUserData = () => {
         }
     }
 
-    const handleAddItemCart = async (productID) => {
+    const handleAddItemCart = async (productID, quantity) => {
         setCartLoading(true);
         try {
-            const data = await addItemToCart(productID);
+            const data = await addItemToCart(productID, quantity);
             setCart(data.cart);
             console.log(data.cart)
             return {

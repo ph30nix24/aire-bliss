@@ -39,10 +39,10 @@ const Cart = () => {
         )
     }
 
-    const handleQuantityBtn = async(productId, quantity) => {
+    const handleQuantityBtn = async (productId, quantity) => {
         try {
             const data = await handleCartItemQuantity(productId, quantity);
-        if (!data.success) {
+            if (!data.success) {
                 toast.error(data.message);
                 throw new Error(data.message);
             }
@@ -51,7 +51,7 @@ const Cart = () => {
             toast.error('Failed to Add quantity in Cart. Please try again later.');
             console.error('Error adding quantity in cart:', error);
         }
-    } 
+    }
 
 
 
@@ -135,8 +135,8 @@ const Cart = () => {
                                             <div className='w-[calc(100%-132px)] h-full flex flex-col justify-between relative z-5'>
                                                 <div className='w-full h-fit flex justify-between items-start'>
                                                     <div className=''>
-                                                        <h1 className='font-subheading capitalize text-[6vw] text-white/90 font-medium '>
-                                                            {product.product.name}
+                                                        <h1 className='font-subheading capitalize text-[5.5vw] text-white/90 font-medium '>
+                                                            {product.product.productName}
                                                         </h1>
                                                         <p className='text-sm text-white/70 font-body'>Size: 50ml</p>
                                                         <p className='text-yellow-400/90 font-body text-sm tracking-wider font-medium'>&#x20B9; {product.product.price}.00</p>
@@ -148,9 +148,9 @@ const Cart = () => {
 
                                                 <div className='w-full h-fit flex justify-between items-center'>
                                                     <div className='py-2 px-3 border border-[#777]/40 flex gap-3 items-center'>
-                                                        <FaMinus className='size-2 hover:text-yellow-400/90 cursor-pointer' onClick={() => handleQuantityBtn(product.product._id, product.quantity - 1)}/>
+                                                        <FaMinus className='size-2 hover:text-yellow-400/90 cursor-pointer' onClick={() => handleQuantityBtn(product.product._id, product.quantity - 1)} />
                                                         <p className='font-body text-white/80 text-xs px-2'>{product.quantity}</p>
-                                                        <FaPlus className='size-2 hover:text-yellow-400/90 cursor-pointer' onClick={() => handleQuantityBtn(product.product._id, product.quantity + 1)}/>
+                                                        <FaPlus className='size-2 hover:text-yellow-400/90 cursor-pointer' onClick={() => handleQuantityBtn(product.product._id, product.quantity + 1)} />
                                                     </div>
 
                                                     <div className='center w-fit gap-5'>
@@ -183,9 +183,9 @@ const Cart = () => {
 
                                                 <div className='w-full h-fit flex justify-between items-center'>
                                                     <div className='py-2 px-3 border border-[#777]/40 flex gap-3 items-center'>
-                                                        <FaMinus className='size-3 hover:text-yellow-400/90 cursor-pointer' onClick={() => handleQuantityBtn(product.product._id, product.quantity - 1)}/>
+                                                        <FaMinus className='size-3 hover:text-yellow-400/90 cursor-pointer' onClick={() => handleQuantityBtn(product.product._id, product.quantity - 1)} />
                                                         <p className='font-body text-white/80 px-4'>{product.quantity}</p>
-                                                        <FaPlus className='size-3 hover:text-yellow-400/90 cursor-pointer' onClick={() => handleQuantityBtn(product.product._id, product.quantity + 1)}/>
+                                                        <FaPlus className='size-3 hover:text-yellow-400/90 cursor-pointer' onClick={() => handleQuantityBtn(product.product._id, product.quantity + 1)} />
                                                     </div>
 
                                                     <div className='center w-fit gap-5'>
@@ -257,7 +257,7 @@ const Cart = () => {
                                         // 2. Exclude products that are already in the cart
                                         !cart.products.some(cartItem => cartItem.product._id.toString() === product._id.toString())
                                     ).slice(0, 3).map((product, index) => (
-                                        <ShopItemCard product={product} width={`w-1/3`} height={`lg:h-[60vh]`} key={index} />
+                                        <ShopItemCard product={product} width={`w-3/5 lg:w-1/3`} height={`lg:h-[60vh]`} key={index} />
                                     ))}
                                 </div>
                             </div>
@@ -391,6 +391,21 @@ const Cart = () => {
                             )
                         }
                     </div>
+
+                    {isMobile && (
+                        <div className="fixed bottom-0 left-0 w-full z-50 h-fit px-5 bg-[#131313]/20 backdrop-blur-lg py-5" >
+                            <a href="/checkout/address">
+                                <button className='w-full mb-2 px-10 py-3 bg-yellow-400/90 hover:bg-yellow-400 center gap-3 text-[#111] cursor-pointer transition-smooth'>
+                                    <IoIosLock className='size-5' />
+                                    <p className='font-jet text-xs uppercase tracking-widest font-medium'>Proceed to checkout</p>
+                                </button>
+                            </a>
+
+                            <a href="/shop">
+                                <button className="w-full font-jet text-xs uppercase">continue shopping</button>
+                            </a>
+                        </div>
+                    )}
                 </div>
             )}
 

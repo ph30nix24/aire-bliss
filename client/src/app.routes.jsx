@@ -24,6 +24,7 @@ import UserLayout from "./Layouts/UserLayout";
 import CheckoutLayout from "./Layouts/CheckoutLayout";
 import AdminLayout from "./Layouts/AdminLayout";
 import { AdminProvider } from "./features/admin/services/admin.context";
+import CheckOut from "./features/order/pages/CheckOut";
 
 
 export const router = createBrowserRouter([
@@ -98,8 +99,12 @@ export const router = createBrowserRouter([
     // Checkout
     {
         path: "/checkout",
-        element: <CheckoutLayout />,    
+        element: <CheckoutLayout />,
         children: [
+            {
+                index: true,
+                element: <CheckOut />
+            },
             {
                 path: "address",
                 element: <OrderAddress />,

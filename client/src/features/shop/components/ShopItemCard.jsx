@@ -44,7 +44,7 @@ const ShopItemCard = ({ product, width, height }) => {
                 </a>
 
                 <button className='absolute text-2xl top-0 right-0 translate-y-1/2 -translate-x-1/2 cursor-pointer text-red-500 p-1.5 rounded-full backdrop-blur-sm' onClick={() => handleWishlistBtn(product._id)}>
-                    {product.isWishlisted || isWishlisted ?  <GoHeartFill /> : <GoHeart />}
+                    {isWishlisted ?  <GoHeartFill /> : <GoHeart />}
                 </button>
 
                 <div className='w-full h-fit pt-2 lg:pt-5 '>

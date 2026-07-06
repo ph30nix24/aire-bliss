@@ -85,6 +85,8 @@ export const getCart = async (req, res) => {
 export const addCart = async (req, res) => {
     try {
         const { productId } = req.params;
+        const { quantity } = req.body;
+
 
         const product = await Product.findById(productId);
 
@@ -109,11 +111,11 @@ export const addCart = async (req, res) => {
         );
 
         if (existingProduct) {
-            existingProduct.quantity += 1;
+            existingProduct.quantity += quantity || 1;
         } else {
             cart.products.push({
                 product: productId,
-                quantity: 1,
+                quantity: quantity || 1,
             });
         }
 
