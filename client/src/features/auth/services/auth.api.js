@@ -26,7 +26,6 @@ export const loginApi = async ({ email, password }) => {
             withCredentials: true
         });
         console.log(res.data.message);
-        console.log(res.data);
         return res.data;
     }
     catch (error) {
@@ -43,7 +42,6 @@ export const emailVerifierApi = async (otp) => {
         const res = await axios.put(`${Auth_API}/verify-email`, { code: otp}, {
             withCredentials: true
         });
-        console.log(res.data)
         return res.data
     }
     catch (error) {

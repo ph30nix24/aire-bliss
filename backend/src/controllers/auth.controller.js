@@ -20,7 +20,6 @@ import BlackList from '../models/blackList.Model.js'
 export const loginController = async (req, res) => {
     try {
         const { email, password } = req.body;
-        console.log(email, password)
 
 
         if (!email || !password) {
@@ -45,7 +44,6 @@ export const loginController = async (req, res) => {
         })
         
         const totalCartLength = cart?.products.length || 0
-        console.log(7)
         const wishlist = await Wishlist.findOne({
             user: user._id
         });

@@ -25,6 +25,7 @@ import CheckoutLayout from "./Layouts/CheckoutLayout";
 import AdminLayout from "./Layouts/AdminLayout";
 import { AdminProvider } from "./features/admin/services/admin.context";
 import CheckOut from "./features/order/pages/CheckOut";
+import { OrderProvider } from "./features/order/services/order.context";
 
 
 export const router = createBrowserRouter([
@@ -99,7 +100,11 @@ export const router = createBrowserRouter([
     // Checkout
     {
         path: "/checkout",
-        element: <CheckoutLayout />,
+        element: (
+            <OrderProvider>
+                <CheckoutLayout />
+            </OrderProvider>
+        ),
         children: [
             {
                 path: ":id",
@@ -119,6 +124,7 @@ export const router = createBrowserRouter([
             },
         ],
     },
+    
     {
         path: "/admin",
         element: (

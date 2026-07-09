@@ -34,7 +34,6 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log(formData)
             const loginResult = await handleLogin({ email: formData.email, password: formData.password })
             if(!loginResult.success) {
                 throw new Error(loginResult.message);

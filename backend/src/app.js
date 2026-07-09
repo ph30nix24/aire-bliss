@@ -2,8 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from "cookie-parser"
 import morgan from 'morgan';
-
-
 const app = express();
 
 app.use(cors({
@@ -11,6 +9,9 @@ app.use(cors({
     credentials: true
 }))
 
+
+
+// app.use(cors())
 
 app.use(morgan('dev'))
 app.use(cookieParser());
@@ -43,5 +44,9 @@ app.use("/aire-bliss/user/wishlist", wishListRouter)
 
 import addressesRouter from './routes/addresses.routes.js';
 app.use('/aire-bliss/user/address', addressesRouter);
+
+
+import orderRouter from './routes/order.routes.js';
+app.use('/aire-bliss/order', orderRouter);
 
 export default app;
