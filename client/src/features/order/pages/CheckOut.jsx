@@ -10,72 +10,64 @@ import ShopItemCard from '../../shop/components/ShopItemCard';
 import { CiDeliveryTruck, CiLock } from 'react-icons/ci';
 import { RiCustomerService2Fill } from 'react-icons/ri';
 import { IoIosLock } from 'react-icons/io';
+import { useUserData } from '../../users/hooks/useUserData';
+import toast from 'react-hot-toast';
+import { useParams } from 'react-router';
 
 
-const CheckOut = ({ productId, quantity }) => {
+const CheckOut = () => {
+    const { productId } = useParams();
     const isMobile = useMediaQuery({ maxWidth: 768 });
     const { products } = useProduct()
+    const { setOrderItems } = useUserData();
+    const { product, handleSetProduct, loading } = useProduct()
 
-    // const { product, handleSetProduct, loading } = useProduct()
+    useEffect(() => {
+        handleSetProduct(productId)
+    })
 
-    // useEffect(() => {
-    //     handleSetProduct(product)
-    // })
+    
 
-    // if(loading && !product) {
-    //     return (
-    //         <div className='w-full h-screen center bg-[#131313]'>
-    //             <Loader />
-    //         </div>
-    //     )
-    // }
-
-    const [itemsQuantity, setItemsQuantity] = useState(quantity || 1)
+    const [itemsQuantity, setItemsQuantity] = useState(1)
     
     let shippingCharge = 0
 
-    const handleQuantityBtn = () => {
-
-    }
-
     const handleRemoveCartItem = () => {
-
+        
     }
 
-    const product = {
-        "_id": {
-            "$oid": "6a44bebde03d168f65ba6cb4"
-        },
-        "productName": "pink cheffron",
-        "mainImage": "https://res.cloudinary.com/h82pr8mc/image/upload/v1782890168/public/temp/kt8ztsix8wjzt2o6cxmd.webp",
-
-        "gender": "female",
-        "price": 499,
-        "discount": 100,
-        "stock": 40,
-        "sku": "AB-000001",
-        "size": "30ml",
-        "fragranceNotes": [
-            "Pink Peony",
-            " Bergamot",
-            " Red Berries"
-        ],
-        "shortDescription": "Pink Chiffon by Aire Bliss is a fresh floral perfume with a soft, elegant scent that feels light yet captivating. Perfect for daily wear, dates, work, or special occasions.",
-        "longDescription": "Indulge in the delicate elegance of Pink Chiffon by Aire Bliss, a fragrance inspired by blooming gardens and timeless femininity. Crafted for women who embrace grace and confidence, this enchanting perfume opens with a refreshing burst of juicy red berries and sparkling bergamot, creating an uplifting first impression. As the fragrance unfolds, a romantic bouquet of pink peony, velvety rose petals, and elegant jasmine fills the air with irresistible floral charm.\r\n\r\nThe scent settles into a warm and comforting base of creamy vanilla, soft white musk, and smooth sandalwood, leaving behind a sophisticated trail that lingers beautifully throughout the day. Light yet captivating, Pink Chiffon is designed to complement every moment—from busy workdays and casual outings to romantic dinners and special celebrations.\r\n\r\nIts elegant floral composition strikes the perfect balance between freshness and warmth, making it an ideal signature scent for women who appreciate refined, long-lasting fragrances. Encased in a beautifully designed bottle, Pink Chiffon reflects the beauty, confidence, and charm of the modern woman.",
-        "featured": true,
-        "bestseller": true,
-        "quantity": 1,
-        "isActive": true,
-        "ratings": [],
-        "createdAt": {
-            "$date": "2026-07-01T07:16:13.613Z"
-        },
-        "updatedAt": {
-            "$date": "2026-07-01T07:16:13.613Z"
-        },
-        "__v": 0,
-        "averageRating": 4.6
+    const handleSubmit = async (productId) => {
+        try {
+            await setOrderItems((prev) => prev.includes(productId))
+        } catch {
+            toast.error("Error while saving the product")
+        }
     }
+
+
+    if(loading && !product) {
+        return (
+            <div className='w-full h-screen center bg-[#131313]'>
+                <Loader />
+            </div>
+        )
+    }
+
+    
+
+    // const product = {
+    //     "_id": {
+    //         "$oid": "6a44bebde03d168f65ba6cb4"
+    //     },
+    //     "productName": "pink cheffron",
+    //     "mainImage": "https://res.cloudinary.com/h82pr8mc/image/upload/v1782890168/public/temp/kt8ztsix8wjzt2o6cxmd.webp",
+    //     "price": 499,
+    //     "discount": 100,
+    //     "sku": "AB-000001",
+    //     "size": "30ml",
+    // }
+
+
     return (
         <main className='bg-[#131313] bg-[radial-gradient(circle_at_50%_0%,#1a1a1a_0%,transparent_70%)]'>
             <div className='w-full lg:w-310 mx-auto pt-25 px-5 lg:pt-27 pb-15 text-white/80'>
@@ -242,7 +234,7 @@ const CheckOut = ({ productId, quantity }) => {
                                 </div>
 
                                 <a href="/checkout/address">
-                                    <button className='w-full py-4 bg-yellow-400/90 hover:bg-yellow-400 center gap-3 text-[#111] cursor-pointer transition-smooth'>
+                                    <button className='w-full py-4 bg-yellow-400/90 hover:bg-yellow-400 center gap-3 text-[#111] cursor-pointer transition-smooth' onClick={() => handleSubmit(productId)}>
                                         <IoIosLock className='size-5' />
                                         <p className='font-jet text-xs uppercase tracking-widest font-medium'>Proceed to checkout</p>
                                     </button>

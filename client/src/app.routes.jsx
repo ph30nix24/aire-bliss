@@ -102,7 +102,7 @@ export const router = createBrowserRouter([
         element: <CheckoutLayout />,
         children: [
             {
-                index: true,
+                path: ":id",
                 element: <CheckOut />
             },
             {

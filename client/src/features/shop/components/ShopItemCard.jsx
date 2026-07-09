@@ -2,16 +2,24 @@ import React, { useState } from 'react'
 import StarRating from '../../home/components/StarRating'
 import { GoHeart, GoHeartFill } from "react-icons/go";
 import { useUserData } from '../../users/hooks/useUserData';
+import { useAuth } from '../../auth/hooks/useAuth'
 import toast from 'react-hot-toast';
+import { Navigate, useLocation } from 'react-router';
 
 const ShopItemCard = ({ product, width, height }) => {
+    const { user } = useAuth()
+    const location = useLocation()
     const { handleAddItemCart, handleAddItemInWishlist } = useUserData()
     const [isWishlisted, setIsWishlisted] = useState(false)
     const handleAddToCart = async (productID) => {
         try {
+            if (!user) {
+                toast.error('User is not Logged in')
+                return <Navigate to="/auth/login" replace state={{ from: location.pathname }} />;
+            }
             const data = await handleAddItemCart(productID);
             if (!data.success) {
-                toast.error(data.message);
+
                 throw new Error(data.message);
             }
             toast.success(data.message);
@@ -23,6 +31,11 @@ const ShopItemCard = ({ product, width, height }) => {
 
     const handleWishlistBtn = async (productId) => {
         try {
+            if (!user) {
+                toast.error('User is not Logged in')
+                return <Navigate to="/auth/login" replace state={{ from: location.pathname }} />;
+            }
+
             const data = await handleAddItemInWishlist(productId);
             if (!data.success) {
                 toast.error(data.message);
@@ -44,7 +57,7 @@ const ShopItemCard = ({ product, width, height }) => {
                 </a>
 
                 <button className='absolute text-2xl top-0 right-0 translate-y-1/2 -translate-x-1/2 cursor-pointer text-red-500 p-1.5 rounded-full backdrop-blur-sm' onClick={() => handleWishlistBtn(product._id)}>
-                    {isWishlisted ?  <GoHeartFill /> : <GoHeart />}
+                    {isWishlisted ? <GoHeartFill /> : <GoHeart />}
                 </button>
 
                 <div className='w-full h-fit pt-2 lg:pt-5 '>

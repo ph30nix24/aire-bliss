@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { useWindowScroll } from 'react-use';
 import Navbar from '../../../components/Navbar';
 import StarRating from '../../home/components/StarRating';
@@ -110,6 +110,11 @@ const ProductPage = () => {
       console.error('Error adding item to cart:', error);
     }
   }
+  const navigate = useNavigate()
+  const handleBuyNowBtn = (productId) => {
+    console.log("clicked")
+    navigate(`/checkout/${productId}`);
+  }
 
 
 
@@ -128,7 +133,6 @@ const ProductPage = () => {
 
   const allImages = [product.mainImage, ...(product.previewImages ?? [])];
 
-  console.log(product)
   if (isMobile) {
     return (
       <main className='bg-[#131313] relative'>
@@ -230,11 +234,11 @@ const ProductPage = () => {
             <p className='font-body text-sm'>Expected Delivery Saturday, 4 July on your preferred address.</p>
             <p className='font-body text-sm'>Deliver to Delhi 110086</p>
 
-            <button className='w-full bg-yellow-300/90 rounded flex gap-4 py-3 center text-[#131313] cursor-pointer hover:bg-yellow-300 mt-5'>
+            <button className='w-full bg-yellow-300/90 rounded flex gap-4 py-3 center text-[#131313] cursor-pointer hover:bg-yellow-300 mt-5' onClick={() => handleAddCartBtn(id, quantity)}>
               <CiShoppingCart className='size-5' />
               <span className='text-sm font-jet uppercase font-light'>Add to cart</span>
             </button>
-            <button className='w-full bg-orange-400/90 rounded flex gap-4 py-3 center text-[#131313] cursor-pointer hover:bg-yellow-300 mt-3'>
+            <button className='w-full bg-orange-400/90 rounded flex gap-4 py-3 center text-[#131313] cursor-pointer hover:bg-yellow-300 mt-3' onClick={(() => handleBuyNowBtn(id))} >
               <span className='text-sm font-jet uppercase font-light'>Buy Now</span>
               <TbArrowBigRightLine className='size-4' />
             </button>

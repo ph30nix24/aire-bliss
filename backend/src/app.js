@@ -2,19 +2,15 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from "cookie-parser"
 import morgan from 'morgan';
+
+
 const app = express();
 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: process.env.FRONTEND_URI,
     credentials: true
 }))
-// app.use(cors({
-//     origin: "https://aire-bliss.vercel.app",
-//     credentials: true
-// }))
 
-
-// app.use(cors())
 
 app.use(morgan('dev'))
 app.use(cookieParser());
