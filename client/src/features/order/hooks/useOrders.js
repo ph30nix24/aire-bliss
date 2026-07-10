@@ -1,10 +1,10 @@
 import { useContext } from "react";
-import { orderContext } from "../services/order.context";
-import { getOrdersApi } from "../services/order.apis";
+import { OrderContext } from "../services/order.context";
+import { draftOrderApi, getOrdersApi, setShippingAddressApi } from "../services/order.apis";
 
 
 export const useOrders = () => {
-    const context = useContext(orderContext)
+    const context = useContext(OrderContext)
     if (!context) {
         throw new Error("useOrders must be used within an OrderProvider");
     }
@@ -29,5 +29,42 @@ export const useOrders = () => {
         }
     }
 
-    return { orders, startOrResumeOrder, orderLoading, handleGetAllOrders}
+    const handleAddDraftOrder = async ({ items, source }) => {
+        setOrderLoading(true);
+        try {
+            const data = await draftOrderApi({ items, source })
+            setStartOrResumeOrder(data.order)
+            return {
+                success: data.success,
+                message: data.message,
+            }
+        }
+        catch (error) {
+            console.log("Error while drafting the orders", error.message)
+        }
+        finally {
+            setOrderLoading(false);
+        }
+    }
+
+
+    const handleSetShippingAddress = async ({ id, addressId }) => {
+        setOrderLoading(true);
+        try {
+            const data = await setShippingAddressApi({ id, addressId })
+            setStartOrResumeOrder(data.order)
+            return {
+                success: data.success,
+                message: data.message,
+            }
+        }
+        catch (error) {
+            console.log("Error while drafting the orders", error.message)
+        }
+        finally {
+            setOrderLoading(false);
+        }
+    }
+
+    return { orders, startOrResumeOrder, orderLoading, handleGetAllOrders, handleAddDraftOrder, handleSetShippingAddress }
 }

@@ -8,12 +8,13 @@ import Loader from '../../../components/Loader';
 import { GoPlus } from 'react-icons/go';
 import AddressForm from '../../users/component/AddressForm';
 import toast from 'react-hot-toast';
+import { useOrders } from '../hooks/useOrders';
+import { useNavigate, useParams } from 'react-router';
 
 const OrderAddress = () => {
-
-    const { addresses, addressLoading, handleGetAddress, handleDeleteAddress, setDeliveryAddress } = useUserData()
+    const { addresses, addressLoading, handleGetAddress, handleDeleteAddress} = useUserData()
     const [isFormClick, setIsFormClick] = useState(false)
-
+    const navigate = useNavigate()
 
     useEffect(() => {
         // The condition goes safely inside the hook
@@ -21,6 +22,10 @@ const OrderAddress = () => {
             handleGetAddress();
         }
     }, [addresses.length]);
+
+
+    const { startOrResumeOrder, handleSetShippingAddress } = useOrders();
+
 
     const handleRemovebtn = async (addressId) => {
         try {
@@ -36,9 +41,24 @@ const OrderAddress = () => {
         }
     }
 
-    // const handleUseBtn = async (addressId) => {
-    //     try 
-    // }
+    const [isDeliveryOrderSet, setIsDeliveryOrderSet] = useState(false);
+
+    const handleUseBtn = async (addressId) => {
+        try {
+            const data = await handleSetShippingAddress({ id: startOrResumeOrder._id, addressId})
+             if (!data.success) {
+                toast.error(data.message);
+                throw new Error(data.message);
+            }
+            toast.success(data.message);
+            setIsDeliveryOrderSet(true);
+            navigate('/checkout/address');
+
+        } catch (error) {
+            toast.error('Failed to draft the order. Please try again later.');
+            console.error('Error in drafting the cart: ', error);
+        }
+    }
 
     if (addressLoading) {
         return (
@@ -122,7 +142,7 @@ const OrderAddress = () => {
                                 <p className='py-5 font-body font-light tracking-wide text-yellow-400/50'>{address.phoneNumber}</p>
 
                                 <div className='w-fit flex gap-5 items-center mt-10 lg:mt-15'>
-                                    <button className='uppercase text-xs font-body tracking-[0.255em] font-light py-1 cursor-pointer hover:border-b hover:text-yellow-400/90 border-yellow-400/90 transition-smooth  group-hover:opacity-100 lg:opacity-0'>Use</button>
+                                    <button className='uppercase text-xs font-body tracking-[0.255em] font-light py-1 cursor-pointer hover:border-b hover:text-yellow-400/90 border-yellow-400/90 transition-smooth  group-hover:opacity-100 lg:opacity-0' onClick={() => handleUseBtn(address._id)}>Use</button>
                                     <button className='uppercase text-xs font-body tracking-[0.255em] font-light py-1 cursor-pointer hover:border-b hover:text-yellow-400/90 border-yellow-400/90 transition-smooth text-white/60 group-hover:opacity-100 lg:opacity-0' onClick={() => handleRemovebtn(address._id)}>erase</button>
                                 </div>
 

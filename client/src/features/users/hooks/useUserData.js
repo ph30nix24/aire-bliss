@@ -9,7 +9,7 @@ export const useUserData = () => {
     if (!context) {
         throw new Error("useUserData must be used within UserContext")
     }
-    const { wishlist, wishListLoading, cart, cartLoading, addresses, addressLoading, defaultAddress, deliveryAddress, order, orderItems, orderLoading, setWishlist, setWishListLoading, setCart, setCartLoading, setAddresses, setAddressLoading, setDefaultAddress, setDeliveryAddress, setOrder, setOrderLoading, setOrderItems} = context;
+    const { wishlist, wishListLoading, cart, cartLoading, addresses, addressLoading, defaultAddress, setWishlist, setWishListLoading, setCart, setCartLoading, setAddresses, setAddressLoading, setDefaultAddress } = context;
 
     const handleGetWishlist = async () => {
         setWishListLoading(true);
@@ -239,6 +239,5 @@ export const useUserData = () => {
         }
     }
 
-
-    return { wishlist, wishListLoading, cart, cartLoading, addresses, addressLoading, defaultAddress, deliveryAddress, order, orderItems, orderLoading, handleGetWishlist, handleAddItemInWishlist, handleRemoveItemWishlist, handleGetCart, handleCartItemQuantity, handleAddItemCart, handleRemoveCartItem, handleGetAddress, handleAddAddress, handleUpdateAddress, handleDeleteAddress, handleGetDefaultAddress, handleSetDefaultAddress, setOrderItems, setDeliveryAddress }
+    return { wishlist, wishListLoading, cart, cartLoading, addresses, addressLoading, defaultAddress, handleGetWishlist, handleAddItemInWishlist, handleRemoveItemWishlist, handleGetCart, handleCartItemQuantity, handleAddItemCart, handleRemoveCartItem, handleGetAddress, handleAddAddress, handleUpdateAddress, handleDeleteAddress, handleGetDefaultAddress, handleSetDefaultAddress }
 }

@@ -2,7 +2,7 @@ import { createContext } from "react";
 import { AuthContext } from "../../auth/services/auth.context";
 import { useState } from "react";
 
-export const orderContext = createContext()
+export const OrderContext = createContext()
 
 export const OrderProvider = ({ children }) => {
 
@@ -12,8 +12,8 @@ export const OrderProvider = ({ children }) => {
 
 
     return (
-        <AuthContext.Provider value={{orders, startOrResumeOrder, orderLoading, setOrders, setStartOrResumeOrder, setOrderLoading}}>
+        <OrderContext.Provider value={{orders, startOrResumeOrder, orderLoading, setOrders, setStartOrResumeOrder, setOrderLoading}}>
             { children }
-        </AuthContext.Provider>
+        </OrderContext.Provider>
     )
 }

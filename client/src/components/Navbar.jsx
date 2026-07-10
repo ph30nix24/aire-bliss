@@ -46,7 +46,7 @@ const Navbar = ({ additional }) => {
                             <div className="w-full h-fit mt-5">
                                 <div className="w-full text-white border-b border-yellow-400/70">
                                     {mobileNavLinks.map((link) => (
-                                        <NavLink className={({ isActive }) => `w-full flex items-center px-1 justify-between py-3.5 ${link.id !== 5 ? "border-b border-white/30" : ""}  ${isActive ? 'text-yellow-400/70' : 'text-white/80 '}`} to={link.link}>
+                                        <NavLink className={({ isActive }) => `w-full flex items-center px-1 justify-between py-3.5 ${link.id !== 5 ? "border-b border-white/30" : ""}  ${isActive ? 'text-yellow-400/70' : 'text-white/80 '}`} to={link.link} key={link.name}>
                                             <span className="flex gap-2 items-center"><link.icon className="text-yellow-500/70 text-[5vw]" /> <span className="uppercase font-body text-xs pt-0.5">{link.name}</span></span>
                                             {link.id !== 1 ? <FaAngleRight className="text-yellow-500/70 text-[4vw]" /> : <div></div>}
                                         </NavLink>

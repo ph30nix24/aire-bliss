@@ -17,6 +17,8 @@ import { useProduct } from '../../shop/hooks/useProducts'
 import Loader from '../../../components/Loader';
 import ShopItemCard from '../../shop/components/ShopItemCard';
 import toast from 'react-hot-toast';
+import { useOrders } from '../../order/hooks/useOrders';
+import { useNavigate } from 'react-router';
 
 
 
@@ -26,7 +28,8 @@ const Cart = () => {
     const { cart, cartLoading, handleGetCart, handleCartItemQuantity, handleRemoveCartItem } = useUserData();
     const { user } = useAuth()
     const { products } = useProduct()
-
+    const { orderLoading, handleAddDraftOrder } = useOrders()
+    const navigate = useNavigate()
     useEffect(() => {
         handleGetCart()
     }, [])
@@ -51,7 +54,32 @@ const Cart = () => {
             toast.error('Failed to Add quantity in Cart. Please try again later.');
             console.error('Error adding quantity in cart:', error);
         }
+
     }
+
+    const handleCheckoutBtn = async () => {
+        try {
+            const data = await handleAddDraftOrder({
+                items: cart.products.map(item => ({
+                    productId: item.product._id, 
+                    quantity: item.quantity
+                })), source: "cart"
+            })
+
+            if (!data.success) {
+                toast.error(data.message);
+                throw new Error(data.message);
+            }
+            toast.success(data.message);
+            navigate('/checkout/address')
+
+        } catch (error) {
+            toast.error('Failed to draft the order. Please try again later.');
+            console.error('Error in drafting the cart: ', error);
+        }
+    }
+
+
 
 
 
@@ -329,13 +357,10 @@ const Cart = () => {
                                                     &#x20B9; {cart.finalPrice}
                                                 </div>
                                             </div>
-
-                                            <a href="/checkout/address">
-                                                <button className='w-full py-4 bg-yellow-400/90 hover:bg-yellow-400 center gap-3 text-[#111] cursor-pointer transition-smooth'>
-                                                    <IoIosLock className='size-5' />
-                                                    <p className='font-jet text-xs uppercase tracking-widest font-medium'>Proceed to checkout</p>
-                                                </button>
-                                            </a>
+                                            <button className='w-full py-4 bg-yellow-400/90 hover:bg-yellow-400 center gap-3 text-[#111] cursor-pointer transition-smooth' onClick={() => handleCheckoutBtn()}>
+                                                <IoIosLock className='size-5' />
+                                                <p className='font-jet text-xs uppercase tracking-widest font-medium'>Proceed to checkout</p>
+                                            </button>
                                             <a href="/shop">
                                                 <button className='w-full py-4 text-yellow-400/90 center gap-3 bg-[#111]/50 hover:text-[#111] border hover:bg-yellow-400/90 mt-3 cursor-pointer transition-smooth'>
                                                     <p className='font-jet text-xs uppercase tracking-widest  font-medium'>Continue shopping</p>
@@ -394,12 +419,10 @@ const Cart = () => {
 
                     {isMobile && (
                         <div className="fixed bottom-0 left-0 w-full z-50 h-fit px-5 bg-[#131313]/20 backdrop-blur-lg py-5" >
-                            <a href="/checkout/address">
-                                <button className='w-full mb-2 px-10 py-3 bg-yellow-400/90 hover:bg-yellow-400 center gap-3 text-[#111] cursor-pointer transition-smooth'>
-                                    <IoIosLock className='size-5' />
-                                    <p className='font-jet text-xs uppercase tracking-widest font-medium'>Proceed to checkout</p>
-                                </button>
-                            </a>
+                            <button className='w-full mb-2 px-10 py-3 bg-yellow-400/90 hover:bg-yellow-400 center gap-3 text-[#111] cursor-pointer transition-smooth' onClick={() => handleCheckoutBtn()}>
+                                <IoIosLock className='size-5' />
+                                <p className='font-jet text-xs uppercase tracking-widest font-medium'>Proceed to checkout</p>
+                            </button>
 
                             <a href="/shop">
                                 <button className="w-full font-jet text-xs uppercase">continue shopping</button>

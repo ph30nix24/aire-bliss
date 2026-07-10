@@ -10,62 +10,63 @@ import ShopItemCard from '../../shop/components/ShopItemCard';
 import { CiDeliveryTruck, CiLock } from 'react-icons/ci';
 import { RiCustomerService2Fill } from 'react-icons/ri';
 import { IoIosLock } from 'react-icons/io';
-import { useUserData } from '../../users/hooks/useUserData';
 import toast from 'react-hot-toast';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
+import { useOrders } from '../hooks/useOrders';
 
 
 const CheckOut = () => {
-    const { productId } = useParams();
+    const { id } = useParams();
     const isMobile = useMediaQuery({ maxWidth: 768 });
-    const { products } = useProduct()
-    const { setOrderItems } = useUserData();
-    const { product, handleSetProduct, loading } = useProduct()
-
+    const { product, handleSetProduct, products } = useProduct()
+    const { handleAddDraftOrder } = useOrders();
     useEffect(() => {
-        handleSetProduct(productId)
-    })
+        if (id) {
+            handleSetProduct(id)
+        }
+    }, [id])
 
-    
+
+
 
     const [itemsQuantity, setItemsQuantity] = useState(1)
-    
-    let shippingCharge = 0
 
-    const handleRemoveCartItem = () => {
-        
-    }
+    let shippingCharge = 99;
+    const navigate = useNavigate();
 
-    const handleSubmit = async (productId) => {
+
+    const handleCheckoutBtn = async () => {
         try {
-            await setOrderItems((prev) => prev.includes(productId))
-        } catch {
-            toast.error("Error while saving the product")
+            const data = await handleAddDraftOrder({
+                items: [{
+                    productId: id,
+                    quantity: itemsQuantity
+                }], source: "buy-now"
+            })
+
+            if (!data.success) {
+                toast.error(data.message);
+                throw new Error(data.message);
+            }
+            toast.success(data.message);
+            navigate(`/checkout/address/${data.id}`)
+
+        } catch (error) {
+            toast.error('Failed to draft the order. Please try again later.');
+            console.error('Error in drafting the cart: ', error);
         }
     }
 
+    
 
-    if(loading && !product) {
+
+    if (!product) {
         return (
-            <div className='w-full h-screen center bg-[#131313]'>
+            <div className='w-full h-screen bg-[#131313] center'>
                 <Loader />
             </div>
         )
     }
-
-    
-
-    // const product = {
-    //     "_id": {
-    //         "$oid": "6a44bebde03d168f65ba6cb4"
-    //     },
-    //     "productName": "pink cheffron",
-    //     "mainImage": "https://res.cloudinary.com/h82pr8mc/image/upload/v1782890168/public/temp/kt8ztsix8wjzt2o6cxmd.webp",
-    //     "price": 499,
-    //     "discount": 100,
-    //     "sku": "AB-000001",
-    //     "size": "30ml",
-    // }
 
 
     return (
@@ -113,11 +114,11 @@ const CheckOut = () => {
                                 <p className='text-xs tracking-widest uppercase font-body text-yellow-400 font-semibold'>Free shipping Eligibilty</p>
                                 {(product.price - product.discount) > 999 ? (<p className='text-xs tracking-widest font-body text-white/70 font-semibold'>Free Shipping Applied!</p>) : (<div>
 
-                                    <p className='text-xs tracking-widest font-body text-white/70 font-semibold'><span className='max-lg:hidden'>Add </span>&#x20B9;{(999 - product.price).toFixed(2)}<span className='max-lg:hidden'>more for Free Shipping!</span> <span className='lg:hidden uppercase'>Away</span></p>
+                                    <p className='text-xs tracking-widest font-body text-white/70 font-semibold'><span className='max-lg:hidden'>Add </span>&#x20B9;{(999 - (product.price * itemsQuantity)).toFixed(2)}<span className='max-lg:hidden'>more for Free Shipping!</span> <span className='lg:hidden uppercase'>Away</span></p>
                                 </div>)}
                             </div>
                             <div className='w-full h-1 bg-white/20 rounded-full relative mt-1 '>
-                                {(product.price - product.discount) > 999 ? (<div className='size-full absolute top-0 left-0 bg-yellow-400 rounded-full'></div>) : (<div className={`h-full absolute left-0 top-0 bg-yellow-400  rounded-full ${(product.price - product.discount) > 999 && 'w-full'}`} style={{ width: `${(product.price / 999) * 100}%` }}></div>)}
+                                {((product.price * itemsQuantity) - (product.discount * itemsQuantity)) > 999 ? (<div className='size-full absolute top-0 left-0 bg-yellow-400 rounded-full'></div>) : (<div className={`h-full absolute left-0 top-0 bg-yellow-400  rounded-full ${(product.price - product.discount) > 999 && 'w-full'}`} style={{ width: `${((product.price * itemsQuantity) / 999) * 100}%` }}></div>)}
                             </div>
 
                         </div>
@@ -139,7 +140,7 @@ const CheckOut = () => {
 
                                 <div className='w-full h-fit flex justify-between items-center'>
                                     <div className='py-2 px-3 border border-[#777]/40 flex gap-3 items-center'>
-                                        <FaMinus className={`size-3 hover:text-yellow-400/90 cursor-pointer ${itemsQuantity === 1 && `pointer-events-none cursor-not-allowed`}`} onClick={() => setItemsQuantity(prevItemQuantity => prevItemQuantity - 1)}  />
+                                        <FaMinus className={`size-3 hover:text-yellow-400/90 cursor-pointer ${itemsQuantity === 1 && `pointer-events-none cursor-not-allowed`}`} onClick={() => setItemsQuantity(prevItemQuantity => prevItemQuantity - 1)} />
                                         <p className='font-body text-white/80 px-4'>{itemsQuantity}</p>
                                         <FaPlus className='size-3 hover:text-yellow-400/90 cursor-pointer' onClick={() => setItemsQuantity(prevItemQuantity => prevItemQuantity + 1)} />
                                     </div>
@@ -179,7 +180,7 @@ const CheckOut = () => {
 
                                     <div className='w-full h-fit flex justify-between items-center'>
                                         <div className='py-2 px-3 border border-[#777]/40 flex gap-3 items-center'>
-                                            <FaMinus className={`size-2 hover:text-yellow-400/90 cursor-pointer ${itemsQuantity === 1 && `pointer-events-none cursor-not-allowed!`}`} onClick={() => setItemsQuantity(prevItemsQuantity => prevItemsQuantity - 1)}  />
+                                            <FaMinus className={`size-2 hover:text-yellow-400/90 cursor-pointer ${itemsQuantity === 1 && `pointer-events-none cursor-not-allowed!`}`} onClick={() => setItemsQuantity(prevItemsQuantity => prevItemsQuantity - 1)} />
                                             <p className='font-body text-white/80 text-xs px-2'>{itemsQuantity}</p>
                                             <FaPlus className='size-2 hover:text-yellow-400/90 cursor-pointer' onClick={() => setItemsQuantity(prevItemsQuantity => prevItemsQuantity + 1)} />
                                         </div>
@@ -213,11 +214,11 @@ const CheckOut = () => {
                                 <div className='w-full pt-10 pb-8 border-b-2 border-[#777]/30'>
                                     <div className='flex w-full justify-between items-center pb-3 font-light text-sm font-body tracking-wider'>
                                         <p className='text-white/80'>Subtotal (1 items)</p>
-                                        <span className=' tracking-widest'>&#x20B9; {product.price}</span>
+                                        <span className=' tracking-widest'>&#x20B9; {product.price * itemsQuantity}</span>
                                     </div>
                                     <div className='flex w-full justify-between items-center pb-3 font-light text-sm font-body tracking-wider'>
                                         <p className='text-white/80'>Discount </p>
-                                        <span className='text-yellow-400/80 tracking-widest'>- &#x20B9; {product.discount}.00</span>
+                                        <span className='text-yellow-400/80 tracking-widest'>- &#x20B9; {product.discount * itemsQuantity}.00</span>
                                     </div>
                                     <div className='flex w-full justify-between items-center font-light text-sm font-body tracking-wider'>
                                         <p className='text-white/80'>Shipping </p>
@@ -234,7 +235,7 @@ const CheckOut = () => {
                                 </div>
 
                                 <a href="/checkout/address">
-                                    <button className='w-full py-4 bg-yellow-400/90 hover:bg-yellow-400 center gap-3 text-[#111] cursor-pointer transition-smooth' onClick={() => handleSubmit(productId)}>
+                                    <button className='w-full py-4 bg-yellow-400/90 hover:bg-yellow-400 center gap-3 text-[#111] cursor-pointer transition-smooth' onClick={() => handleCheckoutBtn()}>
                                         <IoIosLock className='size-5' />
                                         <p className='font-jet text-xs uppercase tracking-widest font-medium'>Proceed to checkout</p>
                                     </button>

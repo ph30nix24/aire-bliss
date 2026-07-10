@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import Order from "../models/order.model.js";
 import Product from "../models/product.model.js";
 import User from "../models/user.model.js";
+import Address from "../models/address.model.js"
 
 export const getAllOrders = async (req, res) => {
   try {
@@ -21,7 +22,7 @@ export const getAllOrders = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: error.message || "Failed to fetch addresses.",
+      message: error.message || "Failed to fetch orders.",
     });
   }
 }
@@ -38,23 +39,22 @@ export const createDraftOrder = async (req, res) => {
       return res.status(400).json({ message: 'Invalid or missing source' });
     }
 
-    // fetch real product data so we snapshot server-verified prices,
-    // never trust price if the frontend happened to send one
-    const productIds = items.map((i) => i.product);
-    const products = await Product.find({ _id: { $in: productIds } });
+
+    const productIds = items.map((i) => i.productId);
+    const products = await Product.find({ _id: { $in: productIds } }).select('_id productName price discount mainImage size stock');
 
     if (products.length !== productIds.length) {
-      return res.status(404).json({ message: 'One or more products not found' });
+      return res.status(404).json({ success: false, message: 'One or more products not found' });
     }
 
     const productMap = new Map(products.map((p) => [p._id.toString(), p]));
 
     const orderItems = items.map((item) => {
-      const product = productMap.get(item.product.toString());
+      const product = productMap.get(item.productId.toString());
       return {
         product: product._id,
-        qty: item.qty,
-        price: product.price,
+        qty: item.quantity,
+        price: product.price - product.discount,
       };
     });
 
@@ -62,6 +62,10 @@ export const createDraftOrder = async (req, res) => {
       (sum, item) => sum + item.price * item.qty,
       0
     );
+    let shipping = 0
+    if (subtotal < 999) {
+      shipping = 99
+    };
 
     const draftOrder = await Order.create({
       user: req.user._id,
@@ -70,15 +74,65 @@ export const createDraftOrder = async (req, res) => {
       status: 'draft',
       pricing: {
         subtotal,
-        shipping: 0,
+        shipping,
         tax: 0,
-        total: subtotal,
+        total: subtotal + shipping,
       },
     });
 
-    return res.status(201).json({ order: draftOrder });
+    return res.status(201).json({ order: draftOrder, success: true, message: 'successfully drafted an order!' });
+
   } catch (error) {
     console.error('createDraftOrder error:', error);
-    return res.status(500).json({ message: 'Failed to create draft order' });
+    return res.status(500).json({ sucess: false, message: 'Failed to create draft order' });
   }
 };
+
+export const addDraftOrderAddress = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { addressId } = res.body;
+
+    if (!addressId) {
+      return res.status(404).json({
+        success: false,
+        message: 'address not found',
+      })
+    }
+
+    const address = await Address.findById(addressId);
+
+    if (!address) {
+      return res.status(404).json({
+        success: false,
+        message: 'address not found'
+      })
+    }
+
+    const order = await Order.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          address: addressId
+        }
+      }, { new: true }
+    )
+
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: 'draft order not found'
+      })
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'address added to draft order',
+      order,
+    })
+
+  } catch (error) {
+    console.error('addDraftOrderAddress error:', error);
+    return res.status(500).json({ success: false, message: 'Failed to add address in draft order' });
+  }
+}

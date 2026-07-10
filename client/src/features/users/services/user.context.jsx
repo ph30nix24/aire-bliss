@@ -11,13 +11,11 @@ export const UserProvider = ({ children }) => {
     const [cart, setCart] = useState(null);
     const [addresses, setAddresses] = useState([]);
     const [defaultAddress, setDefaultAddress] = useState(null);
-    const [orderItems, setOrderItems] = useState([]);
-    const [deliveryAddress, setDeliveryAddress] = useState(null);
-    const [order, setOrder] = useState([]);
-    const [orderLoading, setOrderLoading] = useState(true);
+    const [orders, setOrders] = useState([])
+    const [orderLoading, setOrderLoading] = useState(true)
 
     return (
-        <UserContext.Provider value={{ wishlist, wishListLoading, cart, cartLoading, addresses, addressLoading, order, orderItems, orderLoading, defaultAddress, deliveryAddress, setWishlist, setWishListLoading, setCart, setCartLoading, setAddresses, setAddressLoading, setDefaultAddress, setDeliveryAddress, setOrder, setOrderItems, setOrderLoading }}>
+        <UserContext.Provider value={{ wishlist, wishListLoading, cart, cartLoading, addresses, addressLoading, orders, orderLoading, defaultAddress, setWishlist, setWishListLoading, setCart, setCartLoading, setAddresses, setAddressLoading, setDefaultAddress, setOrders, setOrderLoading }}>
             {children}
         </UserContext.Provider>
     )

@@ -13,6 +13,7 @@ export const getOrdersApi = async () => {
         })
         console.log(res.data.message);
         return res.data
+
     } catch (error) {
         console.error(
             "Error:",
@@ -27,6 +28,25 @@ export const draftOrderApi = async ({ items, source }) => {
         })
         console.log(res.data.message);
         return res.data
+
+    } catch (error) {
+        console.error(
+            "Error:",
+            error.response?.data?.message || error.message
+        );
+    }
+}
+
+
+export const setShippingAddressApi = async ({id, addressId}) =>{
+    try {
+        const res = await axios.put(`${ORDER_API}/${id}`, {
+            addressId
+        }, { withCredentials: true })
+
+        console.log(res.data.message);
+        return res.data
+
     } catch (error) {
         console.error(
             "Error:",

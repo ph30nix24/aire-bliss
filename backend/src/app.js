@@ -47,6 +47,6 @@ app.use('/aire-bliss/user/address', addressesRouter);
 
 
 import orderRouter from './routes/order.routes.js';
-app.use('/aire-bliss/order', orderRouter);
+app.use('/aire-bliss/orders', orderRouter);
 
 export default app;
