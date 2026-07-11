@@ -12,19 +12,22 @@ import { useOrders } from '../hooks/useOrders';
 import { useNavigate, useParams } from 'react-router';
 
 const OrderAddress = () => {
-    const { addresses, addressLoading, handleGetAddress, handleDeleteAddress} = useUserData()
+    const { id } = useParams();
+    const { addresses, addressLoading, handleGetAddress, handleDeleteAddress } = useUserData()
+    const { startOrResumeOrder, handleSetShippingAddress, handleGetOrder } = useOrders();
     const [isFormClick, setIsFormClick] = useState(false)
     const navigate = useNavigate()
 
+    console.log(id)
     useEffect(() => {
         // The condition goes safely inside the hook
         if (addresses.length === 0) {
             handleGetAddress();
         }
-    }, [addresses.length]);
-
-
-    const { startOrResumeOrder, handleSetShippingAddress } = useOrders();
+        if (!startOrResumeOrder) {
+            handleGetOrder({ id })
+        }
+    }, [ addresses.length, id ]);
 
 
     const handleRemovebtn = async (addressId) => {
@@ -40,19 +43,20 @@ const OrderAddress = () => {
             console.error('Error removing an Address:', error);
         }
     }
-
     const [isDeliveryOrderSet, setIsDeliveryOrderSet] = useState(false);
 
     const handleUseBtn = async (addressId) => {
+
+        console.log("addressId: ", addressId)
         try {
-            const data = await handleSetShippingAddress({ id: startOrResumeOrder._id, addressId})
-             if (!data.success) {
+            const data = await handleSetShippingAddress({ id: startOrResumeOrder._id, addressId })
+            if (!data.success) {
                 toast.error(data.message);
                 throw new Error(data.message);
             }
             toast.success(data.message);
             setIsDeliveryOrderSet(true);
-            navigate('/checkout/address');
+            navigate(`/checkout/review/${startOrResumeOrder._id}`);
 
         } catch (error) {
             toast.error('Failed to draft the order. Please try again later.');
@@ -60,7 +64,29 @@ const OrderAddress = () => {
         }
     }
 
-    if (addressLoading) {
+
+    const handleContinueBtn = async () => {
+        try {
+            if (isDeliveryOrderSet) {
+                navigate(`/checkout/review/${startOrResumeOrder._id}`)
+            }
+            const data = await handleSetShippingAddress({ id: startOrResumeOrder._id, addressId: addresses.find(address => address.isDefault)?._id })
+            if (!data.success) {
+                toast.error(data.message);
+                throw new Error(data.message);
+            }
+            toast.success(data.message);
+            setIsDeliveryOrderSet(true);
+            navigate(`/checkout/review/${startOrResumeOrder._id}`)
+
+        } catch (error) {
+            toast.error('Failed to draft the order. Please try again later.');
+            console.error('Error in drafting the cart: ', error);
+        }
+    }
+
+
+    if (addressLoading && !startOrResumeOrder) {
         return (
             <div className='w-full h-screen center bg-[#131313]'>
                 <Loader />
@@ -167,14 +193,11 @@ const OrderAddress = () => {
                                 <span className='text-white transition-smooth group-hover:text-yellow-300/70'>Back to Cart</span>
                             </button>
                         </a>
+                        <button className='w-fit flex gap-3 items-center font-body text-xs tracking-[0.155em] group bg-yellow-300/80 hover:bg-yellow-300 transition-smooth px-8 rounded py-3 cursor-pointer uppercase' onClick={() => handleContinueBtn()}>
+                            <span className='transition-smooth text-[#131313]'>Continue to Review</span>
+                            <FaChevronRight className='size-3 transition-smooth text-[#131313]' />
+                        </button>
 
-
-                        <a href="/checkout/review">
-                            <button className='w-fit flex gap-3 items-center font-body text-xs tracking-[0.155em] group bg-yellow-300/80 hover:bg-yellow-300 transition-smooth px-8 rounded py-3 cursor-pointer uppercase'>
-                                <span className='transition-smooth text-[#131313]'>Continue to Review</span>
-                                <FaChevronRight className='size-3 transition-smooth text-[#131313]' />
-                            </button>
-                        </a>
                     </div>
                 </div>
             </div>

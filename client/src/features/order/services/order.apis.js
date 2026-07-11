@@ -4,9 +4,7 @@ const API = import.meta.env.VITE_API_URI;
 
 const ORDER_API = `${API}aire-bliss/orders`;
 
-
-
-export const getOrdersApi = async () => {
+export const getAllOrdersApi = async () => {
     try {
         const res = await axios.get(`${ORDER_API}/`, {
             withCredentials: true
@@ -14,6 +12,19 @@ export const getOrdersApi = async () => {
         console.log(res.data.message);
         return res.data
 
+    } catch (error) {
+        console.error(
+            "Error:",
+            error.response?.data?.message || error.message
+        );
+    }
+}
+
+export const getOrderApi = async ({ id }) => {
+    try {
+        const res = await axios.get(`${ORDER_API}/${id}`, { withCredentials: true })
+        console.log(res.data.message);
+        return res.data
     } catch (error) {
         console.error(
             "Error:",
@@ -40,7 +51,7 @@ export const draftOrderApi = async ({ items, source }) => {
 
 export const setShippingAddressApi = async ({id, addressId}) =>{
     try {
-        const res = await axios.put(`${ORDER_API}/${id}`, {
+        const res = await axios.put(`${ORDER_API}/set-shipping-order/${id}`, {
             addressId
         }, { withCredentials: true })
 

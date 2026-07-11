@@ -115,11 +115,11 @@ export const router = createBrowserRouter([
                 element: <CheckOut />
             },
             {
-                path: "address",
+                path: "address/:id",
                 element: <OrderAddress />,
             },
             {
-                path: "review",
+                path: "review/:id",
                 element: <OrderReview />,
             },
             {

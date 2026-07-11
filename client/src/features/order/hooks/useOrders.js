@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { OrderContext } from "../services/order.context";
-import { draftOrderApi, getOrdersApi, setShippingAddressApi } from "../services/order.apis";
+import { draftOrderApi, getAllOrdersApi, getOrderApi, setShippingAddressApi } from "../services/order.apis";
 
 
 export const useOrders = () => {
@@ -14,7 +14,7 @@ export const useOrders = () => {
     const handleGetAllOrders = async () => {
         setOrderLoading(true);
         try {
-            const data = await getOrdersApi();
+            const data = await getAllOrdersApi();
             setOrders(data.orders);
             return {
                 success: data.success,
@@ -28,6 +28,22 @@ export const useOrders = () => {
             setOrderLoading(false);
         }
     }
+    const handleGetOrder = async ({ id }) => {
+        setOrderLoading(true);
+        try {
+            const data = await getOrderApi({ id })
+            setStartOrResumeOrder(data.order);
+            return {
+                success: data.success,
+                message: data.message,
+            }
+        } catch (error) {
+            console.log("Error while fetching the order", error.message)
+        }
+        finally {
+            setOrderLoading(false);
+        }
+    }
 
     const handleAddDraftOrder = async ({ items, source }) => {
         setOrderLoading(true);
@@ -35,6 +51,7 @@ export const useOrders = () => {
             const data = await draftOrderApi({ items, source })
             setStartOrResumeOrder(data.order)
             return {
+                id: data.order._id,
                 success: data.success,
                 message: data.message,
             }
@@ -66,5 +83,5 @@ export const useOrders = () => {
         }
     }
 
-    return { orders, startOrResumeOrder, orderLoading, handleGetAllOrders, handleAddDraftOrder, handleSetShippingAddress }
+    return { orders, startOrResumeOrder, orderLoading, handleGetAllOrders, handleAddDraftOrder, handleSetShippingAddress, handleGetOrder }
 }

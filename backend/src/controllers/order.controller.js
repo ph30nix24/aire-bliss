@@ -27,46 +27,80 @@ export const getAllOrders = async (req, res) => {
   }
 }
 
+export const getOrder = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const order = await Order.findById(id).populate([
+      { path: 'items.product', select: 'productName mainImage size price discount' },
+      { path: 'address', select: 'name phoneNo addressLine1 addressLine2 landmark city state country pincode' }
+    ]);
+    if(!order) {
+      return res.status(404).json({
+        success: false,
+        message: 'order not found'
+      })
+    }
+    return res.status(200).json({
+      success: true,
+      message: "successfully fetch order",
+      count: order.length || 0,
+      order: order || [],
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Failed to fetch orders.",
+    });
+  }
+}
+
 export const createDraftOrder = async (req, res) => {
   try {
     const { items, source } = req.body;
-
+    
     if (!Array.isArray(items) || items.length === 0) {
       return res.status(400).json({ message: 'Items are required' });
     }
-
+    
     if (!source || !['buy-now', 'cart'].includes(source)) {
       return res.status(400).json({ message: 'Invalid or missing source' });
     }
 
-
+    
     const productIds = items.map((i) => i.productId);
     const products = await Product.find({ _id: { $in: productIds } }).select('_id productName price discount mainImage size stock');
-
+    
     if (products.length !== productIds.length) {
       return res.status(404).json({ success: false, message: 'One or more products not found' });
     }
-
+    
     const productMap = new Map(products.map((p) => [p._id.toString(), p]));
-
+    
     const orderItems = items.map((item) => {
       const product = productMap.get(item.productId.toString());
       return {
         product: product._id,
         qty: item.quantity,
-        price: product.price - product.discount,
+        price: product.price,
+        discount: product.discount
       };
     });
-
+    
     const subtotal = orderItems.reduce(
       (sum, item) => sum + item.price * item.qty,
       0
     );
+    
+    const totalDiscount = orderItems.reduce(
+      (sum, item) => sum + item.discount * item.qty, 0
+    )
+
+    
     let shipping = 0
     if (subtotal < 999) {
       shipping = 99
     };
-
+    
     const draftOrder = await Order.create({
       user: req.user._id,
       items: orderItems,
@@ -74,12 +108,13 @@ export const createDraftOrder = async (req, res) => {
       status: 'draft',
       pricing: {
         subtotal,
+        discount: totalDiscount,
         shipping,
         tax: 0,
-        total: subtotal + shipping,
+        total: subtotal + shipping - totalDiscount,
       },
     });
-
+    
     return res.status(201).json({ order: draftOrder, success: true, message: 'successfully drafted an order!' });
 
   } catch (error) {
@@ -88,10 +123,11 @@ export const createDraftOrder = async (req, res) => {
   }
 };
 
+
 export const addDraftOrderAddress = async (req, res) => {
   try {
     const { id } = req.params;
-    const { addressId } = res.body;
+    const { addressId } = req.body;
 
     if (!addressId) {
       return res.status(404).json({
@@ -107,7 +143,8 @@ export const addDraftOrderAddress = async (req, res) => {
         success: false,
         message: 'address not found'
       })
-    }
+    } 
+
 
     const order = await Order.findByIdAndUpdate(
       id,
@@ -117,6 +154,7 @@ export const addDraftOrderAddress = async (req, res) => {
         }
       }, { new: true }
     )
+
 
     if (!order) {
       return res.status(404).json({

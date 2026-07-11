@@ -123,13 +123,8 @@ const ProductPage = () => {
 
   const [current, setCurrent] = useState(0);
 
-  if (!product) {
-    return (
-      <div className='w-full h-screen bg-[#131313] center'>
-        <Loader />
-      </div>
-    )
-  }
+  
+  
 
   const allImages = [product.mainImage, ...(product.previewImages ?? [])];
 

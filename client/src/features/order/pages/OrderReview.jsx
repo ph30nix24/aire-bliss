@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CiDeliveryTruck, CiLocationOn, CiLock } from 'react-icons/ci';
 import { bestproducts } from '../../../utils';
 import { FaArrowLeft, FaArrowRight, FaChevronDown } from 'react-icons/fa6';
@@ -7,8 +7,21 @@ import { RiCustomerService2Fill } from 'react-icons/ri';
 import { BsBox } from 'react-icons/bs';
 import { IoIosLock } from 'react-icons/io';
 import { LuTag } from 'react-icons/lu';
+import { useParams } from 'react-router';
+import { useOrders } from '../hooks/useOrders';
+import Loader from '../../../components/Loader';
 
 const OrderReview = () => {
+    const { id } = useParams()
+    const { startOrResumeOrder, handleGetOrder, orderLoading } = useOrders()
+
+    useEffect(() => {
+        if(!startOrResumeOrder) {
+            handleGetOrder({ id })
+        }
+    }, [id])
+
+    console.log(startOrResumeOrder)
 
 
     const address = {
@@ -27,10 +40,18 @@ const OrderReview = () => {
         "country": "India"
     }
 
+    if (orderLoading && !startOrResumeOrder) {
+        return (
+            <div className='w-full h-screen center bg-[#131313]'>
+                <Loader />
+            </div>
+        )
+    }
+
     return (
         <main className='bg-[#131313] bg-[radial-gradient(circle_at_50%_0%,#212121_0%,transparent_70%)]'>
 
-            <div className='w-full h-fit center gap-2 lg:gap-5 pt-25 pb-10 lg:pb-20 max-lg:px-5'>
+            <div className='w-full h-fit center gap-2 lg:gap-5 pt-25 pb-10 lg:pb-10 max-lg:px-5'>
                 <div className='w-fit flex gap-2 items-end text-yellow-300/80 pb-1'>
                     <p className='font-heading text-base tracking-widest max-lg:hidden'>01</p>
                     <p className='font-body text-lg capitalize font-extralight tracking-widest text-center max-md:text-sm'>cart</p>
@@ -81,14 +102,14 @@ const OrderReview = () => {
                         <div className='w-full py-5 px-5 lg:p-10  flex items-start gap-5 bg-[#181818]/50 backdrop-blur-sm border border-[#777]/10 hover:bg-[#131313]/70'>
                             <CiLocationOn className='text-yellow-300/70 size-8 pt-2' />
                             <div>
-                                <h2 className='font-body font-light uppercase pb-4 text-sm tracking-[0.175em] text-white/80'>{address.fullName}</h2>
-                                <address className='text-sm text-white/40 font-body not-italic font-light tracking-wider pb-1'>{address.addressLine1} {address.addressLine2}</address>
+                                <h2 className='font-body font-light uppercase pb-4 text-sm tracking-[0.175em] text-white/80'>{startOrResumeOrder.address.name}</h2>
+                                <address className='text-sm text-white/40 font-body not-italic font-light tracking-wider pb-1'>{startOrResumeOrder.address.addressLine1} {startOrResumeOrder.address.addressLine2}</address>
 
-                                <address className='text-sm text-white/40 font-body not-italic font-light tracking-wider pb-1'>{address.landmark}, {address.city} - {address.postalCode}</address>
+                                <address className='text-sm text-white/40 font-body not-italic font-light tracking-wider pb-1'>{startOrResumeOrder.address.landmark}, {startOrResumeOrder.address.city} - {startOrResumeOrder.address.pincode}</address>
 
-                                <address className='text-sm text-white/40 font-body not-italic font-light tracking-wider pb-1'>{address.state + ", " + address.country} </address>
+                                <address className='text-sm text-white/40 font-body not-italic font-light tracking-wider pb-1'>{startOrResumeOrder.address.state + ", " + startOrResumeOrder.address.country} </address>
 
-                                <p className='pt-10 text-yellow-300/60 font-body tracking-wider text-sm'>{address.phoneNumber}</p>
+                                <p className='pt-10 text-yellow-300/60 font-body tracking-wider text-sm'>+91 {startOrResumeOrder.address.phoneNo}</p>
                             </div>
                         </div>
 
@@ -102,20 +123,20 @@ const OrderReview = () => {
                         {/* items */}
 
                         <div className='w-full lg:mt-10'>
-                            {bestproducts.slice(2, 5).map((product, index) => (
-                                <div className='w-full p-5 flex gap-3 lg:gap-5 bg-[#181818]/50 backdrop-blur-sm border hover:bg-[#131313]/50 border-[#777]/10 mt-5 lg:mt-10'>
-                                    <img src={`./../../../.${product.img}`} className='size-30 max-md:h-40 lg:size-40 max-md:object-cover' alt="" />
+                            {startOrResumeOrder.items.map((product, index) => (
+                                <div className='w-full p-5 flex gap-3 lg:gap-5 bg-[#181818]/50 backdrop-blur-sm border hover:bg-[#131313]/50 border-[#777]/10 mt-5 lg:mt-10' key={index}>
+                                    <img src={`${product.product.mainImage}`} className='size-30 max-md:h-40 lg:size-40 max-md:object-cover' alt="" />
 
                                     <div className='w-full flex-col justify-between'>
                                         <div className='w-full flex justify-between lg:mt-4 max-md:flex-col'>
                                             <div className=''>
-                                                <h1 className='text-2xl lg:text-3xl italic text-white/80 font-subheading capitalize tracking-wider'>{product.name}</h1>
-                                                <p className='font-body text-sm capitalize mt-0.5 text-white/50 lg:mt-2'>50ml</p>
+                                                <h1 className='text-2xl lg:text-3xl italic text-white/80 font-subheading capitalize tracking-wider'>{product.product.productName}</h1>
+                                                <p className='font-body text-sm capitalize mt-0.5 text-white/50 lg:mt-2'>{product.product.size}</p>
                                             </div>
                                             <span className='font-body text-yellow-300/80 tracking-widest text-sm max-md:mt-12 max-md:mb-1'>&#x20B9;{product.price}</span>
                                         </div>
                                         <div className='w-full flex justify-between items-center md:mt-8'>
-                                            <div className='w-fit flex gap-2 items-center text-white/80 px-4 py-1.5 border border-white/20 cursor-pointer'><p className='text-[10px] uppercase pt-0.5 tracking-[0.175em]'>qty</p> <span className='text-sm'>1</span> <FaChevronDown className='size-2' /></div>
+                                            <div className='w-fit flex gap-2 items-center text-white/80 px-4 py-1.5 border border-white/20 cursor-pointer'><p className='text-[10px] uppercase pt-0.5 tracking-[0.175em]'>qty</p> <span className='text-sm'>{product.qty}</span> <FaChevronDown className='size-2' /></div>
 
                                             <HiOutlineTrash className='text-white/30 size-5 cursor-pointer hover:text-red-500/70' />
                                         </div>
@@ -133,12 +154,12 @@ const OrderReview = () => {
 
                                 <div className='w-full pt-10 pb-8 border-b-2 border-[#777]/30'>
                                     <div className='flex w-full justify-between items-center pb-3 font-light text-sm font-body tracking-wider'>
-                                        <p className='text-white/80'>Subtotal (3 items)</p>
-                                        <span className=' tracking-widest'>&#x20B9; 1287.00</span>
+                                        <p className='text-white/80'>Subtotal ({startOrResumeOrder.items.length} items)</p>
+                                        <span className=' tracking-widest'>&#x20B9; {startOrResumeOrder.pricing.subtotal.toFixed(2)}</span>
                                     </div>
                                     <div className='flex w-full justify-between items-center pb-3 font-light text-sm font-body tracking-wider'>
                                         <p className='text-white/80'>Discount </p>
-                                        <span className='text-yellow-400/80 tracking-widest'>- &#x20B9; 200.00</span>
+                                        <span className='text-yellow-400/80 tracking-widest'>- &#x20B9; {startOrResumeOrder.pricing.discount.toFixed(2)} </span>
                                     </div>
                                     <div className='flex w-full justify-between items-center font-light text-sm font-body tracking-wider'>
                                         <p className='text-white/80'>Shipping </p>
@@ -150,15 +171,15 @@ const OrderReview = () => {
                                     <h3 className='text-sm uppercase tracking-widest font-body'>Total</h3>
 
                                     <div className='font-heading text-3xl text-yellow-400/90'>
-                                        &#x20B9; 1087.00
+                                        &#x20B9; {startOrResumeOrder.pricing.total.toFixed(2)} 
                                     </div>
                                 </div>
 
 
-                                <p className='w-full py-4 bg-yellow-300/80 font-extralight center gap-3 text-[#111]'>
+                                <div className='w-full py-4 bg-yellow-300/80 font-extralight center gap-3 text-[#111]'>
                                     <LuTag className='size-4' />
-                                    <p className='font-body text-[10px] uppercase tracking-widest font-medium'>You Preserved &#x20B9; 200.00</p>
-                                </p>
+                                    <p className='font-body text-[10px] uppercase tracking-widest font-medium'>You Preserved &#x20B9; {startOrResumeOrder.pricing.discount.toFixed(2)}</p>
+                                </div>
 
 
                             </div>
@@ -234,8 +255,6 @@ const OrderReview = () => {
                 </div>
             </div>
 
-
-            
         </main>
     )
 }

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import Footer from '../../../components/Footer'
-import { bestproducts } from '../../../utils'
 import { FaAward, FaMinus, FaPlus } from "react-icons/fa6";
 import { BsBookmark, BsBox } from 'react-icons/bs';
 import { HiOutlineTrash } from 'react-icons/hi';
@@ -28,7 +27,7 @@ const Cart = () => {
     const { cart, cartLoading, handleGetCart, handleCartItemQuantity, handleRemoveCartItem } = useUserData();
     const { user } = useAuth()
     const { products } = useProduct()
-    const { orderLoading, handleAddDraftOrder } = useOrders()
+    const { handleAddDraftOrder } = useOrders()
     const navigate = useNavigate()
     useEffect(() => {
         handleGetCart()
@@ -71,7 +70,7 @@ const Cart = () => {
                 throw new Error(data.message);
             }
             toast.success(data.message);
-            navigate('/checkout/address')
+            navigate(`/checkout/address/${data.id}`)
 
         } catch (error) {
             toast.error('Failed to draft the order. Please try again later.');
