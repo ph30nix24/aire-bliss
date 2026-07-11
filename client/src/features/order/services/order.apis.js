@@ -65,3 +65,16 @@ export const setShippingAddressApi = async ({id, addressId}) =>{
         );
     }
 }
+
+export const setStatusApi = async ({ id, status }) => {
+    try {
+        const res = await axios.put(`${ORDER_API}/set-status/${id}`, { status }, { withCredentials: true })
+        console.log(res.data.message);
+        return res.data
+    } catch (error) {
+        console.error(
+            "Error:",
+            error.response?.data?.message || error.message
+        );
+    }
+}

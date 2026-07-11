@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { OrderContext } from "../services/order.context";
-import { draftOrderApi, getAllOrdersApi, getOrderApi, setShippingAddressApi } from "../services/order.apis";
+import { draftOrderApi, getAllOrdersApi, getOrderApi, setShippingAddressApi, setStatusApi } from "../services/order.apis";
 
 
 export const useOrders = () => {
@@ -83,5 +83,22 @@ export const useOrders = () => {
         }
     }
 
-    return { orders, startOrResumeOrder, orderLoading, handleGetAllOrders, handleAddDraftOrder, handleSetShippingAddress, handleGetOrder }
+    const handleStatusUpdate = async ({ id, status }) => {
+        setOrderLoading(true);
+        try {
+            const data = await setStatusApi({ id, status })
+            setStartOrResumeOrder(data.order)
+            return {
+                success: data.success,
+                message: data.message,
+            }
+        } catch (error) {
+            console.log("Error while drafting the orders", error.message)
+        }
+        finally {
+            setOrderLoading(false);
+        }
+    }
+
+    return { orders, startOrResumeOrder, orderLoading, handleGetAllOrders, handleAddDraftOrder, handleSetShippingAddress, handleGetOrder, handleStatusUpdate }
 }

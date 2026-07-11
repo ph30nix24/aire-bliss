@@ -123,7 +123,7 @@ export const router = createBrowserRouter([
                 element: <OrderReview />,
             },
             {
-                path: "payment",
+                path: "payment/:id",
                 element: <OrderPayment />,
             },
         ],

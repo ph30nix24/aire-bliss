@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { CiDeliveryTruck, CiLocationOn, CiLock } from 'react-icons/ci';
-import { bestproducts } from '../../../utils';
 import { FaArrowLeft, FaArrowRight, FaChevronDown } from 'react-icons/fa6';
 import { HiOutlineTrash } from 'react-icons/hi';
 import { RiCustomerService2Fill } from 'react-icons/ri';
 import { BsBox } from 'react-icons/bs';
 import { IoIosLock } from 'react-icons/io';
 import { LuTag } from 'react-icons/lu';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useOrders } from '../hooks/useOrders';
 import Loader from '../../../components/Loader';
+import { toast } from 'react-hot-toast'
 
 const OrderReview = () => {
     const { id } = useParams()
-    const { startOrResumeOrder, handleGetOrder } = useOrders()
-
+    const { startOrResumeOrder, handleGetOrder, handleStatusUpdate } = useOrders()
+    const navigate = useNavigate();
     useEffect(() => {
         if(!startOrResumeOrder) {
             handleGetOrder({ id })
@@ -23,14 +23,13 @@ const OrderReview = () => {
 
     const handleProceedBtn = async () => {
         try {
-            const data = await handleSetShippingAddress({ id: startOrResumeOrder._id, addressId })
+            const data = await handleStatusUpdate({ id: startOrResumeOrder._id, status: "pending_payment" })
             if (!data.success) {
                 toast.error(data.message);
                 throw new Error(data.message);
             }
             toast.success(data.message);
-            setIsDeliveryOrderSet(true);
-            navigate(`/checkout/review/${startOrResumeOrder._id}`);
+            navigate(`/checkout/payment/${startOrResumeOrder._id}`);
 
         } catch (error) {
             toast.error('Failed to draft the order. Please try again later.');
@@ -232,12 +231,10 @@ const OrderReview = () => {
 
                             </div>
 
-                            <a href="/checkout/payment">
-                                <button className='w-full py-4 bg-yellow-400/90 hover:bg-yellow-400 center gap-3 text-[#111] cursor-pointer transition-smooth'>
+                                <button className='w-full py-4 bg-yellow-400/90 hover:bg-yellow-400 center gap-3 text-[#111] cursor-pointer transition-smooth' onClick={() => handleProceedBtn()}>
                                     <p className='font-body text-xs uppercase tracking-widest font-medium'>Proceed to Payment</p>
                                     <FaArrowRight className='size-3' />
                                 </button>
-                            </a>
                             <a href="/checkout/address">
                                 <button className='w-full center gap-3 text-white/80 hover:text-yellow-300/80 cursor-pointer transition-smooth mt-4'>
                                     <FaArrowLeft className='size-3' />
