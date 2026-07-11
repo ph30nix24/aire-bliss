@@ -153,7 +153,10 @@ export const addDraftOrderAddress = async (req, res) => {
           address: addressId
         }
       }, { new: true }
-    )
+    ).populate([
+      { path: 'items.product', select: 'productName mainImage size price discount' },
+      { path: 'address', select: 'name phoneNo addressLine1 addressLine2 landmark city state country pincode' }
+    ])
 
 
     if (!order) {
@@ -172,5 +175,44 @@ export const addDraftOrderAddress = async (req, res) => {
   } catch (error) {
     console.error('addDraftOrderAddress error:', error);
     return res.status(500).json({ success: false, message: 'Failed to add address in draft order' });
+  }
+}
+
+
+export const changeStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const order = await Order.findByIdAndUpdate(
+      id,
+      {
+        $set:{
+          status: status
+        }
+      }, { new: true }
+    ).populate([
+      { path: 'items.product', select: 'productName mainImage size price discount' },
+      { path: 'address', select: 'name phoneNo addressLine1 addressLine2 landmark city state country pincode' }
+    ])
+
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: 'draft order not found'
+      })
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'status of an order change',
+      order,
+    })
+
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Failed to change status of orders.",
+    });
   }
 }

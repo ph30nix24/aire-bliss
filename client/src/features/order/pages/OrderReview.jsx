@@ -13,7 +13,7 @@ import Loader from '../../../components/Loader';
 
 const OrderReview = () => {
     const { id } = useParams()
-    const { startOrResumeOrder, handleGetOrder, orderLoading } = useOrders()
+    const { startOrResumeOrder, handleGetOrder } = useOrders()
 
     useEffect(() => {
         if(!startOrResumeOrder) {
@@ -21,26 +21,24 @@ const OrderReview = () => {
         }
     }, [id])
 
-    console.log(startOrResumeOrder)
+    const handleProceedBtn = async () => {
+        try {
+            const data = await handleSetShippingAddress({ id: startOrResumeOrder._id, addressId })
+            if (!data.success) {
+                toast.error(data.message);
+                throw new Error(data.message);
+            }
+            toast.success(data.message);
+            setIsDeliveryOrderSet(true);
+            navigate(`/checkout/review/${startOrResumeOrder._id}`);
 
-
-    const address = {
-        "_id": "addr_001",
-        "title": "The Penthouse",
-        "addressType": "Home",
-        "isDefault": true,
-        "fullName": "Arjun Sharma",
-        "phoneNumber": "+91 98765 43210",
-        "addressLine1": "123, Green Villa Apartments",
-        "addressLine2": "MG Road, Sector 15",
-        "landmark": "Near City Mall",
-        "city": "Mumbai",
-        "state": "Maharashtra",
-        "postalCode": "400001",
-        "country": "India"
+        } catch (error) {
+            toast.error('Failed to draft the order. Please try again later.');
+            console.error('Error in drafting the cart: ', error);
+        }
     }
 
-    if (orderLoading && !startOrResumeOrder) {
+    if (!startOrResumeOrder) {
         return (
             <div className='w-full h-screen center bg-[#131313]'>
                 <Loader />
@@ -88,7 +86,6 @@ const OrderReview = () => {
 
                 <div className='w-full gap-20 flex py-20 max-lg:flex-col md:px-10'>
 
-
                     <div className='w-full lg:w-7/10'>
                         <div className='w-full flex items-center justify-between'>
                             <p className='font-body uppercase tracking-[0.355em] text-[10px] lg:text-xs text-yellow-300/90'>delivery Address</p>
@@ -115,7 +112,7 @@ const OrderReview = () => {
 
 
                         <div className='w-full flex items-center justify-between mt-20'>
-                            <p className='font-body uppercase tracking-[0.355em] text-[10px] text-xs text-yellow-300/90'>Items Selected (3)</p>
+                            <p className='font-body uppercase tracking-[0.355em] text-[10px] text-xs text-yellow-300/90'>Items Selected ({startOrResumeOrder.items.length})</p>
                             <button className='font-body uppercase tracking-[0.255em] text-[10px] text-white/60'>edit</button>
                         </div>
                         <div className='w-full my-5 lg:mb-10 h-0.5 bg-linear-to-r from-transparent via-45% to-100% via-yellow-300/10 to-transparent'></div>
@@ -163,7 +160,7 @@ const OrderReview = () => {
                                     </div>
                                     <div className='flex w-full justify-between items-center font-light text-sm font-body tracking-wider'>
                                         <p className='text-white/80'>Shipping </p>
-                                        <span className='text-yellow-400/80 tracking-widest uppercase'>free</span>
+                                        <span className='text-yellow-400/80 tracking-widest uppercase'>{startOrResumeOrder.pricing.shipping === 0 ? (<span>Free</span>) : (<span>{startOrResumeOrder.pricing.shipping.toFixed(2)}</span>)}</span>
                                     </div>
                                 </div>
 

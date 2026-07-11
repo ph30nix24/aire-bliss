@@ -17,8 +17,6 @@ const OrderAddress = () => {
     const { startOrResumeOrder, handleSetShippingAddress, handleGetOrder } = useOrders();
     const [isFormClick, setIsFormClick] = useState(false)
     const navigate = useNavigate()
-
-    console.log(id)
     useEffect(() => {
         // The condition goes safely inside the hook
         if (addresses.length === 0) {
@@ -46,8 +44,6 @@ const OrderAddress = () => {
     const [isDeliveryOrderSet, setIsDeliveryOrderSet] = useState(false);
 
     const handleUseBtn = async (addressId) => {
-
-        console.log("addressId: ", addressId)
         try {
             const data = await handleSetShippingAddress({ id: startOrResumeOrder._id, addressId })
             if (!data.success) {
@@ -86,7 +82,7 @@ const OrderAddress = () => {
     }
 
 
-    if (addressLoading && !startOrResumeOrder) {
+    if (!startOrResumeOrder) {
         return (
             <div className='w-full h-screen center bg-[#131313]'>
                 <Loader />

@@ -57,8 +57,6 @@ const CheckOut = () => {
         }
     }
 
-    
-
 
     if (!product) {
         return (
@@ -233,13 +231,10 @@ const CheckOut = () => {
                                         &#x20B9; {product.price - product.discount}
                                     </div>
                                 </div>
-
-                                <a href="/checkout/address">
-                                    <button className='w-full py-4 bg-yellow-400/90 hover:bg-yellow-400 center gap-3 text-[#111] cursor-pointer transition-smooth' onClick={() => handleCheckoutBtn()}>
-                                        <IoIosLock className='size-5' />
-                                        <p className='font-jet text-xs uppercase tracking-widest font-medium'>Proceed to checkout</p>
-                                    </button>
-                                </a>
+                                <button className='w-full py-4 bg-yellow-400/90 hover:bg-yellow-400 center gap-3 text-[#111] cursor-pointer transition-smooth' onClick={() => handleCheckoutBtn()}>
+                                    <IoIosLock className='size-5' />
+                                    <p className='font-jet text-xs uppercase tracking-widest font-medium'>Proceed to checkout</p>
+                                </button>
                                 <a href="/shop">
                                     <button className='w-full py-4 text-yellow-400/90 center gap-3 bg-[#111]/50 hover:text-[#111] border hover:bg-yellow-400/90 mt-3 cursor-pointer transition-smooth'>
                                         <p className='font-jet text-xs uppercase tracking-widest  font-medium'>Continue shopping</p>
