@@ -138,9 +138,9 @@ const OrderPayment = () => {
             </div>
 
             <a href="/checkout/review">
-              <button className='w-full py-4 center gap-3 text-white/80 hover:text-yellow-300/80 cursor-pointer transition-smooth mt-3'>
+              <button className='w-full py-4 center gap-3 text-white/80 hover:text-yellow-300/80 cursor-pointer transition-smooth mt-3 max-md:text-xs'>
                 <FaArrowLeft className='size-3' />
-                <p className='font-jet text-sm captialize tracking-wide font-extralight '>Return to order Review</p>
+                <p className='font-jet captialize tracking-wide font-extralight '>Return to order Review</p>
 
               </button>
             </a>

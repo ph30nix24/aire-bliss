@@ -108,7 +108,7 @@ const EmailVerifier = () => {
                                 {Array.from({
                                     length: 6
                                 }).map((_, index) => (
-                                    <input type="text" maxLength={1} name={`digit${index + 1}`} maxLength={1} id={`digit-${index + 1}`} key={`input${index + 1}`} onChange={handleChange} className="w-1/6 h-14 border border-[#777]/80 rounded text-white py-3 text-center text-xl font-subheading focus:outline-none focus:ring focus:ring-[#813A79]" />
+                                    <input type="text" maxLength={1} name={`digit${index + 1}`} id={`digit-${index + 1}`} key={`input${index + 1}`} onChange={handleChange} required className="w-1/6 h-14 border border-[#777]/80 rounded text-white py-3 text-center text-xl font-subheading focus:outline-none focus:ring focus:ring-[#813A79]" />
                                 ))}
 
 

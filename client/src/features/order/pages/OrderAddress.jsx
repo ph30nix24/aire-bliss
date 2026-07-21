@@ -149,19 +149,19 @@ const OrderAddress = () => {
 
                                 <div className='w-15 h-px my-3 bg-white/20'></div>
 
-                                <p className='text-xs lg:text-sm uppercase font-body tracking-[0.175em] font-medium text-white/90 mt-3 pb-5'>{address.fullName}</p>
+                                <p className='text-xs lg:text-sm uppercase font-body tracking-[0.175em] font-medium text-white/90 mt-3 pb-5'>{address.name}</p>
 
                                 <address className={`py-0.5 leading-relaxed font-body font-light text-[#d6c9ac] not-italic text-sm lg:text-[15px] tracking-wider w-80 ${index % 2 === 0 ? 'text-start' : 'text-end'}`}>{address.addressLine1} {address.addressLine2} {address.landmark}
                                 </address>
 
 
-                                <address className={`py-0.5 leading-relaxed font-body font-light text-[#d6c9ac] not-italic text-sm lg:text-[15px] tracking-wider w-80 ${index % 2 === 0 ? 'text-start' : 'text-end'}`}>{address.city},  {address.state} - {address.postalCode}
+                                <address className={`py-0.5 leading-relaxed font-body font-light text-[#d6c9ac] not-italic text-sm lg:text-[15px] tracking-wider w-80 ${index % 2 === 0 ? 'text-start' : 'text-end'}`}>{address.city},  {address.state} - {address.pincode}
                                 </address>
 
                                 <address className={`py-0.5 leading-relaxed font-body font-light text-[#d6c9ac] not-italic text-[15px] tracking-wider w-80 ${index % 2 === 0 ? 'text-start' : 'text-end'}`}>{address.country}
                                 </address>
 
-                                <p className='py-5 font-body font-light tracking-wide text-yellow-400/50'>{address.phoneNumber}</p>
+                                <p className='py-5 font-body font-light tracking-wide text-yellow-400/50'>+91 {address.phoneNo}</p>
 
                                 <div className='w-fit flex gap-5 items-center mt-10 lg:mt-15'>
                                     <button className='uppercase text-xs font-body tracking-[0.255em] font-light py-1 cursor-pointer hover:border-b hover:text-yellow-400/90 border-yellow-400/90 transition-smooth  group-hover:opacity-100 lg:opacity-0' onClick={() => handleUseBtn(address._id)}>Use</button>

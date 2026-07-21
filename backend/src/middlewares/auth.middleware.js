@@ -39,7 +39,6 @@ export const authenticateToken = async (req, res, next) => {
                 message: "User no longer exists.",
             });
         }
-
         req.user = user;
         next();
     } catch (error) {

@@ -88,16 +88,16 @@ export const loginController = async (req, res) => {
 export const signupController = async (req, res) => {
     try {
         const { name, email, password } = req.body;
-        console.log(name, email, password)
+
         if (!name || !email || !password) {
             return res.status(403).json({ message: "Missing fields All fields are required." })
         }
         const existingUser = await User.findOne({ email });
-        console.log(1)
+
         if (existingUser) {
             return res.status(400).json({ message: "user already exists" })
         }
-        console.log(2)
+
         const hashedPassword = await bcrypt.hash(password, parseInt(process.env.SALT_ROUNDS));
         const user = new User({
             name,
