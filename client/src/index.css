@@ -24,6 +24,7 @@ section {
 html, body {
   scrollbar-width: none;        /* Firefox */
   -ms-overflow-style: none;     /* IE/Edge */
+  background-color: black;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {

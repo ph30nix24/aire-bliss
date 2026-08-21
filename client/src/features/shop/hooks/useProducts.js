@@ -13,6 +13,7 @@ export const useProduct = () => {
     const handleSetProduct =  async (productId)  => {
         try{
             const data = await getProductByIdApi(productId)
+
             setProduct(data.product)
 
         } catch (error) {

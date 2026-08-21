@@ -1,4 +1,4 @@
-import { BrowserRouter, createBrowserRouter } from "react-router";
+import { createBrowserRouter } from "react-router";
 import Home from "./features/home/Home";
 import Login from "./features/auth/Login";
 import SignUp from "./features/auth/SignUp";

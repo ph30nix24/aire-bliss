@@ -7,7 +7,6 @@ export const getAllProductApi = async () => {
         const response = await axios.get(`${API}aire-bliss/products/`, {
             withCredentials: true
         })
-       
         return response.data
     }
     catch(error) {
@@ -20,6 +19,7 @@ export const getProductByIdApi = async (id) => {
         const res = await axios.get(`${API}aire-bliss/products/${id}`, {
             withCredentials: true
         })
+       
         return res.data
     } catch(error) {
         console.error(error.message)

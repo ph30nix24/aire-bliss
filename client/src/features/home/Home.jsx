@@ -8,19 +8,31 @@ import Testomonials from './components/Testomonials'
 import BrandValue from './components/BrandValue'
 import Footer from '../../components/Footer'
 import { useMediaQuery } from 'react-responsive';
+import { useProduct } from '../shop/hooks/useProducts'
+import Loader from '../../components/Loader'
 
 const Home = () => {
   const isMobile = useMediaQuery({ maxWidth: 768 });
+  const { loading } = useProduct();
+
+  
+  if (loading) {
+    return (
+      <div className='w-full h-screen bg-[#131313] center'>
+        <Loader />
+      </div>
+    )
+  }
   return (
     <main className='bg-black'>
-        <Navbar />
-        <Hero isMobile={isMobile} />
-        <BestSellers isMobile={isMobile} />
-        <Featured isMobile={isMobile} />
-        <Collection isMobile={isMobile} />
-        <Testomonials isMobile={isMobile} />
-        <BrandValue isMobile={isMobile} />
-        <Footer />
+      <Navbar />
+      <Hero isMobile={isMobile} />
+      <BestSellers isMobile={isMobile} />
+      <Featured isMobile={isMobile} />
+      <Collection isMobile={isMobile} />
+      <Testomonials isMobile={isMobile} />
+      <BrandValue isMobile={isMobile} />
+      <Footer />
     </main>
   )
 }

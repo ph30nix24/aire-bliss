@@ -8,7 +8,7 @@ import { useUserData } from '../../users/hooks/useUserData';
 
 const BestSellers = ({ isMobile }) => {
 
-    const { products, loading } = useProduct();
+    const { products } = useProduct();
     const { handleAddItemCart } = useUserData();
 
     const handleAddToCart = async (productID) => {
@@ -25,13 +25,7 @@ const BestSellers = ({ isMobile }) => {
         }
     }
 
-    if (loading) {
-        return (
-            <div className='w-full h-screen bg-[#131313] center'>
-                <Loader />
-            </div>
-        )
-    }
+    
     if (isMobile) {
         return (
             <section className='w-full h-fit! px-5 py-10 relative z-10'>
