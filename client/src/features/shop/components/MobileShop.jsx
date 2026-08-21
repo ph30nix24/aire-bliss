@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useSearchParams } from 'react-router'
 import { BsSliders } from "react-icons/bs";
 import Dropdown from "../../admin/components/DropDown"
 import ShopItemCard from './ShopItemCard';
@@ -26,6 +27,8 @@ const GENDER_MAP = {
 const MobileShop = () => {
     const { products, loading } = useProduct()
 
+    const [searchParams] = useSearchParams()
+
     // -- Sort ----------------------------------------------
     const [sort, setSort] = useState('featured')
 
@@ -45,7 +48,11 @@ const MobileShop = () => {
         { label: 'Room Fragrances', value: 'room-fragrances', quantity: 18 }
     ]
 
-    const [genderFilter, setGenderFilter] = useState([])
+    // Seed gender filter from URL param (?gender=men | women)
+    const urlGender = searchParams.get('gender') // 'men' | 'women' | null
+    const [genderFilter, setGenderFilter] = useState(() =>
+        urlGender ? [urlGender] : []
+    )
 
     const gender = [
         { label: 'Men', value: 'men', quantity: 24 },

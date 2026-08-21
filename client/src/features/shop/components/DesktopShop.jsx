@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react'
+import { useSearchParams } from 'react-router'
 import Navbar from '../../../components/Navbar'
 import { BsHandbag, BsSliders } from "react-icons/bs";
 import Dropdown from "../../admin/components/DropDown"
@@ -31,6 +32,8 @@ const DesktopShop = () => {
 
   const { products, loading } = useProduct()
 
+  const [searchParams] = useSearchParams()
+
   const [sort, setSort] = useState('featured')
 
   const sortList = [
@@ -48,7 +51,10 @@ const DesktopShop = () => {
     { label: 'Room Fragrances', value: 'room-fragrances', quantity: 18 }
   ]
 
-  const [genderFilter, setGenderFilter] = useState([])
+  const urlGender = searchParams.get('gender')
+  const [genderFilter, setGenderFilter] = useState(() =>
+    urlGender ? [urlGender] : []
+  )
 
   const gender = [
     { label: 'Men', value: 'men', quantity: 24 },

@@ -66,6 +66,7 @@
 // export default Hero
 
 import React from 'react'
+import { Link } from 'react-router'
 import { PiFlowerLotus } from "react-icons/pi";
 import { IoIosSquare } from "react-icons/io";
 import { GiPerfumeBottle } from "react-icons/gi";
@@ -89,8 +90,8 @@ const Hero = ({ isMobile }) => {
                     </div>
                     <p className='text-white/70 text-center text-sm font-light font-body mt-3'>Discover fragrance crafted for <br/> every mood, every moment.</p>
                     <div className='center gap-5 mt-5 mb-15 '>
-                        <button className='hero-button-mb bg-black hover:bg-yellow-500/50'>Shop men</button>
-                        <button className='hero-button-mb bg-[#9E5659] hover:bg-pink-500'>shop women</button>
+                        <Link to='/shop?gender=men' className='hero-button-mb bg-black hover:bg-yellow-500/50'>Shop men</Link>
+                        <Link to='/shop?gender=women' className='hero-button-mb bg-[#9E5659] hover:bg-pink-500'>Shop women</Link>
                     </div>
                 </div>
                 <div className='w-[95%] mx-auto h-fit border border-yellow-400/20 relative px-1 py-5 center gap-2 z-5 bg-black rounded-md'>
@@ -139,8 +140,8 @@ const Hero = ({ isMobile }) => {
                     </div>
                     <p className='text-white/70 text-center font-body mt-3'>Discover fragrance crafted for <br/> every mood, every moment.</p>
                     <div className='center gap-5 mt-25 mb-15 '>
-                        <button className='hero-button bg-black hover:bg-yellow-500/50'>Shop men</button>
-                        <button className='hero-button bg-[#9E5659] hover:bg-pink-500'>shop women</button>
+                        <Link to='/shop?gender=men' className='hero-button bg-black hover:bg-yellow-500/50'>Shop men</Link>
+                        <Link to='/shop?gender=women' className='hero-button bg-[#9E5659] hover:bg-pink-500'>Shop women</Link>
                     </div>
                 </div>
             </div>
