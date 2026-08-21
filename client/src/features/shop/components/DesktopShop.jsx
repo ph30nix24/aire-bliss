@@ -26,6 +26,23 @@ const DesktopShop = () => {
     { label: 'High to Low', value: 'high-to-low' },
   ]
 
+  const getSortedProducts = (items) => {
+    const sorted = [...items]
+    switch (sort) {
+      case 'new-arrival':
+        return sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      case 'low-to-high':
+        return sorted.sort((a, b) => (a.price - a.discount).toFixed(2) - (b.price - b.discount).toFixed(2))
+      case 'high-to-low':
+        return sorted.sort((a, b) => (b.price - b.discount).toFixed(2) - (a.price - a.discount).toFixed(2))
+      case 'featured':
+      default:
+        return sorted
+    }
+  }
+
+  const sortedProducts = getSortedProducts(products)
+
 
   const [categoryFilter, setCategoryFilter] = useState('perfumes')
 
@@ -196,21 +213,16 @@ const DesktopShop = () => {
               <p className='w-fit text-nowrap uppercase font-body text-xs text-white/50'>sort by</p>
               <Dropdown
                 options={sortList}
-                value={sort}
+                value={sortList.find(o => o.value === sort)?.label}
+                onChange={setSort}
                 additionalCls={`border-none! rounded-none! gap-5! bg-transparent! text-primary! uppercase!`}
               />
             </div>
           </div>
             
           <div className='w-full flex gap-5 flex-wrap py-10'>
-            {products.map((product) => (
-              <ShopItemCard product={product} width={`w-[23.62%]`} height={`lg:h-[60vh]`} />
-            ))}
-            {products.map((product) => (
-              <ShopItemCard product={product} width={`w-[23.62%]`} height={`lg:h-[60vh]`} />
-            ))}
-            {products.slice(0, 2).map((product) => (
-              <ShopItemCard product={product} width={`w-[23.62%]`} height={`lg:h-[60vh]`} />
+            {sortedProducts.map((product, index) => (
+              <ShopItemCard key={product._id || index} product={product} width={`w-[23.62%]`} height={`lg:h-[60vh]`} />
             ))}
           </div>
 
