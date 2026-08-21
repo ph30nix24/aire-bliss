@@ -21,10 +21,9 @@ main {
 section {
   @apply w-full h-screen overflow-hidden relative
 }
-html, body {
+html, body, .filter-drawer {
   scrollbar-width: none;        /* Firefox */
   -ms-overflow-style: none;     /* IE/Edge */
-  background-color: black;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
@@ -35,7 +34,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 html::-webkit-scrollbar,
-body::-webkit-scrollbar {
+body::-webkit-scrollbar,
+.filter-drawer::-webkit-scrollbar {
   display: none;                /* Chrome, Safari, Edge */
 }
 .best-sellers, .testinomials, .product-section, .shop {

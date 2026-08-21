@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useRef, useCallback } from "react";
 
 const MIN = 80;
 const MAX = 1500;
@@ -16,10 +16,7 @@ function formatPrice(value) {
     return `₹${value}`;
 }
 
-const PriceRangeSlider = () => {
-
-    const [minVal, setMinVal] = useState(MIN);
-    const [maxVal, setMaxVal] = useState(MAX);
+const PriceRangeSlider = ({ minVal, maxVal, onMinChange, onMaxChange }) => {
 
     const rangeRef = useRef(null);
 
@@ -29,17 +26,17 @@ const PriceRangeSlider = () => {
     const handleMin = useCallback(
         (e) => {
             const val = Math.min(Number(e.target.value), maxVal - 100);
-            setMinVal(val);
+            onMinChange(val);
         },
-        [maxVal]
+        [maxVal, onMinChange]
     );
 
     const handleMax = useCallback(
         (e) => {
             const val = Math.max(Number(e.target.value), minVal + 100);
-            setMaxVal(val);
+            onMaxChange(val);
         },
-        [minVal]
+        [minVal, onMaxChange]
     );
 
     return (
