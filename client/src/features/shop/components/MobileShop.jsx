@@ -40,18 +40,23 @@ const MobileShop = () => {
     ]
 
     // -- Filters -------------------------------------------
-    const [categoryFilter, setCategoryFilter] = useState(null)
+    const [categoryFilter, setCategoryFilter] = useState(() => {
+        if (urlGender === 'room-fragrances') {
+            return 'room-fragrances'
+        }
+        return null
+    })
 
     const categories = [
-        { label: 'Attars', value: 'attars', quantity: 12 },
-        { label: 'Perfumes', value: 'perfumes', quantity: 52 },
-        { label: 'Room Fragrances', value: 'room-fragrances', quantity: 18 }
+        { label: 'Attars', value: 'attars', quantity: 0 },
+        { label: 'Perfumes', value: 'perfumes', quantity: 6 },
+        { label: 'Room Fragrances', value: 'room-fragrances', quantity: 0 }
     ]
 
     // Seed gender filter from URL param (?gender=men | women)
     const urlGender = searchParams.get('gender') // 'men' | 'women' | null
     const [genderFilter, setGenderFilter] = useState(() =>
-        urlGender ? [urlGender] : []
+        urlGender && urlGender === 'room-fragrances' ? [urlGender] : []
     )
 
     const gender = [

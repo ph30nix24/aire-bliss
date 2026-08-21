@@ -105,7 +105,8 @@ export const categories = [
         img: './collection/mens_collection.webp',
         mobimg: './collection/men_mobile.webp',
         icon: PiCrownThin,
-        btn: "Shop Men"
+        btn: "Shop Men",
+        link: '/shop?gender=men'
     },
     {
         id: 2,
@@ -114,7 +115,8 @@ export const categories = [
         img: './collection/womens_collection.webp',
         mobimg: './collection/women_mobile.webp',
         icon: PiFlowerLotusThin,
-        btn: "Shop Women"
+        btn: "Shop Women",
+        link: '/shop?gender=women'
     },
     {
         id: 3,
@@ -123,7 +125,8 @@ export const categories = [
         img: './collection/room_fragrance.webp',
         mobimg: './collection/room_mobile.webp',
         icon: PiHouseLine,
-        btn: "Shop Room Fragrances"
+        btn: "Shop Room Fragrances",
+        link: '/shop?gender=room-fragrances'
     },
 ]
 

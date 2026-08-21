@@ -1,6 +1,7 @@
 import React from 'react'
 import { categories } from '../../../utils'
 import { FaArrowRight } from 'react-icons/fa6'
+import { Link } from 'react-router'
 const Collection = ({ isMobile }) => {
     if (isMobile) {
         return (
@@ -11,7 +12,7 @@ const Collection = ({ isMobile }) => {
                 <div className='w-full h-[70dvh] flex flex-col gap-3 mt-10'>
                     {categories.map((category) => (
                         <div key={category.id} className='w-full h-full relative border-2 border-yellow-500/40 rounded-xl shadow-md overflow-hidden'>
-                            <img src={category.mobimg} loading='lazy'  className='size-full object-cover rounded-xl absolute top-0 left-0 z-1' alt="" />
+                            <img src={category.mobimg} loading='lazy' className='size-full object-cover rounded-xl absolute top-0 left-0 z-1' alt="" />
                             <div className='size-full absolute z-2 bg-linear-to-l from-transparent to-black/80'></div>
                             <div className='size-full p-5 relative z-5 flex flex-col justify-between' >
                                 <div>
@@ -44,10 +45,12 @@ const Collection = ({ isMobile }) => {
                             <category.icon className='text-yellow-400/70 text-5xl' />
                             <h1 className='text-white font-heading text-2xl mt-3'>{category.type}</h1>
                             <p className='text-white/70 text-sm text-center mt-1 font-body font-light'>{category.discription}</p>
-                            <button className='font-body uppercase text-sm mt-5 border-2 border-yellow-400/50 text-yellow-400/80 hover:text-white transition-colors duration-300 px-6 py-2 rounded-md hover:bg-yellow-400/80 cursor-pointer flex items-center gap-2'>
-                                {category.btn}
-                                <FaArrowRight className='size-4' />
-                            </button>
+                            <Link to={category.link} className=''>
+                                <button className='font-body uppercase text-sm mt-5 border-2 border-yellow-400/50 text-yellow-400/80 hover:text-white transition-colors duration-300 px-6 py-2 rounded-md hover:bg-yellow-400/80 cursor-pointer flex items-center gap-2'>
+                                    {category.btn}
+                                    <FaArrowRight className='size-4' />
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 ))}

@@ -42,8 +42,13 @@ const DesktopShop = () => {
     { label: 'Low to High', value: 'low-to-high' },
     { label: 'High to Low', value: 'high-to-low' },
   ]
-
-  const [categoryFilter, setCategoryFilter] = useState(null)
+  const urlGender = searchParams.get('gender')
+  const [categoryFilter, setCategoryFilter] = useState(() => {
+    if(urlGender === 'room-fragrances'){
+      return 'room-fragrances'
+    }
+    return null
+  })
 
   const categories = [
     { label: 'Attars', value: 'attars', quantity: 12 },
@@ -51,9 +56,8 @@ const DesktopShop = () => {
     { label: 'Room Fragrances', value: 'room-fragrances', quantity: 18 }
   ]
 
-  const urlGender = searchParams.get('gender')
   const [genderFilter, setGenderFilter] = useState(() =>
-    urlGender ? [urlGender] : []
+    urlGender && urlGender !== "room-fragrances" ? [urlGender] : []
   )
 
   const gender = [
