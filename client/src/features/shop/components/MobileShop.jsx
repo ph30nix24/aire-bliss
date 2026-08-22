@@ -26,8 +26,11 @@ const GENDER_MAP = {
 
 const MobileShop = () => {
     const { products, loading } = useProduct()
+    
 
     const [searchParams] = useSearchParams()
+     // Seed gender filter from URL param (?gender=men | women)
+    const urlGender = searchParams.get('gender')
 
     // -- Sort ----------------------------------------------
     const [sort, setSort] = useState('featured')
@@ -53,8 +56,7 @@ const MobileShop = () => {
         { label: 'Room Fragrances', value: 'room-fragrances', quantity: 0 }
     ]
 
-    // Seed gender filter from URL param (?gender=men | women)
-    const urlGender = searchParams.get('gender') // 'men' | 'women' | null
+    
     const [genderFilter, setGenderFilter] = useState(() =>
         urlGender && urlGender === 'room-fragrances' ? [urlGender] : []
     )
