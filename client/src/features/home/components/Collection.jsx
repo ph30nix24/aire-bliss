@@ -20,10 +20,10 @@ const Collection = ({ isMobile }) => {
                                     <h1 className='text-white font-heading text-[5vw] mt-1 font-medium'>{category.type}</h1>
                                     <p className='text-white/70 text-[3vw] mt-1 font-body font-light'>{category.discription}</p>
                                 </div>
-                                <button className='font-body uppercase text-xs mt-10 border-2 border-yellow-400/50 text-yellow-400/80 hover:text-white transition-colors duration-300 px-6 py-2 rounded-md hover:bg-yellow-400/80 cursor-pointer flex items-center gap-2 w-fit'>
+                                <Link to={category.link}><button className='font-body uppercase text-xs mt-10 border-2 border-yellow-400/50 text-yellow-400/80 hover:text-white transition-colors duration-300 px-6 py-2 rounded-md hover:bg-yellow-400/80 cursor-pointer flex items-center gap-2 w-fit'>
                                     {category.btn}
                                     <FaArrowRight className='size-4' />
-                                </button>
+                                </button></Link>
                             </div>
                         </div>
                     ))}
